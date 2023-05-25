@@ -79,7 +79,7 @@ public:
     template<typename... Args>
     inline constexpr T& emplaceBack(Args&&... args) { return *emplace(end(), args...); }
 
-    inline constexpr const T& popBack()                                                         { EDF_ASSERTD(!isEmpty()); return buffer[--n]; }
+    inline constexpr T popBack()                                                                { EDF_ASSERTD(!isEmpty()); T v(std::move(back())); buffer[n--].~T(); return v; }
 
 
     /* Iterators */
