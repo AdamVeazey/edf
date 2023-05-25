@@ -5,8 +5,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#ifndef SRC_EDF_ARRAY_HPP_
-#define SRC_EDF_ARRAY_HPP_
+#pragma once
 
 #include <EDF/Assert.hpp>
 
@@ -85,5 +84,3 @@ inline bool operator==( const Array<T, N>& lhs, const Array<T, N>& rhs ) {
 }
 
 } /* EDF */
-
-#endif /* SRC_EDF_ARRAY_HPP_ */
