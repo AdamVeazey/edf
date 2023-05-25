@@ -10,9 +10,12 @@
 
 add_library( EDF INTERFACE )
 
+target_compile_features( EDF INTERFACE cxx_std_17 )
+
 target_include_directories( EDF
                             INTERFACE
                             ${CMAKE_CURRENT_SOURCE_DIR}
+                            ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
 # # For now, add all of the others. Eventually it would be nice to be able to configure the project to have Peripherals, Drivers, and/or MCU
