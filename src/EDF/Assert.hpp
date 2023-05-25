@@ -5,8 +5,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#ifndef SRC_EDF_ASSERT_HPP_
-#define SRC_EDF_ASSERT_HPP_
+#pragma once
 
 #include <cstddef>
 #include <cstdio>
@@ -37,5 +36,3 @@
 #else
 #define EDF_ASSERTD(condition)
 #endif /* NDEBUG */
-
-#endif /* SRC_EDF_ASSERT_HPP_ */

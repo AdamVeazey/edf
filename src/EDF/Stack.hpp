@@ -5,8 +5,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#ifndef SRC_EDF_STACK_HPP_
-#define SRC_EDF_STACK_HPP_
+#pragma once
 
 #include <EDF/Array.hpp>
 #include <EDF/Assert.hpp>
@@ -37,5 +36,3 @@ public:
 };
 
 } /* EDF */
-
-#endif /* SRC_EDF_STACK_HPP_ */
