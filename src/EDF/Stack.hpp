@@ -7,32 +7,34 @@
 
 #pragma once
 
-#include <EDF/Array.hpp>
-#include <EDF/Assert.hpp>
-
-#include <cstddef>
+#include <EDF/Vector.hpp>
 
 namespace EDF {
 
 template<typename T, std::size_t N>
 class Stack final{
 private:
-    std::size_t current;
-    Array<T,N> buffer;
+    Vector<T, N> buffer;
 public:
-    Stack() : current( static_cast<std::size_t>(-1) ) {}
+    Stack() = default;
+    template<typename... I>
+    Stack( I... iList ) : buffer{iList...} {}
     ~Stack() = default;
 
-    inline bool isEmpty()               const { return current == static_cast<std::size_t>(-1); }
-    inline bool isFull()                const { return current == N; }
-    inline std::size_t length()         const { return current + 1; }
-    inline std::size_t maxLength()      const { return N; }
+    inline constexpr bool isEmpty()                 const { return buffer.isEmpty(); }
+    inline constexpr bool isFull()                  const { return buffer.isFull(); }
+    inline constexpr std::size_t length()           const { return buffer.length(); }
+    inline constexpr std::size_t maxLength()        const { return buffer.maxLength(); }
 
-    inline void push( const T& value )  { EDF_ASSERTD(!isFull()); buffer[++current] = value; }
-    inline void push( const T&& value ) { EDF_ASSERTD(!isFull()); buffer[++current] = value; }
-    inline const T& pop()               { EDF_ASSERTD(!isEmpty()); return buffer[current--]; }
-    inline const T& peek()              { EDF_ASSERTD(!isEmpty()); return buffer[current]; }
-    inline void clear()                 { current = static_cast<std::size_t>(-1); }
+    inline constexpr T& top()                             { return buffer.back(); }
+    inline constexpr const T& top()                 const { return buffer.back(); }
+    inline constexpr void push( const T& value )          { buffer.pushBack( value ); }
+    inline constexpr void push( const T&& value )         { buffer.pushBack( value ); }
+    // emplace
+    template<typename... Args>
+    inline constexpr T& emplace( Args&&... args )         { return buffer.emplaceBack(std::forward<Args>(args)...); }
+    inline constexpr T pop()                              { return buffer.popBack(); }
+    inline constexpr void clear()                         { buffer.clear(); }
 };
 
 } /* EDF */
