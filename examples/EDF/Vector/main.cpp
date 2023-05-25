@@ -9,52 +9,45 @@
 
 #include <iostream>
 
+template<typename T, std::size_t N> void
+print( const EDF::Vector<T, N>& vector ){
+    for( auto&& e : vector ){
+        std::cout << e << ' ';
+    }
+    std::cout << '\n';
+}
+
 int main( void ) {
 
-    EDF::Vector<int, 8> vector;
+    EDF::Vector<int, 8> vector = { 1, 2, 3, 4, 5, 6 };
 
-    vector.pushBack( 1 );
-    vector.pushBack( 2 );
-    vector.pushBack( 3 );
-    vector.pushBack( 5 );
-    vector.pushBack( 6 );
-    vector.pushBack( 7 );
-    
+    vector.insert( std::size_t(0), { 0 } );
+    std::cout << "After inserting 0 at slot 0" << '\n';
+    print(vector);
 
-    for( auto&& e : vector ){
-        std::cout << e << '\n';
-    }
+    std::cout << "vector.length(): " << vector.length() << std::endl;
 
-    vector.insert(3, 4);
+    // std::cout << "After erasing vector[2]: " << vector[2] << '\n';
+    // vector.erase( 2 ); // erases index 2
+    // print(vector);
 
-    std::cout << "After inserting 3" << '\n';
+    // std::cout << "popBack() " << vector.popBack() << '\n';
+    // vector.clear();
 
-    for( auto&& e : vector ){
-        std::cout << e << '\n';
-    }
+    // std::cout << "After clearing the vector" << '\n';
+    // print(vector);
 
-    vector.erase( 2 ); // erases value 3
-    std::cout << "After erasing value 3" << '\n';
+    // std::cout << "Place value 100 at end of vector" << '\n';
+    // vector.emplaceBack( 100 );
+    // print(vector);
 
-    for( auto&& e : vector ){
-        std::cout << e << '\n';
-    }
+    // std::cout << "erase vector[3 to 5]" << '\n';
+    // vector.erase( 3, 5 );
+    // print(vector);
 
-
-    std::cout << "popBack() " << vector.popBack() << '\n';
-
-    std::cout << "After clearing the vector" << '\n';
+    std::cout << "vector.clear()\n";
     vector.clear();
-
-    for( auto&& e : vector ){
-        std::cout << e << '\n';
-    }
-
-    std::cout << "Place value 100 at end of vector" << '\n';
-    vector.emplaceBack( 100 );
-    for( auto&& e : vector ){
-        std::cout << e << '\n';
-    }
+    print(vector);
 
     return 0;
 }

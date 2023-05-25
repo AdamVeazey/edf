@@ -8,7 +8,8 @@
 
 #include <EDF/Array.hpp>
 
-#include <vector>
+#include <algorithm>
+#include <memory>
 
 namespace EDF {
 
@@ -20,7 +21,7 @@ private:
 public:
     Vector() : n(0), buffer{} {} 
     template<typename... I>
-    Vector( I... initializerList ) : buffer{initializerList...}, n(sizeof...(I)) {}
+    Vector( I... iList ) : buffer{iList...}, n(sizeof...(I)) {}
     ~Vector() = default;
     
     using Iterator = T*;
@@ -29,12 +30,12 @@ public:
     using ConstReverseIterator = std::reverse_iterator<ConstIterator>;
 
      /* Current state */
-    inline bool isEmpty()                                       const { return n == 0; }
-    inline bool isFull()                                        const { return n == N; }
+    inline constexpr bool isEmpty()                             const { return n == 0; }
+    inline constexpr bool isFull()                              const { return n == N; }
 
      /* Capacity */
-    inline const std::size_t& length()                          const { return n; }
-    inline std::size_t maxLength()                              const { return N; }
+    inline constexpr const std::size_t& length()                const { return n; }
+    inline constexpr std::size_t maxLength()                    const { return N; }
 
     /* Element access */
     inline constexpr T& at( std::size_t index )                       { return buffer.at( index ); }
@@ -53,35 +54,58 @@ public:
     inline constexpr const T* data()                            const { return buffer.data(); }
 
     /* Operations */
-    inline void clear() { n = 0; }
-    inline void pushBack( const T& value )                            { EDF_ASSERTD(!isFull()); buffer[n++] = value; }
-    inline const T& popBack()                                         { EDF_ASSERTD(!isEmpty()); return buffer[--n]; }
-    inline void insert( std::size_t index, const T& value )           { insert( Iterator(data() + index), value ); }
-    inline void erase( std::size_t index )                            { erase( Iterator(data() + index) ); }
-    void insert( Iterator pos, const T& value );
-    void erase( Iterator pos );
-    
+    inline constexpr void clear()                                                               { std::destroy( begin(), end() ); n = 0; }
+
+    inline constexpr void insert( std::size_t index, const T& value )                           { insert( ConstIterator(data() + index), value ); }
+    inline constexpr void insert( std::size_t index, T&& value )                                { insert( ConstIterator(data() + index), value ); }
+    inline constexpr void insert( std::size_t index, std::size_t count, const T& value )        { insert( ConstIterator(data() + index), count, value ); }
+    inline constexpr void insert( std::size_t index, std::initializer_list<T> iList )           { insert( ConstIterator(data() + index), iList ); }
+    inline constexpr Iterator insert( ConstIterator pos, const T& value )                       { return insert( pos, 1, value ); }
+    constexpr Iterator insert( ConstIterator pos, T&& value);
+    constexpr Iterator insert( ConstIterator pos, std::size_t count, const T& value );
+    constexpr Iterator insert( ConstIterator pos, std::initializer_list<T> iList );
+
     template<typename... Args>
-    void emplaceBack(Args&&... args);
+    constexpr Iterator emplace( ConstIterator pos, Args&&... args );
+    
+    inline constexpr void erase( std::size_t index )                                            { erase( ConstIterator(data() + index) ); }
+    inline constexpr void erase( std::size_t first, std::size_t last )                          { erase( ConstIterator(data() + first), ConstIterator(data() + last) ); }
+    constexpr Iterator erase( ConstIterator pos );
+    constexpr Iterator erase( ConstIterator first, ConstIterator last );
+
+    inline constexpr void pushBack( const T& value )                                            { insert( end(), value ); }
+    inline constexpr void pushBack( T&& value )                                                 { emplaceBack(std::move(value) ); }
+
+    template<typename... Args>
+    inline constexpr T& emplaceBack(Args&&... args) { return *emplace(end(), args...); }
+
+    inline constexpr const T& popBack()                                                         { EDF_ASSERTD(!isEmpty()); return buffer[--n]; }
+
 
     /* Iterators */
-    
-    inline Iterator begin()                                           { return Iterator( data() ); }
-    inline ConstIterator begin()                                const { return ConstIterator( data() ); }
-    inline ConstIterator cbegin()                               const { return ConstIterator( data() ); }
+    inline constexpr Iterator begin()                                           { return Iterator( data() ); }
+    inline constexpr ConstIterator begin()                                const { return ConstIterator( data() ); }
+    inline constexpr ConstIterator cbegin()                               const { return ConstIterator( data() ); }
 
-    inline Iterator end()                                             { return Iterator( data() + n ); }
-    inline ConstIterator end()                                  const { return ConstIterator( data() + n ); }
-    inline ConstIterator cend()                                 const { return ConstIterator( data() + n ); }
+    inline constexpr Iterator end()                                             { return Iterator( data() + n ); }
+    inline constexpr ConstIterator end()                                  const { return ConstIterator( data() + n ); }
+    inline constexpr ConstIterator cend()                                 const { return ConstIterator( data() + n ); }
 
-    inline ReverseIterator rbegin()                                   { return ReverseIterator( end() ); }
-    inline ConstReverseIterator rbegin()                        const { return ConstReverseIterator( end() ); }
-    inline ConstReverseIterator crbegin()                       const { return ConstReverseIterator( end() ); }
+    inline constexpr ReverseIterator rbegin()                                   { return ReverseIterator( end() ); }
+    inline constexpr ConstReverseIterator rbegin()                        const { return ConstReverseIterator( end() ); }
+    inline constexpr ConstReverseIterator crbegin()                       const { return ConstReverseIterator( end() ); }
 
-    inline ReverseIterator rend()                                     { return ReverseIterator( begin() ); }
-    inline ConstReverseIterator rend()                          const { return ConstReverseIterator( begin() ); }
-    inline ConstReverseIterator crend()                         const { return ConstReverseIterator( begin() ); }
+    inline constexpr ReverseIterator rend()                                     { return ReverseIterator( begin() ); }
+    inline constexpr ConstReverseIterator rend()                          const { return ConstReverseIterator( begin() ); }
+    inline constexpr ConstReverseIterator crend()                         const { return ConstReverseIterator( begin() ); }
 };
+
+/* Non-member functions */
+
+template<typename T, std::size_t N>
+inline bool operator==( const Vector<T, N>& lhs, const Vector<T, N>& rhs ) {
+    return std::equal( lhs.begin(), lhs.end(), rhs.begin() );
+}
 
 } /* EDF */
 
