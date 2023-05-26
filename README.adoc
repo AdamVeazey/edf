@@ -6,7 +6,7 @@
 
 //path_to_root required for doc/links.adoc to work
 :path_to_root: .
-include::doc/links.adoc[]
+include::{path_to_root}/doc/links.adoc[]
 
 .Introduction
 Embedded Development Framework (EDF) is a collection of libraries intended for use in embedded systems.

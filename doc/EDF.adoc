@@ -4,7 +4,7 @@
 
 //path_to_root required for doc/links.adoc to work
 :path_to_root: ..
-include::links.adoc[]
+include::{path_to_root}/doc/links.adoc[]
 
 Return to {link_readme}
 
