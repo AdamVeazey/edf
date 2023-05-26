@@ -1,0 +1,50 @@
+= EDF 
+:toc:
+:toc-placement: macro
+
+//path_to_root required for doc/links.adoc to work
+:path_to_root: ..
+include::links.adoc[]
+
+Return to {link_readme}
+
+---
+
+toc::[]
+
+== Overview
+The files here are written to be completely platform independent that are useful in any embedded systems project. Within this collection of files are two main groups
+
+. STL-Like Containers - Containers with a fixed max size that are statically allocated
+. Miscellaneous - Classes that don't fit into another group
+// . RTOS - Classes that only are useful when using an RTOS
+
+== STL-Like Containers
+. {link_edf_array} - wrapper around regular array. Almost exactly the same as std::array
+. {link_edf_stack} - adapts EDF::Vector to turn it into an EDF::Stack
+. {link_edf_vector} - Array that can "grow" up to a maximum size
+. {link_edf_queue} - circular queue (AKA ring buffer) using an EDF::Array
+. {link_edf_heap} - min and max heap using an EDF::Vector
+
+== Miscellaneous 
+. {link_edf_assert}
+. {link_edf_math}
+.. isPow2
+.. min
+.. max
+.. voltageDividerCalcVin
+.. voltageDividerCalcVout
+.. nElements
+. {link_edf_string}
+. {link_edf_unix_timestamp}
+. {link_edf_bit_field}
+. {link_edf_version}
+. {link_edf_color}
+
+// TODO: Should RTOS include things like a generic CLI implementation? Logger?
+// == RTOS
+// . {link_edf_semaphore}
+// . {link_edf_mutex}
+// . {link_edf_event_group}
+// . {link_edf_lock}
+// . {link_edf_message_queue}

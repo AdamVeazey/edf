@@ -13,6 +13,28 @@
 // EDF files
 :path_edf: {path_doc}/EDF
 
+// STL-Like Containers
+:link_edf_array: link:{path_edf}/Array.adoc[Array]
+:link_edf_stack: link:{path_edf}/Stack.adoc[Stack]
+:link_edf_vector: link:{path_edf}/Vector.adoc[Vector]
+:link_edf_queue: link:{path_edf}/Queue.adoc[Queue]
+:link_edf_heap: link:{path_edf}/Heap.adoc[Heap]
+
+// Misc
+:link_edf_assert: link:{path_edf}/Assert.adoc[Assert]
+:link_edf_math: link:{path_edf}/Math.adoc[Math]
+:link_edf_string: link:{path_edf}/String.adoc[String]
+:link_edf_unix_timestamp: link:{path_edf}/UnixTimestamp.adoc[UnixTimestamp]
+:link_edf_bit_field: link:{path_edf}/BitField.adoc[BitField]
+:link_edf_version: link:{path_edf}/Version.adoc[Version]
+:link_edf_color: link:{path_edf}/Color.adoc[Color]
+
+// :link_edf_semaphore: link:{path_edf}/Semaphore.adoc[Semaphore]
+// :link_edf_mutex: link:{path_edf}/Mutex.adoc[Mutex]
+// :link_edf_event_group: link:{path_edf}/EventGroup.adoc[EventGroup]
+// :link_edf_lock: link:{path_edf}/Lock.adoc[Lock]
+// :link_edf_message_queue: link:{path_edf}/MessageQueue.adoc[MessageQueue]
+
 // Peripheral files
 :path_peripherals: {path_doc}/Peripherals
 :link_peripherals_led_rgb: link:{path_peripherals}/LED_RGB.adoc[LED_RGB]
