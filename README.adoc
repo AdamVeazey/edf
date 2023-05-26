@@ -1,0 +1,44 @@
+= README
+// :toc:
+// :toc-placement: preamble
+// :toclevels: 1
+:showtitle:
+
+//path_to_root required for doc/links.adoc to work
+:path_to_root: .
+include::doc/links.adoc[]
+
+.Introduction
+Embedded Development Framework (EDF) is a collection of libraries intended for use in embedded systems.
+
+.EDF Objective
+The objective of this project is to provide a comprehensive set of reusable building blocks that are commonly utilized in various embedded bare-metal/RTOS projects. By grouping these building blocks, you have the flexibility to select and use only the components that are necessary for your specific project.
+
+.Building block groups
+[cols="^.^,.^~,.^~"]
+|===
+h|Group ^h|Description ^h|Goal
+
+|{link_edf}
+|Essential platform independent building blocks that can be used in virtually any project. 
+|To be truly cross platform without depending any of the other groups.
+
+|{link_peripherals}
+a|Platform independent interfaces that represent common MCU peripherals. These are the building blocks that are used in {link_drivers}. 
+
+IMPORTANT: These interfaces do *_NOT_* attempt to provide one-size-fits-all initialization code.
+
+|To be able to change microcontrollers without having to completely rewrite {link_drivers} or other files that use {link_peripherals}
+
+
+|{link_drivers}
+|A collection of platform independent IC drivers, or other 'higher level' uses of {link_peripherals} such as {link_peripherals_led_rgb}
+|To write a driver *once* instead of slightly different versions in every project that uses the same exact external component. 
+
+|{link_mcu}
+|Implementations of {link_peripherals} for a specific MCU or MCU family. 
+|To write a Peripheral implementation *once* so that it can be reused in projects using the same MCU.
+
+|===
+
+More details for each group can be found by clicking on any of the group links above.

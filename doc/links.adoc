@@ -1,0 +1,26 @@
+// NOTE: Requires YOU to define {path_to_root} immediately before the include
+// NOTE: :path_to_root: 
+
+:link_readme: link:{path_to_root}/README.adoc[README]
+
+// Building block group links
+:path_doc: {path_to_root}/doc
+:link_edf: link:{path_doc}/EDF.adoc[EDF]
+:link_peripherals: link:{path_doc}/Peripherals.adoc[Peripherals]
+:link_drivers: link:{path_doc}/Drivers.adoc[Drivers]
+:link_mcu: link:{path_doc}/MCU.adoc[MCU]
+
+// EDF files
+:path_edf: {path_doc}/EDF
+
+// Peripheral files
+:path_peripherals: {path_doc}/Peripherals
+:link_peripherals_led_rgb: link:{path_peripherals}/LED_RGB.adoc[LED_RGB]
+
+// Driver files
+:path_drivers: {path_doc}/Drivers
+
+// MCU folders
+:path_MCU: {path_doc}/MCU
+
+// <Specific MCU> files
