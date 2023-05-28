@@ -1,0 +1,46 @@
+:file_name: TemplatesMeta
+:path_to_root: ../..
+include::{path_to_root}/doc/templates/links.adoc[]
+include::{path_to_root}/doc/templates/header.adoc[]
+
+
+This document describes expected usage of all other .adoc files in this directory. 
+
+NOTE: Look at the includes used in this file as an example to create a 'bare-bones' document that has a consistent look. Also note the usage of the headers 'links.adoc' and 'header.adoc' that get populated in the toc. 
+
+== links.adoc
+This is most likely included in every single other .adoc file. It should be included first before all other includes from this directory.
+
+WARNING: Requires attribute 'path_to_root' to be set to point at the root level directory (where README.adoc is located).
+
+== header.adoc
+This provides a consistent style for all documentation. It provides the following:
+
+. Title - The value of the 'file_name' attribute
+. Link to README - Provides a consistent way to get back to "home" AKA README
+. Sets the attribute 'toc-placement' to the value 'preamble'
+. Included .Overview as immediately following the header include should be an overview of what the document is going to talk about. 
+
+WARNING: Requires links.adoc to be included before this file can be included.
+
+WARNING: Requires attribute 'file_name' to be set
+
+[TIP]
+--
+If using vscode or vscodium the following snippet can help setup the lines needed in order to use header.adoc.
+
+.~/.config/VSCodium/User/snippets/asciidoc.json
+[source,json]
+----
+"template_header" : {
+    "prefix": "snippet_header",
+    "body": [
+        ":file_name: ${TM_FILENAME_BASE}",
+        ":path_to_root: ${path_to_root}",
+        "include::{path_to_root}/doc/templates/links.adoc[]",
+        "include::{path_to_root}/doc/templates/header.adoc[]",
+    ],
+    "description": "Inserts EDF AsciiDoc header, you have to provide path_to_root"
+},
+----
+--

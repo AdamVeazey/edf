@@ -1,0 +1,12 @@
+// NOTE: requires the following line before this include
+// include::{path_to_root}/doc/links.adoc[]
+
+:doctitle: {file_name}
+:toc:
+:toc-placement: preamble
+
+Return to {link_readme}
+
+---
+
+.Overview

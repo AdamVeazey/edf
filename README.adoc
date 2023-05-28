@@ -1,18 +1,14 @@
 = README
-// :toc:
-// :toc-placement: preamble
-// :toclevels: 1
-:showtitle:
 
 //path_to_root required for doc/links.adoc to work
 :path_to_root: .
-include::{path_to_root}/doc/links.adoc[]
+include::{path_to_root}/doc/templates/links.adoc[]
 
 .Introduction
 Embedded Development Framework (EDF) is a collection of libraries intended for use in embedded systems.
 
 .EDF Objective
-The objective of this project is to provide a comprehensive set of reusable building blocks that are commonly utilized in various embedded bare-metal/RTOS projects. By grouping these building blocks, you have the flexibility to select and use only the components that are necessary for your specific project.
+The objective of this project is to provide a comprehensive set of reusable building blocks that are commonly utilized in various embedded bare-metal/RTOS projects. The framework is made up of building blocks, grouped by different levels of separation. By grouping these building blocks, you have the flexibility to select and use only the components that are necessary for your specific project.
 
 .Building block groups
 [cols="^.^,.^~,.^~"]
@@ -41,4 +37,4 @@ IMPORTANT: These interfaces do *_NOT_* attempt to provide one-size-fits-all init
 
 |===
 
-More details for each group can be found by clicking on any of the group links above.
+More details for each group can be found by clicking on any of the group links above. If you're unsure where to start, try reading more about the most basic group {link_edf}.

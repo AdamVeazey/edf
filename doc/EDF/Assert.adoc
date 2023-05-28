@@ -1,0 +1,77 @@
+:file_name: Assert
+:path_to_root: ../..
+include::{path_to_root}/doc/templates/links.adoc[]
+include::{path_to_root}/doc/templates/header.adoc[]
+
+Assert is used to declare that certain criteria is true. There are two versions of assert, EDF_ASSERT and EDF_ASSERTD.
+
+== EDF_ASSERT
+
+.Signature
+[source,c++]
+----
+include::{path_to_root}/src/EDF/Assert.hpp[tag=EDF_ASSERT]
+----
+
+EDF_ASSERT will call abort() if the `condition` is false.
+
+EDF_ASSERT is used when you want the assert to exist in both Debug and Release mode. This means that the definition of the macro is always present no matter what cmake build type is active. 
+
+---
+
+.Example
+[source,c++]
+----
+int main(void){
+
+    EDF_ASSERT( true );     // abort() is NOT called
+    EDF_ASSERT( false );    // abort() IS called, some info is output to stderr
+
+    return 0;
+}
+----
+
+== EDF_ASSERTD
+
+.Signature
+[source,c++]
+----
+include::{path_to_root}/src/EDF/Assert.hpp[tag=EDF_ASSERTD]
+----
+
+EDF_ASSERTD is used when you want the assert to only exist in Debug mode. 
+
+NOTE: The code is considered in debug mode if NDEBUG is NOT defined. Mind the double negative. 
+
+
+If debug mode is enabled, EDF_ASSERTD simply expands to <<EDF_ASSERT>>
+
+---
+
+.Example when debug mode is enabled
+[source,c++]
+----
+int main(void){
+
+    EDF_ASSERTD( true );     // abort() is NOT called
+    EDF_ASSERTD( false );    // abort() IS called, some info is output to stderr
+
+    return 0;
+}
+----
+
+---
+
+.Example when debug mode is NOT enabled
+[source,c++]
+----
+int main(void){
+
+    EDF_ASSERTD( true );     // This line is expanded to ';'
+    EDF_ASSERTD( false );    // This line is expanded to ';'
+
+    return 0;
+}
+----
+
+---

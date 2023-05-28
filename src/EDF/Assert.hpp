@@ -16,7 +16,10 @@
 //       to use whatever your specific compiler uses or nothing if it's not
 //       supported.
 
-#define EDF_ASSERT( condition )  do{                                \
+/* tag::EDF_ASSERT[] */
+#define EDF_ASSERT( condition ) \
+/* end::EDF_ASSERT[] */                                             \
+                                do{                                 \
                                     if( !(condition) ) {            \
                                         std::fprintf(               \
                                             stderr,                 \
@@ -30,9 +33,10 @@
                                         abort();                    \
                                     }                               \
                                 }while(0)                           \
-
+/* tag::EDF_ASSERTD[] */
 #ifndef NDEBUG
-#define EDF_ASSERTD(condition)   EDF_ASSERT(condition)
+#define EDF_ASSERTD( condition )    EDF_ASSERT( condition )
 #else
-#define EDF_ASSERTD(condition)
+#define EDF_ASSERTD( condition )
 #endif /* NDEBUG */
+/* end::EDF_ASSERTD[] */
