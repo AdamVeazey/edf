@@ -3,7 +3,7 @@
 include::{path_to_root}/doc/templates/links.adoc[]
 include::{path_to_root}/doc/templates/header.adoc[]
 
-Assert is used to declare that certain criteria is true. There are two versions of assert, EDF_ASSERT and EDF_ASSERTD.
+Assert is used to declare that a specific condition is true. There are two versions of assert, EDF_ASSERT and EDF_ASSERTD.
 
 == EDF_ASSERT
 
@@ -16,6 +16,12 @@ include::{path_to_root}/src/EDF/Assert.hpp[tag=EDF_ASSERT]
 EDF_ASSERT will call abort() if the `condition` is false.
 
 EDF_ASSERT is used when you want the assert to exist in both Debug and Release mode. This means that the definition of the macro is always present no matter what cmake build type is active. 
+
+If the condition is false, info about what condition caused the failure is output to stderr. The name of the function, file, and line number are also output. 
+
+NOTE: `\\__PRETTY_FUNCTION__` is used to get function signature info. This is non-standard and may need to change depending on what compiler and version you use. 
+
+NOTE: This does not try to output call stack information, however printing out the condition itself as a string should help in determining what happened. Possibly without needing to navigate to the file and line number <<EDF_ASSERT>> is written.
 
 ---
 
@@ -48,30 +54,33 @@ If debug mode is enabled, EDF_ASSERTD simply expands to <<EDF_ASSERT>>
 
 ---
 
-.Example when debug mode is enabled
+.Example when debug mode *IS* enabled
 [source,c++]
 ----
 int main(void){
 
-    EDF_ASSERTD( true );     // abort() is NOT called
-    EDF_ASSERTD( false );    // abort() IS called, some info is output to stderr
+    EDF_ASSERTD( true );     <1>
+    EDF_ASSERTD( false );    <2>
 
     return 0;
 }
 ----
+<1> abort() is NOT called
+<2> abort() IS called, some info is output to stderr
 
 ---
 
-.Example when debug mode is NOT enabled
+.Example when debug mode is *NOT* enabled
 [source,c++]
 ----
 int main(void){
 
-    EDF_ASSERTD( true );     // This line is expanded to ';'
-    EDF_ASSERTD( false );    // This line is expanded to ';'
+    EDF_ASSERTD( true );     <1>
+    EDF_ASSERTD( false );    <1>
 
     return 0;
 }
 ----
+<1> This line is expanded to ';' which is an link:https://stackoverflow.com/a/824571/19291638[empty statement] 
 
 ---
