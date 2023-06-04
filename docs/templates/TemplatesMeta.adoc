@@ -1,7 +1,7 @@
 :file_name: TemplatesMeta
 :path_to_root: ../..
-include::{path_to_root}/doc/templates/links.adoc[]
-include::{path_to_root}/doc/templates/header.adoc[]
+include::{path_to_root}/docs/templates/links.adoc[]
+include::{path_to_root}/docs/templates/header.adoc[]
 
 
 This document describes expected usage of all other .adoc files in this directory. 
@@ -37,8 +37,8 @@ If using vscode or vscodium the following snippet can help setup the lines neede
     "body": [
         ":file_name: ${TM_FILENAME_BASE}",
         ":path_to_root: ${path_to_root}",
-        "include::{path_to_root}/doc/templates/links.adoc[]",
-        "include::{path_to_root}/doc/templates/header.adoc[]",
+        "include::{path_to_root}/docs/templates/links.adoc[]",
+        "include::{path_to_root}/docs/templates/header.adoc[]",
     ],
     "description": "Inserts EDF AsciiDoc header, you have to provide path_to_root"
 },
