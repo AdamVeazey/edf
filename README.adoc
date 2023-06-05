@@ -11,7 +11,7 @@ endif::[]
 Embedded Development Framework (EDF) is a collection of libraries intended for use in embedded systems.
 
 .EDF Objective
-The objective of this project is to provide a comprehensive set of reusable building blocks that are commonly utilized in various embedded bare-metal/RTOS projects. The framework is made up of building blocks, grouped by different levels of separation. By grouping these building blocks, you have the flexibility to select and use only the components that are necessary for your specific project.
+The objective of this project is to provide a comprehensive set of reusable building blocks that are commonly utilized in various embedded bare-metal/RTOS projects. It is meant as a way to jump start a project or use of a specific micro-controller. It aims at providing an abstraction for only the parts that make sense to be able to be abstracted for general usage. For example, *_using_* UART to communicate with another device can be easily abstracted. *_Initializing_* a specific UART peripheral on a given micro controller is not as easy to abstract (EX: how many data bits are supported on the given micro?).
 
 ifdef::env-github[]
 link:https://AdamVeazey.github.io/edf[Documentation]
@@ -48,3 +48,4 @@ IMPORTANT: These interfaces do *_NOT_* attempt to provide one-size-fits-all init
 More details for each group can be found by clicking on any of the group links above. If you're unsure where to start, try reading more about the most basic group {link_edf}.
 endif::[]
 // ^ ifndef::env-github[]
+// https://docsearch.algolia.com/ for adding search
