@@ -1,0 +1,39 @@
+= Home
+
+include::ROOT:partial$refs.adoc[]
+
+// tag::EDF_Home[]
+== Introduction
+Embedded Development Framework (EDF) is a collection of libraries intended for use in embedded systems.
+
+== EDF Objective
+The objective of this project is to provide a comprehensive set of reusable building blocks that are commonly utilized in various embedded bare-metal/RTOS projects. It is meant as a way to jump start a project or use of a specific micro-controller. It aims at providing an abstraction for only the parts that make sense to be able to be abstracted for general usage. For example, *_using_* UART to communicate with another device can be easily abstracted. *_Initializing_* a specific UART peripheral on a given micro controller is not as easy to abstract (EX: how many data bits are supported on the given micro?).
+// end::EDF_Home[]
+
+[cols="^.^,.^10,.^10"]
+|===
+h|Group ^h|Description ^h|Goal
+
+|{ref_EDF}
+|Essential platform independent building blocks that can be used in virtually any project. 
+|To be truly cross platform without depending any of the other groups.
+
+|{ref_peripherals}
+a|Platform independent interfaces that represent common MCU peripherals. These are the building blocks that are used in {ref_drivers}. 
+
+IMPORTANT: These interfaces do *_NOT_* attempt to provide one-size-fits-all initialization code.
+
+|To be able to change microcontrollers without having to completely rewrite {ref_drivers} or other files that use {ref_peripherals}
+
+
+|{ref_drivers}
+|A collection of platform independent IC drivers, or other 'higher level' uses of {ref_peripherals} such as {link_peripherals_led_rgb}
+|To write a driver *once* instead of slightly different versions in every project that uses the same exact external component. 
+
+|{ref_mcu}
+|Implementations of {ref_peripherals} for a specific MCU or MCU family. 
+|To write a Peripheral implementation *once* so that it can be reused in projects using the same MCU.
+
+|===
+
+More details for each group can be found by clicking on any of the group links above. If you're unsure where to start, try reading more about the most basic group {ref_EDF}.

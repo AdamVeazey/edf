@@ -1,8 +1,6 @@
-:file_name: Assert
-:path_to_root: ../..
-include::{path_to_root}/docs/templates/links.adoc[]
-include::{path_to_root}/docs/templates/header.adoc[]
+= Assert
 
+.Overview
 Assert is used to declare that a specific condition is true. There are two versions of assert, EDF_ASSERT and EDF_ASSERTD.
 
 == EDF_ASSERT
@@ -10,7 +8,7 @@ Assert is used to declare that a specific condition is true. There are two versi
 .Signature
 [source,c++]
 ----
-include::{path_to_root}/src/EDF/Assert.hpp[tag=EDF_ASSERT]
+include::{code_path_array_hpp}[tag=EDF_ASSERT]
 ----
 
 EDF_ASSERT will call abort() if the `condition` is false.
@@ -42,7 +40,7 @@ int main(void){
 .Signature
 [source,c++]
 ----
-include::{path_to_root}/src/EDF/Assert.hpp[tag=EDF_ASSERTD]
+include::{code_path_array_hpp}[tag=EDF_ASSERTD]
 ----
 
 EDF_ASSERTD is used when you want the assert to only exist in Debug mode. 
