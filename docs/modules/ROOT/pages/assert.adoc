@@ -45,12 +45,12 @@ int main(void){
 include::{code_path_assert_hpp}[tag=EDF_ASSERTD]
 ----
 
-EDF_ASSERTD is used when you want the assert to only exist in Debug mode. 
+`EDF_ASSERTD` is used when you want the assert to only exist in Debug mode. 
+If debug mode is enabled, `EDF_ASSERTD` simply expands to `EDF_ASSERT( condition )` else `EDF_ASSERTD` is expanded to nothing.
 
 NOTE: The code is considered in debug mode if NDEBUG is NOT defined. Mind the double negative. 
 
 
-If debug mode is enabled, EDF_ASSERTD simply expands to <<EDF_ASSERT>>
 
 ---
 
