@@ -1,5 +1,7 @@
 = Assert
 
+include::partial$refs.adoc[]
+
 .Overview
 Assert is used to declare that a specific condition is true. There are two versions of assert, EDF_ASSERT and EDF_ASSERTD.
 

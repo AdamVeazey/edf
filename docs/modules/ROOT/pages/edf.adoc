@@ -1,5 +1,7 @@
 = EDF
 
+include::partial$refs.adoc[]
+
 .Overview
 The files here are written to be completely platform independent that are useful in any embedded systems project. Within this collection of files are two main groups
 
