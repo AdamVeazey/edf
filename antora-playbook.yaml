@@ -1,5 +1,6 @@
 site:
   title: EDF
+  url: https://adamveazey.github.io/edf
   # start_page: component-b::index.adoc
 content:
   sources:
