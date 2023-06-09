@@ -2,4 +2,4 @@
 
 include::docs/modules/ROOT/pages/index.adoc[tag=EDF_Home]
 
-link:https://AdamVeazey.github.io/edf[Documentation]
+link:https://AdamVeazey.github.io/edf/docs/main/index.html[Documentation]
