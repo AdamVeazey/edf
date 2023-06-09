@@ -1,16 +1,18 @@
-:file_name: Assert
-:path_to_root: ../..
-include::{path_to_root}/docs/templates/links.adoc[]
-include::{path_to_root}/docs/templates/header.adoc[]
+= Assert
 
+include::partial$refs.adoc[]
+
+.Overview
 Assert is used to declare that a specific condition is true. There are two versions of assert, EDF_ASSERT and EDF_ASSERTD.
+
+EDF in general doesn't use macros. However, `EDF_ASSERT` uses `\\__FILE__`, `\\__PRETTY_FUNCTION__`, and `\\__LINE__`. Therefore, EDF_ASSERT also _needs_ to be a macro.
 
 == EDF_ASSERT
 
 .Signature
 [source,c++]
 ----
-include::{path_to_root}/src/EDF/Assert.hpp[tag=EDF_ASSERT]
+include::{code_path_assert_hpp}[tag=EDF_ASSERT]
 ----
 
 EDF_ASSERT will call abort() if the `condition` is false.
@@ -42,15 +44,17 @@ int main(void){
 .Signature
 [source,c++]
 ----
-include::{path_to_root}/src/EDF/Assert.hpp[tag=EDF_ASSERTD]
+include::{code_path_assert_hpp}[tag=EDF_ASSERTD]
 ----
 
-EDF_ASSERTD is used when you want the assert to only exist in Debug mode. 
+The 'D' in `EDF_ASSERTD` stands for Debug.
+
+`EDF_ASSERTD` is used when you want the assert to only exist in Debug mode. 
+If debug mode is enabled, `EDF_ASSERTD` simply expands to `EDF_ASSERT( condition )` else `EDF_ASSERTD` is expanded to nothing.
 
 NOTE: The code is considered in debug mode if NDEBUG is NOT defined. Mind the double negative. 
 
 
-If debug mode is enabled, EDF_ASSERTD simply expands to <<EDF_ASSERT>>
 
 ---
 

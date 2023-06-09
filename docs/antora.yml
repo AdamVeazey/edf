@@ -1,0 +1,28 @@
+# name
+name: edf
+
+# version
+# version: '1.0'
+version: true
+
+# asciidoc:
+#   attributes:
+#     attribute_1: Value
+#     attribute_2: A different value; Another value
+
+
+# [display_version]
+# display_version: '1.0 EOL'
+
+# [nav]
+nav:
+- modules/ROOT/nav.adoc
+
+# [prerelease]
+
+# [start_page]
+# start_page: index.adoc
+# start_page: drivers:index.adoc
+
+# [title]
+title: EDF

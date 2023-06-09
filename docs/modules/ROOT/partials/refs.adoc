@@ -1,0 +1,34 @@
+// https://docs.antora.org/antora/latest/page/resource-id-coordinates/
+
+:ref_module_root: xref:ROOT
+
+// Home (AKA index)
+:ref_home: {ref_module_root}:index.adoc[Home]
+:ref_index: {ref_module_root}:index.adoc[Index]
+
+
+// EDF
+:ref_edf: {ref_module_root}:edf.adoc[EDF]
+:ref_edf_array: {ref_module_root}:array.adoc[Array]
+:ref_edf_assert: {ref_module_root}:assert.adoc[Assert]
+:ref_edf_stack: {ref_module_root}:stack.adoc[Stack]
+:ref_edf_vector: {ref_module_root}:vector.adoc[Vector]
+
+:code_path_edf: example$src/EDF
+:code_path_array_hpp: {code_path_edf}/Array.hpp
+:code_path_assert_hpp: {code_path_edf}/Assert.hpp
+:code_path_stack_hpp: {code_path_edf}/Stack.hpp
+:code_path_vector_hpp: {code_path_edf}/Vector.hpp
+
+// Peripherals
+:ref_module_peripherals: xref:peripherals
+:ref_peripherals: {ref_module_peripherals}:peripherals.adoc[Peripherals]
+
+// Drivers
+:ref_module_drivers: xref:drivers
+:ref_drivers: {ref_module_drivers}:drivers.adoc[Drivers]
+
+// MCU
+:ref_module_mcu: xref:mcu
+:ref_mcu: {ref_module_mcu}:mcu.adoc[MCU]
+
