@@ -5,7 +5,7 @@ site:
 content:
   sources:
   - url: https://github.com/AdamVeazey/edf.git
-    branches: main
+    branches: [main, release/*]
     start_path: docs
   # - url: https://gitlab.com/antora/demo/demo-component-b.git
   #   branches: [v2.0, v1.0]
