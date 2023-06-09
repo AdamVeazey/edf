@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Assert :: EDF</title>
+    <meta name="generator" content="Antora 3.1.4">
+    <link rel="stylesheet" href="../../_/css/site.css">
+    <script>var uiRootPath = '../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../..">EDF</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Products</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Product A</a>
+            <a class="navbar-item" href="#">Product B</a>
+            <a class="navbar-item" href="#">Product C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Services</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Service A</a>
+            <a class="navbar-item" href="#">Service B</a>
+            <a class="navbar-item" href="#">Service C</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="edf" data-version="docs-Antora">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">EDF</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="edf.html">EDF</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#array.adoc">Array</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="assert.html">Assert</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#stack.adoc">Stack</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#vector.adoc">Vector</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">EDF</span>
+    <span class="version">docs-Antora</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="index.html">EDF</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">docs-Antora</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="edf.html">EDF</a></li>
+    <li><a href="assert.html">Assert</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/AdamVeazey/edf/edit/docs/Antora/docs/modules/ROOT/pages/assert.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Assert</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<div class="title">Overview</div>
+<p>Assert is used to declare that a specific condition is true. There are two versions of assert, EDF_ASSERT and EDF_ASSERTD.</p>
+</div>
+<div class="paragraph">
+<p>EDF in general doesn&#8217;t use macros. However, <code>EDF_ASSERT</code> uses <code>__FILE__</code>, <code>__PRETTY_FUNCTION__</code>, and <code>__LINE__</code>. Therefore, EDF_ASSERT also <em>needs</em> to be a macro.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_edf_assert"><a class="anchor" href="#_edf_assert"></a>EDF_ASSERT</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="title">Signature</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">#define EDF_ASSERT( condition ) \</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>EDF_ASSERT will call abort() if the <code>condition</code> is false.</p>
+</div>
+<div class="paragraph">
+<p>EDF_ASSERT is used when you want the assert to exist in both Debug and Release mode. This means that the definition of the macro is always present no matter what cmake build type is active.</p>
+</div>
+<div class="paragraph">
+<p>If the condition is false, info about what condition caused the failure is output to stderr. The name of the function, file, and line number are also output.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>__PRETTY_FUNCTION__</code> is used to get function signature info. This is non-standard and may need to change depending on what compiler and version you use.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This does not try to output call stack information, however printing out the condition itself as a string should help in determining what happened. Possibly without needing to navigate to the file and line number <a href="#_edf_assert">EDF_ASSERT</a> is written.
+</td>
+</tr>
+</table>
+</div>
+<hr>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">int main(void){
+
+    EDF_ASSERT( true );     // abort() is NOT called
+    EDF_ASSERT( false );    // abort() IS called, some info is output to stderr
+
+    return 0;
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_edf_assertd"><a class="anchor" href="#_edf_assertd"></a>EDF_ASSERTD</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="title">Signature</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">#ifndef NDEBUG
+#define EDF_ASSERTD( condition )    EDF_ASSERT( condition )
+#else
+#define EDF_ASSERTD( condition )
+#endif /* NDEBUG */</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The 'D' in <code>EDF_ASSERTD</code> stands for Debug.</p>
+</div>
+<div class="paragraph">
+<p><code>EDF_ASSERTD</code> is used when you want the assert to only exist in Debug mode.
+If debug mode is enabled, <code>EDF_ASSERTD</code> simply expands to <code>EDF_ASSERT( condition )</code> else <code>EDF_ASSERTD</code> is expanded to nothing.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The code is considered in debug mode if NDEBUG is NOT defined. Mind the double negative.
+</td>
+</tr>
+</table>
+</div>
+<hr>
+<div class="listingblock">
+<div class="title">Example when debug mode <strong>IS</strong> enabled</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">int main(void){
+
+    EDF_ASSERTD( true );     <i class="conum" data-value="1"></i><b>(1)</b>
+    EDF_ASSERTD( false );    <i class="conum" data-value="2"></i><b>(2)</b>
+
+    return 0;
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>abort() is NOT called</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>abort() IS called, some info is output to stderr</td>
+</tr>
+</table>
+</div>
+<hr>
+<div class="listingblock">
+<div class="title">Example when debug mode is <strong>NOT</strong> enabled</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">int main(void){
+
+    EDF_ASSERTD( true );     <i class="conum" data-value="1"></i><b>(1)</b>
+    EDF_ASSERTD( false );    <i class="conum" data-value="1"></i><b>(1)</b>
+
+    return 0;
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>This line is expanded to ';' which is an <a href="https://stackoverflow.com/a/824571/19291638">empty statement</a></td>
+</tr>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

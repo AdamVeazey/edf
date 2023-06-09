@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Home :: EDF</title>
+    <meta name="generator" content="Antora 3.1.4">
+    <link rel="stylesheet" href="../../_/css/site.css">
+    <script>var uiRootPath = '../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../..">EDF</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Products</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Product A</a>
+            <a class="navbar-item" href="#">Product B</a>
+            <a class="navbar-item" href="#">Product C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Services</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Service A</a>
+            <a class="navbar-item" href="#">Service B</a>
+            <a class="navbar-item" href="#">Service C</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="edf" data-version="docs-Antora">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">EDF</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="edf.html">EDF</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#array.adoc">Array</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="assert.html">Assert</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#stack.adoc">Stack</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#vector.adoc">Vector</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">EDF</span>
+    <span class="version">docs-Antora</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="index.html">EDF</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">docs-Antora</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">EDF</a></li>
+    <li><a href="index.html">Home</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/AdamVeazey/edf/edit/docs/Antora/docs/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Home</h1>
+<div class="sect1">
+<h2 id="_introduction"><a class="anchor" href="#_introduction"></a>Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Embedded Development Framework (EDF) is a collection of libraries intended for use in embedded systems.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_edf_objective"><a class="anchor" href="#_edf_objective"></a>EDF Objective</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The objective of this project is to provide a comprehensive set of reusable building blocks that are commonly utilized in various embedded bare-metal/RTOS projects. It is meant as a way to jump start a project or use of a specific micro-controller. It aims at providing an abstraction for only the parts that make sense to be able to be abstracted for general usage. For example, <strong><em>using</em></strong> UART to communicate with another device can be easily abstracted. <strong><em>Initializing</em></strong> a specific UART peripheral on a given micro controller is not as easy to abstract (EX: how many data bits are supported on the given micro?).</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 4.7619%;">
+<col style="width: 47.619%;">
+<col style="width: 47.6191%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-middle">Group</th>
+<th class="tableblock halign-center valign-middle">Description</th>
+<th class="tableblock halign-center valign-middle">Goal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><a href="edf.html" class="xref page">EDF</a></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Essential platform independent building blocks that can be used in virtually any project.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">To be truly cross platform without depending any of the other groups.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><a href="#peripherals:peripherals.adoc" class="xref unresolved">Peripherals</a></p></td>
+<td class="tableblock halign-left valign-middle"><div class="content"><div class="paragraph">
+<p>Platform independent interfaces that represent common MCU peripherals. These are the building blocks that are used in <a href="#drivers:drivers.adoc" class="xref unresolved">Drivers</a>.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+These interfaces do <strong><em>NOT</em></strong> attempt to provide one-size-fits-all initialization code.
+</td>
+</tr>
+</table>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">To be able to change microcontrollers without having to completely rewrite <a href="#drivers:drivers.adoc" class="xref unresolved">Drivers</a> or other files that use <a href="#peripherals:peripherals.adoc" class="xref unresolved">Peripherals</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><a href="#drivers:drivers.adoc" class="xref unresolved">Drivers</a></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">A collection of platform independent IC drivers, or other 'higher level' uses of <a href="#peripherals:peripherals.adoc" class="xref unresolved">Peripherals</a> such as {link_peripherals_led_rgb}</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">To write a driver <strong>once</strong> instead of slightly different versions in every project that uses the same exact external component.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><a href="#mcu:mcu.adoc" class="xref unresolved">MCU</a></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Implementations of <a href="#peripherals:peripherals.adoc" class="xref unresolved">Peripherals</a> for a specific MCU or MCU family.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">To write a Peripheral implementation <strong>once</strong> so that it can be reused in projects using the same MCU.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>More details for each group can be found by clicking on any of the group links above. If you&#8217;re unsure where to start, try reading more about the most basic group <a href="edf.html" class="xref page">EDF</a>.</p>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>EDF :: EDF</title>
+    <meta name="generator" content="Antora 3.1.4">
+    <link rel="stylesheet" href="../../_/css/site.css">
+    <script>var uiRootPath = '../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../..">EDF</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Products</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Product A</a>
+            <a class="navbar-item" href="#">Product B</a>
+            <a class="navbar-item" href="#">Product C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Services</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Service A</a>
+            <a class="navbar-item" href="#">Service B</a>
+            <a class="navbar-item" href="#">Service C</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="edf" data-version="docs-Antora">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">EDF</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="edf.html">EDF</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#array.adoc">Array</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="assert.html">Assert</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#stack.adoc">Stack</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#vector.adoc">Vector</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">EDF</span>
+    <span class="version">docs-Antora</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="index.html">EDF</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">docs-Antora</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="edf.html">EDF</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/AdamVeazey/edf/edit/docs/Antora/docs/modules/ROOT/pages/edf.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">EDF</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<div class="title">Overview</div>
+<p>The files here are written to be completely platform independent that are useful in any embedded systems project. Within this collection of files are two main groups</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>STL-Like Containers - Containers with a fixed max size that are statically allocated</p>
+</li>
+<li>
+<p>Miscellaneous - Classes that don&#8217;t fit into another group</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_stl_like_containers"><a class="anchor" href="#_stl_like_containers"></a>STL-Like Containers</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="#ROOT:array.adoc" class="xref unresolved">Array</a> - wrapper around regular array. Almost exactly the same as std::array</p>
+</li>
+<li>
+<p><a href="#ROOT:vector.adoc" class="xref unresolved">Vector</a> - Array that can "grow" up to a maximum size</p>
+</li>
+<li>
+<p><a href="#ROOT:stack.adoc" class="xref unresolved">Stack</a> - adapts EDF::Vector to turn it into an EDF::Stack</p>
+</li>
+<li>
+<p>{ref_edf_queue} - circular queue (AKA ring buffer) using an EDF::Array</p>
+</li>
+<li>
+<p>{ref_edf_heap} - min and max heap using an EDF::Vector</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_miscellaneous"><a class="anchor" href="#_miscellaneous"></a>Miscellaneous</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="assert.html" class="xref page">Assert</a> - assert a condition is true, abort() if false</p>
+</li>
+<li>
+<p>{ref_edf_string} - Strings that can "grow" up to a maximum size</p>
+</li>
+<li>
+<p>{ref_edf_version} - String to semantic version for easy comparisons</p>
+</li>
+<li>
+<p>{ref_edf_math} - A collection of MISC common math functions</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>isPow2</p>
+</li>
+<li>
+<p>min</p>
+</li>
+<li>
+<p>max</p>
+</li>
+<li>
+<p>voltageDividerCalcVin</p>
+</li>
+<li>
+<p>voltageDividerCalcVout</p>
+</li>
+<li>
+<p>nElements</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>{ref_edf_bit_field} - Name one or more specific bits within an unsigned integer</p>
+</li>
+<li>
+<p>{ref_edf_color} - RGBA colors</p>
+</li>
+<li>
+<p>{ref_edf_unix_timestamp} - wrapper for &lt;ctime&gt;</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
