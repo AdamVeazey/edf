@@ -20,7 +20,7 @@
 :path_src_edf_stack_hpp: {path_src_edf}/Stack.hpp
 :path_src_edf_vector_hpp: {path_src_edf}/Vector.hpp
 
-:path_example_edf: example$example/EDF
+:path_example_edf: example$examples/EDF
 :path_example_edf_array_main_cpp: {path_example_edf}/Array/main.cpp
 :path_example_edf_stack_main_cpp: {path_example_edf}/Stack/main.cpp
 :path_example_edf_vector_main_cpp: {path_example_edf}/Vector/main.cpp
