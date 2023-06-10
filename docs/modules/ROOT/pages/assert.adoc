@@ -63,8 +63,8 @@ NOTE: The code is considered in debug mode if NDEBUG is NOT defined. Mind the do
 ----
 int main(void){
 
-    EDF_ASSERTD( true );     <1>
-    EDF_ASSERTD( false );    <2>
+    EDF_ASSERTD( true );    // <1>
+    EDF_ASSERTD( false );   // <2>
 
     return 0;
 }
@@ -79,8 +79,8 @@ int main(void){
 ----
 int main(void){
 
-    EDF_ASSERTD( true );     <1>
-    EDF_ASSERTD( false );    <1>
+    EDF_ASSERTD( true );    // <1>
+    EDF_ASSERTD( false );   // <1>
 
     return 0;
 }

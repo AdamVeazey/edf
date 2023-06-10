@@ -55,12 +55,13 @@ NOTE: This also means that there is no boundary checking, so it is possible to a
 
 [#at]
 === at( index )
+`index` is checked with {ref_module_ROOT}:assert.adoc#_edf_assertd[EDF_ASSERTD] to be sure index is valid. In this example `abort()` is called when built in Debug mode.
 [source,indent=0,c++]
 ----
 include::{path_example_edf_array_main_cpp}[tag=init_POD]
-include::{path_example_edf_array_main_cpp}[tag=element_access_at] <1>
+include::{path_example_edf_array_main_cpp}[tag=element_access_at]
 ----
-<1> `index` is checked with {ref_module_ROOT}:assert.adoc#EDF_ASSERTD[EDF_ASSERTD] to be sure index is valid. In this example, it will cause `abort()` to be called.
+
 
 ---
 
