@@ -159,14 +159,11 @@
 <h1 class="page">Peripherals</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>Unresolved include directive in modules/peripherals/pages/peripherals.adoc - include::partial$refs.adoc[]</p>
-</div>
 <div class="ulist">
 <div class="title">Dependencies</div>
 <ul>
 <li>
-<p>{ref_edf}</p>
+<p><a href="../edf.html" class="xref page">EDF</a></p>
 </li>
 </ul>
 </div>
@@ -176,36 +173,59 @@
 <h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This contains base classes for common peripherals used by {ref_drivers}. None of these files contain platform specific information within them. They do provide the interfaces you need in order to write a portable driver.</p>
+<p>This contains base classes for common peripherals used by <a href="#drivers:drivers.adoc" class="xref unresolved">Drivers</a>. None of these files contain platform specific information within them. They do provide the interfaces you need in order to write a portable driver.</p>
 </div>
 <div class="paragraph">
 <p>Each implementation of a peripheral for a specific micro controller should define two classes. The first is a FooFast and a Foo version of the same class, where Foo is the name of the peripheral. That way you can write a driver using the generic Foo in this collection. If the overhead of a vtable is actually the bottleneck for performance, you can easily switch to use FooFast instead.</p>
 </div>
-<div class="listingblock">
+<div class="paragraph">
 <div class="title">Example</div>
+<p>If there is a file in this collection called Foo.hpp that looks like the following:</p>
+</div>
+<div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Implementation of the Foo peripheral
-
-#include &lt;EDF/Peripherals/Foo.hpp&gt;
-
-// Imagine that in the above include has the following code
-class Foo {
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">class Foo {
 public:
-    virtual void bar() = 0; // member function derived class has to implement
+    virtual void bar() = 0; <i class="conum" data-value="1"></i><b>(1)</b>
     virtual ~Foo() = default;
-}
-// Below is the actual implementation in a different file. EDF/MCU/&lt;name&gt;/Foo.hpp
-
-class FooFast {
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>member function derived class has to implement</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The implementation for a specific MCU (EDF/MCU/&lt;name&gt;/Foo.hpp) might look something like the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">class FooFast {
 public:
-    void bar(); // real implementation of member function EDF::Foo requires
+    void bar(); <i class="conum" data-value="1"></i><b>(1)</b>
 }
 
 class Foo : public FooFast, EDF::Foo {
 public:
-    inline void bar() override { FooFast::bar(); } // "joining" the two classes together
+    inline void bar() override { FooFast::bar(); } <i class="conum" data-value="2"></i><b>(2)</b>
 }</code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>real implementation of member function EDF::Foo requires</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>"joining" the two member functions together so <code>Foo::bar()</code> effectively becomes <code>FooFast::bar()</code>, but with the vtable overhead along with ability to be used generically.</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
