@@ -66,6 +66,8 @@ public:
     constexpr Iterator insert( ConstIterator pos, std::initializer_list<T> iList );
 
     template<typename... Args>
+    inline constexpr void emplace( std::size_t index, Args&&... args )                      { emplace( ConstIterator(data() + index), std::forward<Args>(args)...); }
+    template<typename... Args>
     constexpr Iterator emplace( ConstIterator pos, Args&&... args );
     
     inline constexpr void erase( std::size_t index )                                        { erase( ConstIterator(data() + index) ); }
