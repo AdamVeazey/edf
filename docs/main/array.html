@@ -142,13 +142,25 @@
 </li>
 </ol>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>T</code> <em>Needs</em> to be copyable, and <em>helps</em> if it is also default constructable.
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_initialization"><a class="anchor" href="#_initialization"></a>Initialization</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Initialization requires type <code>T</code> to be default constructable and copyable.</p>
+<p>Default initialization requires type <code>T</code> to be default constructable. Otherwise <a href="https://en.cppreference.com/w/cpp/language/list_initialization">List-initialization</a> is required.</p>
 </div>
 <div class="listingblock">
 <div class="title">Example: Plain Old Data (<a href="https://stackoverflow.com/a/146454/19291638">POD</a>)</div>
@@ -224,7 +236,7 @@ include::{path_example_edf_array_main_cpp}[tag=element_access_at] <i class="conu
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>If uncommented, <code>index</code> is checked with <a href="assert.html#EDF_ASSERTD" class="xref page">ROOT:assert.adoc#EDF_ASSERTD</a> to be sure index is valid. In this example, it will cause <code>abort()</code> to be called.</td>
+<td><code>index</code> is checked with <a href="assert.html#EDF_ASSERTD" class="xref page">EDF_ASSERTD</a> to be sure index is valid. In this example, it will cause <code>abort()</code> to be called.</td>
 </tr>
 </table>
 </div>
