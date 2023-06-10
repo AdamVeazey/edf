@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Array :: EDF</title>
+    <link rel="canonical" href="https://adamveazey.github.io/edf/docs/main/array.html">
+    <meta name="generator" content="Antora 3.1.4">
+    <link rel="stylesheet" href="../../_/css/site.css">
+    <script>var uiRootPath = '../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://adamveazey.github.io/edf">EDF</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Products</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Product A</a>
+            <a class="navbar-item" href="#">Product B</a>
+            <a class="navbar-item" href="#">Product C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Services</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Service A</a>
+            <a class="navbar-item" href="#">Service B</a>
+            <a class="navbar-item" href="#">Service C</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="docs" data-version="main">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">EDF</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="edf.html">EDF</a>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="array.html">Array</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="assert.html">Assert</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#stack.adoc">Stack</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#vector.adoc">Vector</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">EDF</span>
+    <span class="version">main</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="index.html">EDF</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">main</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="edf.html">EDF</a></li>
+    <li><a href="array.html">Array</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/AdamVeazey/edf/edit/main/docs/modules/ROOT/pages/array.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Array</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<div class="title">Overview</div>
+<p>Array is a template wrapper around a regular array. It is almost exactly like a C-style array except that it will not decay to a T* automatically and the total size can be easily found by using <code>maxLength()</code>. Array can also use the assignment operator and equality operator to copy one array into another, or compare if two arrays have all the same elements.</p>
+</div>
+<div class="paragraph">
+<p>There are 4 groups of member functions:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="#_element_access">Element Access</a></p>
+</li>
+<li>
+<p><a href="#_capacity">Capacity</a></p>
+</li>
+<li>
+<p><a href="#_operations">Operations</a></p>
+</li>
+<li>
+<p><a href="#_iterators">Iterators</a></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_initialization"><a class="anchor" href="#_initialization"></a>Initialization</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Initialization requires type <code>T</code> to be default constructable and copyable.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example: Plain Old Data (<a href="https://stackoverflow.com/a/146454/19291638">POD</a>)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/array.adoc - include::example$example/EDF/Array/main.cpp[]</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Example: Custom Type</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/array.adoc - include::example$example/EDF/Array/main.cpp[]</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Example: Copy Assignment</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/array.adoc - include::example$example/EDF/Array/main.cpp[]</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_element_access"><a class="anchor" href="#_element_access"></a>Element Access</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Elements can be accessed in a few different ways. The first is the "standard" method, and the others have a few benefits over the standard method that may be useful depending on the use case.</p>
+</div>
+<hr>
+<div class="sect2">
+<h3 id="_operator"><a class="anchor" href="#_operator"></a>operator[]</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/array.adoc - include::example$example/EDF/Array/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/array.adoc - include::example$example/EDF/Array/main.cpp[]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is exactly the same as with a C-style array.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This also means that there is no boundary checking, so it is possible to attempt to access data outside of the array.
+</td>
+</tr>
+</table>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="at"><a class="anchor" href="#at"></a>at( index )</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/array.adoc - include::example$example/EDF/Array/main.cpp[]
+include::{path_example_edf_array_main_cpp}[tag=element_access_at] <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>If uncommented, <code>index</code> is checked with <a href="assert.html#EDF_ASSERTD" class="xref page">ROOT:assert.adoc#EDF_ASSERTD</a> to be sure index is valid. In this example, it will cause <code>abort()</code> to be called.</td>
+</tr>
+</table>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_front"><a class="anchor" href="#_front"></a>front()</h3>
+<div class="paragraph">
+<p>Return the first element of the array. Calls <a href="#at">at( index )</a></p>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_end"><a class="anchor" href="#_end"></a>end()</h3>
+<div class="paragraph">
+<p>Return the last element of the array (N - 1). Calls <a href="#at">at( index )</a></p>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_data"><a class="anchor" href="#_data"></a>data()</h3>
+<div class="paragraph">
+<p>Returns a pointer to the first element of the array, this is the same as a C-style array decaying into a pointer.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_capacity"><a class="anchor" href="#_capacity"></a>Capacity</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_maxlength"><a class="anchor" href="#_maxlength"></a>maxLength()</h3>
+<div class="paragraph">
+<p>Returns template parameter N. It acts the same as a compile time constant. No need to remember how a macro for an array size is named.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_operations"><a class="anchor" href="#_operations"></a>Operations</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_fill_value"><a class="anchor" href="#_fill_value"></a>fill( value )</h3>
+<div class="paragraph">
+<p>Sets each element in the array with <code>value</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_operator_lhs_rhs"><a class="anchor" href="#_operator_lhs_rhs"></a>operator==( lhs, rhs )</h3>
+<div class="paragraph">
+<p>Compare two arrays to see if each element in both arrays are equal.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_iterators"><a class="anchor" href="#_iterators"></a>Iterators</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Forward iterators and const iterators are available through <code>begin()</code>, <code>end()</code>, <code>cbegin()</code>, <code>cend()</code></p>
+</div>
+<div class="paragraph">
+<p>Revese iterators and const reverse iterators are available through <code>rbegin()</code>, <code>rend()</code>, <code>crbegin()</code>, <code>crend()</code></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<a href="https://en.cppreference.com/w/cpp/language/range-for">Range-based for loops</a> are therefore supported.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
