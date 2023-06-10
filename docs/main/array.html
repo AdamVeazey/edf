@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Array :: EDF</title>
+    <title>Array&lt;T, N&gt; :: EDF</title>
     <link rel="canonical" href="https://adamveazey.github.io/edf/docs/main/docs/main/array.html">
     <meta name="generator" content="Antora 3.1.4">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -116,9 +116,14 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Array</h1>
+<h1 class="page">Array&lt;T, N&gt;</h1>
 <div id="preamble">
 <div class="sectionbody">
+<div class="paragraph">
+<div class="title">Template arguments</div>
+<p><code>T</code> = Type<br>
+<code>N</code> = Number of elements the array can hold</p>
+</div>
 <div class="paragraph">
 <div class="title">Overview</div>
 <p>Array is a template wrapper around a regular array. It is almost exactly like a C-style array except that it will not decay to a T* automatically and the total size can be easily found by using <code>maxLength()</code>. Array can also use the assignment operator and equality operator to copy one array into another, or compare if two arrays have all the same elements.</p>
