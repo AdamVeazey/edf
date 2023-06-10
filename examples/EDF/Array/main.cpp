@@ -11,12 +11,18 @@
 
 int main( void ) {
 
+    // tag::init_POD[]
     EDF::Array<int, 4> array;
+    // end::init_POD[]
+    // tag::element_access_standard[]
     array[0] = 1;
+    // end::element_access_standard[]
     array[1] = 2; 
     array[2] = 3;
     array[3] = 4;
+    // tag::element_access_at[]
     // array.at( 40 ) = 100;
+    // end::element_access_at[]
 
     for( auto&& element : array ){
         std::cout << element << '\n';
@@ -30,6 +36,7 @@ int main( void ) {
         std::cout << element << '\n';
     }
 
+    // tag::init_custom_type[]
     struct CustomType{
         int value;
         CustomType( int v ) : value(v) {}        
@@ -41,6 +48,7 @@ int main( void ) {
         CustomType(7), 
         CustomType(8) 
     }; 
+    // end::init_custom_type[]
 
     std::cout << "Print out array2\n";
 
@@ -56,8 +64,9 @@ int main( void ) {
         std::cout << element.value << '\n';
     }
 
+    // tag::init_copy_assignment[]
     EDF::Array<CustomType, 4> array3 = array2;
-
+    // end::init_copy_assignment[]
 
     std::cout << "print out array3, a copy of array 2\n";
 

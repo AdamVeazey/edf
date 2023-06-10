@@ -1,0 +1,97 @@
+= Array
+
+include::partial$refs.adoc[]
+
+.Overview
+Array is a template wrapper around a regular array. It is almost exactly like a C-style array except that it will not decay to a T* automatically and the total size can be easily found by using `maxLength()`. Array can also use the assignment operator and equality operator to copy one array into another, or compare if two arrays have all the same elements.
+
+There are 4 groups of member functions:
+
+. <<Element Access>>
+. <<Capacity>>
+. <<Operations>>
+. <<Iterators>>
+
+== Initialization
+Initialization requires type `T` to be default constructable and copyable. 
+
+.Example: Plain Old Data (https://stackoverflow.com/a/146454/19291638[POD])
+[source,c++]
+----
+include::{path_example_edf_array_main_cpp}[tag=init_POD]
+----
+
+.Example: Custom Type
+[source,c++]
+----
+include::{path_example_edf_array_main_cpp}[tag=init_custom_type]
+----
+
+.Example: Copy Assignment
+[source,c++]
+----
+include::{path_example_edf_array_main_cpp}[tag=init_copy_assignment]
+----
+
+== Element Access
+Elements can be accessed in a few different ways. The first is the "standard" method, and the others have a few benefits over the standard method that may be useful depending on the use case.
+
+---
+
+=== operator[]
+[source,c++]
+----
+include::{path_example_edf_array_main_cpp}[tag=init_POD]
+include::{path_example_edf_array_main_cpp}[tag=element_access_standard]
+----
+
+This is exactly the same as with a C-style array. 
+
+NOTE: This also means that there is no boundary checking, so it is possible to attempt to access data outside of the array. 
+
+---
+
+[#at]
+=== at( index )
+[source,c++]
+----
+include::{path_example_edf_array_main_cpp}[tag=init_POD]
+include::{path_example_edf_array_main_cpp}[tag=element_access_at] <1>
+----
+<1> If uncommented, `index` is checked with {ref_module_ROOT}:assert.adoc#EDF_ASSERTD[] to be sure index is valid. In this example, it will cause `abort()` to be called.
+
+---
+
+=== front()
+Return the first element of the array. Calls <<at>>
+
+---
+
+
+=== end()
+Return the last element of the array (N - 1). Calls <<at>>
+
+---
+
+=== data()
+Returns a pointer to the first element of the array, this is the same as a C-style array decaying into a pointer.
+
+== Capacity
+
+=== maxLength()
+Returns template parameter N. It acts the same as a compile time constant. No need to remember how a macro for an array size is named.
+
+== Operations
+
+=== fill( value )
+Sets each element in the array with `value`.
+
+=== operator==( lhs, rhs )
+Compare two arrays to see if each element in both arrays are equal.
+
+== Iterators
+Forward iterators and const iterators are available through `begin()`, `end()`, `cbegin()`, `cend()`
+
+Revese iterators and const reverse iterators are available through `rbegin()`, `rend()`, `crbegin()`, `crend()`
+
+TIP: https://en.cppreference.com/w/cpp/language/range-for[Range-based for loops] are therefore supported. 

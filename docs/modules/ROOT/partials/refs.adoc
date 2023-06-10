@@ -14,11 +14,16 @@
 :ref_edf_stack: {ref_module_root}:stack.adoc[Stack]
 :ref_edf_vector: {ref_module_root}:vector.adoc[Vector]
 
-:code_path_edf: example$src/EDF
-:code_path_array_hpp: {code_path_edf}/Array.hpp
-:code_path_assert_hpp: {code_path_edf}/Assert.hpp
-:code_path_stack_hpp: {code_path_edf}/Stack.hpp
-:code_path_vector_hpp: {code_path_edf}/Vector.hpp
+:path_src_edf: example$src/EDF
+:path_src_edf_array_hpp: {path_src_edf}/Array.hpp
+:path_src_edf_assert_hpp: {path_src_edf}/Assert.hpp
+:path_src_edf_stack_hpp: {path_src_edf}/Stack.hpp
+:path_src_edf_vector_hpp: {path_src_edf}/Vector.hpp
+
+:path_example_edf: example$example/EDF
+:path_example_edf_array_main_cpp: {path_example_edf}/Array/main.cpp
+:path_example_edf_stack_main_cpp: {path_example_edf}/Stack/main.cpp
+:path_example_edf_vector_main_cpp: {path_example_edf}/Vector/main.cpp
 
 // Peripherals
 :ref_module_peripherals: xref:peripherals
@@ -31,4 +36,3 @@
 // MCU
 :ref_module_mcu: xref:mcu
 :ref_mcu: {ref_module_mcu}:mcu.adoc[MCU]
-

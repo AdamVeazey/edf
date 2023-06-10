@@ -13,23 +13,23 @@ The files here are written to be completely platform independent that are useful
 . {ref_edf_array} - wrapper around regular array. Almost exactly the same as std::array
 . {ref_edf_vector} - Array that can "grow" up to a maximum size
 . {ref_edf_stack} - adapts EDF::Vector to turn it into an EDF::Stack
-. {ref_edf_queue} - circular queue (AKA ring buffer) using an EDF::Array
-. {ref_edf_heap} - min and max heap using an EDF::Vector
+// . {ref_edf_queue} - circular queue (AKA ring buffer) using an EDF::Array
+// . {ref_edf_heap} - min and max heap using an EDF::Vector
 
 == Miscellaneous 
 . {ref_edf_assert} - assert a condition is true, abort() if false
-. {ref_edf_string} - Strings that can "grow" up to a maximum size
-. {ref_edf_version} - String to semantic version for easy comparisons
-. {ref_edf_math} - A collection of MISC common math functions
-.. isPow2
-.. min
-.. max
-.. voltageDividerCalcVin
-.. voltageDividerCalcVout
-.. nElements
-. {ref_edf_bit_field} - Name one or more specific bits within an unsigned integer
-. {ref_edf_color} - RGBA colors
-. {ref_edf_unix_timestamp} - wrapper for <ctime>
+// . {ref_edf_string} - Strings that can "grow" up to a maximum size
+// . {ref_edf_version} - String to semantic version for easy comparisons
+// . {ref_edf_math} - A collection of MISC common math functions
+// .. isPow2
+// .. min
+// .. max
+// .. voltageDividerCalcVin
+// .. voltageDividerCalcVout
+// .. nElements
+// . {ref_edf_bit_field} - Name one or more specific bits within an unsigned integer
+// . {ref_edf_color} - RGBA colors
+// . {ref_edf_unix_timestamp} - wrapper for <ctime>
 
 // TODO: Should RTOS include things like a generic CLI implementation? Logger?
 // == RTOS
