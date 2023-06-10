@@ -6,7 +6,7 @@ include::partial$refs.adoc[]
 `T` = Type +
 `N` = Number of elements the array can hold
 
-.Overview
+== Overview
 Array is a template wrapper around a regular array. It is almost exactly like a C-style array except that it will not decay to a T* automatically and the total size can be easily found by using `maxLength()`. Array can also use the assignment operator and equality operator to copy one array into another, or compare if two arrays have all the same elements.
 
 There are 4 groups of member functions:

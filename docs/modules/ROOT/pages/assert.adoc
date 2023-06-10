@@ -2,7 +2,7 @@
 
 include::partial$refs.adoc[]
 
-.Overview
+== Overview
 Assert is used to declare that a specific condition is true. There are two versions of assert, EDF_ASSERT and EDF_ASSERTD.
 
 EDF in general doesn't use macros. However, `EDF_ASSERT` uses `\\__FILE__`, `\\__PRETTY_FUNCTION__`, and `\\__LINE__`. Therefore, EDF_ASSERT also _needs_ to be a macro.
