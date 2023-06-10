@@ -16,19 +16,19 @@ There are 4 groups of member functions:
 Initialization requires type `T` to be default constructable and copyable. 
 
 .Example: Plain Old Data (https://stackoverflow.com/a/146454/19291638[POD])
-[source,c++]
+[source,indent=0,c++]
 ----
 include::{path_example_edf_array_main_cpp}[tag=init_POD]
 ----
 
 .Example: Custom Type
-[source,c++]
+[source,indent=0,c++]
 ----
 include::{path_example_edf_array_main_cpp}[tag=init_custom_type]
 ----
 
 .Example: Copy Assignment
-[source,c++]
+[source,indent=0,c++]
 ----
 include::{path_example_edf_array_main_cpp}[tag=init_copy_assignment]
 ----
@@ -39,7 +39,7 @@ Elements can be accessed in a few different ways. The first is the "standard" me
 ---
 
 === operator[]
-[source,c++]
+[source,indent=0,c++]
 ----
 include::{path_example_edf_array_main_cpp}[tag=init_POD]
 include::{path_example_edf_array_main_cpp}[tag=element_access_standard]
@@ -53,7 +53,7 @@ NOTE: This also means that there is no boundary checking, so it is possible to a
 
 [#at]
 === at( index )
-[source,c++]
+[source,indent=0,c++]
 ----
 include::{path_example_edf_array_main_cpp}[tag=init_POD]
 include::{path_example_edf_array_main_cpp}[tag=element_access_at] <1>
