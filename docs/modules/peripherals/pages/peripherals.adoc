@@ -1,6 +1,6 @@
 = Peripherals
 
-include::partial$refs.adoc[]
+include::ROOT:partial$refs.adoc[]
 
 .Dependencies
 - {ref_edf}
@@ -11,28 +11,29 @@ This contains base classes for common peripherals used by {ref_drivers}. None of
 Each implementation of a peripheral for a specific micro controller should define two classes. The first is a FooFast and a Foo version of the same class, where Foo is the name of the peripheral. That way you can write a driver using the generic Foo in this collection. If the overhead of a vtable is actually the bottleneck for performance, you can easily switch to use FooFast instead.
 
 .Example
+If there is a file in this collection called Foo.hpp that looks like the following:
 [source,c++]
 ----
-// Implementation of the Foo peripheral
-
-#include <EDF/Peripherals/Foo.hpp>
-
-// Imagine that in the above include has the following code
 class Foo {
 public:
-    virtual void bar() = 0; // member function derived class has to implement
+    virtual void bar() = 0; // <1>
     virtual ~Foo() = default;
 }
-// Below is the actual implementation in a different file. EDF/MCU/<name>/Foo.hpp
+----
+<1> member function derived class has to implement
 
+The implementation for a specific MCU (EDF/MCU/<name>/Foo.hpp) might look something like the following:
+[source,c++]
+----
 class FooFast { 
 public:
-    void bar(); // real implementation of member function EDF::Foo requires
+    void bar(); // <1>
 }
 
 class Foo : public FooFast, EDF::Foo { 
 public:
-    inline void bar() override { FooFast::bar(); } // "joining" the two classes together
+    inline void bar() override { FooFast::bar(); } // <2>
 }
-
 ----
+<1> real implementation of member function EDF::Foo requires
+<2> "joining" the two member functions together so `Foo::bar()` effectively becomes `FooFast::bar()`, but with the vtable overhead along with ability to be used generically.
