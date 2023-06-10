@@ -31,6 +31,16 @@
 // Peripherals
 :ref_module_peripherals: xref:peripherals
 :ref_peripherals: {ref_module_peripherals}:peripherals.adoc[Peripherals]
+:ref_peripherals_adc: {ref_module_peripherals}:adc.adoc[ADC]
+:ref_peripherals_dac: {ref_module_peripherals}:dac.adoc[DAC]
+:ref_peripherals_gpio: {ref_module_peripherals}:gpio.adoc[GPIO]
+:ref_peripherals_i2c: {ref_module_peripherals}:i2c.adoc[I2C]
+:ref_peripherals_pwm: {ref_module_peripherals}:pwm.adoc[PWM]
+:ref_peripherals_rtc: {ref_module_peripherals}:rtc.adoc[RTC]
+:ref_peripherals_spi: {ref_module_peripherals}:spi.adoc[SPI]
+:ref_peripherals_timer: {ref_module_peripherals}:timer.adoc[Timer]
+:ref_peripherals_uart: {ref_module_peripherals}:uart.adoc[UART]
+:ref_peripherals_wdt: {ref_module_peripherals}:wdt.adoc[WDT]
 
 // Drivers
 :ref_module_drivers: xref:drivers

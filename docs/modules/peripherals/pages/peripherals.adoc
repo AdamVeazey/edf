@@ -1,0 +1,38 @@
+= Peripherals
+
+include::partial$refs.adoc[]
+
+.Dependencies
+- {ref_edf}
+
+== Overview
+This contains base classes for common peripherals used by {ref_drivers}. None of these files contain platform specific information within them. They do provide the interfaces you need in order to write a portable driver.
+
+Each implementation of a peripheral for a specific micro controller should define two classes. The first is a FooFast and a Foo version of the same class, where Foo is the name of the peripheral. That way you can write a driver using the generic Foo in this collection. If the overhead of a vtable is actually the bottleneck for performance, you can easily switch to use FooFast instead.
+
+.Example
+[source,c++]
+----
+// Implementation of the Foo peripheral
+
+#include <EDF/Peripherals/Foo.hpp>
+
+// Imagine that in the above include has the following code
+class Foo {
+public:
+    virtual void bar() = 0; // member function derived class has to implement
+    virtual ~Foo() = default;
+}
+// Below is the actual implementation in a different file. EDF/MCU/<name>/Foo.hpp
+
+class FooFast { 
+public:
+    void bar(); // real implementation of member function EDF::Foo requires
+}
+
+class Foo : public FooFast, EDF::Foo { 
+public:
+    inline void bar() override { FooFast::bar(); } // "joining" the two classes together
+}
+
+----
