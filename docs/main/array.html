@@ -153,19 +153,29 @@
 <div class="listingblock">
 <div class="title">Example: Plain Old Data (<a href="https://stackoverflow.com/a/146454/19291638">POD</a>)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/array.adoc - include::example$example/EDF/Array/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">    EDF::Array&lt;int, 4&gt; array;</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Example: Custom Type</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/array.adoc - include::example$example/EDF/Array/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">    struct CustomType{
+        int value;
+        CustomType( int v ) : value(v) {}        
+    };
+
+    EDF::Array&lt;CustomType, 4&gt; array2 = { 
+        CustomType(5), 
+        CustomType(6), 
+        CustomType(7), 
+        CustomType(8) 
+    }; </code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Example: Copy Assignment</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/array.adoc - include::example$example/EDF/Array/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">    EDF::Array&lt;CustomType, 4&gt; array3 = array2;</code></pre>
 </div>
 </div>
 </div>
@@ -181,8 +191,8 @@
 <h3 id="_operator"><a class="anchor" href="#_operator"></a>operator[]</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/array.adoc - include::example$example/EDF/Array/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/array.adoc - include::example$example/EDF/Array/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">    EDF::Array&lt;int, 4&gt; array;
+    array[0] = 1;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -206,7 +216,7 @@ This also means that there is no boundary checking, so it is possible to attempt
 <h3 id="at"><a class="anchor" href="#at"></a>at( index )</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/array.adoc - include::example$example/EDF/Array/main.cpp[]
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">    EDF::Array&lt;int, 4&gt; array;
 include::{path_example_edf_array_main_cpp}[tag=element_access_at] <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
 </div>
