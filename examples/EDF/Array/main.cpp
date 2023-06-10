@@ -20,8 +20,10 @@ int main( void ) {
     array[1] = 2; 
     array[2] = 3;
     array[3] = 4;
+
+    // NOTE: Comment out `array.at( 40 ) = 100` to run the rest of the example
     // tag::element_access_at[]
-    // array.at( 40 ) = 100;
+    array.at( 40 ) = 100;
     // end::element_access_at[]
 
     for( auto&& element : array ){

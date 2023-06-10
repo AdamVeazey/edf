@@ -12,8 +12,10 @@ There are 4 groups of member functions:
 . <<Operations>>
 . <<Iterators>>
 
+NOTE: `T` _Needs_ to be copyable, and _helps_ if it is also default constructable.
+
 == Initialization
-Initialization requires type `T` to be default constructable and copyable. 
+Default initialization requires type `T` to be default constructable. Otherwise https://en.cppreference.com/w/cpp/language/list_initialization[List-initialization] is required.
 
 .Example: Plain Old Data (https://stackoverflow.com/a/146454/19291638[POD])
 [source,indent=0,c++]
@@ -58,7 +60,7 @@ NOTE: This also means that there is no boundary checking, so it is possible to a
 include::{path_example_edf_array_main_cpp}[tag=init_POD]
 include::{path_example_edf_array_main_cpp}[tag=element_access_at] <1>
 ----
-<1> If uncommented, `index` is checked with {ref_module_ROOT}:assert.adoc#EDF_ASSERTD[] to be sure index is valid. In this example, it will cause `abort()` to be called.
+<1> `index` is checked with {ref_module_ROOT}:assert.adoc#EDF_ASSERTD[EDF_ASSERTD] to be sure index is valid. In this example, it will cause `abort()` to be called.
 
 ---
 
