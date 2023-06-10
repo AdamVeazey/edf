@@ -89,8 +89,13 @@ Returns template parameter N. It acts the same as a compile time constant. No ne
 === fill( value )
 Sets each element in the array with `value`.
 
+=== clear()
+If `T` is default constructable, this will set every element of the array to the value of `T()`
+
 === operator==( lhs, rhs )
-Compare two arrays to see if each element in both arrays are equal.
+`lhs` = left hand side +
+`rhs` = right hand side +
+Compare two arrays to see if each element in `lhs` and `rhs` are equal.
 
 == Iterators
 Forward iterators and const iterators are available through `begin()`, `end()`, `cbegin()`, `cend()`
