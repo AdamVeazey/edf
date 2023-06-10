@@ -19,7 +19,17 @@ print( const EDF::Vector<T, N>& vector ){
 
 int main( void ) {
 
-    EDF::Vector<int, 8> vector = { 1, 2, 3, 4, 5, 6 };
+    // tag::init[]
+    EDF::Vector<int, 8> vector = { 10, 2, 3, 4, 5, 6 };    
+    // end::init[]
+
+    // tag::element_access_standard[]
+    vector[0] = 100;
+    // end::element_access_standard[]
+
+    // tag::element_access_at[]
+    vector.at( 0 ) = 1;
+    // end::element_access_at[]
 
     vector.insert( std::size_t(0), { 0 } );
     std::cout << "After inserting 0 at slot 0" << '\n';

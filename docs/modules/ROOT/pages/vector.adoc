@@ -1,0 +1,185 @@
+= Vector<T, N>
+
+include::partial$refs.adoc[]
+
+.Template arguments
+`T` = (T)ype +
+`N` = Maximum (N)umber of elements the vector can hold
+
+== Overview
+Vector is a template that uses an {ref_edf_array} plus a current size variable to act like a std::vector, but does not grow if there is no more room in the underlying {ref_edf_array}. `N` specifies the maximum number of elements the vector can "grow" to.
+
+There are 5 groups of member functions:
+
+. <<Is Questions>>
+. <<Capacity>>
+. <<Element Access>>
+. <<Operations>>
+. <<Iterators>>
+
+NOTE: `T` _Needs_ to be copyable. and _helps_ if `T` is also default constructable.
+
+== Initialization
+Default initialization requires type `T` to be default constructable. Otherwise https://en.cppreference.com/w/cpp/language/list_initialization[List-initialization] is required.
+
+// TODO: Add examples based on whatever exists in examples/EDF/Vector/main.cpp
+// TODO: Or maybe just "hardcode" the examples in this document instead
+
+== Is Questions
+These member functions provide yes/no answers to the current state of the vector.
+
+=== isEmpty()
+Equivalent to `<<length>> == 0` +
+Provided to make a common conditional check slightly more readable.
+
+.Example
+`if( myVector.isEmpty() )` +
+vs +
+`if( myVector.length() == 0 )`
+
+---
+
+=== isFull()
+Since a vector doesn't grow, you have to check if it is full before adding an element. If the vector is full this function return true. Otherwise it returns false.
+
+.Example
+[source,c++]
+----
+if( !myVector.isFull() ){           // if myVector is not full
+    myVector.pushBack( value );     // push back value to myVector
+}
+----
+
+== Capacity
+Provides information about how many current elements are in the vector, as well as the max number of elements in the vector.
+
+[#length]
+=== length()
+Returns the number of elements currently in the vector. 
+
+NOTE: The name `length()` is used instead of `size()` or `count()` for consistency across all xref:edf.adoc#_stl_like_containers[EDF containers] and {ref_edf_string}
+
+---
+
+=== maxLength()
+Returns template parameter N. It acts the same as a compile time constant. No need to remember how a macro for a vector max number of elements is named.
+
+== Element Access
+
+=== operator[]
+[source,indent=0,c++]
+----
+include::{path_example_edf_vector_main_cpp}[tag=init]
+include::{path_example_edf_vector_main_cpp}[tag=element_access_standard]
+----
+
+This is exactly the same as with a C-style array. 
+
+NOTE: This also means that there is no boundary checking, so it is possible to attempt to access data outside of the vector. 
+
+---
+
+[#at]
+=== at( index )
+`index` is checked with {ref_edf_assert_EDF_ASSERTD} to be sure index is valid.
+[source,indent=0,c++]
+----
+include::{path_example_edf_vector_main_cpp}[tag=init]
+include::{path_example_edf_vector_main_cpp}[tag=element_access_at]
+----
+
+---
+
+=== front()
+Return the first element of the vector. Calls <<at>>
+
+---
+
+=== end()
+Return the last element of the vector (<<length>> - 1). Calls <<at>>
+
+---
+
+=== data()
+Returns a raw pointer to the first element of the vector.
+
+== Operations
+NOTE: Many, if not all, of the Operation member functions use multiple {ref_edf_assert_EDF_ASSERTD} to ensure the operation will be successful. Remember that the assert condition is only checked in Debug mode.  
+
+NOTE: For member functions that have an index/position as their first argument, it means that overloads exist to use an index (std::size_t) or an iterator.
+
+=== clear()
+Calls destructor for each element in vector. Sets number of elements to 0.
+
+// TODO: Add example(s)
+
+---
+
+=== insert( index/position, value )
+Inserts `value` at the specified `index` or `position`.  
+
+// TODO: Add example(s)
+
+=== insert( index/position, count, value )
+Inserts `value` for `count` number of times starting at the specified `index` or `position`. 
+
+// TODO: Add example(s)
+
+=== insert( index/position, { values... } )
+Inserts the list of `values...` provided starting at the specified `index` or `position`. 
+
+// TODO: Add example(s)
+
+---
+
+=== emplace( index/position, args... )
+Overwrites an element by using https://en.cppreference.com/w/cpp/language/new#Placement_new[placement new] and `args...` to construct the an element in place. 
+
+// TODO: Add example(s)
+
+---
+
+=== erase( index/position )
+Erase a single element at the specified `index` or `position`. Calls destructor for erased element.
+
+// TODO: Add example(s)
+
+=== erase( first, last )
+Erase a range [`first`, `last`) of elements. Includes erasing `first` up to, but not including, `last`. Calls destructor for erased elements.
+
+// TODO: Add example(s)
+
+---
+
+=== pushBack( value )
+Copy `value` to a new element at the end of the vector.
+
+// TODO: Add example(s)
+
+---
+
+=== emplaceBack( args... )
+Construct in place a new element at the end of the vector using `args...`.
+
+// TODO: Add example(s)
+
+---
+
+=== popBack()
+Remove the last element in a vector and return a copy of it.
+
+// TODO: Add example(s)
+
+---
+
+=== operator==( lhs, rhs )
+`lhs` = left hand side +
+`rhs` = right hand side +
+Compare two vectors to see if each element in `lhs` and `rhs` are equal.
+
+== Iterators
+Forward iterators and const iterators are available through `begin()`, `end()`, `cbegin()`, `cend()`
+
+Revese iterators and const reverse iterators are available through `rbegin()`, `rend()`, `crbegin()`, `crend()`
+
+TIP: https://en.cppreference.com/w/cpp/language/range-for[Range-based for loops] are therefore supported. 

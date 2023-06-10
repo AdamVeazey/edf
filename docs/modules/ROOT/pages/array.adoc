@@ -3,8 +3,8 @@
 include::partial$refs.adoc[]
 
 .Template arguments
-`T` = Type +
-`N` = Number of elements the array can hold
+`T` = (T)ype +
+`N` = (N)umber of elements the array can hold
 
 == Overview
 Array is a template wrapper around a regular array. It is almost exactly like a C-style array except that it will not decay to a T* automatically and the total size can be easily found by using `maxLength()`. Array can also use the assignment operator and equality operator to copy one array into another, or compare if two arrays have all the same elements.
@@ -16,7 +16,7 @@ There are 4 groups of member functions:
 . <<Operations>>
 . <<Iterators>>
 
-NOTE: `T` _Needs_ to be copyable, and _helps_ if it is also default constructable.
+NOTE: `T` _Needs_ to be copyable, and _helps_ if `T` is also default constructable.
 
 == Initialization
 Default initialization requires type `T` to be default constructable. Otherwise https://en.cppreference.com/w/cpp/language/list_initialization[List-initialization] is required.
@@ -59,13 +59,12 @@ NOTE: This also means that there is no boundary checking, so it is possible to a
 
 [#at]
 === at( index )
-`index` is checked with {ref_module_ROOT}:assert.adoc#_edf_assertd[EDF_ASSERTD] to be sure index is valid. In this example `abort()` is called when built in Debug mode.
+`index` is checked with {ref_edf_assert_EDF_ASSERTD} to be sure index is valid. In this example `abort()` is called when built in Debug mode.
 [source,indent=0,c++]
 ----
 include::{path_example_edf_array_main_cpp}[tag=init_POD]
 include::{path_example_edf_array_main_cpp}[tag=element_access_at]
 ----
-
 
 ---
 
@@ -73,7 +72,6 @@ include::{path_example_edf_array_main_cpp}[tag=element_access_at]
 Return the first element of the array. Calls <<at>>
 
 ---
-
 
 === end()
 Return the last element of the array (N - 1). Calls <<at>>
@@ -95,6 +93,7 @@ Sets each element in the array with `value`.
 
 === clear()
 If `T` is default constructable, this will set every element of the array to the value of `T()`
+If `T` is *NOT* default constructable, this function cannot be called. A static_assert() will generate a compile error if this is attempted.
 
 === operator==( lhs, rhs )
 `lhs` = left hand side +
