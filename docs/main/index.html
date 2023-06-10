@@ -78,6 +78,46 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="peripherals/peripherals.html">Peripherals</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/gpio.html">GPIO</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/spi.html">SPI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/i2c.html">I2C</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/uart.html">UART</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/pwm.html">PWM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/timer.html">Timer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/adc.html">ADC</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/dac.html">DAC</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/wdt.html">WDT</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/rtc.html">RTC</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
 </ul>
   </nav>
 </div>
@@ -151,7 +191,7 @@
 <td class="tableblock halign-left valign-middle"><p class="tableblock">To be truly cross platform without depending any of the other groups.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-center valign-middle"><p class="tableblock"><a href="#peripherals:peripherals.adoc" class="xref unresolved">Peripherals</a></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><a href="peripherals/peripherals.html" class="xref page">Peripherals</a></p></td>
 <td class="tableblock halign-left valign-middle"><div class="content"><div class="paragraph">
 <p>Platform independent interfaces that represent common MCU peripherals. These are the building blocks that are used in <a href="#drivers:drivers.adoc" class="xref unresolved">Drivers</a>.</p>
 </div>
@@ -167,16 +207,16 @@ These interfaces do <strong><em>NOT</em></strong> attempt to provide one-size-fi
 </tr>
 </table>
 </div></div></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">To be able to change microcontrollers without having to completely rewrite <a href="#drivers:drivers.adoc" class="xref unresolved">Drivers</a> or other files that use <a href="#peripherals:peripherals.adoc" class="xref unresolved">Peripherals</a></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">To be able to change microcontrollers without having to completely rewrite <a href="#drivers:drivers.adoc" class="xref unresolved">Drivers</a> or other files that use <a href="peripherals/peripherals.html" class="xref page">Peripherals</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-middle"><p class="tableblock"><a href="#drivers:drivers.adoc" class="xref unresolved">Drivers</a></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">A collection of platform independent IC drivers, or other 'higher level' uses of <a href="#peripherals:peripherals.adoc" class="xref unresolved">Peripherals</a> such as {link_peripherals_led_rgb}</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">A collection of platform independent IC drivers, or other 'higher level' uses of <a href="peripherals/peripherals.html" class="xref page">Peripherals</a> such as {link_peripherals_led_rgb}</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">To write a driver <strong>once</strong> instead of slightly different versions in every project that uses the same exact external component.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-middle"><p class="tableblock"><a href="#mcu:mcu.adoc" class="xref unresolved">MCU</a></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Implementations of <a href="#peripherals:peripherals.adoc" class="xref unresolved">Peripherals</a> for a specific MCU or MCU family.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Implementations of <a href="peripherals/peripherals.html" class="xref page">Peripherals</a> for a specific MCU or MCU family.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">To write a Peripheral implementation <strong>once</strong> so that it can be reused in projects using the same MCU.</p></td>
 </tr>
 </tbody>
