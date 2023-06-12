@@ -35,5 +35,5 @@ public:
     inline void bar() override { FooFast::bar(); } // <2>
 }
 ----
-<1> real implementation of member function EDF::Foo requires
+<1> real implementation of member function `EDF::Foo` requires
 <2> "joining" the two member functions together so `Foo::bar()` effectively becomes `FooFast::bar()`, but with the vtable overhead along with ability to be used generically.

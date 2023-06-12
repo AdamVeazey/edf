@@ -13,9 +13,16 @@
 :ref_edf_assert: {ref_module_root}:assert.adoc[Assert]
 :ref_edf_assert_EDF_ASSERT: {ref_module_root}:assert.adoc#_edf_assert[Assert]
 :ref_edf_assert_EDF_ASSERTD: {ref_module_root}:assert.adoc#_edf_assertd[Assert]
+:ref_edf_bit_field: {ref_module_root}:bit_field.adoc[BitField]
+:ref_edf_color: {ref_module_root}:color.adoc[Color]
+:ref_edf_heap: {ref_module_root}:heap.adoc[Heap]
+:ref_edf_math: {ref_module_root}:math.adoc[Math]
+:ref_edf_queue: {ref_module_root}:queue.adoc[Queue]
 :ref_edf_stack: {ref_module_root}:stack.adoc[Stack]
-:ref_edf_vector: {ref_module_root}:vector.adoc[Vector]
 :ref_edf_string: {ref_module_root}:string.adoc[String]
+:ref_edf_unix_timestamp: {ref_module_root}:unix_timestamp.adoc[UnixTimestamp]
+:ref_edf_vector: {ref_module_root}:vector.adoc[Vector]
+:ref_edf_version: {ref_module_root}:version.adoc[Version]
 
 :path_src_edf: example$src/EDF
 :path_src_edf_array_hpp: {path_src_edf}/Array.hpp
