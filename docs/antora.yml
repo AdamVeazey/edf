@@ -18,6 +18,7 @@ version: true
 nav:
 - modules/ROOT/nav.adoc
 - modules/peripherals/nav.adoc
+- modules/drivers/nav.adoc
 
 # [prerelease]
 

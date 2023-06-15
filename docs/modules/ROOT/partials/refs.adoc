@@ -52,6 +52,8 @@
 // Drivers
 :ref_module_drivers: xref:drivers
 :ref_drivers: {ref_module_drivers}:drivers.adoc[Drivers]
+:ref_drivers_rgb_led: {ref_module_drivers}:rgb_led.adoc[RGB LED]
+:ref_drivers_soft_timer: {ref_module_drivers}:soft_timer.adoc[SoftTimer]
 
 // MCU
 :ref_module_mcu: xref:mcu
