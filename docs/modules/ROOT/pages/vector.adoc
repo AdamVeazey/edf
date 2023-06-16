@@ -83,7 +83,7 @@ Returns the number of elements currently in the vector.
 [source,indent=0,c++]
 ----
 include::{path_example_edf_vector_main_cpp}[tag=init]
-std::size_t numberOfElementsInVector = vector.length(); // <1>
+    std::size_t numberOfElementsInVector = vector.length(); // <1>
 ----
 <1> The value of `numberOfElementsInVector` is 6. As opposed to <<maxLength>> which returns 8.
 
@@ -99,7 +99,7 @@ Returns template parameter N. It acts the same as a compile time constant. No ne
 [source,indent=0,c++]
 ----
 include::{path_example_edf_vector_main_cpp}[tag=init]
-static constexpr int someArray[vector.maxSize()]; // <1>
+    static constexpr int someArray[vector.maxSize()]; // <1>
 ----
 <1> someArray will be able to hold 8 elements, since vector.maxSize() is 8
 
