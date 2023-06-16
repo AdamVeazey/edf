@@ -2,7 +2,7 @@
 
 include::partial$refs.adoc[]
 
-:size_t_literal: https://en.cppreference.com/w/cpp/language/user_literal[user-defined literal] to get a std::size_t. Defined in {ref_edf_math}.
+:size_t_literal: https://en.cppreference.com/w/cpp/language/user_literal[user-defined literal] to get a std::size_t. See <<important_size_t>> Defined in {ref_edf_math}.
 
 .Template arguments
 `T` = (T)ype +
@@ -160,7 +160,8 @@ NOTE: Many, if not all, of the Operation member functions use {ref_edf_assert_ED
 
 NOTE: For member functions that have an index/position as their first argument, it means that overloads exist to use an index (std::size_t) or an iterator.
 
-IMPORTANT: When using overloaded member functions that use either index/position, when using an index of `0` will attempt to use the position version of the member function. To work around this, use a {size_t_literal}
+[#important_size_t]
+IMPORTANT: When using overloaded member functions that use either index/position, when using an index of `0` will attempt to use the position version of the member function. To work around this, use `0_uz` instead which is a {size_t_literal}
 
 === clear()
 Calls destructor for each element in vector. Sets number of elements to 0.
