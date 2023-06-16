@@ -1,0 +1,97 @@
+= MCU
+
+include::ROOT:partials$ref.adoc[]
+
+.Dependencies
+- {ref_edf}
+- {ref_peripherals}
+
+== Overview
+This contains peripheral implementations for specific MCUs. Also may provide more MCU specific code that is project independent. EX: BLE central/peripheral related code, MQTT, WiFi, etc... Things that can be reused if another project uses the same MCU, but stuff that's too different between MCUs to really be turned into something completely generic that's still useful. 
+
+The following is a list of files that might be provided under a specific MCU.
+
+- GPIO implementation (GPIOFast + GPIO)
+- PWM implementation (PWMFast + PWM)
+- I2C implementation (I2CFast + I2C)
+- BLE central 
+- BLE peripheral
+- MQTT client
+- WiFi STA
+- WiFi AP
+
+---
+**NOTE**
+
+"Fast" versions are the real implementation, but without directly deriving from the generic peripheral type. This is to allow you to avoid the vtable penalty if the difference legitimately matters.
+```
+EDF::Peripherals::I2C           EDF::MCU::LPC845::I2CFast
+         |_________________________________|
+                          |
+                 EDF::MCU::LPC845::I2C
+```
+---
+
+.Example: GPIO - EDF/Peripherals/GPIO.hpp
+[source,c++]
+----
+class GPIO{
+public:
+    virtual void set( bool high ) = 0;
+    inline void setHigh() { set( true ); }
+    inline void setLow()  { set( false ); }
+    // ...
+}
+----
+
+.Example: GPIO
+[source,c++]
+----
+#include <EDF/Peripherals/GPIO.hpp>
+
+class GPIOFast {
+private:
+    GPIO_TypeDef* port;
+    uint32_t pin;
+public:
+    GPIOFast( uint32_t port, uint32_t pin ) : port(port), pin(pin) {}
+    ~GPIOFast() = default;
+
+    inline constexpr void set( bool high ) const {
+        HAL_GPIO_WritePin( port, pin, static_cast<GPIO_PinState>(high) );
+    }
+    inline constexpr void setHigh() const { set( true ); }
+    inline constexpr void setLow() const { set( false ); }
+    // ...
+}
+
+class GPIO : public GPIOFast, public Peripherals::GPIO {
+private:
+public:
+    GPIO( GPIO_TypeDef* port, uint32_t pin ) : GPIOFast(port, pin) {}
+    virtual ~GPIO() = default;
+
+    void set( bool high ) override { GPIOFast::set(high); }
+    // ... <1>
+}
+----
+<1> Add other definitions of pure virtual functions from Peripherals::GPIO. 
+
+.Example Usage
+[source,c++]
+----
+#include <EDF/MCU/ST/STM32xxx/GPIO.hpp>
+
+class LED { 
+private:
+    EDF::MCU::GPIO pin;             // <1>
+    // EDF::MCU::GPIOFast pin;      // <2>
+public:
+    LED( GPIO_TypeDef* port, uint32_t pin ) : pin(port, pin) {}
+    inline constexpr void turnOn() const { pin.setLow(); }
+    inline constexpr void turnOff() const { pin.setHigh(); }
+}
+----
+<1> This version has a vtable
+<2> This version does not have a vtable
+
