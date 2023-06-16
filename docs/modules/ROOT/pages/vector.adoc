@@ -143,12 +143,12 @@ Return the last element of the vector (<<length>> - 1). Calls <<at>>
 Returns a raw pointer to the first element of the vector.
 
 .Example
-[source,c++]
+[source,indent=0,c++]
 ----
-void working_with_a_c_library_function( int *data, size_t n ) { /* ... */}
+    void working_with_a_c_library_function( int *data, size_t n ) { /* ... */}
 
 include::{path_example_edf_vector_main_cpp}[tag=init]
-working_with_a_c_library_function( vector.data(), vector.length() );
+    working_with_a_c_library_function( vector.data(), vector.length() );
 ----
 
 NOTE: Can be called in order to "decay" to a pointer like a C-Style array
@@ -165,8 +165,8 @@ Calls destructor for each element in vector. Sets number of elements to 0.
 [source,indent=0,c++]
 ----
 include::{path_example_edf_vector_main_cpp}[tag=init]
-vector.clear();
-std::size_t numberOfElementsInVector = vector.length(); // <1>
+    vector.clear();
+    std::size_t numberOfElementsInVector = vector.length(); // <1>
 ----
 <1> `numberOfElementsInVector` value is 0. ~int() called for each element that _was_ in the vector.
 
@@ -179,8 +179,8 @@ Inserts `value` at the specified `index` or `position`.
 [source,indent=0,c++]
 ----
 include::{path_example_edf_vector_main_cpp}[tag=init]
-vector.insert( std::size_t(0), 0 ); // <1>
-vector.insert( vector.begin(), 0 ); // <2>
+    vector.insert( std::size_t(0), 0 ); // <1>
+    vector.insert( vector.begin(), 0 ); // <2>
 ----
 <1> Index usage
 <2> Iterator usage
@@ -192,8 +192,8 @@ Inserts `value` for `count` number of times starting at the specified `index` or
 [source,indent=0,c++]
 ----
 include::{path_example_edf_vector_main_cpp}[tag=init]
-vector.insert( std::size_t(0), 2, 0 ); // <1>
-vector.insert( vector.begin(), 2, 0 ); // <2>
+    vector.insert( std::size_t(0), 2, 0 ); // <1>
+    vector.insert( vector.begin(), 2, 0 ); // <2>
 ----
 <1> Index usage to insert 2 `0`'s at the beginning of the vector
 <2> Iterator usage. In this particular example, {ref_edf_assert_EDF_ASSERTD} will catch the fact that the vector is already full. 
@@ -205,8 +205,8 @@ Inserts the list of `values...` provided starting at the specified `index` or `p
 [source,indent=0,c++]
 ----
 include::{path_example_edf_vector_main_cpp}[tag=init]
-vector.insert( std::size_t(0), { 0 } ); // <1>
-vector.insert( vector.begin(), { 0 } ); // <2>
+    vector.insert( std::size_t(0), { 0 } ); // <1>
+    vector.insert( vector.begin(), { 0 } ); // <2>
 ----
 <1> Index usage
 <2> Iterator usage
