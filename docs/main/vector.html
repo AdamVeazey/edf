@@ -269,6 +269,18 @@
 <p><code>T</code> = (T)ype<br>
 <code>N</code> = Maximum (N)umber of elements the vector can hold</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>T</code> <em>Needs</em> to be copyable. and <em>helps</em> if <code>T</code> is also default constructable.
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -299,18 +311,6 @@
 </li>
 </ol>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>T</code> <em>Needs</em> to be copyable. and <em>helps</em> if <code>T</code> is also default constructable.
-</td>
-</tr>
-</table>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -318,6 +318,31 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>Default initialization requires type <code>T</code> to be default constructable. Otherwise <a href="https://en.cppreference.com/w/cpp/language/list_initialization">List-initialization</a> is required.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example: Default Constructable</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 30&gt; vector;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Example: <a href="https://en.cppreference.com/w/cpp/language/list_initialization">List-initialization</a> with a custom type</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">class CustomType {
+private:
+    int x;
+    int y;
+public:
+    CustomType( int x = 0, int y = 0 ) : x(x), y(y) {}
+    // ...
+}
+
+EDF::Vector&lt;CustomType, 3&gt; vector = {
+    CustomType(1, 1),
+    CustomType(2, 2),
+    CustomType(3, 3)
+};</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -368,6 +393,21 @@ vs<br>
 <div class="paragraph">
 <p>Returns the number of elements currently in the vector.</p>
 </div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">    EDF::Vector&lt;int, 8&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+std::size_t numberOfElementsInVector = vector.length(); <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The value of <code>numberOfElementsInVector</code> is 6. As opposed to <a href="#maxLength">maxLength()</a> which returns 8.</td>
+</tr>
+</table>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -383,9 +423,24 @@ The name <code>length()</code> is used instead of <code>size()</code> or <code>c
 <hr>
 </div>
 <div class="sect2">
-<h3 id="_maxlength"><a class="anchor" href="#_maxlength"></a>maxLength()</h3>
+<h3 id="maxLength"><a class="anchor" href="#maxLength"></a>maxLength()</h3>
 <div class="paragraph">
 <p>Returns template parameter N. It acts the same as a compile time constant. No need to remember how a macro for a vector max number of elements is named.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">    EDF::Vector&lt;int, 8&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+static constexpr int someArray[vector.maxSize()]; <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>someArray will be able to hold 8 elements, since vector.maxSize() is 8</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -450,6 +505,27 @@ vector.at( 0 ) = 1;</code></pre>
 <div class="paragraph">
 <p>Returns a raw pointer to the first element of the vector.</p>
 </div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">void working_with_a_c_library_function( int *data, size_t n ) { /* ... */}
+
+    EDF::Vector&lt;int, 8&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+working_with_a_c_library_function( vector.data(), vector.length() );</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Can be called in order to "decay" to a pointer like a C-Style array
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 </div>
@@ -463,7 +539,7 @@ vector.at( 0 ) = 1;</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Many, if not all, of the Operation member functions use multiple <a href="assert.html#_edf_assertd" class="xref page">Assert</a> to ensure the operation will be successful. Remember that the assert condition is only checked in Debug mode.
+Many, if not all, of the Operation member functions use <a href="assert.html#_edf_assertd" class="xref page">Assert</a> to ensure the operation will be successful. Remember that the assert condition is only checked in Debug mode.
 </td>
 </tr>
 </table>
@@ -485,6 +561,22 @@ For member functions that have an index/position as their first argument, it mea
 <div class="paragraph">
 <p>Calls destructor for each element in vector. Sets number of elements to 0.</p>
 </div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">    EDF::Vector&lt;int, 8&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+vector.clear();
+std::size_t numberOfElementsInVector = vector.length(); <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>numberOfElementsInVector</code> value is 0. ~int() called for each element that <em>was</em> in the vector.</td>
+</tr>
+</table>
+</div>
 <hr>
 </div>
 <div class="sect2">
@@ -492,17 +584,77 @@ For member functions that have an index/position as their first argument, it mea
 <div class="paragraph">
 <p>Inserts <code>value</code> at the specified <code>index</code> or <code>position</code>.</p>
 </div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">    EDF::Vector&lt;int, 8&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+vector.insert( std::size_t(0), 0 ); <i class="conum" data-value="1"></i><b>(1)</b>
+vector.insert( vector.begin(), 0 ); <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Index usage</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Iterator usage</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_insert_indexposition_count_value"><a class="anchor" href="#_insert_indexposition_count_value"></a>insert( index/position, count, value )</h3>
 <div class="paragraph">
 <p>Inserts <code>value</code> for <code>count</code> number of times starting at the specified <code>index</code> or <code>position</code>.</p>
 </div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">    EDF::Vector&lt;int, 8&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+vector.insert( std::size_t(0), 2, 0 ); <i class="conum" data-value="1"></i><b>(1)</b>
+vector.insert( vector.begin(), 2, 0 ); <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Index usage to insert 2 `0&#8217;s at the beginning of the vector</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Iterator usage. In this particular example, <a href="assert.html#_edf_assertd" class="xref page">Assert</a> will catch the fact that the vector is already full.</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_insert_indexposition_values"><a class="anchor" href="#_insert_indexposition_values"></a>insert( index/position, { values&#8230;&#8203; } )</h3>
 <div class="paragraph">
 <p>Inserts the list of <code>values&#8230;&#8203;</code> provided starting at the specified <code>index</code> or <code>position</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">    EDF::Vector&lt;int, 8&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+vector.insert( std::size_t(0), { 0 } ); <i class="conum" data-value="1"></i><b>(1)</b>
+vector.insert( vector.begin(), { 0 } ); <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Index usage</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Iterator usage</td>
+</tr>
+</table>
 </div>
 <hr>
 </div>
