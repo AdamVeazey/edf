@@ -1,0 +1,3 @@
+= SoftTimer
+
+include::ROOT:partial$refs.adoc[]

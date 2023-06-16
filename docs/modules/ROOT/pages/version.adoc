@@ -1,0 +1,3 @@
+= Version
+
+include::ROOT:partial$refs.adoc[]

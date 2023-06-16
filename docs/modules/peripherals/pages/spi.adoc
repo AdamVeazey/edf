@@ -1,0 +1,3 @@
+= SPI
+
+include::ROOT:partial$refs.adoc[]

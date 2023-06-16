@@ -1,0 +1,3 @@
+= I2C
+
+include::ROOT:partial$refs.adoc[]

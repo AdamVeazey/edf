@@ -1,0 +1,3 @@
+= GPIO
+
+include::ROOT:partial$refs.adoc[]

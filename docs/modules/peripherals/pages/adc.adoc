@@ -1,0 +1,3 @@
+= ADC
+
+include::ROOT:partial$refs.adoc[]

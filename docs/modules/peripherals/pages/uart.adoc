@@ -1,0 +1,3 @@
+= UART
+
+include::ROOT:partial$refs.adoc[]
