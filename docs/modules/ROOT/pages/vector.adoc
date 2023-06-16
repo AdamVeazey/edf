@@ -36,7 +36,7 @@ private:
     int x;
     int y;
 public:
-    CustomType( int x = 0, int y = 0 ) : x(x), y(y) {}
+    CustomType( int x, int y = 0 ) : x(x), y(y) {}
     // ...
 }
 
