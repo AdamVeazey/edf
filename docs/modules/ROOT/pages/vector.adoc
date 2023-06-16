@@ -2,6 +2,8 @@
 
 include::partial$refs.adoc[]
 
+:size_t_literal: https://en.cppreference.com/w/cpp/language/user_literal[user-defined literal] to get a std::size_t. Defined in {ref_edf_math}.
+
 .Template arguments
 `T` = (T)ype +
 `N` = Maximum (N)umber of elements the vector can hold
@@ -38,7 +40,7 @@ private:
 public:
     CustomType( int x, int y = 0 ) : x(x), y(y) {}
     // ...
-}
+};
 
 EDF::Vector<CustomType, 3> vector = { 
     CustomType(1, 1), 
@@ -158,6 +160,8 @@ NOTE: Many, if not all, of the Operation member functions use {ref_edf_assert_ED
 
 NOTE: For member functions that have an index/position as their first argument, it means that overloads exist to use an index (std::size_t) or an iterator.
 
+IMPORTANT: When using overloaded member functions that use either index/position, when using an index of `0` will attempt to use the position version of the member function. To work around this, use a {size_t_literal}
+
 === clear()
 Calls destructor for each element in vector. Sets number of elements to 0.
 
@@ -179,10 +183,10 @@ Inserts `value` at the specified `index` or `position`.
 [source,indent=0,c++]
 ----
 include::{path_example_edf_vector_main_cpp}[tag=init]
-    vector.insert( std::size_t(0), 0 ); // <1>
+    vector.insert( 0_uz, 0 );           // <1>
     vector.insert( vector.begin(), 0 ); // <2>
 ----
-<1> Index usage
+<1> Index usage, for 0, us a {size_t_literal}
 <2> Iterator usage
 
 === insert( index/position, count, value )
@@ -192,10 +196,10 @@ Inserts `value` for `count` number of times starting at the specified `index` or
 [source,indent=0,c++]
 ----
 include::{path_example_edf_vector_main_cpp}[tag=init]
-    vector.insert( std::size_t(0), 2, 0 ); // <1>
-    vector.insert( vector.begin(), 2, 0 ); // <2>
+    vector.insert( 0_uz, 2, 0 );            // <1>
+    vector.insert( vector.begin(), 2, 0 );  // <2>
 ----
-<1> Index usage to insert 2 `0`'s at the beginning of the vector
+<1> Index usage to insert 2 `0`'s at the beginning of the vector. For an index of 0, use a {size_t_literal}
 <2> Iterator usage. In this particular example, {ref_edf_assert_EDF_ASSERTD} will catch the fact that the vector is already full. 
 
 === insert( index/position, { values... } )
@@ -205,10 +209,10 @@ Inserts the list of `values...` provided starting at the specified `index` or `p
 [source,indent=0,c++]
 ----
 include::{path_example_edf_vector_main_cpp}[tag=init]
-    vector.insert( std::size_t(0), { 0 } ); // <1>
+    vector.insert( 0_uz, { 0 } );           // <1>
     vector.insert( vector.begin(), { 0 } ); // <2>
 ----
-<1> Index usage
+<1> Index usage. For an index of 0, use a {size_t_literal}
 <2> Iterator usage
 
 ---
@@ -216,7 +220,24 @@ include::{path_example_edf_vector_main_cpp}[tag=init]
 === emplace( index/position, args... )
 Overwrites an element by using https://en.cppreference.com/w/cpp/language/new#Placement_new[placement new] and `args...` to construct the an element in place. 
 
-// TODO: Add example(s)
+.Example
+[source,c++]
+----
+class CustomType { 
+private:
+    int x;
+    int y;
+public:
+    CustomType( int x = 0, int y = 0 ) : x(x), y(y) {}
+    // ...
+};
+
+EDF::Vector<CustomType, 3> vector2;
+vector2.emplace( 0_uz, 1, 1 );  // <1>
+vector2.emplace( 1, 2, 2 );     // <2>
+----
+<1> Constructs a `CustomType` at the first index of the vector. For index 0 use a {size_t_literal}
+<2> Constructs a `CustomType` at the second index of the vector
 
 ---
 
