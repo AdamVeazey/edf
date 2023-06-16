@@ -476,7 +476,7 @@ This also means that there is no boundary checking, so it is possible to attempt
 <div class="sect2">
 <h3 id="at"><a class="anchor" href="#at"></a>at( index )</h3>
 <div class="paragraph">
-<p><code>index</code> is checked with <a href="assert.html#_edf_assertd" class="xref page">Assert</a> to be sure index is valid.</p>
+<p><code>index</code> is checked with <a href="assert.html#_edf_assertd" class="xref page">EDF_ASSERTD</a> to be sure index is valid.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -539,7 +539,7 @@ Can be called in order to "decay" to a pointer like a C-Style array
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Many, if not all, of the Operation member functions use <a href="assert.html#_edf_assertd" class="xref page">Assert</a> to ensure the operation will be successful. Remember that the assert condition is only checked in Debug mode.
+Many, if not all, of the Operation member functions use <a href="assert.html#_edf_assertd" class="xref page">EDF_ASSERTD</a> to ensure the operation will be successful. Remember that the assert condition is only checked in Debug mode.
 </td>
 </tr>
 </table>
@@ -556,14 +556,14 @@ For member functions that have an index/position as their first argument, it mea
 </tr>
 </table>
 </div>
-<div class="admonitionblock important">
+<div id="important_size_t" class="admonitionblock important">
 <table>
 <tr>
 <td class="icon">
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-When using overloaded member functions that use either index/position, when using an index of <code>0</code> will attempt to use the position version of the member function. To work around this, use a <a href="https://en.cppreference.com/w/cpp/language/user_literal">user-defined literal</a> to get a std::size_t. Defined in <a href="math.html" class="xref page">Math</a>.
+When using overloaded member functions that use either index/position, when using an index of <code>0</code> will attempt to use the position version of the member function. To work around this, use <code>0_uz</code> instead which is a <a href="https://en.cppreference.com/w/cpp/language/user_literal">user-defined literal</a> to get a std::size_t. See <a href="#important_size_t">[important_size_t]</a> Defined in <a href="math.html" class="xref page">Math</a>.
 </td>
 </tr>
 </table>
@@ -608,7 +608,7 @@ vector.insert( vector.begin(), 0 ); <i class="conum" data-value="2"></i><b>(2)</
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Index usage, for 0, us a <a href="https://en.cppreference.com/w/cpp/language/user_literal">user-defined literal</a> to get a std::size_t. Defined in <a href="math.html" class="xref page">Math</a>.</td>
+<td>Index usage, for 0, us a <a href="https://en.cppreference.com/w/cpp/language/user_literal">user-defined literal</a> to get a std::size_t. See <a href="#important_size_t">[important_size_t]</a> Defined in <a href="math.html" class="xref page">Math</a>.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
@@ -634,11 +634,11 @@ vector.insert( vector.begin(), 2, 0 );  <i class="conum" data-value="2"></i><b>(
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Index usage to insert 2 `0&#8217;s at the beginning of the vector. For an index of 0, use a <a href="https://en.cppreference.com/w/cpp/language/user_literal">user-defined literal</a> to get a std::size_t. Defined in <a href="math.html" class="xref page">Math</a>.</td>
+<td>Index usage to insert 2 `0&#8217;s at the beginning of the vector. For an index of 0, use a <a href="https://en.cppreference.com/w/cpp/language/user_literal">user-defined literal</a> to get a std::size_t. See <a href="#important_size_t">[important_size_t]</a> Defined in <a href="math.html" class="xref page">Math</a>.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Iterator usage. In this particular example, <a href="assert.html#_edf_assertd" class="xref page">Assert</a> will catch the fact that the vector is already full.</td>
+<td>Iterator usage. In this particular example, <a href="assert.html#_edf_assertd" class="xref page">EDF_ASSERTD</a> will catch the fact that the vector is already full.</td>
 </tr>
 </table>
 </div>
@@ -660,7 +660,7 @@ vector.insert( vector.begin(), { 0 } ); <i class="conum" data-value="2"></i><b>(
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Index usage. For an index of 0, use a <a href="https://en.cppreference.com/w/cpp/language/user_literal">user-defined literal</a> to get a std::size_t. Defined in <a href="math.html" class="xref page">Math</a>.</td>
+<td>Index usage. For an index of 0, use a <a href="https://en.cppreference.com/w/cpp/language/user_literal">user-defined literal</a> to get a std::size_t. See <a href="#important_size_t">[important_size_t]</a> Defined in <a href="math.html" class="xref page">Math</a>.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
@@ -696,7 +696,7 @@ vector2.emplace( 1, 2, 2 );     <i class="conum" data-value="2"></i><b>(2)</b></
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Constructs a <code>CustomType</code> at the first index of the vector. For index 0 use a <a href="https://en.cppreference.com/w/cpp/language/user_literal">user-defined literal</a> to get a std::size_t. Defined in <a href="math.html" class="xref page">Math</a>.</td>
+<td>Constructs a <code>CustomType</code> at the first index of the vector. For index 0 use a <a href="https://en.cppreference.com/w/cpp/language/user_literal">user-defined literal</a> to get a std::size_t. See <a href="#important_size_t">[important_size_t]</a> Defined in <a href="math.html" class="xref page">Math</a>.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
