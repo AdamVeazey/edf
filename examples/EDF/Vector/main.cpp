@@ -24,14 +24,14 @@ int main( void ) {
     // end::init[]
 
     // tag::element_access_standard[]
-    vector[0] = 100;
+    vector[0_uz] = 100;
     // end::element_access_standard[]
 
     // tag::element_access_at[]
-    vector.at( 0 ) = 1;
+    vector.at( 0_uz ) = 1;
     // end::element_access_at[]
 
-    vector.insert( std::size_t(0), { 0 } );
+    vector.insert( 0_uz, { 0 } );
     std::cout << "After inserting 0 at slot 0" << '\n';
     print(vector);
 
