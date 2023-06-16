@@ -335,7 +335,7 @@ private:
 public:
     CustomType( int x, int y = 0 ) : x(x), y(y) {}
     // ...
-}
+};
 
 EDF::Vector&lt;CustomType, 3&gt; vector = {
     CustomType(1, 1),
@@ -453,7 +453,7 @@ static constexpr int someArray[vector.maxSize()]; <i class="conum" data-value="1
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 8&gt; vector = { 10, 2, 3, 4, 5, 6 };    
-vector[0] = 100;</code></pre>
+vector[0_uz] = 100;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -481,7 +481,7 @@ This also means that there is no boundary checking, so it is possible to attempt
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 8&gt; vector = { 10, 2, 3, 4, 5, 6 };    
-vector.at( 0 ) = 1;</code></pre>
+vector.at( 0_uz ) = 1;</code></pre>
 </div>
 </div>
 <hr>
@@ -556,6 +556,18 @@ For member functions that have an index/position as their first argument, it mea
 </tr>
 </table>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+When using overloaded member functions that use either index/position, when using an index of <code>0</code> will attempt to use the position version of the member function. To work around this, use a <a href="https://en.cppreference.com/w/cpp/language/user_literal">user-defined literal</a> to get a std::size_t. Defined in <a href="math.html" class="xref page">Math</a>.
+</td>
+</tr>
+</table>
+</div>
 <div class="sect2">
 <h3 id="_clear"><a class="anchor" href="#_clear"></a>clear()</h3>
 <div class="paragraph">
@@ -588,7 +600,7 @@ std::size_t numberOfElementsInVector = vector.length(); <i class="conum" data-va
 <div class="title">Example</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 8&gt; vector = { 10, 2, 3, 4, 5, 6 };    
-vector.insert( std::size_t(0), 0 ); <i class="conum" data-value="1"></i><b>(1)</b>
+vector.insert( 0_uz, 0 );           <i class="conum" data-value="1"></i><b>(1)</b>
 vector.insert( vector.begin(), 0 ); <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
@@ -596,7 +608,7 @@ vector.insert( vector.begin(), 0 ); <i class="conum" data-value="2"></i><b>(2)</
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Index usage</td>
+<td>Index usage, for 0, us a <a href="https://en.cppreference.com/w/cpp/language/user_literal">user-defined literal</a> to get a std::size_t. Defined in <a href="math.html" class="xref page">Math</a>.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
@@ -614,15 +626,15 @@ vector.insert( vector.begin(), 0 ); <i class="conum" data-value="2"></i><b>(2)</
 <div class="title">Example</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 8&gt; vector = { 10, 2, 3, 4, 5, 6 };    
-vector.insert( std::size_t(0), 2, 0 ); <i class="conum" data-value="1"></i><b>(1)</b>
-vector.insert( vector.begin(), 2, 0 ); <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+vector.insert( 0_uz, 2, 0 );            <i class="conum" data-value="1"></i><b>(1)</b>
+vector.insert( vector.begin(), 2, 0 );  <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Index usage to insert 2 `0&#8217;s at the beginning of the vector</td>
+<td>Index usage to insert 2 `0&#8217;s at the beginning of the vector. For an index of 0, use a <a href="https://en.cppreference.com/w/cpp/language/user_literal">user-defined literal</a> to get a std::size_t. Defined in <a href="math.html" class="xref page">Math</a>.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
@@ -640,7 +652,7 @@ vector.insert( vector.begin(), 2, 0 ); <i class="conum" data-value="2"></i><b>(2
 <div class="title">Example</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 8&gt; vector = { 10, 2, 3, 4, 5, 6 };    
-vector.insert( std::size_t(0), { 0 } ); <i class="conum" data-value="1"></i><b>(1)</b>
+vector.insert( 0_uz, { 0 } );           <i class="conum" data-value="1"></i><b>(1)</b>
 vector.insert( vector.begin(), { 0 } ); <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
@@ -648,7 +660,7 @@ vector.insert( vector.begin(), { 0 } ); <i class="conum" data-value="2"></i><b>(
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Index usage</td>
+<td>Index usage. For an index of 0, use a <a href="https://en.cppreference.com/w/cpp/language/user_literal">user-defined literal</a> to get a std::size_t. Defined in <a href="math.html" class="xref page">Math</a>.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
@@ -662,6 +674,35 @@ vector.insert( vector.begin(), { 0 } ); <i class="conum" data-value="2"></i><b>(
 <h3 id="_emplace_indexposition_args"><a class="anchor" href="#_emplace_indexposition_args"></a>emplace( index/position, args&#8230;&#8203; )</h3>
 <div class="paragraph">
 <p>Overwrites an element by using <a href="https://en.cppreference.com/w/cpp/language/new#Placement_new">placement new</a> and <code>args&#8230;&#8203;</code> to construct the an element in place.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">class CustomType {
+private:
+    int x;
+    int y;
+public:
+    CustomType( int x = 0, int y = 0 ) : x(x), y(y) {}
+    // ...
+};
+
+EDF::Vector&lt;CustomType, 3&gt; vector2;
+vector2.emplace( 0_uz, 1, 1 );  <i class="conum" data-value="1"></i><b>(1)</b>
+vector2.emplace( 1, 2, 2 );     <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Constructs a <code>CustomType</code> at the first index of the vector. For index 0 use a <a href="https://en.cppreference.com/w/cpp/language/user_literal">user-defined literal</a> to get a std::size_t. Defined in <a href="math.html" class="xref page">Math</a>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Constructs a <code>CustomType</code> at the second index of the vector</td>
+</tr>
+</table>
 </div>
 <hr>
 </div>
