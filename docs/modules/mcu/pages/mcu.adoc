@@ -1,6 +1,6 @@
 = MCU
 
-include::ROOT:partials$ref.adoc[]
+include::ROOT:partial$refs.adoc[]
 
 .Dependencies
 - {ref_edf}
