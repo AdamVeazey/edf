@@ -6,6 +6,8 @@ include::partial$refs.adoc[]
 `T` = (T)ype +
 `N` = Maximum (N)umber of elements the vector can hold
 
+NOTE: `T` _Needs_ to be copyable. and _helps_ if `T` is also default constructable.
+
 == Overview
 Vector is a template that uses an {ref_edf_array} plus a current size variable to act like a std::vector, but does not grow if there is no more room in the underlying {ref_edf_array}. `N` specifies the maximum number of elements the vector can "grow" to.
 
@@ -17,13 +19,33 @@ There are 5 groups of member functions:
 . <<Operations>>
 . <<Iterators>>
 
-NOTE: `T` _Needs_ to be copyable. and _helps_ if `T` is also default constructable.
-
 == Initialization
 Default initialization requires type `T` to be default constructable. Otherwise https://en.cppreference.com/w/cpp/language/list_initialization[List-initialization] is required.
 
-// TODO: Add examples based on whatever exists in examples/EDF/Vector/main.cpp
-// TODO: Or maybe just "hardcode" the examples in this document instead
+.Example: Default Constructable
+[source,c++]
+----
+EDF::Vector<int, 30> vector;
+----
+
+.Example: https://en.cppreference.com/w/cpp/language/list_initialization[List-initialization] with a custom type
+[source,c++]
+----
+class CustomType { 
+private:
+    int x;
+    int y;
+public:
+    CustomType( int x = 0, int y = 0 ) : x(x), y(y) {}
+    // ...
+}
+
+EDF::Vector<CustomType, 3> vector = { 
+    CustomType(1, 1), 
+    CustomType(2, 2), 
+    CustomType(3, 3) 
+};
+----
 
 == Is Questions
 These member functions provide yes/no answers to the current state of the vector.
@@ -57,12 +79,29 @@ Provides information about how many current elements are in the vector, as well 
 === length()
 Returns the number of elements currently in the vector. 
 
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_vector_main_cpp}[tag=init]
+std::size_t numberOfElementsInVector = vector.length(); // <1>
+----
+<1> The value of `numberOfElementsInVector` is 6. As opposed to <<maxLength>> which returns 8.
+
 NOTE: The name `length()` is used instead of `size()` or `count()` for consistency across all xref:edf.adoc#_stl_like_containers[EDF containers] and {ref_edf_string}
 
 ---
 
+[#maxLength]
 === maxLength()
 Returns template parameter N. It acts the same as a compile time constant. No need to remember how a macro for a vector max number of elements is named.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_vector_main_cpp}[tag=init]
+static constexpr int someArray[vector.maxSize()]; // <1>
+----
+<1> someArray will be able to hold 8 elements, since vector.maxSize() is 8
 
 == Element Access
 
@@ -103,32 +142,74 @@ Return the last element of the vector (<<length>> - 1). Calls <<at>>
 === data()
 Returns a raw pointer to the first element of the vector.
 
+.Example
+[source,c++]
+----
+void working_with_a_c_library_function( int *data, size_t n ) { /* ... */}
+
+include::{path_example_edf_vector_main_cpp}[tag=init]
+working_with_a_c_library_function( vector.data(), vector.length() );
+----
+
+NOTE: Can be called in order to "decay" to a pointer like a C-Style array
+
 == Operations
-NOTE: Many, if not all, of the Operation member functions use multiple {ref_edf_assert_EDF_ASSERTD} to ensure the operation will be successful. Remember that the assert condition is only checked in Debug mode.  
+NOTE: Many, if not all, of the Operation member functions use {ref_edf_assert_EDF_ASSERTD} to ensure the operation will be successful. Remember that the assert condition is only checked in Debug mode.
 
 NOTE: For member functions that have an index/position as their first argument, it means that overloads exist to use an index (std::size_t) or an iterator.
 
 === clear()
 Calls destructor for each element in vector. Sets number of elements to 0.
 
-// TODO: Add example(s)
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_vector_main_cpp}[tag=init]
+vector.clear();
+std::size_t numberOfElementsInVector = vector.length(); // <1>
+----
+<1> `numberOfElementsInVector` value is 0. ~int() called for each element that _was_ in the vector.
 
 ---
 
 === insert( index/position, value )
 Inserts `value` at the specified `index` or `position`.  
 
-// TODO: Add example(s)
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_vector_main_cpp}[tag=init]
+vector.insert( std::size_t(0), 0 ); // <1>
+vector.insert( vector.begin(), 0 ); // <2>
+----
+<1> Index usage
+<2> Iterator usage
 
 === insert( index/position, count, value )
 Inserts `value` for `count` number of times starting at the specified `index` or `position`. 
 
-// TODO: Add example(s)
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_vector_main_cpp}[tag=init]
+vector.insert( std::size_t(0), 2, 0 ); // <1>
+vector.insert( vector.begin(), 2, 0 ); // <2>
+----
+<1> Index usage to insert 2 `0`'s at the beginning of the vector
+<2> Iterator usage. In this particular example, {ref_edf_assert_EDF_ASSERTD} will catch the fact that the vector is already full. 
 
 === insert( index/position, { values... } )
 Inserts the list of `values...` provided starting at the specified `index` or `position`. 
 
-// TODO: Add example(s)
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_vector_main_cpp}[tag=init]
+vector.insert( std::size_t(0), { 0 } ); // <1>
+vector.insert( vector.begin(), { 0 } ); // <2>
+----
+<1> Index usage
+<2> Iterator usage
 
 ---
 
