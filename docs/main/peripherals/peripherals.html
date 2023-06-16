@@ -63,16 +63,52 @@
     <a class="nav-link" href="../edf.html">EDF</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">STL-Like Containers</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../array.html">Array</a>
   </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../vector.html">Vector</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../stack.html">Stack</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../queue.html">Queue</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../heap.html">Heap</a>
+  </li>
+</ul>
+  </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Miscellaneous</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../assert.html">Assert</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#stack.adoc">Stack</a>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../string.html">String</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../vector.html">Vector</a>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../version.html">Version</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../math.html">Math</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../bit_field.html">BitField</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../color.html">Color</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../unix_timestamp.html">UnixTimestamp</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -113,6 +149,74 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="rtc.html">RTC</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../drivers/drivers.html">Drivers</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../drivers/rgb_led.html">RGB LED</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../drivers/soft_timer.html">SoftTimer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Memory</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <span class="nav-text">EEPROM</span>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <span class="nav-text">Flash</span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">ADC</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">IMU</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">IOExpander</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">Sensors</span>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../mcu/mcu.html">MCU</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">ST</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">Nordic</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">Espressif</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">NXP</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">TI</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">AVR</span>
   </li>
 </ul>
   </li>
@@ -173,7 +277,7 @@
 <h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This contains base classes for common peripherals used by <a href="#drivers:drivers.adoc" class="xref unresolved">Drivers</a>. None of these files contain platform specific information within them. They do provide the interfaces you need in order to write a portable driver.</p>
+<p>This contains base classes for common peripherals used by <a href="../drivers/drivers.html" class="xref page">Drivers</a>. None of these files contain platform specific information within them. They do provide the interfaces you need in order to write a portable driver.</p>
 </div>
 <div class="paragraph">
 <p>Each implementation of a peripheral for a specific micro controller should define two classes. The first is a FooFast and a Foo version of the same class, where Foo is the name of the peripheral. That way you can write a driver using the generic Foo in this collection. If the overhead of a vtable is actually the bottleneck for performance, you can easily switch to use FooFast instead.</p>
@@ -219,7 +323,7 @@ public:
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>real implementation of member function EDF::Foo requires</td>
+<td>real implementation of member function <code>EDF::Foo</code> requires</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>

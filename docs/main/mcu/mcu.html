@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>RTC :: EDF</title>
-    <link rel="canonical" href="https://adamveazey.github.io/edf/docs/main/docs/main/peripherals/rtc.html">
+    <title>MCU :: EDF</title>
+    <link rel="canonical" href="https://adamveazey.github.io/edf/docs/main/docs/main/mcu/mcu.html">
     <meta name="generator" content="Antora 3.1.4">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script>var uiRootPath = '../../../_'</script>
@@ -118,37 +118,37 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="peripherals.html">Peripherals</a>
+    <a class="nav-link" href="../peripherals/peripherals.html">Peripherals</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="gpio.html">GPIO</a>
+    <a class="nav-link" href="../peripherals/gpio.html">GPIO</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="spi.html">SPI</a>
+    <a class="nav-link" href="../peripherals/spi.html">SPI</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="i2c.html">I2C</a>
+    <a class="nav-link" href="../peripherals/i2c.html">I2C</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="uart.html">UART</a>
+    <a class="nav-link" href="../peripherals/uart.html">UART</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="pwm.html">PWM</a>
+    <a class="nav-link" href="../peripherals/pwm.html">PWM</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="timer.html">Timer</a>
+    <a class="nav-link" href="../peripherals/timer.html">Timer</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="adc.html">ADC</a>
+    <a class="nav-link" href="../peripherals/adc.html">ADC</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dac.html">DAC</a>
+    <a class="nav-link" href="../peripherals/dac.html">DAC</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="wdt.html">WDT</a>
+    <a class="nav-link" href="../peripherals/wdt.html">WDT</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="rtc.html">RTC</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../peripherals/rtc.html">RTC</a>
   </li>
 </ul>
   </li>
@@ -196,9 +196,9 @@
   </li>
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../mcu/mcu.html">MCU</a>
+    <a class="nav-link" href="mcu.html">MCU</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <span class="nav-text">ST</span>
@@ -250,19 +250,170 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">EDF</a></li>
-    <li><a href="peripherals.html">Peripherals</a></li>
-    <li><a href="rtc.html">RTC</a></li>
+    <li><a href="mcu.html">MCU</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/AdamVeazey/edf/edit/main/docs/modules/peripherals/pages/rtc.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/AdamVeazey/edf/edit/main/docs/modules/mcu/pages/mcu.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">RTC</h1>
+<h1 class="page">MCU</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Unresolved include directive in modules/mcu/pages/mcu.adoc - include::ROOT:partials$ref.adoc[]</p>
+</div>
+<div class="ulist">
+<div class="title">Dependencies</div>
+<ul>
+<li>
+<p>{ref_edf}</p>
+</li>
+<li>
+<p>{ref_peripherals}</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This contains peripheral implementations for specific MCUs. Also may provide more MCU specific code that is project independent. EX: BLE central/peripheral related code, MQTT, WiFi, etc&#8230;&#8203; Things that can be reused if another project uses the same MCU, but stuff that&#8217;s too different between MCUs to really be turned into something completely generic that&#8217;s still useful.</p>
+</div>
+<div class="paragraph">
+<p>The following is a list of files that might be provided under a specific MCU.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>GPIO implementation (GPIOFast + GPIO)</p>
+</li>
+<li>
+<p>PWM implementation (PWMFast + PWM)</p>
+</li>
+<li>
+<p>I2C implementation (I2CFast + I2C)</p>
+</li>
+<li>
+<p>BLE central</p>
+</li>
+<li>
+<p>BLE peripheral</p>
+</li>
+<li>
+<p>MQTT client</p>
+</li>
+<li>
+<p>WiFi STA</p>
+</li>
+<li>
+<p>WiFi AP</p>
+</li>
+</ul>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>NOTE</strong></p>
+</div>
+<div class="paragraph">
+<p>"Fast" versions are the real implementation, but without directly deriving from the generic peripheral type. This is to allow you to avoid the vtable penalty if the difference legitimately matters.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Peripherals::I2C           EDF::MCU::LPC845::I2CFast
+         |_________________________________|
+                          |
+                 EDF::MCU::LPC845::I2C</code></pre>
+</div>
+</div>
+<hr>
+<div class="listingblock">
+<div class="title">Example: GPIO - EDF/Peripherals/GPIO.hpp</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">class GPIO{
+public:
+    virtual void set( bool high ) = 0;
+    inline void setHigh() { set( true ); }
+    inline void setLow()  { set( false ); }
+    // ...
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Example: GPIO</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">#include &lt;EDF/Peripherals/GPIO.hpp&gt;
 
+class GPIOFast {
+private:
+    GPIO_TypeDef* port;
+    uint32_t pin;
+public:
+    GPIOFast( uint32_t port, uint32_t pin ) : port(port), pin(pin) {}
+    ~GPIOFast() = default;
+
+    inline constexpr void set( bool high ) const {
+        HAL_GPIO_WritePin( port, pin, static_cast&lt;GPIO_PinState&gt;(high) );
+    }
+    inline constexpr void setHigh() const { set( true ); }
+    inline constexpr void setLow() const { set( false ); }
+    // ...
+}
+
+class GPIO : public GPIOFast, public Peripherals::GPIO {
+private:
+public:
+    GPIO( GPIO_TypeDef* port, uint32_t pin ) : GPIOFast(port, pin) {}
+    virtual ~GPIO() = default;
+
+    void set( bool high ) override { GPIOFast::set(high); }
+    // ... <i class="conum" data-value="1"></i><b>(1)</b>
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Add other definitions of pure virtual functions from Peripherals::GPIO.</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Example Usage</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">#include &lt;EDF/MCU/ST/STM32xxx/GPIO.hpp&gt;
+
+class LED {
+private:
+    EDF::MCU::GPIO pin;             <i class="conum" data-value="1"></i><b>(1)</b>
+    // EDF::MCU::GPIOFast pin;      <i class="conum" data-value="2"></i><b>(2)</b>
+public:
+    LED( GPIO_TypeDef* port, uint32_t pin ) : pin(port, pin) {}
+    inline constexpr void turnOn() const { pin.setLow(); }
+    inline constexpr void turnOff() const { pin.setHigh(); }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>This version has a vtable</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>This version does not have a vtable</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
 </article>
   </div>
 </main>
