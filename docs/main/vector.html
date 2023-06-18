@@ -311,6 +311,18 @@
 </li>
 </ol>
 </div>
+<div id="important_size_t" class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+When using overloaded member functions that use either index/position, when using an index of <code>0</code> will attempt to use the position version of the member function. To work around this, use <code>0_uz</code> instead which is a <a href="https://en.cppreference.com/w/cpp/language/user_literal">user-defined literal</a> to get a std::size_t. See <a href="#important_size_t">IMPORTANT std::size_t</a>. Defined in <a href="math.html" class="xref page">Math</a>.
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -369,13 +381,13 @@ vs<br>
 <div class="sect2">
 <h3 id="_isfull"><a class="anchor" href="#_isfull"></a>isFull()</h3>
 <div class="paragraph">
-<p>Since a vector doesn&#8217;t grow, you have to check if it is full before adding an element. If the vector is full this function return true. Otherwise it returns false.</p>
+<p>Since a vector doesn&#8217;t grow, you should check if it is full before adding an element. If the vector is full this function return true. Otherwise it returns false.</p>
 </div>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">if( !myVector.isFull() ){           // if myVector is not full
-    myVector.pushBack( value );     // push back value to myVector
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">if( !myVector.isFull() ){
+    myVector.pushBack( value );
 }</code></pre>
 </div>
 </div>
@@ -396,7 +408,7 @@ vs<br>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 8&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
 std::size_t numberOfElementsInVector = vector.length(); <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
 </div>
@@ -404,7 +416,7 @@ std::size_t numberOfElementsInVector = vector.length(); <i class="conum" data-va
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The value of <code>numberOfElementsInVector</code> is 6. As opposed to <a href="#maxLength">maxLength()</a> which returns 8.</td>
+<td>The value of <code>numberOfElementsInVector</code> is 6. As opposed to <a href="#maxLength">maxLength()</a> which returns 16.</td>
 </tr>
 </table>
 </div>
@@ -430,7 +442,7 @@ The name <code>length()</code> is used instead of <code>size()</code> or <code>c
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 8&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
 static constexpr int someArray[vector.maxSize()]; <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
 </div>
@@ -438,7 +450,7 @@ static constexpr int someArray[vector.maxSize()]; <i class="conum" data-value="1
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>someArray will be able to hold 8 elements, since vector.maxSize() is 8</td>
+<td>someArray will be able to hold 16 elements, since vector.maxSize() is 16</td>
 </tr>
 </table>
 </div>
@@ -450,14 +462,15 @@ static constexpr int someArray[vector.maxSize()]; <i class="conum" data-value="1
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_operator"><a class="anchor" href="#_operator"></a>operator[]</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 8&gt; vector = { 10, 2, 3, 4, 5, 6 };    
-vector[0_uz] = 100;</code></pre>
-</div>
-</div>
 <div class="paragraph">
 <p>This is exactly the same as with a C-style array.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+vector[0_uz] = 100;</code></pre>
+</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -471,6 +484,18 @@ This also means that there is no boundary checking, so it is possible to attempt
 </tr>
 </table>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+0_uz is a <a href="https://en.cppreference.com/w/cpp/language/user_literal">user-defined literal</a> to get a std::size_t. See <a href="#important_size_t">IMPORTANT std::size_t</a>. Defined in <a href="math.html" class="xref page">Math</a>.
+</td>
+</tr>
+</table>
+</div>
 <hr>
 </div>
 <div class="sect2">
@@ -479,10 +504,23 @@ This also means that there is no boundary checking, so it is possible to attempt
 <p><code>index</code> is checked with <a href="assert.html#_edf_assertd" class="xref page">EDF_ASSERTD</a> to be sure index is valid.</p>
 </div>
 <div class="listingblock">
+<div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 8&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
 vector.at( 0_uz ) = 1;</code></pre>
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+0_uz is a <a href="https://en.cppreference.com/w/cpp/language/user_literal">user-defined literal</a> to get a std::size_t. See <a href="#important_size_t">IMPORTANT std::size_t</a>. Defined in <a href="math.html" class="xref page">Math</a>.
+</td>
+</tr>
+</table>
 </div>
 <hr>
 </div>
@@ -491,12 +529,26 @@ vector.at( 0_uz ) = 1;</code></pre>
 <div class="paragraph">
 <p>Return the first element of the vector. Calls <a href="#at">at( index )</a></p>
 </div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+auto&amp; firstElement = vector.front();</code></pre>
+</div>
+</div>
 <hr>
 </div>
 <div class="sect2">
-<h3 id="_end"><a class="anchor" href="#_end"></a>end()</h3>
+<h3 id="_back"><a class="anchor" href="#_back"></a>back()</h3>
 <div class="paragraph">
 <p>Return the last element of the vector (<a href="#length">length()</a> - 1). Calls <a href="#at">at( index )</a></p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+auto&amp; lastElement = vector.back();</code></pre>
+</div>
 </div>
 <hr>
 </div>
@@ -510,7 +562,7 @@ vector.at( 0_uz ) = 1;</code></pre>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">void working_with_a_c_library_function( int *data, size_t n ) { /* ... */}
 
-EDF::Vector&lt;int, 8&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
 working_with_a_c_library_function( vector.data(), vector.length() );</code></pre>
 </div>
 </div>
@@ -556,18 +608,6 @@ For member functions that have an index/position as their first argument, it mea
 </tr>
 </table>
 </div>
-<div id="important_size_t" class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-When using overloaded member functions that use either index/position, when using an index of <code>0</code> will attempt to use the position version of the member function. To work around this, use <code>0_uz</code> instead which is a <a href="https://en.cppreference.com/w/cpp/language/user_literal">user-defined literal</a> to get a std::size_t. See <a href="#important_size_t">IMPORTANT std::size_t</a>. Defined in <a href="math.html" class="xref page">Math</a>.
-</td>
-</tr>
-</table>
-</div>
 <div class="sect2">
 <h3 id="_clear"><a class="anchor" href="#_clear"></a>clear()</h3>
 <div class="paragraph">
@@ -576,7 +616,7 @@ When using overloaded member functions that use either index/position, when usin
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 8&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
 vector.clear();
 std::size_t numberOfElementsInVector = vector.length(); <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
@@ -599,7 +639,7 @@ std::size_t numberOfElementsInVector = vector.length(); <i class="conum" data-va
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 8&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
 vector.insert( 0_uz, 0 );           <i class="conum" data-value="1"></i><b>(1)</b>
 vector.insert( vector.begin(), 0 ); <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
@@ -625,7 +665,7 @@ vector.insert( vector.begin(), 0 ); <i class="conum" data-value="2"></i><b>(2)</
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 8&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
 vector.insert( 0_uz, 2, 0 );            <i class="conum" data-value="1"></i><b>(1)</b>
 vector.insert( vector.begin(), 2, 0 );  <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
@@ -649,9 +689,9 @@ vector.insert( vector.begin(), 2, 0 );  <i class="conum" data-value="2"></i><b>(
 <p>Inserts the list of <code>values&#8230;&#8203;</code> provided starting at the specified <code>index</code> or <code>position</code>.</p>
 </div>
 <div class="listingblock">
-<div class="title">Example</div>
+<div class="title">Example 1</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 8&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
 vector.insert( 0_uz, { 0 } );           <i class="conum" data-value="1"></i><b>(1)</b>
 vector.insert( vector.begin(), { 0 } ); <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
@@ -667,6 +707,18 @@ vector.insert( vector.begin(), { 0 } ); <i class="conum" data-value="2"></i><b>(
 <td>Iterator usage</td>
 </tr>
 </table>
+</div>
+<div class="listingblock">
+<div class="title">Example 2</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+for( auto it = vector.cbegin(); it != vector.cend(); ++it ) {
+    if( *it == 3 ) {
+        vector.insert( it, {99, 88, 77, 66, 55} );
+        it += 5;
+    }
+}</code></pre>
+</div>
 </div>
 <hr>
 </div>
@@ -711,11 +763,28 @@ vector2.emplace( 1, 2, 2 );     <i class="conum" data-value="2"></i><b>(2)</b></
 <div class="paragraph">
 <p>Erase a single element at the specified <code>index</code> or <code>position</code>. Calls destructor for erased element.</p>
 </div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+vector.erase( vector.length() - 2 ); 
+vector.erase( std::find( vector.cbegin(), vector.cend(), 12345 ) );</code></pre>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_erase_first_last"><a class="anchor" href="#_erase_first_last"></a>erase( first, last )</h3>
 <div class="paragraph">
 <p>Erase a range [<code>first</code>, <code>last</code>) of elements. Includes erasing <code>first</code> up to, but not including, <code>last</code>. Calls destructor for erased elements.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+vector.erase( 2, 4 );    // [2,4) 
+auto seventySeven = std::find(vector.cbegin(), vector.cend(), 77);
+vector.erase( seventySeven, seventySeven + 3 );</code></pre>
+</div>
 </div>
 <hr>
 </div>
@@ -724,6 +793,14 @@ vector2.emplace( 1, 2, 2 );     <i class="conum" data-value="2"></i><b>(2)</b></
 <div class="paragraph">
 <p>Copy <code>value</code> to a new element at the end of the vector.</p>
 </div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+vector.pushBack( 2 + 2 );
+vector.pushBack( 12345 );</code></pre>
+</div>
+</div>
 <hr>
 </div>
 <div class="sect2">
@@ -731,12 +808,26 @@ vector2.emplace( 1, 2, 2 );     <i class="conum" data-value="2"></i><b>(2)</b></
 <div class="paragraph">
 <p>Construct in place a new element at the end of the vector using <code>args&#8230;&#8203;</code>.</p>
 </div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+vector.emplaceBack( 100 );</code></pre>
+</div>
+</div>
 <hr>
 </div>
 <div class="sect2">
 <h3 id="_popback"><a class="anchor" href="#_popback"></a>popBack()</h3>
 <div class="paragraph">
 <p>Remove the last element in a vector and return a copy of it.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+auto copyOfLastElement = vector.popBack();</code></pre>
+</div>
 </div>
 <hr>
 </div>
