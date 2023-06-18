@@ -2,8 +2,6 @@
 
 include::partial$refs.adoc[]
 
-:size_t_literal: https://en.cppreference.com/w/cpp/language/user_literal[user-defined literal] to get a std::size_t. See <<important_size_t,IMPORTANT std::size_t>>. Defined in {ref_edf_math}.
-
 .Template arguments
 `T` = (T)ype +
 `N` = Maximum (N)umber of elements the vector can hold
@@ -22,7 +20,7 @@ There are 5 groups of member functions:
 . <<Iterators>>
 
 [#important_size_t]
-IMPORTANT: When using overloaded member functions that use either index/position, when using an index of `0` will attempt to use the position version of the member function. To work around this, use `0_uz` instead which is a {size_t_literal}
+IMPORTANT: When using overloaded member functions that use either index/position, when using an index of `0` will attempt to use the position version of the member function. To work around this, use {ref_edf_math__uz} for `0`. All other integers will have expected overload resolution.
 
 == Initialization
 Default initialization requires type `T` to be default constructable. Otherwise https://en.cppreference.com/w/cpp/language/list_initialization[List-initialization] is required.
@@ -57,12 +55,15 @@ These member functions provide yes/no answers to the current state of the vector
 
 === isEmpty()
 Equivalent to `<<length>> == 0` +
-Provided to make a common conditional check slightly more readable.
+Provided to make a common conditional check slightly more readable, as well as consistency with other xref:edf.adoc#_stl_like_containers[EDF containers].
 
 .Example
-`if( myVector.isEmpty() )` +
-vs +
-`if( myVector.length() == 0 )`
+[source,c++]
+----
+if( myVector.isEmpty() ) { /* ... */}
+// vs. 
+if( myVector.length() == 0 ) { /* ... */ }
+----
 
 ---
 
@@ -122,7 +123,7 @@ include::{path_example_edf_vector_main_cpp}[tag=element_access_standard]
 
 NOTE: This also means that there is no boundary checking, so it is possible to attempt to access data outside of the vector. 
 
-NOTE: 0_uz is a {size_t_literal}
+NOTE: 0{ref_edf_math__uz}
 
 ---
 
@@ -137,7 +138,7 @@ include::{path_example_edf_vector_main_cpp}[tag=init]
 include::{path_example_edf_vector_main_cpp}[tag=element_access_at]
 ----
 
-NOTE: 0_uz is a {size_t_literal}
+NOTE: 0{ref_edf_math__uz}
 
 ---
 
@@ -208,7 +209,7 @@ include::{path_example_edf_vector_main_cpp}[tag=init]
     vector.insert( 0_uz, 0 );           // <1>
     vector.insert( vector.begin(), 0 ); // <2>
 ----
-<1> Index usage, for 0, us a {size_t_literal}
+<1> Index usage NOTE: 0{ref_edf_math__uz}
 <2> Iterator usage
 
 === insert( index/position, count, value )
@@ -221,7 +222,7 @@ include::{path_example_edf_vector_main_cpp}[tag=init]
     vector.insert( 0_uz, 2, 0 );            // <1>
     vector.insert( vector.begin(), 2, 0 );  // <2>
 ----
-<1> Index usage to insert 2 `0`'s at the beginning of the vector. For an index of 0, use a {size_t_literal}
+<1> Index usage to insert 2 `0`'s at the beginning of the vector. NOTE: 0{ref_edf_math__uz}
 <2> Iterator usage. In this particular example, {ref_edf_assert_EDF_ASSERTD} will catch the fact that the vector is already full. 
 
 === insert( index/position, { values... } )
@@ -234,7 +235,7 @@ include::{path_example_edf_vector_main_cpp}[tag=init]
     vector.insert( 0_uz, { 0 } );           // <1>
     vector.insert( vector.begin(), { 0 } ); // <2>
 ----
-<1> Index usage. For an index of 0, use a {size_t_literal}
+<1> Index usage NOTE: 0{ref_edf_math__uz}
 <2> Iterator usage
 
 .Example 2
@@ -265,7 +266,7 @@ EDF::Vector<CustomType, 3> vector2;
 vector2.emplace( 0_uz, 1, 1 );  // <1>
 vector2.emplace( 1, 2, 2 );     // <2>
 ----
-<1> Constructs a `CustomType` at the first index of the vector. For index 0 use a {size_t_literal}
+<1> Constructs a `CustomType` at the first index of the vector. NOTE: 0{ref_edf_math__uz}
 <2> Constructs a `CustomType` at the second index of the vector
 
 ---

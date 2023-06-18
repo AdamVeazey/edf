@@ -12,7 +12,7 @@ Math is a collection of common math performed in embedded applications.
 //             add temptation to create more user-defined literals.
 
 // tag::function_list[]
-* xref:ROOT:math.adoc#uz[_uz]
+* {ref_edf_math__uz}
 * xref:ROOT:math.adoc#n_elements[nElements<T,N>]
 * xref:ROOT:math.adoc#is_pow_2[isPow2]
 * xref:ROOT:math.adoc#min[min<T>]
@@ -25,7 +25,7 @@ Math is a collection of common math performed in embedded applications.
 
 [#uz]
 == _uz
-This is a user defined literal. The intended purpose of this is to be able to create an integer literal of type `std::size_t`. 
+This is a https://en.cppreference.com/w/cpp/language/user_literal[user-defined literal]. The intended purpose of this is to be able to create an integer literal of type `std::size_t`. 
 
 .Signature
 [source,c++]
