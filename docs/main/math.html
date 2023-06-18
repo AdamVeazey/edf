@@ -331,7 +331,7 @@ function( 123_uz );</code></pre>
 <div class="sectionbody">
 <div class="paragraph">
 <div class="title">Template parameters</div>
-<p><code>T</code> = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.
+<p><code>T</code> = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.<br>
 <code>N</code> = Deduced (N)umber of elements in array. Optionally can be explicitly specified. However, if explicit, using this function is pointless.</p>
 </div>
 <div class="paragraph">
@@ -401,56 +401,7 @@ ARRAY_SIZE( decayedArray ); <i class="conum" data-value="5"></i><b>(5)</b></code
 <div class="listingblock">
 <div class="title">Implementation Explanation</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">inline constexpr bool isPow2( std::size_t v ) { return !(v&amp;(v-1)); }
-// end:;is_pow_2[]
-
-template&lt;typename T&gt; 
-inline constexpr const T&amp; min( const T&amp; lhs, const T&amp; rhs ) { 
-    return (lhs &lt; rhs) ? lhs : rhs; 
-}
-
-template&lt;typename T&gt; 
-inline constexpr const T&amp; max( const T&amp; lhs, const T&amp; rhs ) { 
-    return (lhs &gt; rhs) ? lhs : rhs; 
-}
-
-template&lt;std::size_t R1, std::size_t R2, typename T&gt;
-inline constexpr T voltageDividerCalcVout( const T&amp; Vin ){
-    const auto Vout = (Vin * static_cast&lt;T&gt;(R2)) / static_cast&lt;T&gt;(R1 + R2);
-    if constexpr( std::is_floating_point_v&lt;T&gt; ) {
-        return std::round( Vout );
-    }
-    return Vout;
-}
-
-template&lt;std::size_t R1, std::size_t R2, typename T&gt;
-inline constexpr T voltageDividerCalcVin( const T&amp; Vout ){
-    const auto Vin = (Vout * (R1 + R2)) / R2;
-    if constexpr( std::is_floating_point_v&lt;T&gt; ) {
-        return std::round( Vin );
-    }
-    return Vin;
-}
-
-template&lt;typename T&gt;
-inline constexpr T temperatureCtoF( const T&amp; temp_C ) {
-    const auto f = ((temp_C * 9) / (5)) + 32;
-    if constexpr( std::is_floating_point_v&lt;T&gt; ){
-        return std::round(f);
-    }
-    return f;
-}
-
-template&lt;typename T&gt;
-inline constexpr T temperatureFtoC( const T&amp; temp_F ) {
-    const auto c = ((temp_F - 32) * 5) / 9;
-    if constexpr( std::is_floating_point_v&lt;T&gt; ) {
-        return std::round(c);
-    }
-    return c;
-}
-
-} /* EDF */</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">inline constexpr bool isPow2( std::size_t v ) { return !(v&amp;(v-1)); }</code></pre>
 </div>
 </div>
 <div class="paragraph">
