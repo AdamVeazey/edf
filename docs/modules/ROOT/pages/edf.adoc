@@ -21,12 +21,7 @@ The files here are written to be completely platform independent that are useful
 . {ref_edf_string} - Strings that can "grow" up to a maximum size
 . {ref_edf_version} - String to semantic version for easy comparisons
 . {ref_edf_math} - A collection of MISC common math functions
-.. isPow2
-.. min
-.. max
-.. voltageDividerCalcVin
-.. voltageDividerCalcVout
-.. nElements
+include::math.adoc#function_list[]
 . {ref_edf_bit_field} - Name one or more specific bits within an unsigned integer
 . {ref_edf_color} - RGBA colors
 . {ref_edf_unix_timestamp} - wrapper for <ctime>

@@ -1,3 +1,241 @@
 = Math
 
 include::ROOT:partial$refs.adoc[]
+
+== Overview
+Math is a collection of common math performed in embedded applications. 
+
+// TODO: _uz and nElements are sort of just MISC functions I couldn't think of a better 'home' for
+//       nElements could be argued to belong in Math, _uz less so. Maybe a single file just called
+//       literals or something similar if there ever needs to be another user defined literal. 
+//       NOTE: Debating on if a file for a single user-defined literal is a good idea, as it might
+//             add temptation to create more user-defined literals.
+
+[#function_list]
+--
+* <<uz>>
+* <<nElements>>
+* <<isPow2>>
+* <<min>>
+* <<max>>
+* <<voltageDividerCalcVout>>
+* <<voltageDividerCalcVin>>
+* <<temperatureCtoF>>
+* <<temperatureFtoC>>
+--
+
+[#uz]
+== _uz
+This is a user defined literal. The intended purpose of this is to be able to create an integer literal of type `std::size_t`. 
+
+.Examples
+[source,c++]
+----
+for( auto k = 0_uz; k < 100_uz; ++k ) { /* ... */} // <1>
+
+void function( std::size_t value ) { /* ... */ }
+function( 123_uz );
+----
+<1> The type of `k` is std::size_t
+
+== nElements<T, N>
+.Template parameters
+`T` = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.
+`N` = Deduced (N)umber of elements in array. Optionally can be explicitly specified. However, if explicit, using this function is pointless.
+
+.Description
+Returns the number of elements in a C-style array. Has a few benefits over the typical "C way" of getting this value.
+
+1. Safer than the classic `sizeof(x)/sizeof(x[0])` which is usually defined as a macro. This is because nElements does not accept a pointer if the array has decayed to a pointer.
+2. No need to remember the name of a macro of an array size. Usually the naming convention of this is not consistent. EX: `MAX_ARRAY` vs `ARRAY_MAX` vs `ARRAY_N` vs `NARRAY` vs `N_ARRAY` etc...
+3. If there is no macro for the array size, you still can get a compile time constant value for the number of elements in that array using <<nElements>>.
+
+.Example usage and comparison to `sizeof(x)/sizeof(x[0])`
+[source,c++]
+----
+#define ARRAY_SIZE(arr) (sizeof(arr)/sizeof(arr[0]))
+
+int array[50];
+int* decayedArray = array;  // <1>
+
+nElements( array );         // <2>
+nElements( decayedArray );  // <3>
+
+ARRAY_SIZE( array );        // <4>
+ARRAY_SIZE( decayedArray ); // <5>
+----
+<1> `array` has decayed into a pointer `decayedArray`
+<2> Compiles and returns `50`
+<3> Does not compile. Error because decayedArray is not an array, it is a pointer
+<4> Compiles and return `50`
+<5> Compiles and returns `sizeof(int*) / sizeof(int)`. If `sizeof(int*) == 8` and `sizeof(int) == 4`, then value is `2` not `50`. If `sizeof(int*) == 4` and `sizeof(int) == 4`, then value is `1` not `50`.
+
+== isPow2
+Returns `true` if a number is a power of 2. Result can be a compile time constant if argument is known at compile time. 
+
+.Implementation Explanation
+[source,c++]
+----
+include::{path_src_edf_math_hpp}[tag=is_pow_2]
+----
+
+The concept to understand is that in any given integer, a power of 2 will always have a single bit as a '1' with the rest of the bits being `0`. So how can we use math to find out if a value has only a single bit set to `1`?
+
+Let's first make an assumption that the value is a power of 2, and we'll try to disprove that as we go along. If you are given a power of 2 and subtract 1 from it, you end up with the bit that was originally the only `1` is now set to a `0` and all of the bits to the "right" of the original `1` that used to be all ``0``'s are now all ``1``'s. 
+
+. `v-1`
+
+Then we can use that computed value and `&` it with the original value. If the original value was indeed a power of 2, then the result is `0`.
+
+[start=2]
+. `v&(v-1)`
+
+If the result is a 0, we know it _is_ a power of 2. Simply `!` the result to turn it into `true`
+
+[start=3]
+. `!(v&(v-1))`
+
+.`isPow2( 4 )` (returns `true`)
+[cols="1,1,1"]
+|=== 
+^|Expression
+^|Base 10 (decimal)
+^|Base 2 (binary)
+
+|v
+|4
+|100
+
+|v-1
+|3
+|011
+
+|v&(v-1)
+|0
+|000
+
+|!(v&(v-1))
+|1
+|001 (aka `true`)
+
+|===
+
+.`isPow2( 5 )` (returns `false`)
+[cols="1,1,1"]
+|=== 
+^|Expression
+^|Base 10 (decimal)
+^|Base 2 (binary)
+
+|v
+|5
+|101
+
+|v-1
+|4
+|100
+
+|v&(v-1)
+|4
+|100
+
+|!(v&(v-1))
+|0
+|000 (aka `false`)
+
+|===
+
+== min<T>
+.Template parameter
+`T` = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.
+
+.Description
+Returns smallest of two values.
+
+.Example
+`min( 0, 1 ); // returns 0`
+
+== max<T>
+.Template parameter
+`T` = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.
+
+.Description
+Returns largest of two values.
+
+.Example
+`max( 0, 1 ); // returns 1`
+
+== voltageDividerCalcVout<R1, R2, T>
+.Template parameters
+`R1` = (R1)esistance value. EX: 10k ohm == 10000 +
+`R2` = (R2)esistance value. EX: 5k ohm = 5000 +
+`T` = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.
+
+.Description
+`Vout = (Vin * R2) / (R1 + R2)`
+
+image::VoltageDivider.svg[]
+
+Provide resistor values `R1` and `R2` as template arguments. Pass in `Vin` as function argument.
+
+.Examples
+[source,c++]
+----
+voltageDividerCalcVout<10000,10000>( 12.0f );   // returns 6.0f
+voltageDividerCalcVout<10000,5000>( 12 );       // returns 4     
+voltageDividerCalcVout<5000,10000>( 12000 );    // returns 8000
+----
+
+
+== voltageDividerCalcVin
+.Template parameters
+`R1` = (R1)esistance value. EX: 10k ohm == 10000 +
+`R2` = (R2)esistance value. EX: 5k ohm = 5000 +
+`T` = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.
+
+.Description
+`Vin = ((R1 + R2) * Vout) / R2`
+
+image::VoltageDivider.svg[]
+
+Provide resistor values `R1` and `R2` as template arguments. Pass in `Vout` as function argument.
+
+.Examples
+[source,c++]
+----
+voltageDividerCalcVin<10000,10000>( 6.0f );   // returns 12.0f
+voltageDividerCalcVin<10000,5000>( 4 );       // returns 12
+voltageDividerCalcVin<5000,10000>( 8000 );    // returns 12000
+----
+
+== temperatureCtoF<T>
+.Template parameter
+`T` = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.
+
+.Description
+Convert a temperature value from Celsius to Fahrenheit. 
+
+.Examples
+[source,c++]
+----
+temperatureCtoF( 50.0f );   // returns 122.0f
+temperatureCtoF( 0 );       // returns 32
+temperatureCtoF( -40 );     // returns -40
+temperatureCtoF( 100.0 );   // returns 212.0
+----
+
+== temperatureFtoC<T>
+.Template parameter
+`T` = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.
+
+.Description
+Convert a temperature value from Fahrenheit to Celsius
+
+.Examples
+[source,c++]
+----
+temperatureFtoC( 122.0f );  // returns 50.0f
+temperatureFtoC( 32 );      // returns 0
+temperatureFtoC( -40 );     // returns -40
+temperatureFtoC( 212.0 );   // returns 100.0
+----
