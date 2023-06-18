@@ -5,15 +5,13 @@ include::ROOT:partial$refs.adoc[]
 == Overview
 Math is a collection of common math performed in embedded applications. 
 
-// TODO: _uz and nElements are sort of just MISC functions I couldn't think of a better 'home' for
-//       nElements could be argued to belong in Math, _uz less so. Maybe a single file just called
-//       literals or something similar if there ever needs to be another user defined literal. 
-//       NOTE: Debating on if a file for a single user-defined literal is a good idea, as it might
-//             add temptation to create more user-defined literals.
+NOTE: {ref_edf_math__uz} and {ref_edf_math_n_elements} loosely fit within this file. One could argue that {ref_edf_math__uz} is related to math. One could also argue that {ref_edf_math_n_elements} is a _calculation_ to find the number of elements within an array.
+
+NOTE: Decided that a dedicated file for {ref_edf_math__uz} would create a temptation to make more user-defined literals. 
 
 // tag::function_list[]
 * {ref_edf_math__uz}
-* xref:ROOT:math.adoc#n_elements[nElements<T,N>]
+* {ref_edf_math_n_elements}
 * xref:ROOT:math.adoc#is_pow_2[isPow2]
 * xref:ROOT:math.adoc#min[min<T>]
 * xref:ROOT:math.adoc#max[max<T>]
