@@ -262,7 +262,446 @@
 </aside>
 <article class="doc">
 <h1 class="page">Math</h1>
+<div class="sect1">
+<h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Math is a collection of common math performed in embedded applications.</p>
+</div>
+<div id="function_list" class="openblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#uz">_uz</a></p>
+</li>
+<li>
+<p><a href="#nElements">[nElements]</a></p>
+</li>
+<li>
+<p><a href="#_ispow2">isPow2</a></p>
+</li>
+<li>
+<p><a href="#min">[min]</a></p>
+</li>
+<li>
+<p><a href="#max">[max]</a></p>
+</li>
+<li>
+<p><a href="#voltageDividerCalcVout">[voltageDividerCalcVout]</a></p>
+</li>
+<li>
+<p><a href="#_voltagedividercalcvin">voltageDividerCalcVin</a></p>
+</li>
+<li>
+<p><a href="#temperatureCtoF">[temperatureCtoF]</a></p>
+</li>
+<li>
+<p><a href="#temperatureFtoC">[temperatureFtoC]</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="uz"><a class="anchor" href="#uz"></a>_uz</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is a user defined literal. The intended purpose of this is to be able to create an integer literal of type <code>std::size_t</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Examples</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">for( auto k = 0_uz; k &lt; 100_uz; ++k ) { /* ... */} <i class="conum" data-value="1"></i><b>(1)</b>
 
+void function( std::size_t value ) { /* ... */ }
+function( 123_uz );</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The type of <code>k</code> is std::size_t</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_nelementst_n"><a class="anchor" href="#_nelementst_n"></a>nElements&lt;T, N&gt;</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<div class="title">Template parameters</div>
+<p><code>T</code> = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.
+<code>N</code> = Deduced (N)umber of elements in array. Optionally can be explicitly specified. However, if explicit, using this function is pointless.</p>
+</div>
+<div class="paragraph">
+<div class="title">Description</div>
+<p>Returns the number of elements in a C-style array. Has a few benefits over the typical "C way" of getting this value.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Safer than the classic <code>sizeof(x)/sizeof(x[0])</code> which is usually defined as a macro. This is because nElements does not accept a pointer if the array has decayed to a pointer.</p>
+</li>
+<li>
+<p>No need to remember the name of a macro of an array size. Usually the naming convention of this is not consistent. EX: <code>MAX_ARRAY</code> vs <code>ARRAY_MAX</code> vs <code>ARRAY_N</code> vs <code>NARRAY</code> vs <code>N_ARRAY</code> etc&#8230;&#8203;</p>
+</li>
+<li>
+<p>If there is no macro for the array size, you still can get a compile time constant value for the number of elements in that array using <a href="#nElements">[nElements]</a>.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="title">Example usage and comparison to <code>sizeof(x)/sizeof(x[0])</code></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">#define ARRAY_SIZE(arr) (sizeof(arr)/sizeof(arr[0]))
+
+int array[50];
+int* decayedArray = array;  <i class="conum" data-value="1"></i><b>(1)</b>
+
+nElements( array );         <i class="conum" data-value="2"></i><b>(2)</b>
+nElements( decayedArray );  <i class="conum" data-value="3"></i><b>(3)</b>
+
+ARRAY_SIZE( array );        <i class="conum" data-value="4"></i><b>(4)</b>
+ARRAY_SIZE( decayedArray ); <i class="conum" data-value="5"></i><b>(5)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>array</code> has decayed into a pointer <code>decayedArray</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Compiles and returns <code>50</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Does not compile. Error because decayedArray is not an array, it is a pointer</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Compiles and return <code>50</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Compiles and returns <code>sizeof(int*) / sizeof(int)</code>. If <code>sizeof(int*) == 8</code> and <code>sizeof(int) == 4</code>, then value is <code>2</code> not <code>50</code>. If <code>sizeof(int*) == 4</code> and <code>sizeof(int) == 4</code>, then value is <code>1</code> not <code>50</code>.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ispow2"><a class="anchor" href="#_ispow2"></a>isPow2</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Returns <code>true</code> if a number is a power of 2. Result can be a compile time constant if argument is known at compile time.</p>
+</div>
+<div class="listingblock">
+<div class="title">Implementation Explanation</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">inline constexpr bool isPow2( std::size_t v ) { return !(v&amp;(v-1)); }
+// end:;is_pow_2[]
+
+template&lt;typename T&gt; 
+inline constexpr const T&amp; min( const T&amp; lhs, const T&amp; rhs ) { 
+    return (lhs &lt; rhs) ? lhs : rhs; 
+}
+
+template&lt;typename T&gt; 
+inline constexpr const T&amp; max( const T&amp; lhs, const T&amp; rhs ) { 
+    return (lhs &gt; rhs) ? lhs : rhs; 
+}
+
+template&lt;std::size_t R1, std::size_t R2, typename T&gt;
+inline constexpr T voltageDividerCalcVout( const T&amp; Vin ){
+    const auto Vout = (Vin * static_cast&lt;T&gt;(R2)) / static_cast&lt;T&gt;(R1 + R2);
+    if constexpr( std::is_floating_point_v&lt;T&gt; ) {
+        return std::round( Vout );
+    }
+    return Vout;
+}
+
+template&lt;std::size_t R1, std::size_t R2, typename T&gt;
+inline constexpr T voltageDividerCalcVin( const T&amp; Vout ){
+    const auto Vin = (Vout * (R1 + R2)) / R2;
+    if constexpr( std::is_floating_point_v&lt;T&gt; ) {
+        return std::round( Vin );
+    }
+    return Vin;
+}
+
+template&lt;typename T&gt;
+inline constexpr T temperatureCtoF( const T&amp; temp_C ) {
+    const auto f = ((temp_C * 9) / (5)) + 32;
+    if constexpr( std::is_floating_point_v&lt;T&gt; ){
+        return std::round(f);
+    }
+    return f;
+}
+
+template&lt;typename T&gt;
+inline constexpr T temperatureFtoC( const T&amp; temp_F ) {
+    const auto c = ((temp_F - 32) * 5) / 9;
+    if constexpr( std::is_floating_point_v&lt;T&gt; ) {
+        return std::round(c);
+    }
+    return c;
+}
+
+} /* EDF */</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The concept to understand is that in any given integer, a power of 2 will always have a single bit as a '1' with the rest of the bits being <code>0</code>. So how can we use math to find out if a value has only a single bit set to <code>1</code>?</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s first make an assumption that the value is a power of 2, and we&#8217;ll try to disprove that as we go along. If you are given a power of 2 and subtract 1 from it, you end up with the bit that was originally the only <code>1</code> is now set to a <code>0</code> and all of the bits to the "right" of the original <code>1</code> that used to be all <code>0</code>'s are now all <code>1</code>'s.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>v-1</code></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Then we can use that computed value and <code>&amp;</code> it with the original value. If the original value was indeed a power of 2, then the result is <code>0</code>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p><code>v&amp;(v-1)</code></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>If the result is a 0, we know it <em>is</em> a power of 2. Simply <code>!</code> the result to turn it into <code>true</code></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="3">
+<li>
+<p><code>!(v&amp;(v-1))</code></p>
+</li>
+</ol>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. <code>isPow2( 4 )</code> (returns <code>true</code>)</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Expression</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Base 10 (decimal)</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Base 2 (binary)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v-1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">011</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v&amp;(v-1)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">000</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">!(v&amp;(v-1))</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">001 (aka <code>true</code>)</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. <code>isPow2( 5 )</code> (returns <code>false</code>)</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Expression</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Base 10 (decimal)</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Base 2 (binary)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">101</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v-1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v&amp;(v-1)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">!(v&amp;(v-1))</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">000 (aka <code>false</code>)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_mint"><a class="anchor" href="#_mint"></a>min&lt;T&gt;</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<div class="title">Template parameter</div>
+<p><code>T</code> = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.</p>
+</div>
+<div class="paragraph">
+<div class="title">Description</div>
+<p>Returns smallest of two values.</p>
+</div>
+<div class="paragraph">
+<div class="title">Example</div>
+<p><code>min( 0, 1 ); // returns 0</code></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_maxt"><a class="anchor" href="#_maxt"></a>max&lt;T&gt;</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<div class="title">Template parameter</div>
+<p><code>T</code> = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.</p>
+</div>
+<div class="paragraph">
+<div class="title">Description</div>
+<p>Returns largest of two values.</p>
+</div>
+<div class="paragraph">
+<div class="title">Example</div>
+<p><code>max( 0, 1 ); // returns 1</code></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_voltagedividercalcvoutr1_r2_t"><a class="anchor" href="#_voltagedividercalcvoutr1_r2_t"></a>voltageDividerCalcVout&lt;R1, R2, T&gt;</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<div class="title">Template parameters</div>
+<p><code>R1</code> = (R1)esistance value. EX: 10k ohm == 10000<br>
+<code>R2</code> = (R2)esistance value. EX: 5k ohm = 5000<br>
+<code>T</code> = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.</p>
+</div>
+<div class="paragraph">
+<div class="title">Description</div>
+<p><code>Vout = (Vin * R2) / (R1 + R2)</code></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/VoltageDivider.svg" alt="VoltageDivider">
+</div>
+</div>
+<div class="paragraph">
+<p>Provide resistor values <code>R1</code> and <code>R2</code> as template arguments. Pass in <code>Vin</code> as function argument.</p>
+</div>
+<div class="listingblock">
+<div class="title">Examples</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">voltageDividerCalcVout&lt;10000,10000&gt;( 12.0f );   // returns 6.0f
+voltageDividerCalcVout&lt;10000,5000&gt;( 12 );       // returns 4
+voltageDividerCalcVout&lt;5000,10000&gt;( 12000 );    // returns 8000</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_voltagedividercalcvin"><a class="anchor" href="#_voltagedividercalcvin"></a>voltageDividerCalcVin</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<div class="title">Template parameters</div>
+<p><code>R1</code> = (R1)esistance value. EX: 10k ohm == 10000<br>
+<code>R2</code> = (R2)esistance value. EX: 5k ohm = 5000<br>
+<code>T</code> = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.</p>
+</div>
+<div class="paragraph">
+<div class="title">Description</div>
+<p><code>Vin = ((R1 + R2) * Vout) / R2</code></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/VoltageDivider.svg" alt="VoltageDivider">
+</div>
+</div>
+<div class="paragraph">
+<p>Provide resistor values <code>R1</code> and <code>R2</code> as template arguments. Pass in <code>Vout</code> as function argument.</p>
+</div>
+<div class="listingblock">
+<div class="title">Examples</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">voltageDividerCalcVin&lt;10000,10000&gt;( 6.0f );   // returns 12.0f
+voltageDividerCalcVin&lt;10000,5000&gt;( 4 );       // returns 12
+voltageDividerCalcVin&lt;5000,10000&gt;( 8000 );    // returns 12000</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_temperaturectoft"><a class="anchor" href="#_temperaturectoft"></a>temperatureCtoF&lt;T&gt;</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<div class="title">Template parameter</div>
+<p><code>T</code> = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.</p>
+</div>
+<div class="paragraph">
+<div class="title">Description</div>
+<p>Convert a temperature value from Celsius to Fahrenheit.</p>
+</div>
+<div class="listingblock">
+<div class="title">Examples</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">temperatureCtoF( 50.0f );   // returns 122.0f
+temperatureCtoF( 0 );       // returns 32
+temperatureCtoF( -40 );     // returns -40
+temperatureCtoF( 100.0 );   // returns 212.0</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_temperatureftoct"><a class="anchor" href="#_temperatureftoct"></a>temperatureFtoC&lt;T&gt;</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<div class="title">Template parameter</div>
+<p><code>T</code> = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.</p>
+</div>
+<div class="paragraph">
+<div class="title">Description</div>
+<p>Convert a temperature value from Fahrenheit to Celsius</p>
+</div>
+<div class="listingblock">
+<div class="title">Examples</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">temperatureFtoC( 122.0f );  // returns 50.0f
+temperatureFtoC( 32 );      // returns 0
+temperatureFtoC( -40 );     // returns -40
+temperatureFtoC( 212.0 );   // returns 100.0</code></pre>
+</div>
+</div>
+</div>
+</div>
 </article>
   </div>
 </main>
