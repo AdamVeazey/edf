@@ -13,14 +13,14 @@ Math is a collection of common math performed in embedded applications.
 
 // tag::function_list[]
 * xref:ROOT:math.adoc#uz[]
-* xref:ROOT:math.adoc#nElements[]
-* xref:ROOT:math.adoc#isPow2[]
+* xref:ROOT:math.adoc#n_elements[]
+* xref:ROOT:math.adoc#is_pow_2[]
 * xref:ROOT:math.adoc#min[]
 * xref:ROOT:math.adoc#max[]
-* xref:ROOT:math.adoc#voltageDividerCalcVout[]
-* xref:ROOT:math.adoc#voltageDividerCalcVin[]
-* xref:ROOT:math.adoc#temperatureCtoF[]
-* xref:ROOT:math.adoc#temperatureFtoC[]
+* xref:ROOT:math.adoc#voltage_divider_calc_v_out[]
+* xref:ROOT:math.adoc#voltage_divider_calc_v_in[]
+* xref:ROOT:math.adoc#temperature_c_to_f[]
+* xref:ROOT:math.adoc#temperature_f_to_c[]
 // end::function_list[]
 
 [#uz]
@@ -37,7 +37,7 @@ function( 123_uz );
 ----
 <1> The type of `k` is std::size_t
 
-[#nElements]
+[#n_elements]
 == nElements<T, N>
 .Template parameters
 `T` = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified. +
@@ -167,7 +167,7 @@ Returns largest of two values.
 .Example
 `max( 0, 1 ); // returns 1`
 
-[#voltageDividerCalcVout]
+[#voltage_divider_calc_v_out]
 == voltageDividerCalcVout<R1, R2, T>
 .Template parameters
 `R1` = (R1)esistance value. EX: 10k ohm == 10000 +
@@ -189,7 +189,7 @@ voltageDividerCalcVout<10000,5000>( 12 );       // returns 4
 voltageDividerCalcVout<5000,10000>( 12000 );    // returns 8000
 ----
 
-[#voltageDividerCalcVin]
+[#voltage_divider_calc_v_in]
 == voltageDividerCalcVin<R1, R2, T>
 .Template parameters
 `R1` = (R1)esistance value. EX: 10k ohm == 10000 +
@@ -211,7 +211,7 @@ voltageDividerCalcVin<10000,5000>( 4 );       // returns 12
 voltageDividerCalcVin<5000,10000>( 8000 );    // returns 12000
 ----
 
-[#temperatureCtoF]
+[#temperature_c_to_f]
 == temperatureCtoF<T>
 .Template parameter
 `T` = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.
@@ -228,7 +228,7 @@ temperatureCtoF( -40 );     // returns -40
 temperatureCtoF( 100.0 );   // returns 212.0
 ----
 
-[#temperatureFtoC]
+[#temperature_f_to_c]
 == temperatureFtoC<T>
 .Template parameter
 `T` = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.
