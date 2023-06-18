@@ -12,15 +12,15 @@ Math is a collection of common math performed in embedded applications.
 //             add temptation to create more user-defined literals.
 
 // tag::function_list[]
-* <<uz>>
-* <<nElements>>
-* <<isPow2>>
-* <<min>>
-* <<max>>
-* <<voltageDividerCalcVout>>
-* <<voltageDividerCalcVin>>
-* <<temperatureCtoF>>
-* <<temperatureFtoC>>
+* xref:ROOT:math.adoc#uz[]
+* xref:ROOT:math.adoc#nElements[]
+* xref:ROOT:math.adoc#isPow2[]
+* xref:ROOT:math.adoc#min[]
+* xref:ROOT:math.adoc#max[]
+* xref:ROOT:math.adoc#voltageDividerCalcVout[]
+* xref:ROOT:math.adoc#voltageDividerCalcVin[]
+* xref:ROOT:math.adoc#temperatureCtoF[]
+* xref:ROOT:math.adoc#temperatureFtoC[]
 // end::function_list[]
 
 [#uz]
