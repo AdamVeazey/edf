@@ -21,6 +21,9 @@ There are 5 groups of member functions:
 . <<Operations>>
 . <<Iterators>>
 
+[#important_size_t]
+IMPORTANT: When using overloaded member functions that use either index/position, when using an index of `0` will attempt to use the position version of the member function. To work around this, use `0_uz` instead which is a {size_t_literal}
+
 == Initialization
 Default initialization requires type `T` to be default constructable. Otherwise https://en.cppreference.com/w/cpp/language/list_initialization[List-initialization] is required.
 
@@ -64,13 +67,13 @@ vs +
 ---
 
 === isFull()
-Since a vector doesn't grow, you have to check if it is full before adding an element. If the vector is full this function return true. Otherwise it returns false.
+Since a vector doesn't grow, you should check if it is full before adding an element. If the vector is full this function return true. Otherwise it returns false.
 
 .Example
 [source,c++]
 ----
-if( !myVector.isFull() ){           // if myVector is not full
-    myVector.pushBack( value );     // push back value to myVector
+if( !myVector.isFull() ){
+    myVector.pushBack( value );
 }
 ----
 
@@ -87,7 +90,7 @@ Returns the number of elements currently in the vector.
 include::{path_example_edf_vector_main_cpp}[tag=init]
     std::size_t numberOfElementsInVector = vector.length(); // <1>
 ----
-<1> The value of `numberOfElementsInVector` is 6. As opposed to <<maxLength>> which returns 8.
+<1> The value of `numberOfElementsInVector` is 6. As opposed to <<maxLength>> which returns 16.
 
 NOTE: The name `length()` is used instead of `size()` or `count()` for consistency across all xref:edf.adoc#_stl_like_containers[EDF containers] and {ref_edf_string}
 
@@ -103,41 +106,62 @@ Returns template parameter N. It acts the same as a compile time constant. No ne
 include::{path_example_edf_vector_main_cpp}[tag=init]
     static constexpr int someArray[vector.maxSize()]; // <1>
 ----
-<1> someArray will be able to hold 8 elements, since vector.maxSize() is 8
+<1> someArray will be able to hold 16 elements, since vector.maxSize() is 16
 
 == Element Access
 
 === operator[]
+This is exactly the same as with a C-style array. 
+
+.Example
 [source,indent=0,c++]
 ----
 include::{path_example_edf_vector_main_cpp}[tag=init]
 include::{path_example_edf_vector_main_cpp}[tag=element_access_standard]
 ----
 
-This is exactly the same as with a C-style array. 
-
 NOTE: This also means that there is no boundary checking, so it is possible to attempt to access data outside of the vector. 
+
+NOTE: 0_uz is a {size_t_literal}
 
 ---
 
 [#at]
 === at( index )
 `index` is checked with {ref_edf_assert_EDF_ASSERTD} to be sure index is valid.
+
+.Example
 [source,indent=0,c++]
 ----
 include::{path_example_edf_vector_main_cpp}[tag=init]
 include::{path_example_edf_vector_main_cpp}[tag=element_access_at]
 ----
 
+NOTE: 0_uz is a {size_t_literal}
+
 ---
 
 === front()
 Return the first element of the vector. Calls <<at>>
 
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_vector_main_cpp}[tag=init]
+    auto& firstElement = vector.front();
+----
+
 ---
 
-=== end()
+=== back()
 Return the last element of the vector (<<length>> - 1). Calls <<at>>
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_vector_main_cpp}[tag=init]
+    auto& lastElement = vector.back();
+----
 
 ---
 
@@ -159,9 +183,6 @@ NOTE: Can be called in order to "decay" to a pointer like a C-Style array
 NOTE: Many, if not all, of the Operation member functions use {ref_edf_assert_EDF_ASSERTD} to ensure the operation will be successful. Remember that the assert condition is only checked in Debug mode.
 
 NOTE: For member functions that have an index/position as their first argument, it means that overloads exist to use an index (std::size_t) or an iterator.
-
-[#important_size_t]
-IMPORTANT: When using overloaded member functions that use either index/position, when using an index of `0` will attempt to use the position version of the member function. To work around this, use `0_uz` instead which is a {size_t_literal}
 
 === clear()
 Calls destructor for each element in vector. Sets number of elements to 0.
@@ -206,7 +227,7 @@ include::{path_example_edf_vector_main_cpp}[tag=init]
 === insert( index/position, { values... } )
 Inserts the list of `values...` provided starting at the specified `index` or `position`. 
 
-.Example
+.Example 1
 [source,indent=0,c++]
 ----
 include::{path_example_edf_vector_main_cpp}[tag=init]
@@ -215,6 +236,13 @@ include::{path_example_edf_vector_main_cpp}[tag=init]
 ----
 <1> Index usage. For an index of 0, use a {size_t_literal}
 <2> Iterator usage
+
+.Example 2
+[source,indent=0,c++]
+----
+include::{path_example_edf_vector_main_cpp}[tag=init]
+include::{path_example_edf_vector_main_cpp}[tag=operation_insert_list]
+----
 
 ---
 
@@ -245,33 +273,57 @@ vector2.emplace( 1, 2, 2 );     // <2>
 === erase( index/position )
 Erase a single element at the specified `index` or `position`. Calls destructor for erased element.
 
-// TODO: Add example(s)
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_vector_main_cpp}[tag=init]
+include::{path_example_edf_vector_main_cpp}[tag=operation_erase_single]
+----
 
 === erase( first, last )
 Erase a range [`first`, `last`) of elements. Includes erasing `first` up to, but not including, `last`. Calls destructor for erased elements.
 
-// TODO: Add example(s)
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_vector_main_cpp}[tag=init]
+include::{path_example_edf_vector_main_cpp}[tag=operation_erase_range]
+----
 
 ---
 
 === pushBack( value )
 Copy `value` to a new element at the end of the vector.
 
-// TODO: Add example(s)
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_vector_main_cpp}[tag=init]
+include::{path_example_edf_vector_main_cpp}[tag=operation_push_back]
+----
 
 ---
 
 === emplaceBack( args... )
 Construct in place a new element at the end of the vector using `args...`.
 
-// TODO: Add example(s)
-
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_vector_main_cpp}[tag=init]
+include::{path_example_edf_vector_main_cpp}[tag=operation_emplace_back]
+----
 ---
 
 === popBack()
 Remove the last element in a vector and return a copy of it.
 
-// TODO: Add example(s)
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_vector_main_cpp}[tag=init]
+include::{path_example_edf_vector_main_cpp}[tag=operation_pop_back]
+----
 
 ---
 

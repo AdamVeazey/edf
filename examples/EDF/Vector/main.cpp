@@ -20,44 +20,67 @@ print( const EDF::Vector<T, N>& vector ){
 int main( void ) {
 
     // tag::init[]
-    EDF::Vector<int, 8> vector = { 10, 2, 3, 4, 5, 6 };    
+    EDF::Vector<int, 16> vector = { 10, 2, 3, 4, 5, 6 };    
     // end::init[]
+    
+    print( vector );
 
     // tag::element_access_standard[]
     vector[0_uz] = 100;
     // end::element_access_standard[]
+    
+    print( vector );
 
     // tag::element_access_at[]
     vector.at( 0_uz ) = 1;
     // end::element_access_at[]
+    
+    print( vector );
 
-    vector.insert( 0_uz, { 0 } );
-    std::cout << "After inserting 0 at slot 0" << '\n';
-    print(vector);
+    // tag::operation_insert_list[]
+    for( auto it = vector.cbegin(); it != vector.cend(); ++it ) {
+        if( *it == 3 ) {
+            vector.insert( it, {99, 88, 77, 66, 55} );
+            it += 5;
+        }
+    }
+    // end::operation_insert_list[]
+    
+    print( vector );
 
-    std::cout << "vector.length(): " << vector.length() << std::endl;
+    // tag::operation_erase_range[]
+    vector.erase( 2, 4 );    // [2,4) 
+    auto seventySeven = std::find(vector.cbegin(), vector.cend(), 77);
+    vector.erase( seventySeven, seventySeven + 3 );
+    // end::operation_erase_range[]
+    
+    print( vector );
 
-    // std::cout << "After erasing vector[2]: " << vector[2] << '\n';
-    // vector.erase( 2 ); // erases index 2
-    // print(vector);
+    // tag::operation_push_back[]
+    vector.pushBack( 2 + 2 );
+    vector.pushBack( 12345 );
+    // end::operation_push_back[]
+    
+    print( vector );
 
-    // std::cout << "popBack() " << vector.popBack() << '\n';
-    // vector.clear();
+    // tag::operation_erase_single[]
+    vector.erase( vector.length() - 2 ); 
+    vector.erase( std::find( vector.cbegin(), vector.cend(), 12345 ) );
+    // end::operation_erase_single[]
+    
+    print( vector );
 
-    // std::cout << "After clearing the vector" << '\n';
-    // print(vector);
+    // tag::operation_emplace_back[]
+    vector.emplaceBack( 100 );
+    // end::operation_emplace_back[]
+    
+    print( vector );
 
-    // std::cout << "Place value 100 at end of vector" << '\n';
-    // vector.emplaceBack( 100 );
-    // print(vector);
-
-    // std::cout << "erase vector[3 to 5]" << '\n';
-    // vector.erase( 3, 5 );
-    // print(vector);
-
-    std::cout << "vector.clear()\n";
-    vector.clear();
-    print(vector);
+    // tag::operation_pop_back[]
+    auto copyOfLastElement = vector.popBack();
+    // end::operation_pop_back[]
+    std::cout << "copy of last element: " << copyOfLastElement << std::endl;
+    print( vector );
 
     return 0;
 }
