@@ -40,7 +40,7 @@ function( 123_uz );
 [#nElements]
 == nElements<T, N>
 .Template parameters
-`T` = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.
+`T` = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified. +
 `N` = Deduced (N)umber of elements in array. Optionally can be explicitly specified. However, if explicit, using this function is pointless.
 
 .Description

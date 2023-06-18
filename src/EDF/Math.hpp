@@ -20,7 +20,7 @@ inline constexpr std::size_t nElements( const T (&)[N] ) { return N; }
 
 // tag::is_pow_2[]
 inline constexpr bool isPow2( std::size_t v ) { return !(v&(v-1)); }
-// end:;is_pow_2[]
+// end::is_pow_2[]
 
 template<typename T> 
 inline constexpr const T& min( const T& lhs, const T& rhs ) { 
