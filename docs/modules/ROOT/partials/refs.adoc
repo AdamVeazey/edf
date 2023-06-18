@@ -17,7 +17,7 @@
 :ref_edf_color: {ref_module_root}:color.adoc[Color]
 :ref_edf_heap: {ref_module_root}:heap.adoc[Heap]
 :ref_edf_math: {ref_module_root}:math.adoc[Math]
-:ref_edf_math__uz: {ref_module_root}:math.adoc#uz[_uz]
+:ref_edf_math_uz: {ref_module_root}:math.adoc#uz[_uz]
 :ref_edf_math_n_elements: {ref_module_root}:math.adoc#n_elements[nElements<T,N>]
 :ref_edf_queue: {ref_module_root}:queue.adoc[Queue]
 :ref_edf_stack: {ref_module_root}:stack.adoc[Stack]
