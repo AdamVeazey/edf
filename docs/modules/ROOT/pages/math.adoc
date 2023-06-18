@@ -11,8 +11,7 @@ Math is a collection of common math performed in embedded applications.
 //       NOTE: Debating on if a file for a single user-defined literal is a good idea, as it might
 //             add temptation to create more user-defined literals.
 
-[#function_list]
---
+// tag::function_list[]
 * <<uz>>
 * <<nElements>>
 * <<isPow2>>
@@ -22,7 +21,7 @@ Math is a collection of common math performed in embedded applications.
 * <<voltageDividerCalcVin>>
 * <<temperatureCtoF>>
 * <<temperatureFtoC>>
---
+// end::function_list[]
 
 [#uz]
 == _uz
@@ -38,6 +37,7 @@ function( 123_uz );
 ----
 <1> The type of `k` is std::size_t
 
+[#nElements]
 == nElements<T, N>
 .Template parameters
 `T` = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.
@@ -145,6 +145,7 @@ If the result is a 0, we know it _is_ a power of 2. Simply `!` the result to tur
 
 |===
 
+[#min]
 == min<T>
 .Template parameter
 `T` = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.
@@ -155,6 +156,7 @@ Returns smallest of two values.
 .Example
 `min( 0, 1 ); // returns 0`
 
+[#max]
 == max<T>
 .Template parameter
 `T` = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.
@@ -165,6 +167,7 @@ Returns largest of two values.
 .Example
 `max( 0, 1 ); // returns 1`
 
+[#voltageDividerCalcVout]
 == voltageDividerCalcVout<R1, R2, T>
 .Template parameters
 `R1` = (R1)esistance value. EX: 10k ohm == 10000 +
@@ -186,8 +189,8 @@ voltageDividerCalcVout<10000,5000>( 12 );       // returns 4
 voltageDividerCalcVout<5000,10000>( 12000 );    // returns 8000
 ----
 
-
-== voltageDividerCalcVin
+[#voltageDividerCalcVin]
+== voltageDividerCalcVin<R1, R2, T>
 .Template parameters
 `R1` = (R1)esistance value. EX: 10k ohm == 10000 +
 `R2` = (R2)esistance value. EX: 5k ohm = 5000 +
@@ -208,6 +211,7 @@ voltageDividerCalcVin<10000,5000>( 4 );       // returns 12
 voltageDividerCalcVin<5000,10000>( 8000 );    // returns 12000
 ----
 
+[#temperatureCtoF]
 == temperatureCtoF<T>
 .Template parameter
 `T` = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.
@@ -224,6 +228,7 @@ temperatureCtoF( -40 );     // returns -40
 temperatureCtoF( 100.0 );   // returns 212.0
 ----
 
+[#temperatureFtoC]
 == temperatureFtoC<T>
 .Template parameter
 `T` = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.
