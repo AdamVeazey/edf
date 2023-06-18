@@ -224,6 +224,8 @@ voltageDividerCalcVin<5000,10000>( 8000 );    // returns 12000
 `T` = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.
 
 .Description
+`Fahrenheit = ((Celsius * 9) / 5) + 32`
+
 Convert a temperature value from Celsius to Fahrenheit. 
 
 .Examples
@@ -241,6 +243,8 @@ temperatureCtoF( 100.0 );   // returns 212.0
 `T` = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.
 
 .Description
+`Celsius = ((Fahrenheit - 32) * 5) / 9`
+
 Convert a temperature value from Fahrenheit to Celsius
 
 .Examples
