@@ -54,7 +54,7 @@ Returns the number of elements in a C-style array. Has a few benefits over the t
 
 1. Safer than the classic `sizeof(x)/sizeof(x[0])` which is usually defined as a macro. This is because nElements does not accept a pointer if the array has decayed to a pointer.
 2. No need to remember the name of a macro of an array size. Usually the naming convention of this is not consistent. EX: `MAX_ARRAY` vs `ARRAY_MAX` vs `ARRAY_N` vs `NARRAY` vs `N_ARRAY` etc...
-3. If there is no macro for the array size, you still can get a compile time constant value for the number of elements in that array using <<nElements>>.
+3. If there is no macro for the array size, you still can get a compile time constant value for the number of elements in that array using <<n_elements>>.
 
 .Example usage and comparison to `sizeof(x)/sizeof(x[0])`
 [source,c++]
