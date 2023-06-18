@@ -11,7 +11,9 @@
 #include <cmath>
 
 // NOTE: This needs to be in the global namespace. EX: 0_uz == std::size_t literal 
+// tag::literal_size_t[]
 inline std::size_t operator ""_uz( unsigned long long x ) { return x; }
+// end::literal_size_t[]
 
 namespace EDF {
 

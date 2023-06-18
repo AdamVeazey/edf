@@ -27,6 +27,12 @@ Math is a collection of common math performed in embedded applications.
 == _uz
 This is a user defined literal. The intended purpose of this is to be able to create an integer literal of type `std::size_t`. 
 
+.Signature
+[source,c++]
+----
+include::{path_src_edf_math_hpp}[tag=literal_size_t]
+----
+
 .Examples
 [source,c++]
 ----
