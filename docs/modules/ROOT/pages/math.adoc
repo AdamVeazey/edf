@@ -12,15 +12,15 @@ Math is a collection of common math performed in embedded applications.
 //             add temptation to create more user-defined literals.
 
 // tag::function_list[]
-* xref:ROOT:math.adoc#uz[]
-* xref:ROOT:math.adoc#n_elements[]
-* xref:ROOT:math.adoc#is_pow_2[]
-* xref:ROOT:math.adoc#min[]
-* xref:ROOT:math.adoc#max[]
-* xref:ROOT:math.adoc#voltage_divider_calc_v_out[]
-* xref:ROOT:math.adoc#voltage_divider_calc_v_in[]
-* xref:ROOT:math.adoc#temperature_c_to_f[]
-* xref:ROOT:math.adoc#temperature_f_to_c[]
+* xref:ROOT:math.adoc#uz[_uz]
+* xref:ROOT:math.adoc#n_elements[nElements<T,N>]
+* xref:ROOT:math.adoc#is_pow_2[isPow2]
+* xref:ROOT:math.adoc#min[min<T>]
+* xref:ROOT:math.adoc#max[max<T>]
+* xref:ROOT:math.adoc#voltage_divider_calc_v_out[voltageDividerCalcVout<R1, R2, T>]
+* xref:ROOT:math.adoc#voltage_divider_calc_v_in[voltageDividerCalcVin<R1, R2, T>]
+* xref:ROOT:math.adoc#temperature_c_to_f[temperatureCtoF<T>]
+* xref:ROOT:math.adoc#temperature_f_to_c[temperatureFtoC<T>]
 // end::function_list[]
 
 [#uz]
@@ -70,6 +70,7 @@ ARRAY_SIZE( decayedArray ); // <5>
 <4> Compiles and return `50`
 <5> Compiles and returns `sizeof(int*) / sizeof(int)`. If `sizeof(int*) == 8` and `sizeof(int) == 4`, then value is `2` not `50`. If `sizeof(int*) == 4` and `sizeof(int) == 4`, then value is `1` not `50`.
 
+[#is_pow_2]
 == isPow2
 Returns `true` if a number is a power of 2. Result can be a compile time constant if argument is known at compile time. 
 
