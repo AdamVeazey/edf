@@ -274,10 +274,10 @@
 <p><a href="#uz">_uz</a></p>
 </li>
 <li>
-<p><a href="#nElements">nElements&lt;T, N&gt;</a></p>
+<p><a href="#n_elements">nElements&lt;T, N&gt;</a></p>
 </li>
 <li>
-<p><a href="#isPow2">[isPow2]</a></p>
+<p><a href="#is_pow_2">[is_pow_2]</a></p>
 </li>
 <li>
 <p><a href="#min">min&lt;T&gt;</a></p>
@@ -286,16 +286,16 @@
 <p><a href="#max">max&lt;T&gt;</a></p>
 </li>
 <li>
-<p><a href="#voltageDividerCalcVout">voltageDividerCalcVout&lt;R1, R2, T&gt;</a></p>
+<p><a href="#voltage_divider_calc_v_out">voltageDividerCalcVout&lt;R1, R2, T&gt;</a></p>
 </li>
 <li>
-<p><a href="#voltageDividerCalcVin">voltageDividerCalcVin&lt;R1, R2, T&gt;</a></p>
+<p><a href="#voltage_divider_calc_v_in">voltageDividerCalcVin&lt;R1, R2, T&gt;</a></p>
 </li>
 <li>
-<p><a href="#temperatureCtoF">temperatureCtoF&lt;T&gt;</a></p>
+<p><a href="#temperature_c_to_f">temperatureCtoF&lt;T&gt;</a></p>
 </li>
 <li>
-<p><a href="#temperatureFtoC">temperatureFtoC&lt;T&gt;</a></p>
+<p><a href="#temperature_f_to_c">temperatureFtoC&lt;T&gt;</a></p>
 </li>
 </ul>
 </div>
@@ -327,7 +327,7 @@ function( 123_uz );</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="nElements"><a class="anchor" href="#nElements"></a>nElements&lt;T, N&gt;</h2>
+<h2 id="n_elements"><a class="anchor" href="#n_elements"></a>nElements&lt;T, N&gt;</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <div class="title">Template parameters</div>
@@ -347,7 +347,7 @@ function( 123_uz );</code></pre>
 <p>No need to remember the name of a macro of an array size. Usually the naming convention of this is not consistent. EX: <code>MAX_ARRAY</code> vs <code>ARRAY_MAX</code> vs <code>ARRAY_N</code> vs <code>NARRAY</code> vs <code>N_ARRAY</code> etc&#8230;&#8203;</p>
 </li>
 <li>
-<p>If there is no macro for the array size, you still can get a compile time constant value for the number of elements in that array using <a href="#nElements">nElements&lt;T, N&gt;</a>.</p>
+<p>If there is no macro for the array size, you still can get a compile time constant value for the number of elements in that array using <a href="#nElements">[nElements]</a>.</p>
 </li>
 </ol>
 </div>
@@ -544,7 +544,7 @@ ARRAY_SIZE( decayedArray ); <i class="conum" data-value="5"></i><b>(5)</b></code
 </div>
 </div>
 <div class="sect1">
-<h2 id="voltageDividerCalcVout"><a class="anchor" href="#voltageDividerCalcVout"></a>voltageDividerCalcVout&lt;R1, R2, T&gt;</h2>
+<h2 id="voltage_divider_calc_v_out"><a class="anchor" href="#voltage_divider_calc_v_out"></a>voltageDividerCalcVout&lt;R1, R2, T&gt;</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <div class="title">Template parameters</div>
@@ -575,7 +575,7 @@ voltageDividerCalcVout&lt;5000,10000&gt;( 12000 );    // returns 8000</code></pr
 </div>
 </div>
 <div class="sect1">
-<h2 id="voltageDividerCalcVin"><a class="anchor" href="#voltageDividerCalcVin"></a>voltageDividerCalcVin&lt;R1, R2, T&gt;</h2>
+<h2 id="voltage_divider_calc_v_in"><a class="anchor" href="#voltage_divider_calc_v_in"></a>voltageDividerCalcVin&lt;R1, R2, T&gt;</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <div class="title">Template parameters</div>
@@ -606,7 +606,7 @@ voltageDividerCalcVin&lt;5000,10000&gt;( 8000 );    // returns 12000</code></pre
 </div>
 </div>
 <div class="sect1">
-<h2 id="temperatureCtoF"><a class="anchor" href="#temperatureCtoF"></a>temperatureCtoF&lt;T&gt;</h2>
+<h2 id="temperature_c_to_f"><a class="anchor" href="#temperature_c_to_f"></a>temperatureCtoF&lt;T&gt;</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <div class="title">Template parameter</div>
@@ -628,7 +628,7 @@ temperatureCtoF( 100.0 );   // returns 212.0</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="temperatureFtoC"><a class="anchor" href="#temperatureFtoC"></a>temperatureFtoC&lt;T&gt;</h2>
+<h2 id="temperature_f_to_c"><a class="anchor" href="#temperature_f_to_c"></a>temperatureFtoC&lt;T&gt;</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <div class="title">Template parameter</div>
