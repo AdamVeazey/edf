@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Stack :: EDF</title>
+    <title>Stack&lt;T, N&gt; :: EDF</title>
     <link rel="canonical" href="https://adamveazey.github.io/edf/docs/main/docs/main/stack.html">
     <meta name="generator" content="Antora 3.1.4">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -254,15 +254,304 @@
     <li><a href="stack.html">Stack</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/AdamVeazey/edf/edit/main/docs/modules/ROOT/pages/stack.adoc">Edit this Page</a></div>
-  </div>
+<div class="edit-this-page"><a href="https://github.com/AdamVeazey/edf/edit/main/docs/modules/ROOT/pages/stack.adoc">Edit this Page</a></div>
+</div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Stack</h1>
+<h1 class="page">Stack&lt;T, N&gt;</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<div class="title">Template arguments</div>
+<p><code>T</code> = (T)ype<br>
+<code>N</code> = Maximum (N)umber of elements the stack can hold</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>T</code> <em>Needs</em> to be copyable, and <em>helps</em> if <code>T</code> is also default constructable.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is a container adapter class to provide a LIFO data structure. Stack uses a <a href="vector.html" class="xref page">Vector</a> as the underlying container. Stack has a maximum number of elements (<code>N</code>) the stack can "grow" to.</p>
+</div>
+<div class="paragraph">
+<p>There are 3 groups of member functions:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="#_is_questions">Is Questions</a></p>
+</li>
+<li>
+<p><a href="#_capacity">Capacity</a></p>
+</li>
+<li>
+<p><a href="#_operations">Operations</a></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_initialization"><a class="anchor" href="#_initialization"></a>Initialization</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Default initialization requires type <code>T</code> to be default constructable. Otherwise <a href="https://en.cppreference.com/w/cpp/language/list_initialization">list-initialization</a> is required.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example: <code>T</code> is default constructable</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Stack&lt;int, 4&gt; stack;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Example: <a href="https://en.cppreference.com/w/cpp/language/list_initialization">list-initialization</a> with a custom type</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">struct CustomType{
+    int value;
+    CustomType( int v ) : value(v) {}
+};
 
+EDF::Stack&lt;CustomType, 3&gt; stack2 = {
+    CustomType( 0 ),
+    CustomType( 0 ),
+    CustomType( 0 )
+};
+stack2.clear();</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If using <a href="https://en.cppreference.com/w/cpp/language/list_initialization">list-initialization</a> on a type <code>T</code> without a default constructor. First fill up the entire stack using <a href="https://en.cppreference.com/w/cpp/language/list_initialization">list-initialization</a>, then call <a href="#clear">clear()</a>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_is_questions"><a class="anchor" href="#_is_questions"></a>Is Questions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>These member functions provide yes/no answers to the current state of the stack.</p>
+</div>
+<div class="sect2">
+<h3 id="is_empty"><a class="anchor" href="#is_empty"></a>isEmpty()</h3>
+<div class="paragraph">
+<p>Equivalent to <code><a href="#length">length()</a> == 0</code><br>
+Provided to make a common conditional check slightly more readable, as well as consistency with other <a href="edf.html#_stl_like_containers" class="xref page">EDF containers</a>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">    EDF::Stack&lt;int, 4&gt; stack;
+    while( !stack.isEmpty() ){
+        /* ... */
+
+        auto mostRecentElement = stack.pop();
+        std::cout &lt;&lt; mostRecentElement &lt;&lt; '\n';
+    }
+    
+    struct CustomType{
+        int value;
+        CustomType( int v ) : value(v) {}
+    };
+
+    EDF::Stack&lt;CustomType, 3&gt; stack2 = {
+        CustomType( 0 ),
+        CustomType( 0 ),
+        CustomType( 0 )
+    };
+    stack2.clear();
+
+    stack2.push( CustomType(5) );
+    stack2.push( CustomType(6) );
+    stack2.push( CustomType(7) );
+
+    EDF::Stack&lt;CustomType, 3&gt; stack3 = stack2;
+
+    std::cout &lt;&lt; "last element: " &lt;&lt; stack2.peek().value &lt;&lt; '\n';
+
+    while( !stack2.isEmpty() ){
+        std::cout &lt;&lt; stack2.pop().value &lt;&lt; '\n';
+    }
+
+    std::cout &lt;&lt; "last element: " &lt;&lt; stack3.peek().value &lt;&lt; '\n';
+
+    while( !stack3.isEmpty() ){
+        std::cout &lt;&lt; stack3.pop().value &lt;&lt; '\n';
+    }
+
+    return 0;
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="is_full"><a class="anchor" href="#is_full"></a>isFull()</h3>
+<div class="paragraph">
+<p>Since a stack doesn&#8217;t grow the underlying container, you should check if it is full before adding an element.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Stack&lt;int, 4&gt; stack;
+if( !stack.isFull() ) {
+    /* ... */
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_capacity"><a class="anchor" href="#_capacity"></a>Capacity</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Provides information about how many current elements are in the stack, as well as the max number of elements the stack can hold.</p>
+</div>
+<div class="sect2">
+<h3 id="length"><a class="anchor" href="#length"></a>length()</h3>
+<div class="paragraph">
+<p>Returns the number of elements currently in the stack.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Stack&lt;int, 4&gt; stack;
+auto&amp; nElementsInStack = stack.length();</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="max_length"><a class="anchor" href="#max_length"></a>maxLength()</h3>
+<div class="paragraph">
+<p>Returns template parameter <code>N</code>. It acts teh same as a compile time constant. No need to remember how a macro for the stack max number of elements is named.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Stack&lt;int, 4&gt; stack;
+constexpr auto maxNumberOfElements = stack.maxLength();</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_operations"><a class="anchor" href="#_operations"></a>Operations</h2>
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Many, if not all, of the Operation member functions use <a href="assert.html#_edf_assertd" class="xref page">EDF_ASSERTD</a> to ensure the operation will be successful. Remember that the assert condition is only checked in Debug mode.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="peek"><a class="anchor" href="#peek"></a>peek()</h3>
+<div class="paragraph">
+<p>Returns the last value inserted into the stack without modifying the number of elements in the stack.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Stack&lt;int, 4&gt; stack;
+auto&amp; lastElement = stack.peek();</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Name is peek instead of "top" for consistency with Queue. It gives a better picture of what it does. Peek allows you to peek, look, read, the element you are likely to remove next using <a href="#pop">pop()</a> without actually popping the value.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="push"><a class="anchor" href="#push"></a>push( value )</h3>
+<div class="paragraph">
+<p>Add element to the end of the stack.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Stack&lt;int, 4&gt; stack;
+stack.push( 1 );</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="emplace"><a class="anchor" href="#emplace"></a>emplace( args&#8230;&#8203; )</h3>
+<div class="paragraph">
+<p>Add element to the end of the stack by constructing the element in place using <a href="https://en.cppreference.com/w/cpp/language/new#Placement_new">placement new</a>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Stack&lt;int, 4&gt; stack;
+stack.emplace( 2 );</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="pop"><a class="anchor" href="#pop"></a>pop()</h3>
+<div class="paragraph">
+<p>Remove element from the end of the stack then return a copy of the value.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Stack&lt;int, 4&gt; stack;
+    auto mostRecentElement = stack.pop();</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="clear"><a class="anchor" href="#clear"></a>clear()</h3>
+<div class="paragraph">
+<p>Calls destructor for each element in stack. Sets the number of elements to 0.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Stack&lt;int, 4&gt; stack;
+stack.clear();</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </article>
   </div>
 </main>
