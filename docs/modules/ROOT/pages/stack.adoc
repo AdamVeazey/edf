@@ -90,18 +90,18 @@ include::{path_example_edf_stack_main_cpp}[tag=capacity_max_length]
 == Operations
 NOTE: Many, if not all, of the Operation member functions use {ref_edf_assert_EDF_ASSERTD} to ensure the operation will be successful. Remember that the assert condition is only checked in Debug mode.
 
-[#top]
-=== top()
+[#peek]
+=== peek()
 Returns the last value inserted into the stack without modifying the number of elements in the stack. 
 
 .Example
 [source,indent=0,c++]
 ----
 include::{path_example_edf_stack_main_cpp}[tag=init]
-include::{path_example_edf_stack_main_cpp}[tag=operation_top]
+include::{path_example_edf_stack_main_cpp}[tag=operation_peek]
 ----
 
-WARNING: Rename to peek for consistency with Queue. I also feel it gives a better picture of what it does, allows you to just peek, look, read, at the element you are likely to remove next using <<pop>>
+NOTE: Name is peek instead of "top" for consistency with Queue. It gives a better picture of what it does. Peek allows you to peek, look, read, the element you are likely to remove next using <<pop>> without actually popping the value.
 
 [#push]
 === push( value )

@@ -30,8 +30,8 @@ public:
     inline constexpr std::size_t maxLength()        const { return buffer.maxLength(); }
 
     /* Operations */
-    inline constexpr T& top()                             { return buffer.back(); }
-    inline constexpr const T& top()                 const { return buffer.back(); }
+    inline constexpr T& peek()                            { return buffer.back(); }
+    inline constexpr const T& peek()                const { return buffer.back(); }
     
     inline constexpr void push( const T& value )          { buffer.pushBack( value ); }
     inline constexpr void push( const T&& value )         { buffer.pushBack( value ); }

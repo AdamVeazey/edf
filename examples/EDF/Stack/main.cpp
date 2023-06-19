@@ -43,9 +43,9 @@ int main( void ) {
     stack.push( 3 );
     stack.push( 4 );
 
-    // tag::operation_top[]
-    auto& lastElement = stack.top();
-    // end::operation_top[]
+    // tag::operation_peek[]
+    auto& lastElement = stack.peek();
+    // end::operation_peek[]
 
     std::cout << "last element: " << lastElement << '\n';
 
@@ -80,13 +80,13 @@ int main( void ) {
 
     EDF::Stack<CustomType, 3> stack3 = stack2;
 
-    std::cout << "last element: " << stack2.top().value << '\n';
+    std::cout << "last element: " << stack2.peek().value << '\n';
 
     while( !stack2.isEmpty() ){
         std::cout << stack2.pop().value << '\n';
     }
 
-    std::cout << "last element: " << stack3.top().value << '\n';
+    std::cout << "last element: " << stack3.peek().value << '\n';
 
     while( !stack3.isEmpty() ){
         std::cout << stack3.pop().value << '\n';
