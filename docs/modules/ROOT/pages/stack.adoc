@@ -98,6 +98,7 @@ Returns the last value inserted into the stack without modifying the number of e
 [source,indent=0,c++]
 ----
 include::{path_example_edf_stack_main_cpp}[tag=init]
+include::{path_example_edf_stack_main_cpp}[tag=operation_push]
 include::{path_example_edf_stack_main_cpp}[tag=operation_peek]
 ----
 
