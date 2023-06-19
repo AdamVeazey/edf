@@ -2,11 +2,13 @@
 
 include::partial$refs.adoc[]
 
+:link_list_initialization: https://en.cppreference.com/w/cpp/language/list_initialization[list-initialization]
+
 .Template arguments
 `T` = (T)ype +
 `N` = Maximum (N)umber of elements the vector can hold
 
-NOTE: `T` _Needs_ to be copyable. and _helps_ if `T` is also default constructable.
+NOTE: `T` _Needs_ to be copyable, and _helps_ if `T` is also default constructable.
 
 == Overview
 Vector is a template that uses an {ref_edf_array} plus a current size variable to act like a std::vector, but does not grow if there is no more room in the underlying {ref_edf_array}. `N` specifies the maximum number of elements the vector can "grow" to.
@@ -23,7 +25,7 @@ There are 5 groups of member functions:
 IMPORTANT: When using overloaded member functions that use either index/position, when using an index of `0` will attempt to use the position version of the member function. To work around this, use {ref_edf_math_uz} for `0`. All other integers will have expected overload resolution.
 
 == Initialization
-Default initialization requires type `T` to be default constructable. Otherwise https://en.cppreference.com/w/cpp/language/list_initialization[List-initialization] is required.
+Default initialization requires type `T` to be default constructable. Otherwise {link_list_initialization} is required.
 
 .Example: Default Constructable
 [source,c++]
@@ -31,7 +33,7 @@ Default initialization requires type `T` to be default constructable. Otherwise 
 EDF::Vector<int, 30> vector;
 ----
 
-.Example: https://en.cppreference.com/w/cpp/language/list_initialization[List-initialization] with a custom type
+.Example: {link_list_initialization} with a custom type
 [source,c++]
 ----
 class CustomType { 
@@ -99,7 +101,7 @@ NOTE: The name `length()` is used instead of `size()` or `count()` for consisten
 
 [#maxLength]
 === maxLength()
-Returns template parameter N. It acts the same as a compile time constant. No need to remember how a macro for a vector max number of elements is named.
+Returns template parameter `N`. It acts the same as a compile time constant. No need to remember how a macro for a vector max number of elements is named.
 
 .Example
 [source,indent=0,c++]
