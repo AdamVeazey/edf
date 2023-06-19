@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "../Vector.hpp"
+#include <EDF/Vector.hpp>
 
 namespace EDF {
 
