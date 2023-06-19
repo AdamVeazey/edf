@@ -21,19 +21,26 @@ public:
     Stack( I... iList ) : buffer{iList...} {}
     ~Stack() = default;
 
+    /* Is Questions */
     inline constexpr bool isEmpty()                 const { return buffer.isEmpty(); }
     inline constexpr bool isFull()                  const { return buffer.isFull(); }
-    inline constexpr std::size_t length()           const { return buffer.length(); }
+    
+    /* Capacity */
+    inline constexpr const std::size_t& length()    const { return buffer.length(); }
     inline constexpr std::size_t maxLength()        const { return buffer.maxLength(); }
 
+    /* Operations */
     inline constexpr T& top()                             { return buffer.back(); }
     inline constexpr const T& top()                 const { return buffer.back(); }
+    
     inline constexpr void push( const T& value )          { buffer.pushBack( value ); }
     inline constexpr void push( const T&& value )         { buffer.pushBack( value ); }
-    // emplace
+    
     template<typename... Args>
     inline constexpr T& emplace( Args&&... args )         { return buffer.emplaceBack(std::forward<Args>(args)...); }
+    
     inline constexpr T pop()                              { return buffer.popBack(); }
+    
     inline constexpr void clear()                         { buffer.clear(); }
 };
 
