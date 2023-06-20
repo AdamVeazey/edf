@@ -78,7 +78,7 @@ include::{path_example_edf_stack_main_cpp}[tag=capacity_length]
 
 [#max_length]
 === maxLength()
-Returns template parameter `N`. It acts teh same as a compile time constant. No need to remember how a macro for the stack max number of elements is named.
+Returns template parameter `N`. It acts the same as a compile time constant. No need to remember how a macro for the stack max number of elements is named.
 
 .Example
 [source,indent=0,c++]
