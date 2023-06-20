@@ -52,7 +52,7 @@ int main( void ) {
     // tag::is_question_empty[]
     while( !stack.isEmpty() ){
         /* ... */
-    // tag::is_question_empty[]
+    // end::is_question_empty[]
 
         // tag::operation_pop[]
         auto mostRecentElement = stack.pop();
