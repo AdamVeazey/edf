@@ -364,46 +364,9 @@ Provided to make a common conditional check slightly more readable, as well as c
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">    EDF::Stack&lt;int, 4&gt; stack;
-    while( !stack.isEmpty() ){
-        /* ... */
-
-        auto mostRecentElement = stack.pop();
-        std::cout &lt;&lt; mostRecentElement &lt;&lt; '\n';
-    }
-    
-    struct CustomType{
-        int value;
-        CustomType( int v ) : value(v) {}
-    };
-
-    EDF::Stack&lt;CustomType, 3&gt; stack2 = {
-        CustomType( 0 ),
-        CustomType( 0 ),
-        CustomType( 0 )
-    };
-    stack2.clear();
-
-    stack2.push( CustomType(5) );
-    stack2.push( CustomType(6) );
-    stack2.push( CustomType(7) );
-
-    EDF::Stack&lt;CustomType, 3&gt; stack3 = stack2;
-
-    std::cout &lt;&lt; "last element: " &lt;&lt; stack2.peek().value &lt;&lt; '\n';
-
-    while( !stack2.isEmpty() ){
-        std::cout &lt;&lt; stack2.pop().value &lt;&lt; '\n';
-    }
-
-    std::cout &lt;&lt; "last element: " &lt;&lt; stack3.peek().value &lt;&lt; '\n';
-
-    while( !stack3.isEmpty() ){
-        std::cout &lt;&lt; stack3.pop().value &lt;&lt; '\n';
-    }
-
-    return 0;
-}</code></pre>
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Stack&lt;int, 4&gt; stack;
+while( !stack.isEmpty() ){
+    /* ... */</code></pre>
 </div>
 </div>
 </div>
