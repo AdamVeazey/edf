@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Queue :: EDF</title>
+    <title>Queue&lt;T, N&gt; :: EDF</title>
     <link rel="canonical" href="https://adamveazey.github.io/edf/docs/main/docs/main/queue.html">
     <meta name="generator" content="Antora 3.1.4">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -261,8 +261,432 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Queue</h1>
+<h1 class="page">Queue&lt;T, N&gt;</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<div class="title">Template arguments</div>
+<p><code>T</code> = (T)ype<br>
+<code>N</code> = Maximum (N)umber of elements the underlying container can hold. The queue can hold at most (N)-1 number of elements.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The queue can hold at most N-1 number of elements.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>T</code> <em>Needs</em> to be copyable, and <em>helps</em> if <code>T</code> is also default constructable.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is a container to provide a FIFO data structure with a fixed max size. Since queue has a fixed max size, it is implemented as a <a href="https://en.wikipedia.org/wiki/Circular_buffer">circular queue</a>, aka ring buffer.</p>
+</div>
+<div class="paragraph">
+<p>There are 4 main groups of member functions:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="#_is_questions">Is Questions</a></p>
+</li>
+<li>
+<p><a href="#_capacity">Capacity</a></p>
+</li>
+<li>
+<p><a href="#_operations">Operations</a></p>
+</li>
+<li>
+<p><a href="#_uint8_t_specialized_member_functions">uint8_t Specialized Member Functions</a></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_initialization"><a class="anchor" href="#_initialization"></a>Initialization</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Default initialization requires type <code>T</code> to be default constructable. Otherwise <a href="https://en.cppreference.com/w/cpp/language/list_initialization">list-initialization</a> is required.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example: <code>T</code> is default constructable</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;int, 8&gt; queue;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Example: <a href="https://en.cppreference.com/w/cpp/language/list_initialization">list-initialization</a> with a custom type</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">struct CustomType{
+    int value;
+    CustomType( int v ) : value(v) {}
+};
 
+EDF::Queue&lt;CustomType, 4&gt; queue2 = {
+    CustomType( 0 ),
+    CustomType( 0 ),
+    CustomType( 0 ),
+    CustomType( 0 )
+};
+queue2.clear();</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If using <a href="https://en.cppreference.com/w/cpp/language/list_initialization">list-initialization</a> on a type <code>T</code> without a default constructor. First fill up the entire queue using <a href="https://en.cppreference.com/w/cpp/language/list_initialization">list-initialization</a>, then call <a href="#clear">clear()</a>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_is_questions"><a class="anchor" href="#_is_questions"></a>Is Questions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>These member functions provide yes/no answers to the current state of the queue.</p>
+</div>
+<div class="sect2">
+<h3 id="is_empty"><a class="anchor" href="#is_empty"></a>isEmpty()</h3>
+<div class="paragraph">
+<p>Equivalent to <code><a href="#length">length()</a> == 0</code><br>
+Provided to make a common conditional check slightly more readable, as well as consistency with other <a href="edf.html#_stl_like_containers" class="xref page">EDF containers</a>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;int, 8&gt; queue;
+while( !queue.isEmpty() ){
+    /* ... */</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="is_full"><a class="anchor" href="#is_full"></a>isFull()</h3>
+<div class="paragraph">
+<p>Since a queue doesn&#8217;t grow the underlying container, you should check if it is full before adding an element.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;int, 8&gt; queue;
+if( !queue.isFull() ) {
+    /* ... */
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_capacity"><a class="anchor" href="#_capacity"></a>Capacity</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Provides information about how many current elements are in the queue, as well as the max number of elements the queue can hold.</p>
+</div>
+<div class="sect2">
+<h3 id="length"><a class="anchor" href="#length"></a>length()</h3>
+<div class="paragraph">
+<p>Returns the number of elements currently in the queue.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;int, 8&gt; queue;
+auto nElementsInQueue = queue.length();</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="max_length"><a class="anchor" href="#max_length"></a>maxLength()</h3>
+<div class="paragraph">
+<p>Returns template parameter <code>N</code> - 1. It acts the same as a compile time constant. No need to remember how a macro for the queue max number of elements is named.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;int, 8&gt; queue;
+constexpr auto maxNumberOfElements = queue.maxLength();</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_operations"><a class="anchor" href="#_operations"></a>Operations</h2>
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Many, if not all, of the Operation member functions use <a href="assert.html#_edf_assertd" class="xref page">EDF_ASSERTD</a> to ensure the operation will be successful. Remember that the assert condition is only checked in Debug mode.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="peek"><a class="anchor" href="#peek"></a>peek()</h3>
+<div class="paragraph">
+<p>Returns the first value inserted into the queue without modifying the number of elements in the queue.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;int, 8&gt; queue;
+queue.push( 1 );
+auto&amp; firstElement = queue.peek();</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Name is peek instead of "front" for consistency with <a href="stack.html" class="xref page">Stack</a>. It gives a better picture of what it does. Peek allows you to peek, look, read, the element you are likely to remove next using <a href="#pop">pop()</a> without actually popping the value.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="push"><a class="anchor" href="#push"></a>push( value )</h3>
+<div class="paragraph">
+<p>Add element to the end of the queue.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;int, 8&gt; queue;
+queue.push( 1 );</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="emplace"><a class="anchor" href="#emplace"></a>emplace( args&#8230;&#8203; )</h3>
+<div class="paragraph">
+<p>Add element to the end of the queue by constructing the element in place using <a href="https://en.cppreference.com/w/cpp/language/new#Placement_new">placement new</a>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;int, 8&gt; queue;
+auto&amp; valueConstructed = queue.emplace( 2 );</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="pop"><a class="anchor" href="#pop"></a>pop()</h3>
+<div class="paragraph">
+<p>Remove element from the end of the queue then return a copy of the value.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;int, 8&gt; queue;
+    auto firstElement = queue.pop();</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="clear"><a class="anchor" href="#clear"></a>clear()</h3>
+<div class="paragraph">
+<p>Calls destructor for each element in queue. Sets the number of elements to 0.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;int, 8&gt; queue;
+queue.clear();</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_uint8_t_specialized_member_functions"><a class="anchor" href="#_uint8_t_specialized_member_functions"></a>uint8_t Specialized Member Functions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A common usage of a queue is to hold a buffer of incoming data from a data source, like <a href="peripherals/uart.html" class="xref page">UART</a> for example. Add incoming data to the queue with <a href="#push">push( value )</a> and parse that data using <a href="#pop">pop()</a>. The following set of functions are provided as alternatives to <a href="#pop">pop()</a> when parsing an integer from the stream of data.</p>
+</div>
+<div class="paragraph">
+<p>There are two groups of uint8_t Specialized Member Functions, big endian (AKA <a href="https://en.wikipedia.org/wiki/Endianness#Networking">Network Order</a>) and little endian. Big endian member functions are marked with the suffix "be". Little endian member functions are marked with the suffix "le".</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_big_endian_pop_member_functions"><a class="anchor" href="#_big_endian_pop_member_functions"></a>Big Endian pop() Member Functions</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="pop8be"><a class="anchor" href="#pop8be"></a>pop8be()</h3>
+<div class="paragraph">
+<p>Alias for <a href="#pop">pop()</a>, only provided for consistency of other big endian pop functions.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;uint8_t, 32&gt; q;
+q.push( 0x12 );
+uint8_t data8be = q.pop8be();</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="pop16be"><a class="anchor" href="#pop16be"></a>pop16be()</h3>
+<div class="paragraph">
+<p>Calls <a href="#pop8be">pop8be()</a> twice to get two bytes from the queue and interpret them as a big-endian 16-bit unsigned integer.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;uint8_t, 32&gt; q;
+q.push( 0x34 );
+q.push( 0x12 );
+uint16_t data16be = q.pop16be();</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="pop32be"><a class="anchor" href="#pop32be"></a>pop32be()</h3>
+<div class="paragraph">
+<p>Calls <a href="#pop16be">pop16be()</a> twice to get four bytes from the queue and interpret them as a big-endian 32-bit unsigned integer.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;uint8_t, 32&gt; q;
+q.push( 0x78 );
+q.push( 0x56 );
+q.push( 0x34 );
+q.push( 0x12 );
+uint32_t data32be = q.pop32be();</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="pop64be"><a class="anchor" href="#pop64be"></a>pop64be()</h3>
+<div class="paragraph">
+<p>Calls <a href="#pop32be">pop32be()</a> twice to get eight bytes from the queue and interpret them as a big-endian 64-bit unsigned integer.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;uint8_t, 32&gt; q;
+q.push( 0xF0 );
+q.push( 0xDE );
+q.push( 0xBC );
+q.push( 0x9A );
+q.push( 0x78 );
+q.push( 0x56 );
+q.push( 0x34 );
+q.push( 0x12 );
+uint64_t data64be = q.pop64be();</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_little_endian_pop_member_functions"><a class="anchor" href="#_little_endian_pop_member_functions"></a>Little Endian pop() Member functions</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="pop8le"><a class="anchor" href="#pop8le"></a>pop8le()</h3>
+<div class="paragraph">
+<p>Alias for <a href="#pop">pop()</a>, only provided for consistency of other little endian pop functions.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;uint8_t, 32&gt; q;
+q.push( 0x12 );
+uint8_t data8le = q.pop8le();</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="pop16le"><a class="anchor" href="#pop16le"></a>pop16le()</h3>
+<div class="paragraph">
+<p>Calls <a href="#pop8le">pop8le()</a> twice to get two bytes from the queue and interpret them as a little-endian 16-bit unsigned integer.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;uint8_t, 32&gt; q;
+q.push( 0x12 );
+q.push( 0x34 );
+uint16_t data16le = q.pop16le();</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="pop32le"><a class="anchor" href="#pop32le"></a>pop32le()</h3>
+<div class="paragraph">
+<p>Calls <a href="#pop16le">pop16le()</a> twice to get four bytes from the queue and interpret them as a little-endian 32-bit unsigned integer.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;uint8_t, 32&gt; q;
+q.push( 0x12 );
+q.push( 0x34 );
+q.push( 0x56 );
+q.push( 0x78 );
+uint32_t data32le = q.pop32le();</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="pop64le"><a class="anchor" href="#pop64le"></a>pop64le()</h3>
+<div class="paragraph">
+<p>Calls <a href="#pop32le">pop32le()</a> twice to get eight bytes from the queue and interpret them as a little-endian 64-bit unsigned integer.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;uint8_t, 32&gt; q;
+q.push( 0x12 );
+q.push( 0x34 );
+q.push( 0x56 );
+q.push( 0x78 );
+q.push( 0x9A );
+q.push( 0xBC );
+q.push( 0xDE );
+q.push( 0xF0 );
+uint64_t data64le = q.pop64le();</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </article>
   </div>
 </main>
