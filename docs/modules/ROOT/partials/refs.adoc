@@ -35,6 +35,7 @@
 
 :path_example_edf: example$examples/EDF
 :path_example_edf_array_main_cpp: {path_example_edf}/Array/main.cpp
+:path_example_edf_queue_main_cpp: {path_example_edf}/Queue/main.cpp
 :path_example_edf_stack_main_cpp: {path_example_edf}/Stack/main.cpp
 :path_example_edf_vector_main_cpp: {path_example_edf}/Vector/main.cpp
 
