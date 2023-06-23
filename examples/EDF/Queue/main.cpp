@@ -99,13 +99,13 @@ int main( void ) {
 
     // tag::uint8_t_pop8be[]
     q.push( 0x12 );
-    uint8_t data8be = q.pop8be();
+    uint8_t data8be = q.pop8be(); // 0x12
     // end::uint8_t_pop8be[]
 
     // tag::uint8_t_pop16be[]
     q.push( 0x34 );
     q.push( 0x12 );
-    uint16_t data16be = q.pop16be();
+    uint16_t data16be = q.pop16be(); // 0x1234
     // end::uint8_t_pop16be[]
 
     // tag::uint8_t_pop32be[]
@@ -113,7 +113,7 @@ int main( void ) {
     q.push( 0x56 );
     q.push( 0x34 );
     q.push( 0x12 );
-    uint32_t data32be = q.pop32be();
+    uint32_t data32be = q.pop32be(); // 0x12345678
     // end::uint8_t_pop32be[]
 
     // tag::uint8_t_pop64be[]
@@ -125,18 +125,18 @@ int main( void ) {
     q.push( 0x56 );
     q.push( 0x34 );
     q.push( 0x12 );
-    uint64_t data64be = q.pop64be();
+    uint64_t data64be = q.pop64be(); // 0x123456789ABCDEF0
     // end::uint8_t_pop64be[]
 
     // tag::uint8_t_pop8le[]
     q.push( 0x12 );
-    uint8_t data8le = q.pop8le();
+    uint8_t data8le = q.pop8le(); // 0x12
     // end::uint8_t_pop8le[]
 
     // tag::uint8_t_pop16le[]
     q.push( 0x12 );
     q.push( 0x34 );
-    uint16_t data16le = q.pop16le();
+    uint16_t data16le = q.pop16le(); // 0x1234
     // end::uint8_t_pop16le[]
 
     // tag::uint8_t_pop32le[]
@@ -144,7 +144,7 @@ int main( void ) {
     q.push( 0x34 );
     q.push( 0x56 );
     q.push( 0x78 );
-    uint32_t data32le = q.pop32le();
+    uint32_t data32le = q.pop32le(); // 0x12345678
     // end::uint8_t_pop32le[]
 
     // tag::uint8_t_pop64le[]
@@ -156,9 +156,9 @@ int main( void ) {
     q.push( 0xBC );
     q.push( 0xDE );
     q.push( 0xF0 );
-    uint64_t data64le = q.pop64le();
+    uint64_t data64le = q.pop64le(); // 0x123456789ABCDEF0
     // end::uint8_t_pop64le[]
-    
+
     q.push( 0x78 );
     q.push( 0x56 );
     q.push( 0x34 );
