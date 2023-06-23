@@ -102,7 +102,7 @@ include::{path_example_edf_stack_main_cpp}[tag=operation_push]
 include::{path_example_edf_stack_main_cpp}[tag=operation_peek]
 ----
 
-NOTE: Name is peek instead of "top" for consistency with Queue. It gives a better picture of what it does. Peek allows you to peek, look, read, the element you are likely to remove next using <<pop>> without actually popping the value.
+NOTE: Name is peek instead of "top" for consistency with {ref_edf_queue}. It gives a better picture of what it does. Peek allows you to peek, look, read, the element you are likely to remove next using <<pop>> without actually popping the value.
 
 [#push]
 === push( value )
