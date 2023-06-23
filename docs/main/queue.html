@@ -556,7 +556,7 @@ queue.clear();</code></pre>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;uint8_t, 32&gt; q;
 q.push( 0x12 );
-uint8_t data8be = q.pop8be();</code></pre>
+uint8_t data8be = q.pop8be(); // 0x12</code></pre>
 </div>
 </div>
 </div>
@@ -571,7 +571,7 @@ uint8_t data8be = q.pop8be();</code></pre>
 <pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;uint8_t, 32&gt; q;
 q.push( 0x34 );
 q.push( 0x12 );
-uint16_t data16be = q.pop16be();</code></pre>
+uint16_t data16be = q.pop16be(); // 0x1234</code></pre>
 </div>
 </div>
 </div>
@@ -588,7 +588,7 @@ q.push( 0x78 );
 q.push( 0x56 );
 q.push( 0x34 );
 q.push( 0x12 );
-uint32_t data32be = q.pop32be();</code></pre>
+uint32_t data32be = q.pop32be(); // 0x12345678</code></pre>
 </div>
 </div>
 </div>
@@ -609,7 +609,7 @@ q.push( 0x78 );
 q.push( 0x56 );
 q.push( 0x34 );
 q.push( 0x12 );
-uint64_t data64be = q.pop64be();</code></pre>
+uint64_t data64be = q.pop64be(); // 0x123456789ABCDEF0</code></pre>
 </div>
 </div>
 </div>
@@ -628,7 +628,7 @@ uint64_t data64be = q.pop64be();</code></pre>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;uint8_t, 32&gt; q;
 q.push( 0x12 );
-uint8_t data8le = q.pop8le();</code></pre>
+uint8_t data8le = q.pop8le(); // 0x12</code></pre>
 </div>
 </div>
 </div>
@@ -643,7 +643,7 @@ uint8_t data8le = q.pop8le();</code></pre>
 <pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;uint8_t, 32&gt; q;
 q.push( 0x12 );
 q.push( 0x34 );
-uint16_t data16le = q.pop16le();</code></pre>
+uint16_t data16le = q.pop16le(); // 0x1234</code></pre>
 </div>
 </div>
 </div>
@@ -660,7 +660,7 @@ q.push( 0x12 );
 q.push( 0x34 );
 q.push( 0x56 );
 q.push( 0x78 );
-uint32_t data32le = q.pop32le();</code></pre>
+uint32_t data32le = q.pop32le(); // 0x12345678</code></pre>
 </div>
 </div>
 </div>
@@ -681,7 +681,7 @@ q.push( 0x9A );
 q.push( 0xBC );
 q.push( 0xDE );
 q.push( 0xF0 );
-uint64_t data64le = q.pop64le();</code></pre>
+uint64_t data64le = q.pop64le(); // 0x123456789ABCDEF0</code></pre>
 </div>
 </div>
 </div>
