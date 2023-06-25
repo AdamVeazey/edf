@@ -101,75 +101,83 @@ int main( void ) {
     q.push( 0x12 );
     uint8_t data8be = q.pop8be(); // 0x12
     // end::uint8_t_pop8be[]
+    std::cout << std::hex;
+    std::cout << "data8be:  0x" << +data8be << '\n';
 
     // tag::uint8_t_pop16be[]
-    q.push( 0x34 );
     q.push( 0x12 );
+    q.push( 0x34 );
     uint16_t data16be = q.pop16be(); // 0x1234
     // end::uint8_t_pop16be[]
+    std::cout << "data16be: 0x" << data16be << '\n';
 
     // tag::uint8_t_pop32be[]
-    q.push( 0x78 );
-    q.push( 0x56 );
-    q.push( 0x34 );
     q.push( 0x12 );
+    q.push( 0x34 );
+    q.push( 0x56 );
+    q.push( 0x78 );
     uint32_t data32be = q.pop32be(); // 0x12345678
     // end::uint8_t_pop32be[]
+    std::cout << "data32be: 0x" << data32be << '\n';
 
     // tag::uint8_t_pop64be[]
-    q.push( 0xF0 );
-    q.push( 0xDE );
-    q.push( 0xBC );
-    q.push( 0x9A );
-    q.push( 0x78 );
-    q.push( 0x56 );
-    q.push( 0x34 );
     q.push( 0x12 );
+    q.push( 0x34 );
+    q.push( 0x56 );
+    q.push( 0x78 );
+    q.push( 0x9A );
+    q.push( 0xBC );
+    q.push( 0xDE );
+    q.push( 0xF0 );
     uint64_t data64be = q.pop64be(); // 0x123456789ABCDEF0
     // end::uint8_t_pop64be[]
+    std::cout << "data64be: 0x" << data64be << '\n';
 
     // tag::uint8_t_pop8le[]
     q.push( 0x12 );
     uint8_t data8le = q.pop8le(); // 0x12
     // end::uint8_t_pop8le[]
+    std::cout << "data8le:  0x" << +data8le << '\n';
 
     // tag::uint8_t_pop16le[]
-    q.push( 0x12 );
     q.push( 0x34 );
+    q.push( 0x12 );
     uint16_t data16le = q.pop16le(); // 0x1234
     // end::uint8_t_pop16le[]
+    std::cout << "data16le: 0x" << data16le << '\n';
 
     // tag::uint8_t_pop32le[]
-    q.push( 0x12 );
-    q.push( 0x34 );
-    q.push( 0x56 );
     q.push( 0x78 );
+    q.push( 0x56 );
+    q.push( 0x34 );
+    q.push( 0x12 );
     uint32_t data32le = q.pop32le(); // 0x12345678
     // end::uint8_t_pop32le[]
+    std::cout << "data32le: 0x" << data32le << '\n';
 
     // tag::uint8_t_pop64le[]
-    q.push( 0x12 );
-    q.push( 0x34 );
-    q.push( 0x56 );
-    q.push( 0x78 );
-    q.push( 0x9A );
-    q.push( 0xBC );
-    q.push( 0xDE );
     q.push( 0xF0 );
+    q.push( 0xDE );
+    q.push( 0xBC );
+    q.push( 0x9A );
+    q.push( 0x78 );
+    q.push( 0x56 );
+    q.push( 0x34 );
+    q.push( 0x12 );
     uint64_t data64le = q.pop64le(); // 0x123456789ABCDEF0
     // end::uint8_t_pop64le[]
-
-    q.push( 0x78 );
-    q.push( 0x56 );
-    q.push( 0x34 );
-    q.push( 0x12 );
+    std::cout << "data64le: 0x" << data64le << '\n';
 
     q.push( 0x12 );
     q.push( 0x34 );
     q.push( 0x56 );
     q.push( 0x78 );
-
     uint32_t be = q.pop32be();
+
+    q.push( 0x78 );
+    q.push( 0x56 );
+    q.push( 0x34 );
+    q.push( 0x12 );
     uint32_t le = q.pop32le();
 
     std::cout << "be == le: " << (be == le) 
