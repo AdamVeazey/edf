@@ -97,21 +97,27 @@ template<typename T, std::size_t N>
 inline constexpr std::uint16_t Queue<T, N>::
 pop16be() {
     static_assert( std::is_same_v<T, std::uint8_t>, "pop16be() is only available if T is a 'std::uint8_t'");
-    return (pop8be() << 8) | pop8be();
+    uint16_t result = pop8be() << 8;
+    result |= pop8be();
+    return result;
 }
 
 template<typename T, std::size_t N>
 inline constexpr std::uint32_t Queue<T,N>::
 pop32be() {
     static_assert( std::is_same_v<T, std::uint8_t>, "pop32be() is only available if T is a 'std::uint8_t'");
-    return (pop16be() << 16) | pop16be();
+    uint32_t result = pop16be() << 16;
+    result |= pop16be();
+    return result;
 }
 
 template<typename T, std::size_t N>
 inline constexpr std::uint64_t Queue<T,N>::
 pop64be() {
     static_assert( std::is_same_v<T, std::uint8_t>, "pop64be() is only available if T is a 'std::uint8_t'");
-    return (static_cast<std::uint64_t>(pop32be()) << 32) | pop32be();
+    uint64_t result = static_cast<std::uint64_t>(pop32be()) << 32;
+    result |= pop32be();
+    return result;
 }
 
 template<typename T, std::size_t N>
@@ -125,21 +131,27 @@ template<typename T, std::size_t N>
 inline constexpr std::uint16_t Queue<T, N>::
 pop16le() {
     static_assert( std::is_same_v<T, std::uint8_t>, "pop16le() is only available if T is a 'std::uint8_t'");
-    return pop8le() | (pop8le() << 8);
+    uint16_t result = pop8le();
+    result |= pop8le() << 8;
+    return result;
 }
 
 template<typename T, std::size_t N>
 inline constexpr std::uint32_t Queue<T,N>::
 pop32le() {
     static_assert( std::is_same_v<T, std::uint8_t>, "pop32le() is only available if T is a 'std::uint8_t'");
-    return pop16le() | (pop16le() << 16);
+    uint32_t result = pop16le();
+    result |= pop16le() << 16;
+    return result;
 }
 
 template<typename T, std::size_t N>
 inline constexpr std::uint64_t Queue<T,N>::
 pop64le() {
     static_assert( std::is_same_v<T, std::uint8_t>, "pop64le() is only available if T is a 'std::uint8_t'");
-    return pop32le() | (static_cast<std::uint64_t>(pop32le()) << 32);
+    uint64_t result = pop32le();
+    result |= static_cast<std::uint64_t>(pop32le()) << 32;
+    return result;
 }
 
 } /* EDF */
