@@ -27,7 +27,7 @@ IMPORTANT: These interfaces do *_NOT_* attempt to provide one-size-fits-all init
 
 
 |{ref_drivers}
-|A collection of platform independent IC drivers, or other 'higher level' uses of {ref_peripherals} such as {link_peripherals_led_rgb}
+|A collection of platform independent IC drivers, or other 'higher level' uses of {ref_peripherals} such as {ref_drivers_rgb_led}
 |To write a driver *once* instead of slightly different versions in every project that uses the same exact external component. 
 
 |{ref_mcu}
