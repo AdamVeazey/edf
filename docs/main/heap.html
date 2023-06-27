@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Heap :: EDF</title>
+    <title>Heap&lt;T, N, Compare&gt; :: EDF</title>
     <link rel="canonical" href="https://adamveazey.github.io/edf/docs/main/docs/main/heap.html">
     <meta name="generator" content="Antora 3.1.4">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -261,8 +261,246 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Heap</h1>
-
+<h1 class="page">Heap&lt;T, N, Compare&gt;</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<div class="title">Template arguments</div>
+<p><code>T</code> = (T)ype<br>
+<code>N</code> = Maximum (N)umber of elements the heap can hold<br>
+<code>Compare</code> = (Compare) functor used to specify how elements should be sorted</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>T</code> <em>Needs</em> to be copyable, and <em>helps</em> if <code>T</code> is also default constructable.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is a fixed max size binary heap container. Providing different <code>Compare</code> functors allows you to choose how the heap is sorted. There are two pre-defined aliases <a href="#heap_max">HeapMax&lt;T, N&gt;</a> and <a href="#heap_min">HeapMin&lt;T, N&gt;</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="heap_max"><a class="anchor" href="#heap_max"></a>HeapMax&lt;T, N&gt;</h3>
+<div class="paragraph">
+<p>This is an alias for a binary max heap. The examples</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Unresolved directive in heap.adoc - include::{ref_src_edf_heap_hpp}[tag=declare_heap_max]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="heap_min"><a class="anchor" href="#heap_min"></a>HeapMin&lt;T, N&gt;</h3>
+<div class="paragraph">
+<p>This is an alias for a binary min heap.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Unresolved directive in heap.adoc - include::{ref_src_edf_heap_hpp}[tag=declare_heap_min]</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_initialization"><a class="anchor" href="#_initialization"></a>Initialization</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Default initialization requires type <code>T</code> to be default constructable. Otherwise <a href="https://en.cppreference.com/w/cpp/language/list_initialization">list-initialization</a> is required.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example: <code>T</code> is default constructable</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::HeapMax&lt;int, 7&gt; heap;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Example: <a href="https://en.cppreference.com/w/cpp/language/list_initialization">list-initialization</a> with a custom type</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::HeapMax&lt;int, 7&gt; heapInitializationList = { 10, 20 };</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If using <a href="https://en.cppreference.com/w/cpp/language/list_initialization">list-initialization</a> on a type <code>T</code> without a default constructor. First fill up the entire heap using <a href="https://en.cppreference.com/w/cpp/language/list_initialization">list-initialization</a>, then call <a href="#clear">clear()</a>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_is_questions"><a class="anchor" href="#_is_questions"></a>Is Questions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>These member functions provide yes/no answers to the current state of the heap.</p>
+</div>
+<div class="sect2">
+<h3 id="is_empty"><a class="anchor" href="#is_empty"></a>isEmpty()</h3>
+<div class="paragraph">
+<p>Equivalent to <code><a href="#length">length()</a> == 0</code><br>
+Provided to make a common conditional check slightly more readable, as well as consistency with other <a href="edf.html#_stl_like_containers" class="xref page">EDF containers</a>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::HeapMax&lt;int, 7&gt; heap;
+while( !heap.isEmpty() ) {
+    /* ... */</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="is_full"><a class="anchor" href="#is_full"></a>isFull()</h3>
+<div class="paragraph">
+<p>Since a heap doesn&#8217;t grow the underlying container, you should check if it is full before adding an element.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::HeapMax&lt;int, 7&gt; heap;
+if( !heap.isFull() ) {
+    /* ... */
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_capacity"><a class="anchor" href="#_capacity"></a>Capacity</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Provides information about how many current elements are in the heap, as well as the max number of elements the heap can hold.</p>
+</div>
+<div class="sect2">
+<h3 id="length"><a class="anchor" href="#length"></a>length()</h3>
+<div class="paragraph">
+<p>Returns the number of elements currently in the heap.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::HeapMax&lt;int, 7&gt; heap;
+auto&amp; nElementsInHeap = heap.length();</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="max_length"><a class="anchor" href="#max_length"></a>maxLength()</h3>
+<div class="paragraph">
+<p>Returns template parameter <code>N</code> - 1. It acts the same as a compile time constant. No need to remember how a macro for the heap max number of elements is named.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::HeapMax&lt;int, 7&gt; heap;
+constexpr auto maxNumberOfElements = heap.maxLength();</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_operations"><a class="anchor" href="#_operations"></a>Operations</h2>
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Many, if not all, of the Operation member functions use <a href="assert.html#_edf_assertd" class="xref page">EDF_ASSERTD</a> to ensure the operation will be successful. Remember that the assert condition is only checked in Debug mode.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="peek"><a class="anchor" href="#peek"></a>peek()</h3>
+<div class="paragraph">
+<p>Returns the value at the root of the heap without modifying the number of elements in the heap.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::HeapMax&lt;int, 7&gt; heap;
+heap.push( 2 );
+auto&amp; rootElement = heap.peek();</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="push"><a class="anchor" href="#push"></a>push( value )</h3>
+<div class="paragraph">
+<p>Add element to the the heap.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::HeapMax&lt;int, 7&gt; heap;
+heap.push( 2 );</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="emplace"><a class="anchor" href="#emplace"></a>emplace( args&#8230;&#8203; )</h3>
+<div class="paragraph">
+<p>Add element to the heap by constructing the element in place using <a href="https://en.cppreference.com/w/cpp/language/new#Placement_new">placement new</a>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::HeapMax&lt;int, 7&gt; heap;
+heap.emplace( 6 );</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="pop"><a class="anchor" href="#pop"></a>pop()</h3>
+<div class="paragraph">
+<p>Remove element from the heap then return a copy of the value.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::HeapMax&lt;int, 7&gt; heap;
+    auto removedElement = heap.pop();</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="clear"><a class="anchor" href="#clear"></a>clear()</h3>
+<div class="paragraph">
+<p>Calls destructor for each element in heap. Sets the number of elements to 0.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::HeapMax&lt;int, 7&gt; heap;
+heap.clear();</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </article>
   </div>
 </main>
