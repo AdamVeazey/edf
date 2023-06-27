@@ -16,7 +16,7 @@ This is a fixed max size binary heap container. Providing different `Compare` fu
 
 [#heap_max]
 === HeapMax<T, N>
-This is an alias for a binary max heap. The examples 
+This is an alias for a binary max heap.
 [source,indent=0,c++]
 ----
 include::{path_src_edf_heap_hpp}[tag=declare_heap_max]
