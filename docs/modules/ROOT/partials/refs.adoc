@@ -29,12 +29,14 @@
 :path_src_edf: example$src/EDF
 :path_src_edf_array_hpp: {path_src_edf}/Array.hpp
 :path_src_edf_assert_hpp: {path_src_edf}/Assert.hpp
+:path_src_edf_heap_hpp: {path_src_edf}/Heap.hpp
 :path_src_edf_math_hpp: {path_src_edf}/Math.hpp
 :path_src_edf_stack_hpp: {path_src_edf}/Stack.hpp
 :path_src_edf_vector_hpp: {path_src_edf}/Vector.hpp
 
 :path_example_edf: example$examples/EDF
 :path_example_edf_array_main_cpp: {path_example_edf}/Array/main.cpp
+:path_example_edf_heap_main_cpp: {path_example_edf}/Heap/main.cpp
 :path_example_edf_queue_main_cpp: {path_example_edf}/Queue/main.cpp
 :path_example_edf_stack_main_cpp: {path_example_edf}/Stack/main.cpp
 :path_example_edf_vector_main_cpp: {path_example_edf}/Vector/main.cpp
