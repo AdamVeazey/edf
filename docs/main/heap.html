@@ -297,7 +297,8 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">Unresolved directive in heap.adoc - include::{ref_src_edf_heap_hpp}[tag=declare_heap_max]</code></pre>
+<pre class="highlightjs highlight"><code class="language-none hljs">template&lt;typename T, std::size_t N&gt;
+using HeapMax = Heap&lt;T, N, std::greater&lt;T&gt;&gt;;</code></pre>
 </div>
 </div>
 </div>
@@ -308,7 +309,8 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">Unresolved directive in heap.adoc - include::{ref_src_edf_heap_hpp}[tag=declare_heap_min]</code></pre>
+<pre class="highlightjs highlight"><code class="language-none hljs">template&lt;typename T, std::size_t N&gt;
+using HeapMin = Heap&lt;T, N, std::less&lt;T&gt;&gt;;</code></pre>
 </div>
 </div>
 </div>
