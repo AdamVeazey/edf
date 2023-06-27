@@ -19,7 +19,7 @@ This is a fixed max size binary heap container. Providing different `Compare` fu
 This is an alias for a binary max heap. The examples 
 [source,indent=0,c++]
 ----
-include::{ref_src_edf_heap_hpp}[tag=declare_heap_max]
+include::{path_src_edf_heap_hpp}[tag=declare_heap_max]
 ----
 
 [#heap_min]
@@ -27,7 +27,7 @@ include::{ref_src_edf_heap_hpp}[tag=declare_heap_max]
 This is an alias for a binary min heap. 
 [source,indent=0,c++]
 ----
-include::{ref_src_edf_heap_hpp}[tag=declare_heap_min]
+include::{path_src_edf_heap_hpp}[tag=declare_heap_min]
 ----
 
 == Initialization
