@@ -13,7 +13,7 @@
 namespace EDF {
 
 template<typename T, std::size_t N>
-inline constexpr bool Queue<T, N>::
+constexpr bool Queue<T, N>::
 isFull() const { 
     if constexpr( isPow2( N ) ) {
         return head == ((tail+1) & WRAP); 
@@ -22,7 +22,7 @@ isFull() const {
 }
 
 template<typename T, std::size_t N>
-inline constexpr std::size_t Queue<T, N>::
+constexpr std::size_t Queue<T, N>::
 length() const {
     if constexpr( isPow2( N ) ) {
         return (head - tail) & WRAP;
@@ -31,7 +31,7 @@ length() const {
 }
 
 template<typename T, std::size_t N>
-inline constexpr void Queue<T, N>::
+constexpr void Queue<T, N>::
 push( const T& value ) {
     EDF_ASSERTD( !isFull() );
     buffer[tail] = value;
@@ -44,7 +44,7 @@ push( const T& value ) {
 }
 
 template<typename T, std::size_t N>
-inline constexpr void Queue<T, N>::
+constexpr void Queue<T, N>::
 push( const T&& value ) {
     EDF_ASSERTD( !isFull() );
     buffer[tail] = std::move(value);
@@ -58,7 +58,7 @@ push( const T&& value ) {
 
 template<typename T, std::size_t N>
 template<typename... Args>
-inline constexpr T& Queue<T, N>::
+constexpr T& Queue<T, N>::
 emplace( Args&&... args ) {
     EDF_ASSERTD( !isFull() );
     new (&buffer[tail]) T(std::forward<Args>(args)...);
@@ -72,7 +72,7 @@ emplace( Args&&... args ) {
 }
 
 template<typename T, std::size_t N>
-inline constexpr T Queue<T, N>::
+constexpr T Queue<T, N>::
 pop() {
     EDF_ASSERTD( !isEmpty() );
     T tmp = buffer[head];
@@ -87,14 +87,14 @@ pop() {
 
 /* uint8_t specialized memler functions */
 template<typename T, std::size_t N>
-inline constexpr std::uint8_t Queue<T,N>::
+constexpr std::uint8_t Queue<T,N>::
 pop8be() {
     static_assert( std::is_same_v<T, std::uint8_t>, "pop8be() is only available if T is a 'std::uint8_t'");
     return pop();
 }
 
 template<typename T, std::size_t N>
-inline constexpr std::uint16_t Queue<T, N>::
+constexpr std::uint16_t Queue<T, N>::
 pop16be() {
     static_assert( std::is_same_v<T, std::uint8_t>, "pop16be() is only available if T is a 'std::uint8_t'");
     uint16_t result = pop8be() << 8;
@@ -103,7 +103,7 @@ pop16be() {
 }
 
 template<typename T, std::size_t N>
-inline constexpr std::uint32_t Queue<T,N>::
+constexpr std::uint32_t Queue<T,N>::
 pop32be() {
     static_assert( std::is_same_v<T, std::uint8_t>, "pop32be() is only available if T is a 'std::uint8_t'");
     uint32_t result = pop16be() << 16;
@@ -112,7 +112,7 @@ pop32be() {
 }
 
 template<typename T, std::size_t N>
-inline constexpr std::uint64_t Queue<T,N>::
+constexpr std::uint64_t Queue<T,N>::
 pop64be() {
     static_assert( std::is_same_v<T, std::uint8_t>, "pop64be() is only available if T is a 'std::uint8_t'");
     uint64_t result = static_cast<std::uint64_t>(pop32be()) << 32;
@@ -121,14 +121,14 @@ pop64be() {
 }
 
 template<typename T, std::size_t N>
-inline constexpr std::uint8_t Queue<T,N>::
+constexpr std::uint8_t Queue<T,N>::
 pop8le() {
     static_assert( std::is_same_v<T, std::uint8_t>, "pop8le() is only available if T is a 'std::uint8_t'");
     return pop();
 }
 
 template<typename T, std::size_t N>
-inline constexpr std::uint16_t Queue<T, N>::
+constexpr std::uint16_t Queue<T, N>::
 pop16le() {
     static_assert( std::is_same_v<T, std::uint8_t>, "pop16le() is only available if T is a 'std::uint8_t'");
     uint16_t result = pop8le();
@@ -137,7 +137,7 @@ pop16le() {
 }
 
 template<typename T, std::size_t N>
-inline constexpr std::uint32_t Queue<T,N>::
+constexpr std::uint32_t Queue<T,N>::
 pop32le() {
     static_assert( std::is_same_v<T, std::uint8_t>, "pop32le() is only available if T is a 'std::uint8_t'");
     uint32_t result = pop16le();
@@ -146,7 +146,7 @@ pop32le() {
 }
 
 template<typename T, std::size_t N>
-inline constexpr std::uint64_t Queue<T,N>::
+constexpr std::uint64_t Queue<T,N>::
 pop64le() {
     static_assert( std::is_same_v<T, std::uint8_t>, "pop64le() is only available if T is a 'std::uint8_t'");
     uint64_t result = pop32le();

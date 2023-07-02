@@ -27,37 +27,37 @@ public:
     ~Queue() = default;
 
     /* Is Questions */
-    inline constexpr bool isEmpty()             const { return head == tail; }
-    inline constexpr bool isFull()              const;
+    constexpr bool isEmpty()            const { return head == tail; }
+    constexpr bool isFull()             const;
 
     /* Capacity */
-    inline constexpr std::size_t length()       const;
-    inline constexpr std::size_t maxLength()    const { return WRAP; }
+    constexpr std::size_t length()      const;
+    constexpr std::size_t maxLength()   const { return WRAP; }
 
     /* Operations */
-    inline constexpr T& peek()                        { return buffer[head]; }
-    inline constexpr const T& peek()            const { return buffer[head]; }
+    constexpr T& peek()                       { return buffer[head]; }
+    constexpr const T& peek()           const { return buffer[head]; }
 
-    inline constexpr void push( const T& value );
-    inline constexpr void push( const T&& value );
+    constexpr void push( const T& value );
+    constexpr void push( const T&& value );
 
     template<typename... Args>
-    inline constexpr T& emplace( Args&&... args );
+    constexpr T& emplace( Args&&... args );
 
-    inline constexpr T pop();
+    constexpr T pop();
 
-    inline constexpr void clear()                     { while( !isEmpty() ) { pop(); } }
+    constexpr void clear()                    { while( !isEmpty() ) { pop(); } }
 
     /* uint8_t specialized member functions */
-    inline constexpr std::uint8_t pop8be();
-    inline constexpr std::uint16_t pop16be();
-    inline constexpr std::uint32_t pop32be();
-    inline constexpr std::uint64_t pop64be();
+    constexpr std::uint8_t pop8be();
+    constexpr std::uint16_t pop16be();
+    constexpr std::uint32_t pop32be();
+    constexpr std::uint64_t pop64be();
 
-    inline constexpr std::uint8_t pop8le();
-    inline constexpr std::uint16_t pop16le();
-    inline constexpr std::uint32_t pop32le();
-    inline constexpr std::uint64_t pop64le();
+    constexpr std::uint8_t pop8le();
+    constexpr std::uint16_t pop16le();
+    constexpr std::uint32_t pop32le();
+    constexpr std::uint64_t pop64le();
 };
 
 

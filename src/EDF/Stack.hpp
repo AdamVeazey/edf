@@ -22,26 +22,26 @@ public:
     ~Stack() = default;
 
     /* Is Questions */
-    inline constexpr bool isEmpty()                 const { return buffer.isEmpty(); }
-    inline constexpr bool isFull()                  const { return buffer.isFull(); }
+    constexpr bool isEmpty()                const { return buffer.isEmpty(); }
+    constexpr bool isFull()                 const { return buffer.isFull(); }
     
     /* Capacity */
-    inline constexpr const std::size_t& length()    const { return buffer.length(); }
-    inline constexpr std::size_t maxLength()        const { return buffer.maxLength(); }
+    constexpr const std::size_t& length()   const { return buffer.length(); }
+    constexpr std::size_t maxLength()       const { return buffer.maxLength(); }
 
     /* Operations */
-    inline constexpr T& peek()                            { return buffer.back(); }
-    inline constexpr const T& peek()                const { return buffer.back(); }
+    constexpr T& peek()                           { return buffer.back(); }
+    constexpr const T& peek()               const { return buffer.back(); }
     
-    inline constexpr void push( const T& value )          { buffer.pushBack( value ); }
-    inline constexpr void push( const T&& value )         { buffer.pushBack( value ); }
+    constexpr void push( const T& value )         { buffer.pushBack( value ); }
+    constexpr void push( const T&& value )        { buffer.pushBack( value ); }
     
     template<typename... Args>
-    inline constexpr T& emplace( Args&&... args )         { return buffer.emplaceBack(std::forward<Args>(args)...); }
+    constexpr T& emplace( Args&&... args )        { return buffer.emplaceBack(std::forward<Args>(args)...); }
     
-    inline constexpr T pop()                              { return buffer.popBack(); }
+    constexpr T pop()                             { return buffer.popBack(); }
     
-    inline constexpr void clear()                         { buffer.clear(); }
+    constexpr void clear()                        { buffer.clear(); }
 };
 
 } /* EDF */

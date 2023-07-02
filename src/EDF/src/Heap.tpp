@@ -13,7 +13,7 @@
 namespace EDF {
 
 template<typename T, std::size_t N, typename Compare>
-void Heap<T, N, Compare>::
+constexpr void Heap<T, N, Compare>::
 bubbleUp( std::size_t index ) {
     while( index != 0 ) {
         std::size_t parentIndex = (index - 1) / 2;
@@ -28,7 +28,7 @@ bubbleUp( std::size_t index ) {
 }
 
 template<typename T, std::size_t N, typename Compare>
-void Heap<T, N, Compare>::
+constexpr void Heap<T, N, Compare>::
 bubbleDown( std::size_t index ) {
     while( true ) {
         std::size_t leftChild = 2 * index + 1;
@@ -50,7 +50,7 @@ bubbleDown( std::size_t index ) {
 }
 
 template<typename T, std::size_t N, typename Compare>
-inline constexpr void Heap<T, N, Compare>::
+constexpr void Heap<T, N, Compare>::
 push( const T& value ) {
     EDF_ASSERTD( !isFull() );
     heap.pushBack( value );
@@ -58,7 +58,7 @@ push( const T& value ) {
 }
 
 template<typename T, std::size_t N, typename Compare>
-inline constexpr void Heap<T, N, Compare>::
+constexpr void Heap<T, N, Compare>::
 push( const T&& value ) {
     EDF_ASSERTD( !isFull() );
     heap.pushBack( value );
@@ -67,7 +67,7 @@ push( const T&& value ) {
 
 template<typename T, std::size_t N, typename Compare>
 template<typename... Args>
-inline constexpr T& Heap<T, N, Compare>::
+constexpr T& Heap<T, N, Compare>::
 emplace( Args&&... args ) {
     EDF_ASSERTD( !isFull() );
     auto& value = heap.emplaceBack( std::forward<Args>(args)... );
@@ -76,7 +76,7 @@ emplace( Args&&... args ) {
 }
 
 template<typename T, std::size_t N, typename Compare>
-inline constexpr T Heap<T, N, Compare>::
+constexpr T Heap<T, N, Compare>::
 pop() {
     EDF_ASSERTD( !isEmpty() );
     T topCopy = heap.front();

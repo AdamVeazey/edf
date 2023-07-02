@@ -18,8 +18,8 @@ class Heap final {
 private:
     Vector<T, N> heap;
 private:
-    void bubbleUp( std::size_t index );
-    void bubbleDown( std::size_t index );
+    constexpr void bubbleUp( std::size_t index );
+    constexpr void bubbleDown( std::size_t index );
 public:
     Heap() = default;
     template<typename... I>
@@ -27,26 +27,26 @@ public:
     ~Heap() = default;
 
     /* Is Questions */
-    inline constexpr bool isEmpty()                 const { return heap.isEmpty(); }
-    inline constexpr bool isFull()                  const { return heap.isFull(); }
+    constexpr bool isEmpty()                const { return heap.isEmpty(); }
+    constexpr bool isFull()                 const { return heap.isFull(); }
 
     /* Capacity */
-    inline constexpr const std::size_t& length()    const { return heap.length(); }
-    inline constexpr std::size_t maxLength()        const { return heap.maxLength(); }
+    constexpr const std::size_t& length()   const { return heap.length(); }
+    constexpr std::size_t maxLength()       const { return heap.maxLength(); }
 
     /* Operations */
-    inline constexpr T& peek()                            { return heap.front(); }
-    inline constexpr const T& peek()                const { return heap.front(); }
+    constexpr T& peek()                           { return heap.front(); }
+    constexpr const T& peek()               const { return heap.front(); }
 
-    inline constexpr void push( const T& value );
-    inline constexpr void push( const T&& value );
+    constexpr void push( const T& value );
+    constexpr void push( const T&& value );
 
     template<typename... Args>
-    inline constexpr T& emplace( Args&&... args );
+    constexpr T& emplace( Args&&... args );
 
-    inline constexpr T pop();
+    constexpr T pop();
 
-    inline constexpr void clear()                         { heap.clear(); }
+    constexpr void clear()                        { heap.clear(); }
 };
 
 // tag::declare_heap_max[]

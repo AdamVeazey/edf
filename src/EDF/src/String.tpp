@@ -335,25 +335,25 @@ String( const String<S>& o ) {
 }
  
 template<std::size_t N> 
-inline constexpr int32_t String<N>::
+constexpr int32_t String<N>::
 toInt32_t( int base ) const {
     return string_to<int32_t>( buffer.data(), buffer.length(), base );
 }
  
 template<std::size_t N>
-inline constexpr int64_t String<N>::
+constexpr int64_t String<N>::
 toInt64_t( int base ) const {
     return string_to<int64_t>( buffer.data(), buffer.length(), base );
 }
 
 template<std::size_t N>
-inline constexpr uint32_t String<N>::
+constexpr uint32_t String<N>::
 toUint32_t( int base ) const {
     return string_to<uint32_t>( buffer.data(), buffer.length(), base );
 }
  
 template<std::size_t N>
-inline constexpr uint64_t String<N>::
+constexpr uint64_t String<N>::
 toUint64_t( int base ) const {
     return string_to<uint64_t>( buffer.data(), buffer.length(), base );
 }
@@ -397,7 +397,7 @@ insert( ConstIterator pos, std::initializer_list<char> iList ) {
 }
 
 template<std::size_t N>
-inline constexpr typename String<N>::Iterator String<N>::
+constexpr typename String<N>::Iterator String<N>::
 insert( ConstIterator pos, const char* str ) {
     return insert( pos, str, std::strlen(str) );
 }

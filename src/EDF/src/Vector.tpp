@@ -11,7 +11,8 @@
 
 namespace EDF {
 
-template<typename T, std::size_t N> constexpr typename Vector<T, N>::Iterator Vector<T, N>::
+template<typename T, std::size_t N> 
+constexpr typename Vector<T, N>::Iterator Vector<T, N>::
 insert( ConstIterator pos, T&& value ) { 
     EDF_ASSERTD(pos >= begin());    // position must be valid
     EDF_ASSERTD(pos < end());       // position must be valid
@@ -24,7 +25,8 @@ insert( ConstIterator pos, T&& value ) {
     return position;                // iterator pointing to the inserted value
 }
 
-template<typename T, std::size_t N> constexpr typename Vector<T, N>::Iterator Vector<T, N>::
+template<typename T, std::size_t N> 
+constexpr typename Vector<T, N>::Iterator Vector<T, N>::
 insert( ConstIterator pos, std::size_t count, const T& value ) {
     EDF_ASSERTD(pos >= begin());                // position must be valid
     EDF_ASSERTD(pos <= end());                  // position must be valid
@@ -37,7 +39,8 @@ insert( ConstIterator pos, std::size_t count, const T& value ) {
     return position;
 }
 
-template<typename T, std::size_t N> constexpr typename Vector<T, N>::Iterator Vector<T, N>::
+template<typename T, std::size_t N> 
+constexpr typename Vector<T, N>::Iterator Vector<T, N>::
 insert( ConstIterator pos, std::initializer_list<T> iList ) {
     EDF_ASSERTD(pos >= begin());                // position must be valid
     EDF_ASSERTD(pos <= end());                  // position must be valid
