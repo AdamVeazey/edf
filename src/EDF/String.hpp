@@ -70,8 +70,8 @@ public:
 
     constexpr char* asCString()                                                                   { return buffer.data(); }
     constexpr const char* asCString()                                                       const { return buffer.data(); }
-    constexpr uint8_t* asByteData()                                                               { return static_cast<uint8_t*>(buffer.data()); }
-    constexpr const uint8_t* asByteData()                                                   const { return static_cast<const uint8_t*>(buffer.data()); }
+    constexpr uint8_t* asByteData()                                                               { return reinterpret_cast<uint8_t*>(buffer.data()); }
+    constexpr const uint8_t* asByteData()                                                   const { return reinterpret_cast<const uint8_t*>(buffer.data()); }
 
     /* Conversions: toX */    
     constexpr int8_t toInt8_t( int base = 10 )                                              const { return toInt32_t( base ); }
