@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include <EDF/Vector.hpp>
+#include "EDF/Vector.hpp"
 
 namespace EDF {
 
@@ -445,4 +445,4 @@ public:
 
 } /* EDF */
 
-#include <EDF/src/String.tpp>
+#include "EDF/src/String.tpp"

@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include <EDF/String.hpp> 
-#include <EDF/Math.hpp>
+#include "EDF/String.hpp"
+#include "EDF/Math.hpp"
 
 #include <cstring> // for std::strlen and std::memcpy
 

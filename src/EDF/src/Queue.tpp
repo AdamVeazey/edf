@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include <EDF/Queue.hpp>
-#include <EDF/Math.hpp>
+#include "EDF/Queue.hpp"
+#include "EDF/Math.hpp"
 
 namespace EDF {
 

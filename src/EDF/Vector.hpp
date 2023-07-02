@@ -6,8 +6,8 @@
  */
 #pragma once
 
-#include <EDF/Array.hpp>
-#include <EDF/Math.hpp>
+#include "EDF/Array.hpp"
+#include "EDF/Math.hpp"
 
 #include <algorithm>
 #include <memory>

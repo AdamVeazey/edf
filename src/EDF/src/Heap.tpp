@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include <EDF/Heap.hpp>
-#include <EDF/Assert.hpp>
+#include "EDF/Heap.hpp"
+#include "EDF/Assert.hpp"
 
 namespace EDF {
 

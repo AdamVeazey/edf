@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#include <EDF/String.hpp>
+#include "EDF/String.hpp"
 
 #include <iostream>
 

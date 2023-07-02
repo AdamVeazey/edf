@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include <EDF/Array.hpp>
+#include "EDF/Array.hpp"
 
 #include <cstdint>
 
@@ -63,4 +63,4 @@ public:
 
 } /* EDF */
 
-#include "src/Queue.tpp"
+#include "EDF/src/Queue.tpp"

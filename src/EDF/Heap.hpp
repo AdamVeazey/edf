@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include <EDF/Vector.hpp>
+#include "EDF/Vector.hpp"
 
 #include <functional> // for std::less and std::greater
 
@@ -61,4 +61,4 @@ using HeapMin = Heap<T, N, std::less<T>>;
 
 } /* EDF */
 
-#include "src/Heap.tpp"
+#include "EDF/src/Heap.tpp"
