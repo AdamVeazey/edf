@@ -354,11 +354,11 @@ public:
     GPIOFast( uint32_t port, uint32_t pin ) : port(port), pin(pin) {}
     ~GPIOFast() = default;
 
-    inline constexpr void set( bool high ) const {
+    constexpr void set( bool high ) const {
         HAL_GPIO_WritePin( port, pin, static_cast&lt;GPIO_PinState&gt;(high) );
     }
-    inline constexpr void setHigh() const { set( true ); }
-    inline constexpr void setLow() const { set( false ); }
+    constexpr void setHigh() const { set( true ); }
+    constexpr void setLow() const { set( false ); }
     // ...
 }
 
@@ -392,8 +392,8 @@ private:
     // EDF::MCU::GPIOFast pin;      <i class="conum" data-value="2"></i><b>(2)</b>
 public:
     LED( GPIO_TypeDef* port, uint32_t pin ) : pin(port, pin) {}
-    inline constexpr void turnOn() const { pin.setLow(); }
-    inline constexpr void turnOff() const { pin.setHigh(); }
+    constexpr void turnOn() const { pin.setLow(); }
+    constexpr void turnOff() const { pin.setHigh(); }
 }</code></pre>
 </div>
 </div>
