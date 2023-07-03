@@ -9,6 +9,8 @@
 
 #include "EDF/Vector.hpp"
 
+#include <cstring> // for std::strlen, std::memcpy, and memcmp
+
 namespace EDF {
 
 template<std::size_t N>
@@ -141,7 +143,7 @@ public:
     constexpr void insert( std::size_t index, char&& value )                                      { insert( cbegin() + index, value ); }
     constexpr void insert( std::size_t index, std::size_t count, const char& value )              { insert( cbegin() + index, count, value ); }
     constexpr void insert( std::size_t index, std::initializer_list<char> iList )                 { insert( cbegin() + index, iList ); }
-    constexpr Iterator insert( ConstIterator pos, const char& value )                             { return insert( pos, 1, value ); }
+    constexpr Iterator insert( ConstIterator pos, const char& value )                             { return insert( pos, 1_uz, value ); }
     constexpr Iterator insert( ConstIterator pos, char&& value );
     constexpr Iterator insert( ConstIterator pos, std::size_t count, const char& value );
     constexpr Iterator insert( ConstIterator pos, std::initializer_list<char> iList );    
@@ -149,7 +151,7 @@ public:
     constexpr void insert( std::size_t index, const char* str )                                   { insert( cbegin() + index, str ); }
     constexpr void insert( std::size_t index, const uint8_t* str )                                { insert( cbegin() + index, str ); }
     constexpr Iterator insert( ConstIterator pos, const uint8_t* str )                            { return insert( pos, reinterpret_cast<const char*>(str) ); }
-    constexpr Iterator insert( ConstIterator pos, const char* str );
+    constexpr Iterator insert( ConstIterator pos, const char* str )                               { return insert( pos, str, std::strlen(str) ); }
     
     constexpr void insert( std::size_t index, const char* str, std::size_t n )                    { insert( cbegin() + index, str, n ); }
     constexpr void insert( std::size_t index, const uint8_t* str, std::size_t n )                 { insert( cbegin() + index, str, n ); }
@@ -264,16 +266,16 @@ public:
 
     /* Operations: Out-of-Place - find and rfind */
     constexpr Iterator find( ConstIterator pos, const char& value )                         const;
-    constexpr Iterator find( ConstIterator pos, const char* value )                         const;
+    constexpr Iterator find( ConstIterator pos, const char* value )                         const { return find( pos, value, std::strlen( value ) ); }
     constexpr Iterator find( ConstIterator pos, const char* value, std::size_t n )          const;
     template<std::size_t S>
-    constexpr Iterator find( ConstIterator pos, const String<S>& value )                    const { return find( pos, value, S ); }
+    constexpr Iterator find( ConstIterator pos, const String<S>& value )                    const { return find( pos, value, value.length() ); }
 
     constexpr ReverseIterator rfind( ConstReverseIterator pos, const char& value )          const;
     constexpr ReverseIterator rfind( ConstReverseIterator pos, const char* value )          const;
     constexpr ReverseIterator rfind( ConstReverseIterator pos, const char* value, std::size_t n )  const;
     template<std::size_t S>
-    constexpr ReverseIterator rfind( ConstReverseIterator pos, const String<S>& value )     const { return rfind( pos, value, S ); }
+    constexpr ReverseIterator rfind( ConstReverseIterator pos, const String<S>& value )     const { return rfind( pos, value, value.length() ); }
 
     /* Operations: Out-of-Place - contains */
     constexpr bool contains( const char& value )                                            const { return find( begin(), value ) != end(); }

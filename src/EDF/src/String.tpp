@@ -8,9 +8,6 @@
 #pragma once
 
 #include "EDF/String.hpp"
-#include "EDF/Math.hpp"
-
-#include <cstring> // for std::strlen, std::memcpy, and memcmp
 
 namespace EDF {
 
@@ -398,15 +395,8 @@ insert( ConstIterator pos, std::initializer_list<char> iList ) {
 
 template<std::size_t N>
 constexpr typename String<N>::Iterator String<N>::
-insert( ConstIterator pos, const char* str ) {
-    return insert( pos, str, std::strlen(str) );
-}
-
-template<std::size_t N>
-constexpr typename String<N>::Iterator String<N>::
 insert( ConstIterator pos, const char* str, std::size_t n ) {
     EDF_ASSERTD( str != nullptr );
-    // EDF_ASSERTD( n == std::strlen(str) ); // n represents string length, not buffer size
     EDF_ASSERTD( pos >= cbegin() );  // position must be valid
     EDF_ASSERTD( pos <= cend() );    // position must be valid
     EDF_ASSERTD( (n + length()) < maxLength() ); // must be able to fit value
@@ -438,12 +428,6 @@ find( ConstIterator pos, const char& value ) const {
         return ch == value;
     });
     return const_cast<Iterator>(pos);
-}
-
-template<std::size_t N>
-constexpr typename String<N>::Iterator String<N>::
-find( ConstIterator pos, const char* value ) const {
-    return find( pos, value, std::strlen( value ) );
 }
 
 template<std::size_t N>
