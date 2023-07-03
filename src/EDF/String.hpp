@@ -269,11 +269,11 @@ public:
     template<std::size_t S>
     constexpr Iterator find( ConstIterator pos, const String<S>& value )                    const { return find( pos, value, S ); }
 
-    constexpr Iterator rfind( ConstReverseIterator pos, const char& value ) const;
-    constexpr Iterator rfind( ConstReverseIterator pos, const char* value ) const;
-    constexpr Iterator rfind( ConstReverseIterator pos, const char* value, std::size_t n )  const;
+    constexpr ReverseIterator rfind( ConstReverseIterator pos, const char& value )          const;
+    constexpr ReverseIterator rfind( ConstReverseIterator pos, const char* value )          const;
+    constexpr ReverseIterator rfind( ConstReverseIterator pos, const char* value, std::size_t n )  const;
     template<std::size_t S>
-    constexpr Iterator rfind( ConstReverseIterator pos, const String<S>& value )            const { return rfind( pos, value, S ); }
+    constexpr ReverseIterator rfind( ConstReverseIterator pos, const String<S>& value )     const { return rfind( pos, value, S ); }
 
     /* Operations: Out-of-Place - contains */
     constexpr bool contains( const char& value )                                            const { return find( begin(), value ) != end(); }

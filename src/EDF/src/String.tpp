@@ -10,7 +10,7 @@
 #include "EDF/String.hpp"
 #include "EDF/Math.hpp"
 
-#include <cstring> // for std::strlen and std::memcpy
+#include <cstring> // for std::strlen, std::memcpy, and memcmp
 
 namespace EDF {
 
@@ -471,37 +471,39 @@ find( ConstIterator pos, const char* value, std::size_t n ) const {
 }
 
 template<std::size_t N>
-constexpr typename String<N>::Iterator String<N>::
+constexpr typename String<N>::ReverseIterator String<N>::
 rfind( ConstReverseIterator pos, const char& value ) const {
     EDF_ASSERTD( value != '\0' );    // simply use end() or a variation instead
-    EDF_ASSERTD( pos >= cbegin() );  // position must be valid
-    EDF_ASSERTD( pos <= cend() );    // position must be valid
+    EDF_ASSERTD( pos >= crbegin() ); // position must be valid
+    EDF_ASSERTD( pos <= crend() );   // position must be valid
     pos = std::find_if( pos, crend(), [&value](char ch){
         return ch == value;
     });
-    return const_cast<Iterator>(pos);
+    return ReverseIterator( const_cast<Iterator>(pos.base()) );
 }
 
 template<std::size_t N>
-constexpr typename String<N>::Iterator String<N>::
+constexpr typename String<N>::ReverseIterator String<N>::
 rfind( ConstReverseIterator pos, const char* value ) const {
     return rfind( pos, value, std::strlen( value ) );
 }
 
 template<std::size_t N>
-constexpr typename String<N>::Iterator String<N>::
+constexpr typename String<N>::ReverseIterator String<N>::
 rfind( ConstReverseIterator pos, const char* value, std::size_t n ) const {
     EDF_ASSERTD( value != nullptr );
-    EDF_ASSERTD( n == std::strlen(value) ); // n represents string length, not buffer size
     EDF_ASSERTD( pos >= crbegin() );    // position must be valid
     EDF_ASSERTD( pos < crend() );       // position must be valid
-    pos = std::find_if( pos, rend(), [&value, &n](char ch){
-        if( ch == value[0] ) {          // first character matches
-            return std::memcmp( &ch, value, n ) == 0;
+    pos = std::find_if( pos, crend(), [&value, &n](const char& ch) {
+        if( ch == value[n-1] ) {        // last character matches
+            return std::memcmp( &ch - (n-1), value, n ) == 0;
         }
         return false;
     });
-    return const_cast<Iterator>(pos);
+    if( pos + n-1 < rend() ) { // match was found
+        pos += n-1;
+    }
+    return ReverseIterator( const_cast<Iterator>(pos.base()) );
 }
 
 template<std::size_t N>
@@ -677,6 +679,15 @@ replace(
     const char* lookFor, std::size_t nLF, 
     const char* replaceWith, std::size_t nRW 
 ) {
+    // for( ReverseIterator posLookFor = rfind( crbegin(), lookFor, nLF ); posLookFor != crend(); ) {
+    //     auto strBegin = (posLookFor + 1).base();
+    //     auto strEnd = strBegin + nLF;
+    //     if( (strBegin >= begin()) && (strEnd <= end()) ) {
+    //         erase( strBegin, strEnd );
+    //         insert( strBegin, replaceWith, nRW );
+    //     }
+    //     posLookFor = rfind( posLookFor, lookFor, nLF );
+    // }
     for( ConstIterator posLookFor = find( begin(), lookFor, nLF ); posLookFor != end(); ) {
         auto posLookForEnd = posLookFor + nLF;
         if( posLookForEnd <= end() ) {
