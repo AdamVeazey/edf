@@ -8,8 +8,6 @@
 #pragma once
 
 #include "EDF/String.hpp"
-#include <iostream>
-#warning "Remove me"
 
 namespace EDF {
 
