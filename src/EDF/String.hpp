@@ -36,14 +36,14 @@ public:
 
     constexpr String( char ch );
 
-    constexpr String( int8_t value, std::size_t base = 10 );
-    constexpr String( int16_t value, std::size_t base = 10 );
-    constexpr String( int32_t value, std::size_t base = 10 );
-    constexpr String( int64_t value, std::size_t base = 10 );
-    constexpr String( uint8_t value, std::size_t base = 10 );
-    constexpr String( uint16_t value, std::size_t base = 10 );
-    constexpr String( uint32_t value, std::size_t base = 10 );
-    constexpr String( uint64_t value, std::size_t base = 10 );
+    constexpr String( const int8_t& value, std::size_t base = 10 );
+    constexpr String( const int16_t& value, std::size_t base = 10 );
+    constexpr String( const int32_t& value, std::size_t base = 10 );
+    constexpr String( const int64_t& value, std::size_t base = 10 );
+    constexpr String( const uint8_t& value, std::size_t base = 10 );
+    constexpr String( const uint16_t& value, std::size_t base = 10 );
+    constexpr String( const uint32_t& value, std::size_t base = 10 );
+    constexpr String( const uint64_t& value, std::size_t base = 10 );
 
     template<std::size_t S>
     constexpr String( const String<S>& o );
@@ -277,11 +277,11 @@ public:
     template<std::size_t S>
     constexpr Iterator find( ConstIterator pos, const String<S>& value )                    const { return find( pos, value, value.length() ); }
 
-    constexpr ReverseIterator rfind( const char& value )                                    const { return rfind( begin(), value ); }
-    constexpr ReverseIterator rfind( const char* value )                                    const { return rfind( begin(), value ); }
-    constexpr ReverseIterator rfind( const char* value, std::size_t n )                     const { return rfind( begin(), value, n ); }
+    constexpr ReverseIterator rfind( const char& value )                                    const { return rfind( rbegin(), value ); }
+    constexpr ReverseIterator rfind( const char* value )                                    const { return rfind( rbegin(), value ); }
+    constexpr ReverseIterator rfind( const char* value, std::size_t n )                     const { return rfind( rbegin(), value, n ); }
     template<std::size_t S>
-    constexpr ReverseIterator rfind( const String<S>& value )                               const { return rfind( begin(), value, value.length() ); }
+    constexpr ReverseIterator rfind( const String<S>& value )                               const { return rfind( rbegin(), value, value.length() ); }
 
     constexpr ReverseIterator rfind( ConstReverseIterator pos, const char& value )          const;
     constexpr ReverseIterator rfind( ConstReverseIterator pos, const char* value )          const;
@@ -300,8 +300,9 @@ public:
     constexpr bool equals( const char& value )                                              const { return contains( &value, 1 ); }
     constexpr bool equals( const char* value )                                              const;
     constexpr bool equals( const char* value, std::size_t n )                               const;
+    constexpr bool equals( const String& value )                                            const { return equals( value.asCString(), value.length() ); }
     template<std::size_t S>
-    constexpr bool equals( const String<S>& value )                                         const { return equals( value, value.length() ); }
+    constexpr bool equals( const String<S>& value )                                         const { return equals( value.asCString(), value.length() ); }
 
     /* Operations: In/Out-of-Place - strip */
     constexpr String& strip( const char& value = '\0' );
@@ -321,23 +322,28 @@ public:
     constexpr String& trim( const char& value = '\0' )                                            { return trimRight( value ).trimLeft( value ); }
     constexpr String& trim( const char* values )                                                  { return trimRight( values ).trimLeft( values ); }
     constexpr String& trim( const char* values, std::size_t n )                                   { return trimRight( values, n ).trimLeft( values, n ); }
-    constexpr String& trimLeft( const char& value = '\0' );
-    constexpr String& trimLeft( const char* values );
-    constexpr String& trimLeft( const char* values, std::size_t n );
-    constexpr String& trimRight( const char& value = '\0' );
-    constexpr String& trimRight( const char* values );
-    constexpr String& trimRight( const char* values, std::size_t n );
 
     constexpr String getTrimmed( const char& value = '\0' )                                 const { String tmp(*this); tmp.trim( value ); return tmp; }
     constexpr String getTrimmed( const char* values )                                       const { String tmp(*this); tmp.trim( values ); return tmp; }
     constexpr String getTrimmed( const char* values, std::size_t n )                        const { String tmp(*this); tmp.trim( values, n ); return tmp; }
+
+    /* Operations: In/Out-of-Place - trimLeft */
+    constexpr String& trimLeft( const char& value = '\0' );
+    constexpr String& trimLeft( const char* values );
+    constexpr String& trimLeft( const char* values, std::size_t n );
+
     constexpr String getTrimmedLeft( const char& value = '\0' )                             const { String tmp(*this); tmp.trimLeft( value ); return tmp; }
     constexpr String getTrimmedLeft( const char* values )                                   const { String tmp(*this); tmp.trimLeft( values ); return tmp; }
     constexpr String getTrimmedLeft( const char* values, std::size_t n )                    const { String tmp(*this); tmp.trimLeft( values, n ); return tmp; }
+
+    /* Operations: In/Out-of-Place - trimRight */
+    constexpr String& trimRight( const char& value = '\0' );
+    constexpr String& trimRight( const char* values );
+    constexpr String& trimRight( const char* values, std::size_t n );
+
     constexpr String getTrimmedRight( const char& value = '\0' )                            const { String tmp(*this); tmp.trimRight( value ); return tmp; }
     constexpr String getTrimmedRight( const char* values )                                  const { String tmp(*this); tmp.trimRight( values ); return tmp; }
     constexpr String getTrimmedRight( const char* values, std::size_t n )                   const { String tmp(*this); tmp.trimRight( values, n ); return tmp; }
-
 
     /* Operations: In/Out-of-Place - reverse */
     constexpr String& reverse();
@@ -368,56 +374,56 @@ public:
     constexpr String getSubString( ConstIterator start, ConstIterator end );
 
     /* Operations: Operator Overload - += */
-    constexpr String& operator+=( const char* b )                                                 { return append( b ); }
-    constexpr String& operator+=( const uint8_t* b )                                              { return append( b ); }
+    constexpr String& operator+=( const char* rhs )                                               { return append( rhs ); }
+    constexpr String& operator+=( const uint8_t* rhs )                                            { return append( rhs ); }
 
     template<std::size_t S>
-    constexpr String& operator+=( const char (&b)[S] )                                            { return append( b ); }
+    constexpr String& operator+=( const char (&rhs)[S] )                                          { return append( rhs ); }
     template<std::size_t S>
-    constexpr String& operator+=( const uint8_t (&b)[S] )                                         { return append( b ); }
+    constexpr String& operator+=( const uint8_t (&rhs)[S] )                                       { return append( rhs ); }
 
-    constexpr String& operator+=( const char& b )                                                 { return append( b ); }
-    constexpr String& operator+=( char&& b )                                                      { return append( b ); }
+    constexpr String& operator+=( const char& rhs )                                               { return append( rhs ); }
+    constexpr String& operator+=( char&& rhs )                                                    { return append( rhs ); }
 
-    constexpr String& operator+=( const int8_t b )                                                { return append( b ); }
-    constexpr String& operator+=( const int16_t b )                                               { return append( b ); }
-    constexpr String& operator+=( const int32_t b )                                               { return append( b ); }
-    constexpr String& operator+=( const int64_t b )                                               { return append( b ); }
-    constexpr String& operator+=( const uint8_t b )                                               { return append( b ); }
-    constexpr String& operator+=( const uint16_t b )                                              { return append( b ); }
-    constexpr String& operator+=( const uint32_t b )                                              { return append( b ); }
-    constexpr String& operator+=( const uint64_t b )                                              { return append( b ); }
-
-    template<std::size_t S>
-    constexpr String& operator+=( const String<S>& b )                                            { return append( b ); }
-
-    /* Operations: Operator Overload - +(this, b) */
-    constexpr String& operator+( const char* b )                                                  { return append( b ); }
-    constexpr String& operator+( const uint8_t* b )                                               { return append( b ); }
+    constexpr String& operator+=( const int8_t& rhs )                                             { return append( rhs ); }
+    constexpr String& operator+=( const int16_t& rhs )                                            { return append( rhs ); }
+    constexpr String& operator+=( const int32_t& rhs )                                            { return append( rhs ); }
+    constexpr String& operator+=( const int64_t& rhs )                                            { return append( rhs ); }
+    constexpr String& operator+=( const uint8_t& rhs )                                            { return append( rhs ); }
+    constexpr String& operator+=( const uint16_t& rhs )                                           { return append( rhs ); }
+    constexpr String& operator+=( const uint32_t& rhs )                                           { return append( rhs ); }
+    constexpr String& operator+=( const uint64_t& rhs )                                           { return append( rhs ); }
 
     template<std::size_t S>
-    constexpr String& operator+( const char (&b)[S] )                                             { return append( b ); }
+    constexpr String& operator+=( const String<S>& rhs )                                          { return append( rhs ); }
+
+    /* Operations: Operator Overload - +(this, rhs) */
+    constexpr String& operator+( const char* rhs )                                                { return append( rhs ); }
+    constexpr String& operator+( const uint8_t* rhs )                                             { return append( rhs ); }
+
     template<std::size_t S>
-    constexpr String& operator+( const uint8_t (&b)[S] )                                          { return append( b ); }
+    constexpr String& operator+( const char (&rhs)[S] )                                           { return append( rhs ); }
+    template<std::size_t S>
+    constexpr String& operator+( const uint8_t (&rhs)[S] )                                        { return append( rhs ); }
 
-    constexpr String& operator+( const char& b )                                                  { return append( b ); }
-    constexpr String& operator+( char&& b )                                                       { return append( b ); }
+    constexpr String& operator+( const char& rhs )                                                { return append( rhs ); }
+    constexpr String& operator+( char&& rhs )                                                     { return append( rhs ); }
 
-    constexpr String& operator+( const int8_t b )                                                 { return append( b ); }
-    constexpr String& operator+( const int16_t b )                                                { return append( b ); }
-    constexpr String& operator+( const int32_t b )                                                { return append( b ); }
-    constexpr String& operator+( const int64_t b )                                                { return append( b ); }
-    constexpr String& operator+( const uint8_t b )                                                { return append( b ); }
-    constexpr String& operator+( const uint16_t b )                                               { return append( b ); }
-    constexpr String& operator+( const uint32_t b )                                               { return append( b ); }
-    constexpr String& operator+( const uint64_t b )                                               { return append( b ); }
+    constexpr String& operator+( const int8_t& rhs )                                              { return append( rhs ); }
+    constexpr String& operator+( const int16_t& rhs )                                             { return append( rhs ); }
+    constexpr String& operator+( const int32_t& rhs )                                             { return append( rhs ); }
+    constexpr String& operator+( const int64_t& rhs )                                             { return append( rhs ); }
+    constexpr String& operator+( const uint8_t& rhs )                                             { return append( rhs ); }
+    constexpr String& operator+( const uint16_t& rhs )                                            { return append( rhs ); }
+    constexpr String& operator+( const uint32_t& rhs )                                            { return append( rhs ); }
+    constexpr String& operator+( const uint64_t& rhs )                                            { return append( rhs ); }
 
     template<std::size_t S>
     constexpr auto& operator+( String<S>&& b );
 
-    /* Operations: Operator Overload - +(b, String) */
-    friend constexpr String operator+( const char* b, const String& rhs )                         { String result(b); result.append(rhs); return result; }
-    friend constexpr String operator+( const uint8_t* b, const String& rhs )                      { String result(b); result.append(rhs); return result; }
+    /* Operations: Operator Overload - +(lhs, String) */
+    friend constexpr String operator+( const char* lhs, const String& rhs )                       { String result(lhs); result.append(rhs); return result; }
+    friend constexpr String operator+( const uint8_t* lhs, const String& rhs )                    { String result(lhs); result.append(rhs); return result; }
 
     template<std::size_t S>
     friend constexpr String operator+( const char (&lhs)[S], const String& rhs )                  { String result(lhs); result.append(rhs); return result; }
@@ -427,14 +433,14 @@ public:
     friend constexpr String operator+( const char& lhs, const String& rhs )                       { String result(lhs); result.append(rhs); return result; }
     friend constexpr String operator+( char&& lhs, const String& rhs )                            { String result(lhs); result.append(rhs); return result; }
 
-    friend constexpr String operator+( const int8_t lhs, const String& rhs )                      { String result(lhs); result.append(rhs); return result; }
-    friend constexpr String operator+( const int16_t lhs, const String& rhs )                     { String result(lhs); result.append(rhs); return result; }
-    friend constexpr String operator+( const int32_t lhs, const String& rhs )                     { String result(lhs); result.append(rhs); return result; }
-    friend constexpr String operator+( const int64_t lhs, const String& rhs )                     { String result(lhs); result.append(rhs); return result; }
-    friend constexpr String operator+( const uint8_t lhs, const String& rhs )                     { String result(lhs); result.append(rhs); return result; }
-    friend constexpr String operator+( const uint16_t lhs, const String& rhs )                    { String result(lhs); result.append(rhs); return result; }
-    friend constexpr String operator+( const uint32_t lhs, const String& rhs )                    { String result(lhs); result.append(rhs); return result; }
-    friend constexpr String operator+( const uint64_t lhs, const String& rhs )                    { String result(lhs); result.append(rhs); return result; }
+    friend constexpr String operator+( const int8_t& lhs, const String& rhs )                     { String result(lhs); result.append(rhs); return result; }
+    friend constexpr String operator+( const int16_t& lhs, const String& rhs )                    { String result(lhs); result.append(rhs); return result; }
+    friend constexpr String operator+( const int32_t& lhs, const String& rhs )                    { String result(lhs); result.append(rhs); return result; }
+    friend constexpr String operator+( const int64_t& lhs, const String& rhs )                    { String result(lhs); result.append(rhs); return result; }
+    friend constexpr String operator+( const uint8_t& lhs, const String& rhs )                    { String result(lhs); result.append(rhs); return result; }
+    friend constexpr String operator+( const uint16_t& lhs, const String& rhs )                   { String result(lhs); result.append(rhs); return result; }
+    friend constexpr String operator+( const uint32_t& lhs, const String& rhs )                   { String result(lhs); result.append(rhs); return result; }
+    friend constexpr String operator+( const uint64_t& lhs, const String& rhs )                   { String result(lhs); result.append(rhs); return result; }
 
     template<std::size_t S>
     friend constexpr String operator+( const String<S>& lhs, const String& rhs )                  { String result(lhs); result.append(rhs); return result; }

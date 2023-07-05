@@ -8,6 +8,8 @@
 #pragma once
 
 #include "EDF/String.hpp"
+#include <iostream>
+#warning "Remove me"
 
 namespace EDF {
 
@@ -202,7 +204,7 @@ String( char ch ) {
 
 template<std::size_t N>
 constexpr String<N>::
-String( int8_t value, std::size_t base ) {
+String( const int8_t& value, std::size_t base ) {
     EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
     EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
     string_from(
@@ -217,7 +219,7 @@ String( int8_t value, std::size_t base ) {
 
 template<std::size_t N>
 constexpr String<N>::
-String( int16_t value, std::size_t base ) {
+String( const int16_t& value, std::size_t base ) {
     EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
     EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
     string_from(
@@ -232,7 +234,7 @@ String( int16_t value, std::size_t base ) {
 
 template<std::size_t N>
 constexpr String<N>::
-String( int32_t value, std::size_t base ) {
+String( const int32_t& value, std::size_t base ) {
     EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
     EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
     string_from(
@@ -247,7 +249,7 @@ String( int32_t value, std::size_t base ) {
 
 template<std::size_t N>
 constexpr String<N>::
-String( int64_t value, std::size_t base ) {
+String( const int64_t& value, std::size_t base ) {
     EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
     EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
     string_from(
@@ -262,7 +264,7 @@ String( int64_t value, std::size_t base ) {
 
 template<std::size_t N>
 constexpr String<N>::
-String( uint8_t value, std::size_t base ) {
+String( const uint8_t& value, std::size_t base ) {
     EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
     EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
     string_from(
@@ -277,7 +279,7 @@ String( uint8_t value, std::size_t base ) {
 
 template<std::size_t N>
 constexpr String<N>::
-String( uint16_t value, std::size_t base ) {
+String( const uint16_t& value, std::size_t base ) {
     EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
     EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
     string_from(
@@ -292,7 +294,7 @@ String( uint16_t value, std::size_t base ) {
 
 template<std::size_t N>
 constexpr String<N>::
-String( uint32_t value, std::size_t base ) {
+String( const uint32_t& value, std::size_t base ) {
     EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
     EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
     string_from(
@@ -307,7 +309,7 @@ String( uint32_t value, std::size_t base ) {
 
 template<std::size_t N>
 constexpr String<N>::
-String( uint64_t value, std::size_t base ) {
+String( const uint64_t& value, std::size_t base ) {
     EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
     EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
     string_from(
@@ -427,7 +429,7 @@ find( ConstIterator pos, const char& value ) const {
     pos = std::find_if( pos, end(), [&value](char ch){
         return ch == value;
     });
-    return const_cast<Iterator>(pos);
+    return Iterator( begin() + (pos - cbegin()) );
 }
 
 template<std::size_t N>
@@ -447,11 +449,11 @@ find( ConstIterator pos, const char* value, std::size_t n ) const {
                 }
             }
             if( match ) {
-                return const_cast<Iterator>(pos);
+                return Iterator( begin() + (pos - cbegin()) );
             }
         }
     }
-    return const_cast<Iterator>(pos);
+    return Iterator( begin() + (pos - cbegin()) );
 }
 
 template<std::size_t N>
@@ -539,7 +541,6 @@ template<std::size_t N>
 constexpr String<N>& String<N>::
 strip( const char* values, std::size_t n ) {
     EDF_ASSERTD( values != nullptr ); // values must not be nullptr
-    EDF_ASSERTD( n == std::strlen(values) ); // n represents string length, not buffer size
     for( std::size_t k = 0; k < n; ++k ) {
         strip( values[k] );
     }
@@ -549,13 +550,16 @@ strip( const char* values, std::size_t n ) {
 template<std::size_t N>
 constexpr String<N>& String<N>::
 trimLeft( const char& value ) {
-    auto pos = std::find_if( begin(), end(), [&value](char ch) {
-        return ( ((value == '\0') && (ch > ' ' && ch <= '~')) || // if value is default '\0', check if printable
+    constexpr auto isNotMatch = [](const char& ch, const char& value) -> bool {
+        return ( ((value == '\0') && (ch <= ' ' || ch > '~')) || // if value is default '\0', check if printable
                  ((value != '\0') && (value != ch))              // else, check if ch matches
         );
+    };
+    auto firstNonMatch = std::find_if( begin(), end(), [&value, &isNotMatch](char ch) {
+        return isNotMatch(ch, value);
     });
-    if( pos != begin() ) {
-        erase( begin(), pos );
+    if( firstNonMatch != begin() ) {
+        erase( begin(), firstNonMatch );
     }
     return *this;
 }
@@ -570,7 +574,6 @@ template<std::size_t N>
 constexpr String<N>& String<N>::
 trimLeft( const char* values, std::size_t n ) {
     EDF_ASSERTD( values != nullptr ); // values must not be nullptr
-    EDF_ASSERTD( n == std::strlen(values) ); // n represents string length, not buffer size
     auto pos = std::find_if( begin(), end(), [values, n](char ch) {
         return std::none_of(values, values + n, [&](char value){
             return ch == value;
@@ -585,13 +588,16 @@ trimLeft( const char* values, std::size_t n ) {
 template<std::size_t N>
 constexpr String<N>& String<N>::
 trimRight( const char& value ) {
-    auto pos = std::find_if( rbegin(), rend(), [&value](char ch) {
+    constexpr auto isNotMatch = [](const char& ch, const char& value) -> bool {
         return ( ((value == '\0') && (ch > ' ' && ch <= '~')) || // if value is default '\0', check if printable
-                 ((value != '\0') && (value != ch))              // else, check if ch matches
+                 ((value != '\0') && (value != ch)) // else, check if ch matches
         );
+    };
+    auto firstNonMatch = std::find_if( rbegin(), rend(), [&value, &isNotMatch](const char& ch) {
+        return isNotMatch( ch, value );
     });
-    if( pos != rend() ) {
-        erase( ConstIterator(&(*pos)) + 1, end() );
+    if( firstNonMatch != rbegin() ) {
+        erase( firstNonMatch.base(), end() );
     }
     return *this;
 }
@@ -606,14 +612,13 @@ template<std::size_t N>
 constexpr String<N>& String<N>::
 trimRight( const char* values, std::size_t n ) {
     EDF_ASSERTD( values != nullptr ); // values must not be nullptr
-    EDF_ASSERTD( n == std::strlen(values) ); // n represents string length, not buffer size
-    auto pos = std::find_if( rbegin(), rend(), [&values, &n](char ch) {
+    auto firstNonMatch = std::find_if( rbegin(), rend(), [&values, &n](char ch) {
         return std::none_of(values, values + n, [&](char value){
             return ch == value;
         });
     });
-    if( pos != rend() ) {
-        erase( ConstIterator(&(*pos)) + 1, end() );
+    if( firstNonMatch != rbegin() ) {
+        erase( firstNonMatch.base(), end() );
     }
     return *this;
 }
@@ -707,12 +712,12 @@ getSubString( ConstIterator start, ConstIterator end ) {
 template<std::size_t N>
 template<std::size_t S>
 constexpr auto& String<N>::
-operator+( String<S>&& b ) {
+operator+( String<S>&& lhs ) {
     if constexpr( N >= S ) {
-        return append( b );
+        return append( lhs );
     }
     else {
-        return b.append( *this );
+        return lhs.append( *this );
     }
 }
 
