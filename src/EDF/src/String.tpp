@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2023, Adam Veazey
  * All rights reserved.
- * 
+ *
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
@@ -14,8 +14,8 @@ namespace EDF {
 /*
 DOES check for '-' or '+' when T is signed and base == 10
 
-Assumes 'str' only contains a number ONLY. No prefix for 0x, or 0b or anything else is 
-automatically checked. Specify a base between 2 and 36 if the str doesn't represent a 
+Assumes 'str' only contains a number ONLY. No prefix for 0x, or 0b or anything else is
+automatically checked. Specify a base between 2 and 36 if the str doesn't represent a
 base 10 number.
 
 Does not skip whitespace
@@ -58,7 +58,7 @@ static constexpr T string_to( const char* str, const std::size_t& len, int base 
 }
 
 /*
-str, len, and N are the pieces needed for a EDF::Vector, which is exactly what they represent. 
+str, len, and N are the pieces needed for a EDF::Vector, which is exactly what they represent.
 */
 template<typename T>
 static constexpr void string_from( char* str, const std::size_t& len, std::size_t N, T value, int base ) {
@@ -121,7 +121,7 @@ String() {
 
 template<std::size_t N>
 constexpr String<N>::
-String( const char* str ) {    
+String( const char* str ) {
     EDF_ASSERTD( (std::strlen(str) + length()) < maxLength() ); // str can fit
     // while str is not null, and buffer has enough space for '\0'
     while( *str ) {
@@ -166,7 +166,7 @@ String( const uint8_t* str, std::size_t n ) {
 }
 
 
-template<std::size_t N> 
+template<std::size_t N>
 template<std::size_t S>
 constexpr String<N>::
 String( const char (&str)[S] ) {
@@ -179,7 +179,7 @@ String( const char (&str)[S] ) {
     terminate();
 }
 
-template<std::size_t N> 
+template<std::size_t N>
 template<std::size_t S>
 constexpr String<N>::
 String( const uint8_t (&str)[S] ) {
@@ -194,7 +194,7 @@ String( const uint8_t (&str)[S] ) {
 
 template<std::size_t N>
 constexpr String<N>::
-String( const char& ch ) {
+String( char ch ) {
     EDF_ASSERTD( !isFull() );   // character can fit
     buffer.pushBack( ch );
     terminate();
@@ -202,120 +202,120 @@ String( const char& ch ) {
 
 template<std::size_t N>
 constexpr String<N>::
-String( const int8_t& value, std::size_t base ) {
+String( int8_t value, std::size_t base ) {
     EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
     EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
-    string_from( 
+    string_from(
         buffer.data(),
         buffer.length(),
         buffer.maxLength(),
-        value, 
-        base 
+        value,
+        base
     );
     terminate();
 }
 
 template<std::size_t N>
 constexpr String<N>::
-String( const int16_t& value, std::size_t base ) {
+String( int16_t value, std::size_t base ) {
     EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
     EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
-    string_from( 
+    string_from(
         buffer.data(),
         buffer.length(),
         buffer.maxLength(),
-        value, 
-        base 
+        value,
+        base
     );
     terminate();
 }
 
 template<std::size_t N>
 constexpr String<N>::
-String( const int32_t& value, std::size_t base ) {
+String( int32_t value, std::size_t base ) {
     EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
     EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
-    string_from( 
+    string_from(
         buffer.data(),
         buffer.length(),
         buffer.maxLength(),
-        value, 
-        base 
+        value,
+        base
     );
     terminate();
 }
 
 template<std::size_t N>
 constexpr String<N>::
-String( const int64_t& value, std::size_t base ) {
+String( int64_t value, std::size_t base ) {
     EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
     EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
-    string_from( 
+    string_from(
         buffer.data(),
         buffer.length(),
         buffer.maxLength(),
-        value, 
-        base 
+        value,
+        base
     );
     terminate();
 }
 
 template<std::size_t N>
 constexpr String<N>::
-String( const uint8_t& value, std::size_t base ) {
+String( uint8_t value, std::size_t base ) {
     EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
     EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
-    string_from( 
+    string_from(
         buffer.data(),
         buffer.length(),
         buffer.maxLength(),
-        value, 
-        base 
+        value,
+        base
     );
     terminate();
 }
 
 template<std::size_t N>
 constexpr String<N>::
-String( const uint16_t& value, std::size_t base ) {
+String( uint16_t value, std::size_t base ) {
     EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
     EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
-    string_from( 
+    string_from(
         buffer.data(),
         buffer.length(),
         buffer.maxLength(),
-        value, 
-        base 
+        value,
+        base
     );
     terminate();
 }
 
 template<std::size_t N>
 constexpr String<N>::
-String( const uint32_t& value, std::size_t base ) {
+String( uint32_t value, std::size_t base ) {
     EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
     EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
-    string_from( 
+    string_from(
         buffer.data(),
         buffer.length(),
         buffer.maxLength(),
-        value, 
-        base 
+        value,
+        base
     );
     terminate();
 }
 
 template<std::size_t N>
 constexpr String<N>::
-String( const uint64_t& value, std::size_t base ) {
+String( uint64_t value, std::size_t base ) {
     EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
     EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
-    string_from( 
+    string_from(
         buffer.data(),
         buffer.length(),
         buffer.maxLength(),
-        value, 
-        base 
+        value,
+        base
     );
     terminate();
 }
@@ -330,13 +330,13 @@ String( const String<S>& o ) {
     }
     terminate();
 }
- 
-template<std::size_t N> 
+
+template<std::size_t N>
 constexpr int32_t String<N>::
 toInt32_t( int base ) const {
     return string_to<int32_t>( buffer.data(), buffer.length(), base );
 }
- 
+
 template<std::size_t N>
 constexpr int64_t String<N>::
 toInt64_t( int base ) const {
@@ -348,7 +348,7 @@ constexpr uint32_t String<N>::
 toUint32_t( int base ) const {
     return string_to<uint32_t>( buffer.data(), buffer.length(), base );
 }
- 
+
 template<std::size_t N>
 constexpr uint64_t String<N>::
 toUint64_t( int base ) const {
@@ -362,35 +362,35 @@ insert( ConstIterator pos, char&& value) {
     EDF_ASSERTD( pos <= cend() );    // position must be valid
     EDF_ASSERTD( !isFull() );      // must be able to fit value
     EDF_ASSERTD( value != '\0' );  // use erase() instead
-    auto it = buffer.insert( pos, value ); 
-    terminate(); 
-    return it; 
+    auto it = buffer.insert( pos, value );
+    terminate();
+    return it;
 }
 
 template<std::size_t N>
 constexpr typename String<N>::Iterator String<N>::
 insert( ConstIterator pos, std::size_t count, const char& value ) {
     EDF_ASSERTD( pos >= cbegin() );  // position must be valid
-    EDF_ASSERTD( pos <= cend() );    // position must be valid 
+    EDF_ASSERTD( pos <= cend() );    // position must be valid
     EDF_ASSERTD( (count + length()) < maxLength() );    // must be able to fit value
     EDF_ASSERTD( value != '\0' );                       // use erase() instead
-    auto it = buffer.insert( pos, count, value ); 
-    terminate(); 
-    return it; 
+    auto it = buffer.insert( pos, count, value );
+    terminate();
+    return it;
 }
 
 template<std::size_t N>
 constexpr typename String<N>::Iterator String<N>::
 insert( ConstIterator pos, std::initializer_list<char> iList ) {
     EDF_ASSERTD( pos >= cbegin() );  // position must be valid
-    EDF_ASSERTD( pos <= cend() );    // position must be valid    
+    EDF_ASSERTD( pos <= cend() );    // position must be valid
     EDF_ASSERTD( (iList.size() + length()) < maxLength() ); // must be able to fit value
     for( auto&& value : iList ){
         EDF_ASSERTD( value != '\0' );                       // no need to manually add null
     }
-    auto it = buffer.insert( pos, iList ); 
+    auto it = buffer.insert( pos, iList );
     terminate();
-    return it; 
+    return it;
 }
 
 template<std::size_t N>
@@ -411,9 +411,9 @@ insert( ConstIterator pos, const char* str, std::size_t n ) {
 
 template<std::size_t N>
 constexpr void String<N>::
-copyTo( char* outputString, std::size_t n ) const {
+copyTo( char* outputString, std::size_t maxBufferLength ) const {
     EDF_ASSERTD( outputString != nullptr ); // output buffer can't be nullptr
-    EDF_ASSERTD( n >= (length() + 1) );     // output buffer is large enough
+    EDF_ASSERTD( maxBufferLength >= (length() + 1) );     // output buffer is large enough
     std::copy( begin(), end() + 1, outputString );
 }
 
@@ -437,7 +437,7 @@ find( ConstIterator pos, const char* value, std::size_t n ) const {
     EDF_ASSERTD( n == std::strlen(value) ); // n represents string length, not buffer size
     EDF_ASSERTD( pos >= cbegin() ); // position must be valid
     EDF_ASSERTD( pos <= cend() );   // position must be valid
-    for(; pos != end(); ++pos ) { 
+    for(; pos != end(); ++pos ) {
         if( *pos == value[0] ) {    // first character matches
             bool match = true;
             for( std::size_t k = 1; k < n; ++k ) {
@@ -660,8 +660,8 @@ replace( const char* lookFor, const char* replaceWith ) {
 template<std::size_t N>
 constexpr String<N>& String<N>::
 replace(
-    const char* lookFor, std::size_t nLF, 
-    const char* replaceWith, std::size_t nRW 
+    const char* lookFor, std::size_t nLF,
+    const char* replaceWith, std::size_t nRW
 ) {
     // for( ReverseIterator posLookFor = rfind( crbegin(), lookFor, nLF ); posLookFor != crend(); ) {
     //     auto strBegin = (posLookFor + 1).base();
@@ -700,7 +700,7 @@ template<std::size_t N>
 constexpr String<N> String<N>::
 getSubString( ConstIterator start, ConstIterator end ) {
     String tmp;
-    tmp.append( start, end - start );
+    tmp.append( tmp.begin() + (start - begin()), end - start ); // const char* str, n
     return tmp;
 }
 
