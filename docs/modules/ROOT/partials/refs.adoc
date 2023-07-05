@@ -39,6 +39,7 @@
 :path_example_edf_heap_main_cpp: {path_example_edf}/Heap/main.cpp
 :path_example_edf_queue_main_cpp: {path_example_edf}/Queue/main.cpp
 :path_example_edf_stack_main_cpp: {path_example_edf}/Stack/main.cpp
+:path_example_edf_string_main_cpp: {path_example_edf}/String/main.cpp
 :path_example_edf_vector_main_cpp: {path_example_edf}/Vector/main.cpp
 
 // Peripherals

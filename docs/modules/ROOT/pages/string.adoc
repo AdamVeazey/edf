@@ -1,3 +1,737 @@
 = String
 
 include::ROOT:partial$refs.adoc[]
+
+:mutability_description: Many operations have a mutating and non-mutating version. The naming convention is to have the mutating version be named "presentTenseOperation" and the non-mutating version be named "getPastTenseOperations". For example, <<append>> and <<get_appended>>.
+
+.Template arguments
+`N` = Maximum (N)umber of characters the string can hold.
+
+NOTE: `N` includes '\0', so if `N = 8` the string can hold `7` characters, with the remaining spot used to store a null terminator ('\0')
+
+.Overview
+String is a a fixed max size character array that has many operations. At its core a string is a `std::size_t` length + a `char buffer[N]`, where `buffer[length]` always has the value `'\0'`. This class is provided to make common string manipulations using a character array.
+
+There are three big picture concepts that will help make sense of this large class.
+
+. [[mutability]]{mutability_description}
+. [[overloads]]Common list of overloads for many functions. The following types listed below are supported by many operations.
+.. [[const_char_star]]`f( const char* str );`
+.. [[const_uint8_t_star]]`f( const uint8_t* str );`
+.. [[const_char_star_n]]`f( const char* str, std::size_t n );`
+.. [[const_uint8_t_star_n]]`f( const uint8_t* str, std::size_t n );`
+.. [[const_char_ref]]`f( const char (&str)[S] );`
+.. [[const_const_uint8_t_ref]]`f( const uint8_t (&str)[S] );`
+.. [[char]]`f( char ch );`
+.. [[int8_t]]`f( int8_t value, std::size_t base = 10 );`
+.. [[int16_t]]`f( int16_t value, std::size_t base = 10 );`
+.. [[int32_t]]`f( int32_t value, std::size_t base = 10 );`
+.. [[int64_t]]`f( int64_t value, std::size_t base = 10 );`
+.. [[uint8_t]]`f( uint8_t value, std::size_t base = 10 );`
+.. [[uint16_t]]`f( uint16_t value, std::size_t base = 10 );`
+.. [[uint32_t]]`f( uint32_t value, std::size_t base = 10 );`
+.. [[uint64_t]]`f( uint64_t value, std::size_t base = 10 );`
+.. [[string]]`f( const String<S>& o );`
+. [[size_t]]Overload resolution. Except for `std::size_t n` which indicates parameter string length, every other `std::size_t` argument should be of the correct type. To aid with this you can use {ref_edf_math_uz}.
+
+There are 6 groups of member functions:
+
+. <<Initialization>>
+. <<Is Questions>>
+. <<Capacity>>
+. <<Element Access>>
+. <<Operations>>
+. <<Iterators>>
+
+== Initialization
+A string can be created with any of the <<overloads, overloads>>.
+
+---
+
+=== String()
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_default]
+----
+
+---
+
+=== <<const_char_star,String( const char* )>>
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_const_char_star]
+----
+
+---
+
+=== <<const_uint8_t_star,String( const uint8_t* )>>
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_str_literal_uint8_t]
+include::{path_example_edf_string_main_cpp}[tag=init_p_literal_uint8_t]
+include::{path_example_edf_string_main_cpp}[tag=init_const_uint8_t_star]
+----
+
+---
+
+=== <<const_char_star_n,String( const char*, n )>>
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_str_literal_char]
+include::{path_example_edf_string_main_cpp}[tag=init_p_literal_char]
+include::{path_example_edf_string_main_cpp}[tag=init_char_star_n]
+----
+
+---
+
+=== <<const_uint8_t_star_n,String( const uint8_t*, n )>>
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_str_literal_uint8_t]
+include::{path_example_edf_string_main_cpp}[tag=init_p_literal_uint8_t]
+include::{path_example_edf_string_main_cpp}[tag=init_const_uint8_t_star_n]
+----
+
+---
+
+=== <<const_char_ref,String( const_char_ref )>>
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_str_literal_char]
+include::{path_example_edf_string_main_cpp}[tag=init_const_char_ref]
+----
+
+---
+
+=== <<const_const_uint8_t_ref,String( const const_uint8_t_ref )>>
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_str_literal_uint8_t]
+include::{path_example_edf_string_main_cpp}[tag=init_const_const_uint8_t_ref]
+----
+
+---
+
+=== <<char,String( char )>>
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_char]
+----
+
+---
+
+=== <<int8_t,String( int8_t, base )>>
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_literal_int8_t]
+include::{path_example_edf_string_main_cpp}[tag=init_int8_t]
+----
+
+---
+
+=== <<int16_t,String( int16_t, base )>>
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_literal_int16_t]
+include::{path_example_edf_string_main_cpp}[tag=init_int16_t]
+----
+
+---
+
+=== <<int32_t,String( int32_t, base )>>
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_literal_int32_t]
+include::{path_example_edf_string_main_cpp}[tag=init_int32_t]
+----
+
+---
+
+=== <<int64_t,String( int64_t, base )>>
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_literal_int64_t]
+include::{path_example_edf_string_main_cpp}[tag=init_int64_t]
+----
+
+---
+
+=== <<uint8_t,String( uint8_t, base )>>
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_literal_uint8_t]
+include::{path_example_edf_string_main_cpp}[tag=init_uint8_t]
+----
+
+---
+
+=== <<uint16_t,String( uint16_t, base )>>
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_literal_uint16_t]
+include::{path_example_edf_string_main_cpp}[tag=init_uint16_t]
+----
+
+---
+
+=== <<uint32_t,String( uint32_t, base )>>
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_literal_uint32_t]
+include::{path_example_edf_string_main_cpp}[tag=init_uint32_t]
+----
+
+---
+
+=== <<uint64_t,String( uint64_t, base )>>
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_literal_uint64_t]
+include::{path_example_edf_string_main_cpp}[tag=init_uint64_t]
+----
+
+---
+
+=== <<string,String( string )>>
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_literal_different_sized_string]
+include::{path_example_edf_string_main_cpp}[tag=init_string]
+----
+
+== Is Questions
+These member functions provide yes/no answers to the current state of the string.
+
+---
+
+[#is_empty]
+=== isEmpty()
+Equivalent to `<<length>> == 0` +
+Provided to make a common conditional check slightly more readable, as well as consistency with other xref:edf.adoc#_stl_like_containers[EDF containers].
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=is_question_empty]
+----
+
+---
+
+[#is_full]
+=== isFull()
+Since a string doesn't grow the underlying container. Returns if `<<length>> == N - 1`
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=is_question_full]
+----
+
+== Capacity
+Provides information about how many current characters are in the string, as well as the max number of characters the string can hold.
+
+---
+
+[#length]
+=== length()
+Returns the number of characters currently in the string.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=capacity_length]
+----
+
+---
+
+[#max_length]
+=== maxLength()
+Returns template parameter `N` - 1. It acts the same as a compile time constant. No need to remember how a macro for the string max number of characters is named.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=capacity_max_length]
+----
+
+== Element Access
+
+=== operator[]
+This is exactly the same as with a C-style array.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=element_access_standard]
+----
+
+NOTE: This also means that there is no boundary checking, so it is possible to attempt to access data outside of the string.
+
+NOTE: 0{ref_edf_math_uz}
+
+---
+
+[#at]
+=== at( index )
+`index` is checked with {ref_edf_assert_EDF_ASSERTD} to be sure index is valid.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=element_access_at]
+----
+
+NOTE: 0{ref_edf_math_uz}
+
+---
+
+=== asCString()
+Returns a raw pointer to the first element of the string.
+
+.Example
+[source,indent=0,c++]
+----
+void working_with_a_c_library_function( const char *data, size_t n ) { /* ... */}
+
+include::{path_example_edf_string_main_cpp}[tag=init_default]
+working_with_a_c_library_function( string.asCString(), string.length() );
+----
+
+NOTE: Can be called in order to "decay" to a pointer like a C-Style array
+
+---
+
+=== asByteData()
+Returns a raw pointer to the first element of the string.
+
+.Example
+[source,indent=0,c++]
+----
+void working_with_a_c_library_function( const uint8_t *data, size_t n ) { /* ... */}
+
+include::{path_example_edf_string_main_cpp}[tag=init_default]
+working_with_a_c_library_function( string.asByteData(), string.length() );
+----
+
+NOTE: Can be called in order to "decay" to a pointer like a C-Style array
+
+== Conversions
+A string that contains _only_ a series of characters that represent a single number, can be converted to an integer. A number of any base between 2 and 36 is supported. These methods do not mutate the string.
+
+---
+
+=== toInt8_t( base )
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_literal_int8_t]
+include::{path_example_edf_string_main_cpp}[tag=init_int8_t]
+include::{path_example_edf_string_main_cpp}[tag=conversion_to_int8_t]
+----
+
+---
+
+=== toInt16_t( base )
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_literal_int16_t]
+include::{path_example_edf_string_main_cpp}[tag=init_int16_t]
+include::{path_example_edf_string_main_cpp}[tag=conversion_to_int16_t]
+----
+
+---
+
+=== toInt32_t( base )
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_literal_int32_t]
+include::{path_example_edf_string_main_cpp}[tag=init_int32_t]
+include::{path_example_edf_string_main_cpp}[tag=conversion_to_int32_t]
+----
+
+---
+
+=== toInt64_t( base )
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_literal_int64_t]
+include::{path_example_edf_string_main_cpp}[tag=init_int64_t]
+include::{path_example_edf_string_main_cpp}[tag=conversion_to_int64_t]
+----
+
+---
+
+=== toUint8_t( base )
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_literal_uint8_t]
+include::{path_example_edf_string_main_cpp}[tag=init_uint8_t]
+include::{path_example_edf_string_main_cpp}[tag=conversion_to_uint8_t]
+----
+
+---
+
+=== toUint16_t( base )
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_literal_uint16_t]
+include::{path_example_edf_string_main_cpp}[tag=init_uint16_t]
+include::{path_example_edf_string_main_cpp}[tag=conversion_to_uint16_t]
+----
+
+---
+
+=== toUint32_t( base )
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_literal_uint32_t]
+include::{path_example_edf_string_main_cpp}[tag=init_uint32_t]
+include::{path_example_edf_string_main_cpp}[tag=conversion_to_uint32_t]
+----
+
+---
+
+=== toUint64_t( base )
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_literal_uint64_t]
+include::{path_example_edf_string_main_cpp}[tag=init_uint64_t]
+include::{path_example_edf_string_main_cpp}[tag=conversion_to_uint64_t]
+----
+
+== Operations
+{mutability_description}
+
+NOTE: Many, if not all, of the operation member functions use {ref_edf_assert_EDF_ASSERTD} to ensure the operation will be successful. Remember that the assert condition is only checked in Debug mode.
+
+NOTE: For member functions that have an index/position as their first argument, it means that overloads exist to use an index (std::size_t) or an <<Iterators,iterator>>.
+
+.High level list of operations available
+. <<append>>
+. <<insert>>
+. <<erase>>
+. <<clear>>
+. <<copy_to>>
+. <<find>>
+. <<rfind>>
+. <<contains>>
+. <<equals>>
+. <<strip>>
+. <<trim>>
+. <<trimLeft>>
+. <<trimRight>>
+. <<reverse>>
+. <<to_lower>>
+. <<to_upper>>
+. <<replace>>
+. <<substring>>
+. <<operator_plus_equals>>
+. <<operator_plus>>
+
+---
+
+[#append]
+=== append( value )
+Appends the `value` to the end of the string, given there is enough space to hold that `value`. All of the <<overloads, overloads>> for different values exist for <<append>>. This set of member functions do mutate string.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=operation_append]
+----
+
+---
+
+[#get_appended]
+=== getAppended( value )
+Makes a copy of the current string, then appends `value` to the copied string. All of the <<overloads, overloads>> for different values exist for <<get_appended>>. This set of member functions do *NOT* mutate string.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=operation_get_appended]
+----
+
+---
+
+[#insert]
+=== insert( index/position, value )
+Inserts the `value` to at the specified index/position, given there is enough space to hold that `value`. All of the <<overloads, overloads>> for different values exist for <<insert>>, with the additional index/position parameter as the first argument. This set of member functions do mutate string.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=operation_insert]
+----
+
+---
+
+[#get_inserted]
+=== getInserted( index/position, value )
+Makes a copy of the current string, then inserts `value` to the copied string at the specified index/position. All of the <<overloads, overloads>> for different values exist for <<get_inserted>>, with the additional index/position parameter as the first argument. This set of member functions do *NOT* mutate string.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=operation_get_inserted]
+----
+
+---
+
+[#erase]
+=== erase( index/position )
+Erase a single character at the selected index/position. This member function does mutate the string.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=operation_erase]
+----
+
+---
+
+[#get_erased]
+=== getErased( index/position )
+Makes a copy of the current string, then erases a single character at the selected index/position. This member function does *NOT* mutate the string.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=operation_get_erased]
+----
+
+---
+
+[#erase_range]
+=== erase( start index/position, end index/position )
+Erase a range of characters [start, end) starting from `start` up to but not including `end`. This member function does mutate the string.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=operation_erase_range]
+----
+
+---
+
+[#get_erased_range]
+=== getErased( start index/position, end index/position )
+Makes a copy of the current string, then erases a range of characters [start, end) starting from `start` up to but not including `end`. This member function does *NOT* mutate the string.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=operation_get_erased_range]
+----
+
+---
+
+[#clear]
+=== clear()
+Erases everything in the string, such that <<length>> returns 0. Underlying buffer still contains a null terminator.
+
+---
+
+[#copy_to]
+=== copyTo( outputString, maxBufferLength )
+Copy string to the output parameter buffer.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=operation_copy_to]
+----
+
+---
+
+=== copyTo( outputString )
+Copy string to the output parameter buffer.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=operation_copy_to_array]
+----
+
+---
+
+[#find]
+=== find( value )
+Find the first occurrence of a given value.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=operation_find]
+----
+
+---
+
+=== find( value, n )
+
+---
+
+=== find( pos, value )
+
+---
+
+=== find( pos, value, n )
+
+---
+
+[#rfind]
+=== rfind( value )
+
+---
+
+=== rfind( value, n )
+
+---
+
+=== rfind( pos, value )
+
+---
+
+=== rfind( pos, value, n )
+
+---
+
+[#contains]
+=== contains( value )
+
+---
+
+=== contains( value, n )
+
+---
+
+[#equals]
+=== equals( value )
+
+---
+
+=== equals( value, n )
+
+---
+
+[#strip]
+=== strip( value )
+
+---
+
+=== strip( value, n )
+
+---
+
+[#trim]
+=== trim( value )
+
+---
+
+=== trim( value, n )
+
+---
+
+[#trimLeft]
+=== trimLeft( value )
+
+---
+
+=== trimLeft( value, n )
+
+---
+
+[#trimRight]
+=== trimRight( value )
+
+---
+
+=== trimRight( value, n )
+
+---
+
+[#reverse]
+=== reverse()
+
+---
+
+[#to_lower]
+=== to_lower()
+
+---
+
+[#to_upper]
+=== to_upper()
+
+---
+
+[#replace]
+=== replace( lookFor, replaceWith )
+
+---
+
+[#substring]
+=== substring()
+
+---
+
+[#operator_plus_equals]
+=== +=( rhs )
+
+---
+
+[#operator_plus]
+=== +( rhs )
+
+---
+
+=== +( lhs, rhs )
+
+== Iterators
+Forward iterators and const iterators are available through `begin()`, `end()`, `cbegin()`, `cend()`
+
+Revese iterators and const reverse iterators are available through `rbegin()`, `rend()`, `crbegin()`, `crend()`
+
+TIP: https://en.cppreference.com/w/cpp/language/range-for[Range-based for loops] are therefore supported.
