@@ -1,8 +1,8 @@
-= String
+= String<N>
 
 include::ROOT:partial$refs.adoc[]
 
-:mutability_description: Many operations have a mutating and non-mutating version. The naming convention is to have the mutating version be named "presentTenseOperation" and the non-mutating version be named "getPastTenseOperations". For example, <<append>> and <<get_appended>>.
+:mutability_description: Many operations have a mutating and non-mutating version. The naming convention is to have the mutating version be named "presentTenseOperation" and the non-mutating version be named "getPastTenseOperation". For example, <<append>> and <<get_appended>>.
 
 .Template arguments
 `N` = Maximum (N)umber of characters the string can hold.
@@ -100,7 +100,7 @@ include::{path_example_edf_string_main_cpp}[tag=init_const_uint8_t_star_n]
 
 ---
 
-=== <<const_char_ref,String( const_char_ref )>>
+=== <<const_char_ref,String( const char (&)[S] )>>
 .Example
 [source,indent=0,c++]
 ----
@@ -110,7 +110,7 @@ include::{path_example_edf_string_main_cpp}[tag=init_const_char_ref]
 
 ---
 
-=== <<const_const_uint8_t_ref,String( const const_uint8_t_ref )>>
+=== <<const_const_uint8_t_ref,String( const uint8_t (&)[S] )>>
 .Example
 [source,indent=0,c++]
 ----
@@ -230,7 +230,7 @@ Provided to make a common conditional check slightly more readable, as well as c
 .Example
 [source,indent=0,c++]
 ----
-include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=is_question_empty]
 ----
 
@@ -243,7 +243,7 @@ Since a string doesn't grow the underlying container. Returns if `<<length>> == 
 .Example
 [source,indent=0,c++]
 ----
-include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=is_question_full]
 ----
 
@@ -259,7 +259,7 @@ Returns the number of characters currently in the string.
 .Example
 [source,indent=0,c++]
 ----
-include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=capacity_length]
 ----
 
@@ -272,7 +272,7 @@ Returns template parameter `N` - 1. It acts the same as a compile time constant.
 .Example
 [source,indent=0,c++]
 ----
-include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=capacity_max_length]
 ----
 
@@ -284,7 +284,7 @@ This is exactly the same as with a C-style array.
 .Example
 [source,indent=0,c++]
 ----
-include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=element_access_standard]
 ----
 
@@ -301,7 +301,7 @@ NOTE: 0{ref_edf_math_uz}
 .Example
 [source,indent=0,c++]
 ----
-include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=element_access_at]
 ----
 
@@ -317,7 +317,7 @@ Returns a raw pointer to the first element of the string.
 ----
 void working_with_a_c_library_function( const char *data, size_t n ) { /* ... */}
 
-include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=init]
 working_with_a_c_library_function( string.asCString(), string.length() );
 ----
 
@@ -333,7 +333,7 @@ Returns a raw pointer to the first element of the string.
 ----
 void working_with_a_c_library_function( const uint8_t *data, size_t n ) { /* ... */}
 
-include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=init]
 working_with_a_c_library_function( string.asByteData(), string.length() );
 ----
 
@@ -468,7 +468,7 @@ Appends the `value` to the end of the string, given there is enough space to hol
 .Example
 [source,indent=0,c++]
 ----
-include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_append]
 ----
 
@@ -481,7 +481,7 @@ Makes a copy of the current string, then appends `value` to the copied string. A
 .Example
 [source,indent=0,c++]
 ----
-include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_get_appended]
 ----
 
@@ -494,7 +494,7 @@ Inserts the `value` to at the specified index/position, given there is enough sp
 .Example
 [source,indent=0,c++]
 ----
-include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_insert]
 ----
 
@@ -507,7 +507,7 @@ Makes a copy of the current string, then inserts `value` to the copied string at
 .Example
 [source,indent=0,c++]
 ----
-include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_get_inserted]
 ----
 
@@ -520,7 +520,7 @@ Erase a single character at the selected index/position. This member function do
 .Example
 [source,indent=0,c++]
 ----
-include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_erase]
 ----
 
@@ -533,7 +533,7 @@ Makes a copy of the current string, then erases a single character at the select
 .Example
 [source,indent=0,c++]
 ----
-include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_get_erased]
 ----
 
@@ -546,7 +546,7 @@ Erase a range of characters [start, end) starting from `start` up to but not inc
 .Example
 [source,indent=0,c++]
 ----
-include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_erase_range]
 ----
 
@@ -559,7 +559,7 @@ Makes a copy of the current string, then erases a range of characters [start, en
 .Example
 [source,indent=0,c++]
 ----
-include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_get_erased_range]
 ----
 
@@ -578,7 +578,7 @@ Copy string to the output parameter buffer.
 .Example
 [source,indent=0,c++]
 ----
-include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_copy_to]
 ----
 
@@ -590,7 +590,7 @@ Copy string to the output parameter buffer.
 .Example
 [source,indent=0,c++]
 ----
-include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_copy_to_array]
 ----
 
@@ -603,7 +603,7 @@ Find the first occurrence of a given value.
 .Example
 [source,indent=0,c++]
 ----
-include::{path_example_edf_string_main_cpp}[tag=init_default]
+include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_find]
 ----
 
@@ -698,12 +698,12 @@ include::{path_example_edf_string_main_cpp}[tag=operation_find]
 ---
 
 [#to_lower]
-=== to_lower()
+=== toLower()
 
 ---
 
 [#to_upper]
-=== to_upper()
+=== toUpper()
 
 ---
 

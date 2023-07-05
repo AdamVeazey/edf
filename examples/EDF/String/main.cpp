@@ -56,8 +56,12 @@ static void examples() {
     // end::init_literal_different_sized_string[]
 
     // tag::init_default[]
-    EDF::String<128> string;
+    EDF::String<128> stringDefault;
     // end::init_default[]
+
+    // tag::init[]
+    EDF::String<128> string;
+    // end::init[]
     string = "Hello, world!";
 
     // tag::init_const_char_star[]
@@ -228,33 +232,32 @@ static void examples() {
     string.insert( string.end() - 1, "s and solar system" );
     string.insert( 6, ' ' );
     // end::operation_insert[]
-    string.clear();
+    string = "Hello, world!";
+
     // tag::operation_get_inserted[]
-    string = "Hello, world!"; // make this example more interesting than using 0_uz or begin() over and over
     string.getInserted( 6_uz, 4 );
     string.getInserted( 7, 0x2, 16 );
     string.getInserted( string.end() - 1, "s and solar system" );
     string.getInserted( 6, ' ' );
     // end::operation_get_inserted[]
-    string.clear();
+    string = "Hello, world!";
 
     // tag::operation_erase[]
-    string = "Hello, world!";
     string.erase( 5 );
     // end::operation_erase[]
 
-    // tag::operation_get_erased[]
     string = "Hello, world!";
+    // tag::operation_get_erased[]
     string.getErased( 5 );
     // end::operation_get_erased[]
 
-    // tag::operation_erase_range[]
     string = "Hello, world!";
+    // tag::operation_erase_range[]
     string.erase( 5, 12 );
     // end::operation_erase_range[]
 
-    // tag::operation_get_erased_range[]
     string = "Hello, world!";
+    // tag::operation_get_erased_range[]
     string.getErased( 5, 12 );
     // end::operation_get_erased_range[]
 
@@ -268,8 +271,8 @@ static void examples() {
     string.copyTo( destination );
     // end::operation_copy_to_array[]
 
-    // tag::operation_find[]
     string = "Hello, world!";
+    // tag::operation_find[]
     string.find( ',' );
     string.find( "world");
     // end::operation_find[]
