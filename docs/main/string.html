@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>String :: EDF</title>
+    <title>String&lt;N&gt; :: EDF</title>
     <link rel="canonical" href="https://adamveazey.github.io/edf/docs/main/docs/main/string.html">
     <meta name="generator" content="Antora 3.1.4">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -261,7 +261,7 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">String</h1>
+<h1 class="page">String&lt;N&gt;</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
@@ -290,7 +290,7 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><a id="mutability"></a>Many operations have a mutating and non-mutating version. The naming convention is to have the mutating version be named "presentTenseOperation" and the non-mutating version be named "getPastTenseOperations". For example, <a href="#append">append( value )</a> and <a href="#get_appended">getAppended( value )</a>.</p>
+<p><a id="mutability"></a>Many operations have a mutating and non-mutating version. The naming convention is to have the mutating version be named "presentTenseOperation" and the non-mutating version be named "getPastTenseOperation". For example, <a href="#append">append( value )</a> and <a href="#get_appended">getAppended( value )</a>.</p>
 </li>
 <li>
 <p><a id="overloads"></a>Common list of overloads for many functions. The following types listed below are supported by many operations.</p>
@@ -391,7 +391,7 @@
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string;</code></pre>
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; stringDefault;</code></pre>
 </div>
 </div>
 <hr>
@@ -444,7 +444,7 @@ EDF::String&lt;32&gt; stringConstUint8_tStarN( pLiteralUint8_t, std::strlen( rei
 <hr>
 </div>
 <div class="sect2">
-<h3 id="_string_const_char_ref"><a class="anchor" href="#_string_const_char_ref"></a><a href="#const_char_ref">String( const_char_ref )</a></h3>
+<h3 id="_string_const_char_s"><a class="anchor" href="#_string_const_char_s"></a><a href="#const_char_ref">String( const char (&amp;)[S] )</a></h3>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
@@ -455,7 +455,7 @@ EDF::String&lt;32&gt; stringConstCharStarRef( pLiteralChar );</code></pre>
 <hr>
 </div>
 <div class="sect2">
-<h3 id="_string_const_const_uint8_t_ref"><a class="anchor" href="#_string_const_const_uint8_t_ref"></a><a href="#const_const_uint8_t_ref">String( const const_uint8_t_ref )</a></h3>
+<h3 id="_string_const_uint8_t_s"><a class="anchor" href="#_string_const_uint8_t_s"></a><a href="#const_const_uint8_t_ref">String( const uint8_t (&amp;)[S] )</a></h3>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
@@ -909,7 +909,7 @@ uint64_t valueUint64_tBase16 = stringUint64_tHex.toUint64_t( 16 );</code></pre>
 <h2 id="_operations"><a class="anchor" href="#_operations"></a>Operations</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Many operations have a mutating and non-mutating version. The naming convention is to have the mutating version be named "presentTenseOperation" and the non-mutating version be named "getPastTenseOperations". For example, <a href="#append">append( value )</a> and <a href="#get_appended">getAppended( value )</a>.</p>
+<p>Many operations have a mutating and non-mutating version. The naming convention is to have the mutating version be named "presentTenseOperation" and the non-mutating version be named "getPastTenseOperation". For example, <a href="#append">append( value )</a> and <a href="#get_appended">getAppended( value )</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -981,10 +981,10 @@ For member functions that have an index/position as their first argument, it mea
 <p><a href="#reverse">reverse()</a></p>
 </li>
 <li>
-<p><a href="#to_lower">to_lower()</a></p>
+<p><a href="#to_lower">toLower()</a></p>
 </li>
 <li>
-<p><a href="#to_upper">to_upper()</a></p>
+<p><a href="#to_upper">toUpper()</a></p>
 </li>
 <li>
 <p><a href="#replace">replace( lookFor, replaceWith )</a></p>
@@ -1060,7 +1060,6 @@ string.insert( 6, ' ' );</code></pre>
 <div class="title">Example</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string;
-string = "Hello, world!"; // make this example more interesting than using 0_uz or begin() over and over
 string.getInserted( 6_uz, 4 );
 string.getInserted( 7, 0x2, 16 );
 string.getInserted( string.end() - 1, "s and solar system" );
@@ -1078,7 +1077,6 @@ string.getInserted( 6, ' ' );</code></pre>
 <div class="title">Example</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string;
-string = "Hello, world!";
 string.erase( 5 );</code></pre>
 </div>
 </div>
@@ -1093,7 +1091,6 @@ string.erase( 5 );</code></pre>
 <div class="title">Example</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string;
-string = "Hello, world!";
 string.getErased( 5 );</code></pre>
 </div>
 </div>
@@ -1108,7 +1105,6 @@ string.getErased( 5 );</code></pre>
 <div class="title">Example</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string;
-string = "Hello, world!";
 string.erase( 5, 12 );</code></pre>
 </div>
 </div>
@@ -1123,7 +1119,6 @@ string.erase( 5, 12 );</code></pre>
 <div class="title">Example</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string;
-string = "Hello, world!";
 string.getErased( 5, 12 );</code></pre>
 </div>
 </div>
@@ -1175,7 +1170,6 @@ string.copyTo( destination );</code></pre>
 <div class="title">Example</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string;
-string = "Hello, world!";
 string.find( ',' );
 string.find( "world");</code></pre>
 </div>
@@ -1263,11 +1257,11 @@ string.find( "world");</code></pre>
 <hr>
 </div>
 <div class="sect2">
-<h3 id="to_lower"><a class="anchor" href="#to_lower"></a>to_lower()</h3>
+<h3 id="to_lower"><a class="anchor" href="#to_lower"></a>toLower()</h3>
 <hr>
 </div>
 <div class="sect2">
-<h3 id="to_upper"><a class="anchor" href="#to_upper"></a>to_upper()</h3>
+<h3 id="to_upper"><a class="anchor" href="#to_upper"></a>toUpper()</h3>
 <hr>
 </div>
 <div class="sect2">
