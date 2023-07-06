@@ -122,7 +122,7 @@ String() {
 template<std::size_t N>
 constexpr String<N>::
 String( const char* str ) {
-    EDF_ASSERTD( (std::strlen(str) + length()) < maxLength() ); // str can fit
+    EDF_ASSERTD( (std::strlen(str) + length()) <= maxLength() );// str can fit
     // while str is not null, and buffer has enough space for '\0'
     while( *str ) {
         buffer.pushBack( *str++ );
@@ -133,7 +133,7 @@ String( const char* str ) {
 template<std::size_t N>
 constexpr String<N>::
 String( const uint8_t* str ) {
-    EDF_ASSERTD( (std::strlen(reinterpret_cast<const char*>(str)) + length()) < maxLength() ); // str can fit
+    EDF_ASSERTD( (std::strlen(reinterpret_cast<const char*>(str)) + length()) <= maxLength() );// str can fit
     // while str is not null, and buffer has enough space for '\0'
     while( *str ) {
         buffer.pushBack( *str++ );
@@ -146,7 +146,7 @@ constexpr String<N>::
 String( const char* str, std::size_t n ) {
     EDF_ASSERTD( n == std::strlen(str) ); // n represents string length, not buffer size
     EDF_ASSERTD( ((str != nullptr) && (n > 0)) );   // if n is not 0, str can't be nullptr
-    EDF_ASSERTD( (n + length()) < maxLength() );    // str can fit
+    EDF_ASSERTD( (n + length()) <= maxLength() );   // str can fit
     for( std::size_t k = 0; k < n; ++k ) {
         buffer.pushBack( str[k] );
     }
@@ -158,7 +158,7 @@ constexpr String<N>::
 String( const uint8_t* str, std::size_t n ) {
     EDF_ASSERTD( n == std::strlen(reinterpret_cast<const char*>(str)) ); // n represents string length, not buffer size
     EDF_ASSERTD( ((str != nullptr) && (n > 0)) );   // if n is not 0, str can't be nullptr
-    EDF_ASSERTD( (n + length()) < maxLength() );    // str can fit
+    EDF_ASSERTD( (n + length()) <= maxLength() );   // str can fit
     for( std::size_t k = 0; k < n; ++k ) {
         buffer.pushBack( str[k] );
     }
@@ -172,7 +172,7 @@ constexpr String<N>::
 String( const char (&str)[S] ) {
     std::size_t len = std::strlen( str );
     EDF_ASSERTD( len < S );                           // must be a valid string
-    EDF_ASSERTD( (len + length()) < maxLength() );    // str can fit
+    EDF_ASSERTD( (len + length()) <= maxLength() );   // str can fit
     for( std::size_t k = 0; k < len; ++k ) {
         buffer.pushBack( str[k] );
     }
@@ -185,7 +185,7 @@ constexpr String<N>::
 String( const uint8_t (&str)[S] ) {
     std::size_t len = std::strlen( str );
     EDF_ASSERTD( len < S );                           // must be a valid string
-    EDF_ASSERTD( (len + length()) < maxLength() );    // str can fit
+    EDF_ASSERTD( (len + length()) <= maxLength() );   // str can fit
     for( std::size_t k = 0; k < len; ++k ) {
         buffer.pushBack( str[k] );
     }
@@ -372,7 +372,7 @@ constexpr typename String<N>::Iterator String<N>::
 insert( ConstIterator pos, std::size_t count, const char& value ) {
     EDF_ASSERTD( pos >= cbegin() );  // position must be valid
     EDF_ASSERTD( pos <= cend() );    // position must be valid
-    EDF_ASSERTD( (count + length()) < maxLength() );    // must be able to fit value
+    EDF_ASSERTD( (count + length()) <= maxLength() );    // must be able to fit value
     EDF_ASSERTD( value != '\0' );                       // use erase() instead
     auto it = buffer.insert( pos, count, value );
     terminate();
@@ -384,7 +384,7 @@ constexpr typename String<N>::Iterator String<N>::
 insert( ConstIterator pos, std::initializer_list<char> iList ) {
     EDF_ASSERTD( pos >= cbegin() );  // position must be valid
     EDF_ASSERTD( pos <= cend() );    // position must be valid
-    EDF_ASSERTD( (iList.size() + length()) < maxLength() ); // must be able to fit value
+    EDF_ASSERTD( (iList.size() + length()) <= maxLength() ); // must be able to fit value
     for( auto&& value : iList ){
         EDF_ASSERTD( value != '\0' );                       // no need to manually add null
     }
@@ -399,7 +399,7 @@ insert( ConstIterator pos, const char* str, std::size_t n ) {
     EDF_ASSERTD( str != nullptr );
     EDF_ASSERTD( pos >= cbegin() );  // position must be valid
     EDF_ASSERTD( pos <= cend() );    // position must be valid
-    EDF_ASSERTD( (n + length()) < maxLength() ); // must be able to fit value
+    EDF_ASSERTD( (n + length()) <= maxLength() ); // must be able to fit value
     Iterator position = begin() + (pos - begin());
     std::move_backward(position, end(), end() + n );
     std::copy( str, str + n, position );
