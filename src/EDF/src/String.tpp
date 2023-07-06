@@ -656,33 +656,27 @@ toUpper() {
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
-replace( const char* lookFor, const char* replaceWith ) {
-    return replace( lookFor, std::strlen(lookFor), replaceWith, std::strlen(replaceWith) );
-}
-
-template<std::size_t N>
-constexpr String<N>& String<N>::
 replace(
     const char* lookFor, std::size_t nLF,
     const char* replaceWith, std::size_t nRW
 ) {
-    // for( ReverseIterator posLookFor = rfind( crbegin(), lookFor, nLF ); posLookFor != crend(); ) {
-    //     auto strBegin = (posLookFor + 1).base();
-    //     auto strEnd = strBegin + nLF;
-    //     if( (strBegin >= begin()) && (strEnd <= end()) ) {
-    //         erase( strBegin, strEnd );
-    //         insert( strBegin, replaceWith, nRW );
-    //     }
-    //     posLookFor = rfind( posLookFor, lookFor, nLF );
-    // }
-    for( ConstIterator posLookFor = find( begin(), lookFor, nLF ); posLookFor != end(); ) {
-        auto posLookForEnd = posLookFor + nLF;
-        if( posLookForEnd <= end() ) {
-            erase( posLookFor, posLookForEnd ); // erased lookFor from buffer
-            insert( posLookFor, replaceWith, nRW );
+    for( ReverseIterator posLookFor = rfind( crbegin(), lookFor, nLF ); posLookFor != crend(); ) {
+        auto strBegin = (posLookFor + 1).base();
+        auto strEnd = strBegin + nLF;
+        if( (strBegin >= begin()) && (strEnd <= end()) ) {
+            erase( strBegin, strEnd );
+            insert( strBegin, replaceWith, nRW );
         }
-        posLookFor = find( posLookForEnd, lookFor, nLF );
+        posLookFor = rfind( posLookFor, lookFor, nLF );
     }
+    // for( ConstIterator posLookFor = find( begin(), lookFor, nLF ); posLookFor != end(); ) {
+    //     auto posLookForEnd = posLookFor + nLF;
+    //     if( posLookForEnd <= end() ) {
+    //         erase( posLookFor, posLookForEnd ); // erased lookFor from buffer
+    //         insert( posLookFor, replaceWith, nRW );
+    //     }
+    //     posLookFor = find( posLookForEnd, lookFor, nLF );
+    // }
     return *this;
 }
 
@@ -691,32 +685,12 @@ constexpr String<N>& String<N>::
 subString( ConstIterator start, ConstIterator end ) {
     EDF_ASSERTD( start < end );             // start must be before end
     EDF_ASSERTD( end < this->end() );       // end must be within string
-    EDF_ASSERTD( end > this->begin() );     // end must be within string
+    EDF_ASSERTD( end >= this->begin() );    // end must be within string
     EDF_ASSERTD( start < this->end() );     // start must be within string
-    EDF_ASSERTD( start > this->begin() );   // end must be within string
+    EDF_ASSERTD( start >= this->begin() );  // end must be within string
     erase( end, this->end() );
     erase( begin(), start );
     return *this;
-}
-
-template<std::size_t N>
-constexpr String<N> String<N>::
-getSubString( ConstIterator start, ConstIterator end ) {
-    String tmp;
-    tmp.append( tmp.begin() + (start - begin()), end - start ); // const char* str, n
-    return tmp;
-}
-
-template<std::size_t N>
-template<std::size_t S>
-constexpr auto& String<N>::
-operator+( String<S>&& lhs ) {
-    if constexpr( N >= S ) {
-        return append( lhs );
-    }
-    else {
-        return lhs.append( *this );
-    }
 }
 
 } /* EDF */
