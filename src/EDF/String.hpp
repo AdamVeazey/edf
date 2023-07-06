@@ -14,7 +14,7 @@
 namespace EDF {
 
 template<std::size_t N>
-class String {
+class String final {
 private:
     Vector<char, N> buffer;
 private:
