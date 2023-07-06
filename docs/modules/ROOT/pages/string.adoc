@@ -317,10 +317,10 @@ Returns a raw pointer to the first element of the string.
 .Example
 [source,indent=0,c++]
 ----
-void working_with_a_c_library_function( const char *data, size_t n ) { /* ... */}
+    void working_with_a_c_library_function( const char *data, size_t n ) { /* ... */}
 
 include::{path_example_edf_string_main_cpp}[tag=init]
-working_with_a_c_library_function( string.asCString(), string.length() );
+    working_with_a_c_library_function( string.asCString(), string.length() );
 ----
 
 NOTE: Can be called in order to "decay" to a pointer like a C-Style array
@@ -333,10 +333,10 @@ Returns a raw pointer to the first element of the string.
 .Example
 [source,indent=0,c++]
 ----
-void working_with_a_c_library_function( const uint8_t *data, size_t n ) { /* ... */}
+    void working_with_a_c_library_function( const uint8_t *data, size_t n ) { /* ... */}
 
 include::{path_example_edf_string_main_cpp}[tag=init]
-working_with_a_c_library_function( string.asByteData(), string.length() );
+    working_with_a_c_library_function( string.asByteData(), string.length() );
 ----
 
 NOTE: Can be called in order to "decay" to a pointer like a C-Style array
