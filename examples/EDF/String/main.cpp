@@ -80,10 +80,10 @@ static void examples() {
     // end::init_const_uint8_t_star_n[]
 
     // tag::init_const_char_ref[]
-    EDF::String<32> stringConstCharStarRef( pLiteralChar );
+    EDF::String<32> stringConstCharStarRef( strLiteralChar );
     // end::init_const_char_ref[]
     // tag::init_const_uint8_t_ref[]
-    EDF::String<32> stringConstUint8_tStarRef( pLiteralUint8_t );
+    EDF::String<32> stringConstUint8_tStarRef( strLiteralUint8_t );
     // end::init_const_uint8_t_ref[]
 
     // tag::init_char[]
@@ -276,7 +276,292 @@ static void examples() {
     string.find( ',' );
     string.find( "world");
     // end::operation_find[]
-    std::cout << string.find( ',' ) << std::endl;
+
+    // tag::operation_find_n[]
+    string.find( ",", 1_uz );
+    string.find( "world", std::strlen("world") );
+    // end::operation_find_n[]
+
+    // tag::operation_find_pos[]
+    string.find( string.begin() + 3, ',' );
+    string.find( string.begin() + 3, "world" );
+    // end::operation_find_pos[]
+
+    // tag::operation_find_pos_n[]
+    string.find( ",", 1_uz );
+    string.find( "world", std::strlen("world") );
+    // end::operation_find_pos_n[]
+
+    // tag::operation_rfind[]
+    string.rfind( ',' );
+    string.rfind( "world");
+    // end::operation_rfind[]
+
+    // tag::operation_rfind_n[]
+    string.rfind( ",", 1_uz );
+    string.rfind( "world", std::strlen("world") );
+    // end::operation_rfind_n[]
+
+    // tag::operation_rfind_pos[]
+    string.rfind( string.rbegin() + 3, ',' );
+    string.rfind( string.rbegin() + 3, "world" );
+    // end::operation_rfind_pos[]
+
+    // tag::operation_rfind_pos_n[]
+    string.rfind( ",", 1_uz );
+    string.rfind( "world", std::strlen("world") );
+    // end::operation_rfind_pos_n[]
+
+    // tag::operation_contains[]
+    if( string.contains( "Hello" ) ) {
+        /* .. */
+    }
+    // end::operation_contains[]
+
+    // tag::operation_contains_n[]
+    if( string.contains( "Hello", std::strlen("Hello") ) ) {
+        /* .. */
+    }
+    // end::operation_contains_n[]
+
+    // tag::operation_equals[]
+    if( string.equals( "Hello, world!" ) ) {
+        /* ... */
+    }
+    // end::operation_equals[]
+
+    // tag::operation_equals_n[]
+    if( string.equals( "Hello", std::strlen("Hello") ) ) {
+        /* ... */
+    }
+    // end::operation_equals_n[]
+
+    // tag::operation_strip[]
+    string.strip();
+    string.strip( '\n' );
+    string.strip( " ,\t\n" );
+    string.strip( EDF::String<4>("lo") );
+    // end::operation_strip[]
+
+    // tag::operation_strip_n[]
+    string.strip( " \x1B", std::strlen("\x1B") );
+    // end::operation_strip_n[]#warning "Remove me"
+
+    // tag::operation_get_stripped[]
+    string.getStripped();
+    string.getStripped( '\n' );
+    string.getStripped( " ,\t\n" );
+    string.getStripped( EDF::String<4>("lo") );
+    // end::operation_get_stripped[]
+
+    // tag::operation_get_stripped_n[]
+    string.getStripped( " \x1B", std::strlen("\x1B") );
+    // end::operation_get_stripped_n[]
+
+    // tag::operation_trim[]
+    string = "\t\x1B Hello, world! \r\n ";
+    string.trim( '\t' ); // "\x1B Hello, world! \r\n "
+    string.trim( " \r\n" ); // "\t\x1B Hello, world!"
+    string.trim(); // "Hello, world!"
+    // end::operation_trim[]
+
+    // tag::operation_trim_n[]
+    string = "\t\x1B Hello, world! \r\n ";
+    string.trim( "\r \n\x1B", std::strlen("\r \n\x1B") ); // "\t\x1B Hello, world!"
+    // end::operation_trim_n[]
+
+    // tag::operation_get_trim[]
+    string = "\t\x1B Hello, world! \r\n ";
+    string.getTrimmed( '\t' ); // "\x1B Hello, world! \r\n "
+    string.getTrimmed( "\r\n" ); // "\t\x1B Hello, world! \r\n "
+    string.getTrimmed(); // "Hello, world!"
+    // end::operation_get_trim[]
+
+    // tag::operation_get_trim_n[]
+    string = "\t\x1B Hello, world! \r\n ";
+    string.getTrimmed( "\r \n\x1B", std::strlen("\r \n\x1B") ); // "\t\x1B Hello, world!"
+    // end::operation_get_trim_n[]
+
+    // tag::operation_trim_left[]
+    string = "\t\x1B Hello, world! \r\n ";
+    string.trimLeft( '\t' ); // "\x1B Hello, world! \r\n "
+    string.trimLeft( "\r\n" ); // "\t\x1B Hello, world! \r\n "
+    string.trimLeft(); // "Hello, world! \r\n "
+    // end::operation_trim_left[]
+
+    // tag::operation_trim_left_n[]
+    string = "\t\x1B Hello, world! \r\n ";
+    string.trimLeft( "\r \n\x1B", std::strlen("\r \n\x1B") ); // "\t\x1B Hello, world! \r\n "
+    // end::operation_trim_left_n[]
+
+    // tag::operation_get_trimmed_left[]
+    string = "\t\x1B Hello, world! \r\n ";
+    string.getTrimmedLeft( '\t' ); // "\x1B Hello, world! \r\n "
+    string.getTrimmedLeft( "\r\n" ); // "\t\x1B Hello, world! \r\n "
+    string.getTrimmedLeft(); // "Hello, world! \r\n "
+    // end::operation_get_trimmed_left[]
+
+    // tag::operation_get_trimmed_left_n[]
+    string = "\t\x1B Hello, world! \r\n ";
+    string.getTrimmedLeft( "\r \n\x1B", std::strlen("\r \n\x1B") ); // "\t\x1B Hello, world! \r\n "
+    // end::operation_get_trimmed_left_n[]
+
+    // tag::operation_trim_right[]
+    string = "\t\x1B Hello, world! \r\n ";
+    string.trimRight( '\t' ); // "\t\x1B Hello, world! \r\n "
+    string.trimRight( "\r\n" ); // "\t\x1B Hello, world! \r\n "
+    string.trimRight(); // "\t\x1B Hello, world!"
+    // end::operation_trim_right[]
+
+    // tag::operation_trim_right_n[]
+    string = "\t\x1B Hello, world! \r\n ";
+    string.trimRight( "\r \n\x1B", std::strlen("\r \n\x1B") ); // "\t\x1B Hello, world!"
+    // end::operation_trim_right_n[]
+
+    // tag::operation_get_trimmed_right[]
+    string = "\t\x1B Hello, world! \r\n ";
+    string.getTrimmedRight( '\t' ); // "\t\x1B Hello, world! \r\n "
+    string.getTrimmedRight( "\r\n" ); // "\t\x1B Hello, world! \r\n "
+    string.getTrimmedRight(); // "\t\x1B Hello, world!"
+    // end::operation_get_trimmed_right[]
+
+    // tag::operation_get_trimmed_right_n[]
+    string = "\t\x1B Hello, world! \r\n ";
+    string.getTrimmedRight( "\r \n\x1B", std::strlen("\r \n\x1B") ); // "\t\x1B Hello, world!"
+    // end::operation_get_trimmed_right_n[]
+    string = "Hello, world!";
+    // tag::operation_reverse[]
+    string.reverse(); // "!dlrow ,olleH"
+    // end::operation_reverse[]
+
+    // tag::operation_get_reversed[]
+    string.getReversed(); // "!dlrow ,olleH"
+
+    string = "Madam in Eden Im Adam";
+    auto normalized = string.getToLower().strip();
+    bool isPalindrome = normalized.equals( normalized.getReversed() );
+    // end::operation_get_reversed[]
+
+    string = "Hello, world!";
+    // tag::operation_to_lower[]
+    string.toLower(); // "hello, world!";
+    // end::operation_to_lower[]
+    // tag::operation_get_to_lower[]
+    string.getToLower(); // "hello, world!";
+    // end::operation_get_to_lower[]
+
+    // tag::operation_to_upper[]
+    string.toUpper(); // "HELLO, WORLD!";
+    // end::operation_to_upper[]
+    // tag::operation_get_to_upper[]
+    string.getToUpper(); // "HELLO, WORLD!";
+    // end::operation_get_to_upper[]
+
+    string = "Hello, world!\r\nHow's it \r\ngoing?";
+    // tag::operation_replace[]
+    string.replace( 'e', 'a' );
+    string.replace( "\r\n", '\n' );
+    string.replace( "'s", std::strlen("'s"), 's' );
+
+    string.replace( ',', "" );
+    string.replace( "Hows", "How is" );
+    string.replace( "How", std::strlen("How"), "Who" );
+
+    string.replace( 't', "magining", std::strlen("magining") );
+    string.replace( "imagining \n", "planning on ", std::strlen("planning on ") );
+    string.replace( "going", std::strlen("going"), "saying goodbye", std::strlen("saying goodbye") );
+    // end::operation_replace[]
+
+    string = "Hello, world!\r\nHow's it \r\ngoing?";
+    // tag::operation_get_replace[]
+    string.getReplaced( 'e', 'a' );
+    string.getReplaced( "\r\n", '\n' );
+    string.getReplaced( "'s", std::strlen("'s"), 's' );
+
+    string.getReplaced( ',', "" );
+    string.getReplaced( "Hows", "How is" );
+    string.getReplaced( "How", std::strlen("How"), "Who" );
+
+    string.getReplaced( 't', "magining", std::strlen("magining") );
+    string.getReplaced( "imagining \n", "planning on ", std::strlen("planning on ") );
+    string.getReplaced( "going", std::strlen("going"), "saying goodbye", std::strlen("saying goodbye") );
+    // end::operation_get_replace[]
+
+    string = "Hello, world!";
+    // tag::operation_substring[]
+    string.subString( string.begin(), string.begin() + 5 );
+    // end::operation_substring[]
+    string = "Hello, world!";
+    // tag::operation_get_substring[]
+    string.getSubString( string.begin(), string.begin() + 5 );
+
+    string.getSubString( string.find(", ") + std::strlen(", "), string.find( '!' ) );
+    // end::operation_get_substring[]
+
+    string = "Hello, world!";
+    // tag::operation_plus_equals[]
+    string += " c string";
+    string += pLiteralUint8_t;
+    string += strLiteralChar;
+    string += strLiteralUint8_t;
+    string += ch;
+    string += 'c';
+    string += valueInt8_t; // assumes base 10, use append() for a different base
+    string += valueInt16_t; // assumes base 10, use append() for a different base
+    string += valueInt32_t; // assumes base 10, use append() for a different base
+    string += valueInt64_t; // assumes base 10, use append() for a different base
+    string += valueUint8_t; // assumes base 10, use append() for a different base
+    string += valueUint16_t; // assumes base 10, use append() for a different base
+    string += valueUint32_t; // assumes base 10, use append() for a different base
+    // tag::operation_plus_equals[]
+    string.clear(); // for this example, string is running out of space, just clear it
+    // end::operation_plus_equals[]
+    string += valueUint64_t; // assumes base 10, use append() for a different base
+    string += differentSizedString;
+    // end::operation_plus_equals[]
+    string = "Hello, world!";
+
+    // tag::init_result[]
+    EDF::String<128> result;
+    // end::init_result[]
+
+    // tag::operation_plus_rhs[]
+    result = string + " c string";
+    result = string + pLiteralUint8_t;
+    result = string + strLiteralChar;
+    result = string + strLiteralUint8_t;
+    result = string + ch;
+    result = string + 'c';
+    result = string + valueInt8_t; // assumes base 10, use append() for a different base
+    result = string + valueInt16_t; // assumes base 10, use append() for a different base
+    result = string + valueInt32_t; // assumes base 10, use append() for a different base
+    result = string + valueInt64_t; // assumes base 10, use append() for a different base
+    result = string + valueUint8_t; // assumes base 10, use append() for a different base
+    result = string + valueUint16_t; // assumes base 10, use append() for a different base
+    result = string + valueUint32_t; // assumes base 10, use append() for a different base
+    result = string + valueUint64_t; // assumes base 10, use append() for a different base
+    result = string + differentSizedString;
+    // end::operation_plus_rhs[]
+
+    // tag::operation_plus_lhs[]
+    result = " c string" + string;
+    result = pLiteralUint8_t + string;
+    result = strLiteralChar + string;
+    result = strLiteralUint8_t + string;
+    result = ch + string;
+    result = 'c' + string;
+    result = valueInt8_t + string; // assumes base 10, use append() for a different base
+    result = valueInt16_t + string; // assumes base 10, use append() for a different base
+    result = valueInt32_t + string; // assumes base 10, use append() for a different base
+    result = valueInt64_t + string; // assumes base 10, use append() for a different base
+    result = valueUint8_t + string; // assumes base 10, use append() for a different base
+    result = valueUint16_t + string; // assumes base 10, use append() for a different base
+    result = valueUint32_t + string; // assumes base 10, use append() for a different base
+    result = valueUint64_t + string; // assumes base 10, use append() for a different base
+    result = differentSizedString + string;
+    // end::operation_plus_lhs[]
+
+    std::cout << result.asCString() << std::endl;
 }
 
 int main() {
@@ -291,8 +576,8 @@ int main() {
     std::cout << "3:" << test.asCString() << '\n';
     std::cout << "4:" << test.getStripped( "ea" ).asCString() << '\n';
 
-    EDF::String<64> smallerTest = "   !Hello, world!   ";
-    smallerTest.trim( " !");
+    EDF::String<64> smallerTest = "  ! !Hello, world!  !   ";
+    smallerTest.trim( " !" );
     std::cout << "5:>" << smallerTest.asCString() << "<" << '\n';
 
     std::cout << "6:" << smallerTest.contains("Hello") << '\n';

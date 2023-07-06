@@ -4,6 +4,8 @@ include::ROOT:partial$refs.adoc[]
 
 :mutability_description: Many operations have a mutating and non-mutating version. The naming convention is to have the mutating version be named "presentTenseOperation" and the non-mutating version be named "getPastTenseOperation". For example, <<append>> and <<get_appended>>.
 
+:printable_characters: Non-printable characters are the values in the following ranges [0x00, 0x1F] and [0x7F, 0xFF]. Printable characters are defined as a character that meets the following condition: `character > ' ' && character <= '~'`.
+
 .Template arguments
 `N` = Maximum (N)umber of characters the string can hold.
 
@@ -598,7 +600,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_copy_to_array]
 
 [#find]
 === find( value )
-Find the first occurrence of a given value.
+Find the first occurrence of a given value, starting at `begin()`.
 
 .Example
 [source,indent=0,c++]
@@ -610,124 +612,565 @@ include::{path_example_edf_string_main_cpp}[tag=operation_find]
 ---
 
 === find( value, n )
+Find the first occurrence of a given value, starting at `begin()`.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_find_n]
+----
 
 ---
 
 === find( pos, value )
+Find the first occurrence of a given value, starting at `pos`.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_find_pos]
+----
 
 ---
 
 === find( pos, value, n )
+Find the first occurrence of a given value, starting at `pos`.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_find_pos_n]
+----
 
 ---
 
 [#rfind]
 === rfind( value )
+Reverse find first occurrence of a given value, starting at `rbegin()`.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_rfind]
+----
 
 ---
 
 === rfind( value, n )
+Reverse find first occurrence of a given value, starting at `rbegin()`.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_rfind_n]
+----
 
 ---
 
 === rfind( pos, value )
+Reverse find first occurrence of a given value, starting at `pos`.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_rfind_pos]
+----
 
 ---
 
 === rfind( pos, value, n )
+Reverse find first occurrence of a given value, starting at `pos`.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_rfind_pos_n]
+----
 
 ---
 
 [#contains]
 === contains( value )
+Check if value is contained anywhere within string.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_contains]
+----
 
 ---
 
 === contains( value, n )
+Check if value is contained anywhere within string.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_contains_n]
+----
 
 ---
 
 [#equals]
 === equals( value )
+Check if value is exactly equal to string. Lexicographically compares the two strings.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_equals]
+----
 
 ---
 
 === equals( value, n )
+Check if value is exactly equal to string. Lexicographically compares the two strings.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_equals_n]
+----
 
 ---
 
 [#strip]
 === strip( value )
+If value is provided, all occurrences of each character provided are removed from the string. If no value is provided, strip removes all non-printable characters.
+
+NOTE: {printable_characters}
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_strip]
+----
 
 ---
 
 === strip( value, n )
+If value is provided, all occurrences of each character provided are removed from the string. If no value is provided, strip removes all non-printable characters.
+
+NOTE: {printable_characters}
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_strip_n]
+----
+
+---
+
+== getStripped( value )
+If value is provided, all occurrences of each character provided are removed from a copy of the string. If no value is provided, strip removes all non-printable characters.
+
+NOTE: {printable_characters}
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_get_stripped]
+----
+
+---
+
+== getStripped( value, n )
+If value is provided, all occurrences of each character provided are removed from a copy of the string. If no value is provided, strip removes all non-printable characters.
+
+NOTE: {printable_characters}
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_get_stripped_n]
+----
 
 ---
 
 [#trim]
 === trim( value )
+If no value is provided, trim removes all non-printable characters from this string [`begin()`, first printable character] as well as [last printable character, `end()`]. If a value is provided, occurrences of each character provided are removed from the same two ranges in the string.
+
+NOTE: {printable_characters}
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_trim]
+----
 
 ---
 
 === trim( value, n )
+If no value is provided, trim removes all non-printable characters from this string [`begin()`, first printable character] as well as [last printable character, `end()`]. If a value is provided, occurrences of each character provided are removed from the same two ranges in the string.
+
+NOTE: {printable_characters}
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_trim_n]
+----
+
+---
+
+=== getTrimmed( value )
+If no value is provided, trim removes all non-printable characters from a copy of this string [`begin()`, first printable character] as well as [last printable character, `end()`]. If a value is provided, occurrences of each character provided are removed from the same two ranges in the string.
+
+NOTE: {printable_characters}
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_get_trim]
+----
+
+---
+
+=== getTrimmed( value, n )
+If no value is provided, trim removes all non-printable characters from a copy of this string [`begin()`, first printable character] as well as [last printable character, `end()`]. If a value is provided, occurrences of each character provided are removed from the same two ranges in the string.
+
+NOTE: {printable_characters}
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_get_trim_n]
+----
 
 ---
 
 [#trimLeft]
 === trimLeft( value )
+If no value is provided, trim removes all non-printable characters from this string [`begin()`, first printable character]. If a value is provided, occurrences of each character provided are removed from the same range in the string.
+
+NOTE: {printable_characters}
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_trim_left]
+----
 
 ---
 
 === trimLeft( value, n )
+If no value is provided, trim removes all non-printable characters from this string [`begin()`, first printable character]. If a value is provided, occurrences of each character provided are removed from the same range in the string.
+
+NOTE: {printable_characters}
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_trim_left_n]
+----
+
+---
+
+=== getTrimmedLeft( value )
+If no value is provided, trim removes all non-printable characters from a copy of this string [`begin()`, first printable character]. If a value is provided, occurrences of each character provided are removed from the same range in the string.
+
+NOTE: {printable_characters}
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_get_trimmed_left]
+----
+
+---
+
+=== getTrimmedLeft( value, n )
+If no value is provided, trim removes all non-printable characters from a copy of this string [`begin()`, first printable character]. If a value is provided, occurrences of each character provided are removed from the same range in the string.
+
+NOTE: {printable_characters}
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_get_trimmed_left_n]
+----
 
 ---
 
 [#trimRight]
 === trimRight( value )
+If no value is provided, trim removes all non-printable characters from this string [last printable character, `end()`]. If a value is provided, occurrences of each character provided are removed from the same range in the string.
+
+NOTE: {printable_characters}
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_trim_right]
+----
 
 ---
 
 === trimRight( value, n )
+If no value is provided, trim removes all non-printable characters from this string [last printable character, `end()`]. If a value is provided, occurrences of each character provided are removed from the same range in the string.
+
+NOTE: {printable_characters}
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_trim_right_n]
+----
 
 ---
 
+=== getTrimmedRight( value )
+If no value is provided, trim removes all non-printable characters from a copy of this string [last printable character, `end()`]. If a value is provided, occurrences of each character provided are removed from the same range in the string.
+
+NOTE: {printable_characters}
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_get_trimmed_right]
+----
+
+---
+
+=== getTrimmedRight( value, n )
+If no value is provided, trim removes all non-printable characters from a copy of this string [last printable character, `end()`]. If a value is provided, occurrences of each character provided are removed from the same range in the string.
+
+NOTE: {printable_characters}
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_get_trimmed_right_n]
+----
+
+---
 [#reverse]
 === reverse()
+This reverses all of the characters in the string.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_reverse]
+----
+
+---
+
+=== getReversed()
+This reverses all of the characters in a copy of the string.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_get_reversed]
+----
 
 ---
 
 [#to_lower]
 === toLower()
+This changes all uppercase characters in the string to lowercase. Ignores symbols, numbers, non-printable characters.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_to_lower]
+----
+
+---
+
+=== getToLower()
+This changes all uppercase characters in a copy of the string to lowercase. Ignores symbols, numbers, non-printable characters.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_get_to_lower]
+----
 
 ---
 
 [#to_upper]
 === toUpper()
+This changes all lowercase characters in the string to uppercase. Ignores symbols, numbers, non-printable characters.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_to_upper]
+----
+
+---
+
+=== getToUpper()
+This changes all lowercase characters in a copy of the string to uppercase. Ignores symbols, numbers, non-printable characters.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_get_to_upper]
+----
 
 ---
 
 [#replace]
 === replace( lookFor, replaceWith )
+Replace all occurrences of `lookFor` in the string with the value of `replaceWith`.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_replace]
+----
+
+---
+
+=== getReplaced( lookFor, replaceWith )
+Replace all occurrences of `lookFor` in a copy of the string with the value of `replaceWith`.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_get_replace]
+----
 
 ---
 
 [#substring]
-=== substring()
+=== subString( start, end )
+Remove everything except for the range [`start`, `end`) in the string. Erase [`end`, end()), then erase [begin(), `start`)
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_substring]
+----
+
+---
+
+=== getSubString( start, end )
+Remove everything except for the range [`start`, `end`) in a copy of the string. Erase [`end`, end()), then erase [begin(), `start`)
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_get_substring]
+----
 
 ---
 
 [#operator_plus_equals]
 === +=( rhs )
+Syntax sugar for calling <<append>>.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[init_str_literal_char]
+include::{path_example_edf_string_main_cpp}[init_str_literal_uint8_t]
+include::{path_example_edf_string_main_cpp}[init_p_literal_uint8_t]
+include::{path_example_edf_string_main_cpp}[init_literal_char]
+include::{path_example_edf_string_main_cpp}[init_literal_int8_t]
+include::{path_example_edf_string_main_cpp}[init_literal_int16_t]
+include::{path_example_edf_string_main_cpp}[init_literal_int32_t]
+include::{path_example_edf_string_main_cpp}[init_literal_int64_t]
+include::{path_example_edf_string_main_cpp}[init_literal_uint8_t]
+include::{path_example_edf_string_main_cpp}[init_literal_uint16_t]
+include::{path_example_edf_string_main_cpp}[init_literal_uint32_t]
+include::{path_example_edf_string_main_cpp}[init_literal_uint64_t]
+include::{path_example_edf_string_main_cpp}[tag=operation_plus_equals]
+----
 
 ---
 
 [#operator_plus]
-=== +( rhs )
+=== +( this, rhs )
+Syntax sugar for calling <<get_appended>>.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=init_str_literal_char]
+include::{path_example_edf_string_main_cpp}[tag=init_str_literal_uint8_t]
+include::{path_example_edf_string_main_cpp}[tag=init_p_literal_uint8_t]
+include::{path_example_edf_string_main_cpp}[tag=init_literal_char]
+include::{path_example_edf_string_main_cpp}[tag=init_literal_int8_t]
+include::{path_example_edf_string_main_cpp}[tag=init_literal_int16_t]
+include::{path_example_edf_string_main_cpp}[tag=init_literal_int32_t]
+include::{path_example_edf_string_main_cpp}[tag=init_literal_int64_t]
+include::{path_example_edf_string_main_cpp}[tag=init_literal_uint8_t]
+include::{path_example_edf_string_main_cpp}[tag=init_literal_uint16_t]
+include::{path_example_edf_string_main_cpp}[tag=init_literal_uint32_t]
+include::{path_example_edf_string_main_cpp}[tag=init_literal_uint64_t]
+include::{path_example_edf_string_main_cpp}[tag=init_result]
+include::{path_example_edf_string_main_cpp}[tag=operation_plus_rhs]
+----
 
 ---
 
-=== +( lhs, rhs )
+=== +( lhs, this )
+Syntax sugar for calling <<get_appended>>.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=init_str_literal_char]
+include::{path_example_edf_string_main_cpp}[tag=init_str_literal_uint8_t]
+include::{path_example_edf_string_main_cpp}[tag=init_p_literal_uint8_t]
+include::{path_example_edf_string_main_cpp}[tag=init_literal_char]
+include::{path_example_edf_string_main_cpp}[tag=init_literal_int8_t]
+include::{path_example_edf_string_main_cpp}[tag=init_literal_int16_t]
+include::{path_example_edf_string_main_cpp}[tag=init_literal_int32_t]
+include::{path_example_edf_string_main_cpp}[tag=init_literal_int64_t]
+include::{path_example_edf_string_main_cpp}[tag=init_literal_uint8_t]
+include::{path_example_edf_string_main_cpp}[tag=init_literal_uint16_t]
+include::{path_example_edf_string_main_cpp}[tag=init_literal_uint32_t]
+include::{path_example_edf_string_main_cpp}[tag=init_literal_uint64_t]
+include::{path_example_edf_string_main_cpp}[tag=init_result]
+include::{path_example_edf_string_main_cpp}[tag=operation_plus_lhs]
+----
 
 == Iterators
 Forward iterators and const iterators are available through `begin()`, `end()`, `cbegin()`, `cend()`
