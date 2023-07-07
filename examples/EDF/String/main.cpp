@@ -60,9 +60,8 @@ static void examples() {
     // end::init_default[]
 
     // tag::init[]
-    EDF::String<128> string;
+    EDF::String<128> string = "Hello, world!";;
     // end::init[]
-    string = "Hello, world!";
 
     // tag::init_const_char_star[]
     EDF::String<32> stringConstCharStar = "const char*";
@@ -345,7 +344,7 @@ static void examples() {
 
     // tag::operation_strip_n[]
     string.strip( " \x1B", std::strlen("\x1B") );
-    // end::operation_strip_n[]#warning "Remove me"
+    // end::operation_strip_n[]
 
     // tag::operation_get_stripped[]
     string.getStripped();
@@ -437,10 +436,11 @@ static void examples() {
     // tag::operation_get_reversed[]
     string.getReversed(); // "!dlrow ,olleH"
 
-    string = "Madam in Eden Im Adam";
-    auto normalized = string.getToLower().strip();
+    string = "Madam in Eden, Im Adam.";
+    auto normalized = string.getToLower().strip( " ,." );
     bool isPalindrome = normalized.equals( normalized.getReversed() );
     // end::operation_get_reversed[]
+    std::cout << "isPalindrome: " << isPalindrome << std::endl;
 
     string = "Hello, world!";
     // tag::operation_to_lower[]
@@ -499,7 +499,7 @@ static void examples() {
     // end::operation_get_substring[]
 
     string = "Hello, world!";
-    // tag::operation_plus_equals[]
+    // tag::operation_plus_equals1[]
     string += " c string";
     string += pLiteralUint8_t;
     string += strLiteralChar;
@@ -513,12 +513,12 @@ static void examples() {
     string += valueUint8_t; // assumes base 10, use append() for a different base
     string += valueUint16_t; // assumes base 10, use append() for a different base
     string += valueUint32_t; // assumes base 10, use append() for a different base
-    // tag::operation_plus_equals[]
+    // tag::operation_plus_equals1[]
     string.clear(); // for this example, string is running out of space, just clear it
-    // end::operation_plus_equals[]
+    // end::operation_plus_equals2[]
     string += valueUint64_t; // assumes base 10, use append() for a different base
     string += differentSizedString;
-    // end::operation_plus_equals[]
+    // end::operation_plus_equals2[]
     string = "Hello, world!";
 
     // tag::init_result[]
