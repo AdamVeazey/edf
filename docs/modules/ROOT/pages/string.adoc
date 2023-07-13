@@ -775,7 +775,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_strip_n]
 
 ---
 
-== getStripped( value )
+=== getStripped( value )
 If value is provided, all occurrences of each character provided are removed from a copy of the string. If no value is provided, strip removes all non-printable characters.
 
 NOTE: {printable_characters}
@@ -789,7 +789,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_get_stripped]
 
 ---
 
-== getStripped( value, n )
+=== getStripped( value, n )
 If value is provided, all occurrences of each character provided are removed from a copy of the string. If no value is provided, strip removes all non-printable characters.
 
 NOTE: {printable_characters}
@@ -1106,6 +1106,7 @@ Syntax sugar for calling <<append>>.
 [source,indent=0,c++]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
+
 include::{path_example_edf_string_main_cpp}[init_str_literal_char]
 include::{path_example_edf_string_main_cpp}[init_str_literal_uint8_t]
 include::{path_example_edf_string_main_cpp}[init_p_literal_uint8_t]
@@ -1118,6 +1119,7 @@ include::{path_example_edf_string_main_cpp}[init_literal_uint8_t]
 include::{path_example_edf_string_main_cpp}[init_literal_uint16_t]
 include::{path_example_edf_string_main_cpp}[init_literal_uint32_t]
 include::{path_example_edf_string_main_cpp}[init_literal_uint64_t]
+
 include::{path_example_edf_string_main_cpp}[tag=operation_plus_equals1]
 include::{path_example_edf_string_main_cpp}[tag=operation_plus_equals2]
 ----
@@ -1132,6 +1134,7 @@ Syntax sugar for calling <<get_appended>>.
 [source,indent=0,c++]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
+
 include::{path_example_edf_string_main_cpp}[tag=init_str_literal_char]
 include::{path_example_edf_string_main_cpp}[tag=init_str_literal_uint8_t]
 include::{path_example_edf_string_main_cpp}[tag=init_p_literal_uint8_t]
@@ -1144,7 +1147,9 @@ include::{path_example_edf_string_main_cpp}[tag=init_literal_uint8_t]
 include::{path_example_edf_string_main_cpp}[tag=init_literal_uint16_t]
 include::{path_example_edf_string_main_cpp}[tag=init_literal_uint32_t]
 include::{path_example_edf_string_main_cpp}[tag=init_literal_uint64_t]
+
 include::{path_example_edf_string_main_cpp}[tag=init_result]
+
 include::{path_example_edf_string_main_cpp}[tag=operation_plus_rhs]
 ----
 
@@ -1157,6 +1162,7 @@ Syntax sugar for calling <<get_appended>>.
 [source,indent=0,c++]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
+
 include::{path_example_edf_string_main_cpp}[tag=init_str_literal_char]
 include::{path_example_edf_string_main_cpp}[tag=init_str_literal_uint8_t]
 include::{path_example_edf_string_main_cpp}[tag=init_p_literal_uint8_t]
@@ -1169,7 +1175,9 @@ include::{path_example_edf_string_main_cpp}[tag=init_literal_uint8_t]
 include::{path_example_edf_string_main_cpp}[tag=init_literal_uint16_t]
 include::{path_example_edf_string_main_cpp}[tag=init_literal_uint32_t]
 include::{path_example_edf_string_main_cpp}[tag=init_literal_uint64_t]
+
 include::{path_example_edf_string_main_cpp}[tag=init_result]
+
 include::{path_example_edf_string_main_cpp}[tag=operation_plus_lhs]
 ----
 

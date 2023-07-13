@@ -60,7 +60,7 @@ static void examples() {
     // end::init_default[]
 
     // tag::init[]
-    EDF::String<128> string = "Hello, world!";;
+    EDF::String<128> string = "Hello, world!";
     // end::init[]
 
     // tag::init_const_char_star[]
@@ -513,9 +513,9 @@ static void examples() {
     string += valueUint8_t; // assumes base 10, use append() for a different base
     string += valueUint16_t; // assumes base 10, use append() for a different base
     string += valueUint32_t; // assumes base 10, use append() for a different base
-    // tag::operation_plus_equals1[]
+    // end::operation_plus_equals1[]
     string.clear(); // for this example, string is running out of space, just clear it
-    // end::operation_plus_equals2[]
+    // tag::operation_plus_equals2[]
     string += valueUint64_t; // assumes base 10, use append() for a different base
     string += differentSizedString;
     // end::operation_plus_equals2[]
