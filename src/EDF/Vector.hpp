@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2023, Adam Veazey
  * All rights reserved.
- * 
+ *
  * SPDX-License-Identifier: BSD-3-Clause
  */
 #pragma once
@@ -20,11 +20,11 @@ private:
     std::size_t n;
     Array<T, N> buffer;
 public:
-    Vector() : n(0), buffer{} {} 
+    constexpr Vector() : n(0), buffer{} {}
     template<typename... I>
-    Vector( I... iList ) : buffer{iList...}, n(sizeof...(I)) {}
+    constexpr Vector( I... iList ) : buffer{iList...}, n(sizeof...(I)) {}
     ~Vector() = default;
-    
+
     using Iterator = T*;
     using ConstIterator = const T*;
     using ReverseIterator = std::reverse_iterator<Iterator>;
@@ -44,13 +44,13 @@ public:
 
     constexpr T& operator[]( std::size_t index )                                          { return buffer[index]; }
     constexpr const T& operator[]( std::size_t index )                              const { return buffer[index]; }
-    
+
     constexpr T& front()                                                                  { return at( 0 ); }
     constexpr const T& front()                                                      const { return at( 0 ); }
-    
+
     constexpr T& back()                                                                   { return at( n - 1 ); }
     constexpr const T& back()                                                       const { return at( n - 1 ); }
-    
+
     constexpr T* data()                                                                   { return buffer.data(); }
     constexpr const T* data()                                                       const { return buffer.data(); }
 
@@ -70,7 +70,7 @@ public:
     constexpr void emplace( std::size_t index, Args&&... args )                           { emplace( ConstIterator(data() + index), std::forward<Args>(args)...); }
     template<typename... Args>
     constexpr Iterator emplace( ConstIterator pos, Args&&... args );
-    
+
     constexpr void erase( std::size_t index )                                             { erase( ConstIterator(data() + index) ); }
     constexpr void erase( std::size_t first, std::size_t last )                           { erase( ConstIterator(data() + first), ConstIterator(data() + last) ); }
     constexpr Iterator erase( ConstIterator pos );
