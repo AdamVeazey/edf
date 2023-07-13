@@ -324,7 +324,7 @@ template<std::size_t N>
 template<std::size_t S>
 constexpr String<N>::
 String( const String<S>& o ) {
-    EDF_ASSERTD( o.maxLength() <= maxLength() ); // N must greater than or equal to S
+    EDF_ASSERTD( o.length() <= maxLength() ); // N must greater than or equal to length of o
     for( auto&& ch : o ) {
         buffer.pushBack( ch );
     }
