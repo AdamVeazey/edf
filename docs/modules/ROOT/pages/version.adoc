@@ -141,7 +141,6 @@ This is a static function to get the current version of EDF being used.
 .Example
 [source,indent=0,c++]
 ----
-include::{path_example_edf_version_main_cpp}[tag=init]
 include::{path_example_edf_version_main_cpp}[tag=edf_version]
 ----
 
