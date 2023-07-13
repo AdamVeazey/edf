@@ -49,11 +49,11 @@ int main( void ) {
     // end::access_as_number[]
 
     // tag::access_as_string[]
-    version.asString(); // EDF::String<9>("01.02.03")
+    version.asString(); // EDF::String<9>("1.2.3")
     // end::access_as_string[]
 
     // tag::access_as_c_string[]
-    version.asCString(); // "01.02.03"
+    version.asCString(); // "1.2.3"
     // end::access_as_c_string[]
 
     // tag::edf_version[]

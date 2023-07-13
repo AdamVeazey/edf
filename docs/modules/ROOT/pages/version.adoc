@@ -76,6 +76,7 @@ include::{path_example_edf_version_main_cpp}[tag=init_edf_string]
 .Example
 [source,indent=0,c++]
 ----
+include::{path_example_edf_version_main_cpp}[tag=init]
 include::{path_example_edf_version_main_cpp}[tag=access_get_major]
 ----
 
@@ -86,6 +87,7 @@ include::{path_example_edf_version_main_cpp}[tag=access_get_major]
 .Example
 [source,indent=0,c++]
 ----
+include::{path_example_edf_version_main_cpp}[tag=init]
 include::{path_example_edf_version_main_cpp}[tag=access_get_minor]
 ----
 
@@ -96,6 +98,7 @@ include::{path_example_edf_version_main_cpp}[tag=access_get_minor]
 .Example
 [source,indent=0,c++]
 ----
+include::{path_example_edf_version_main_cpp}[tag=init]
 include::{path_example_edf_version_main_cpp}[tag=access_get_patch]
 ----
 
@@ -106,6 +109,7 @@ include::{path_example_edf_version_main_cpp}[tag=access_get_patch]
 .Example
 [source,indent=0,c++]
 ----
+include::{path_example_edf_version_main_cpp}[tag=init]
 include::{path_example_edf_version_main_cpp}[tag=access_as_number]
 ----
 
@@ -116,6 +120,7 @@ include::{path_example_edf_version_main_cpp}[tag=access_as_number]
 .Example
 [source,indent=0,c++]
 ----
+include::{path_example_edf_version_main_cpp}[tag=init]
 include::{path_example_edf_version_main_cpp}[tag=access_as_string]
 ----
 
@@ -126,6 +131,7 @@ include::{path_example_edf_version_main_cpp}[tag=access_as_string]
 .Example
 [source,indent=0,c++]
 ----
+include::{path_example_edf_version_main_cpp}[tag=init]
 include::{path_example_edf_version_main_cpp}[tag=access_as_c_string]
 ----
 
@@ -135,6 +141,7 @@ This is a static function to get the current version of EDF being used.
 .Example
 [source,indent=0,c++]
 ----
+include::{path_example_edf_version_main_cpp}[tag=init]
 include::{path_example_edf_version_main_cpp}[tag=edf_version]
 ----
 
@@ -145,6 +152,7 @@ include::{path_example_edf_version_main_cpp}[tag=edf_version]
 .Example
 [source,indent=0,c++]
 ----
+include::{path_example_edf_version_main_cpp}[tag=init]
 include::{path_example_edf_version_main_cpp}[tag=operator_greater]
 ----
 
@@ -153,6 +161,7 @@ include::{path_example_edf_version_main_cpp}[tag=operator_greater]
 .Example
 [source,indent=0,c++]
 ----
+include::{path_example_edf_version_main_cpp}[tag=init]
 include::{path_example_edf_version_main_cpp}[tag=operator_less]
 ----
 
@@ -161,6 +170,7 @@ include::{path_example_edf_version_main_cpp}[tag=operator_less]
 .Example
 [source,indent=0,c++]
 ----
+include::{path_example_edf_version_main_cpp}[tag=init]
 include::{path_example_edf_version_main_cpp}[tag=operator_greater_equal]
 ----
 
@@ -169,6 +179,7 @@ include::{path_example_edf_version_main_cpp}[tag=operator_greater_equal]
 .Example
 [source,indent=0,c++]
 ----
+include::{path_example_edf_version_main_cpp}[tag=init]
 include::{path_example_edf_version_main_cpp}[tag=operator_less_equal]
 ----
 
@@ -177,6 +188,7 @@ include::{path_example_edf_version_main_cpp}[tag=operator_less_equal]
 .Example
 [source,indent=0,c++]
 ----
+include::{path_example_edf_version_main_cpp}[tag=init]
 include::{path_example_edf_version_main_cpp}[tag=operator_equal]
 ----
 
@@ -185,5 +197,6 @@ include::{path_example_edf_version_main_cpp}[tag=operator_equal]
 .Example
 [source,indent=0,c++]
 ----
+include::{path_example_edf_version_main_cpp}[tag=init]
 include::{path_example_edf_version_main_cpp}[tag=operator_not_equal]
 ----
