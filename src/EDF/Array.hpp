@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2023, Adam Veazey
  * All rights reserved.
- * 
+ *
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
@@ -18,24 +18,24 @@ class Array final {
 private:
     T buff[N];
 public:
-    Array() : buff{} {} 
+    constexpr Array() : buff{} {}
     template<typename... I>
-    Array( I... initializerList ) : buff{initializerList...} {}
+    constexpr Array( I... initializerList ) : buff{initializerList...} {}
     ~Array() = default;
 
     /* Element access */
     constexpr T& at( std::size_t index )                      { EDF_ASSERTD(index < N); return buff[index]; }
     constexpr const T& at( std::size_t index )          const { EDF_ASSERTD(index < N); return buff[index]; }
-    
+
     constexpr T& operator[]( std::size_t index )              { return buff[index]; }
     constexpr const T& operator[]( std::size_t index )  const { return buff[index]; }
-    
+
     constexpr T& front()                                      { return at( 0 ); }
     constexpr const T& front()                          const { return at( 0 ); }
-    
+
     constexpr T& back()                                       { return at( N - 1 ); }
     constexpr const T& back()                           const { return at( N - 1 ); }
-    
+
     constexpr T* data()                                       { return buff; }
     constexpr const T* data()                           const { return buff; }
 
@@ -44,7 +44,7 @@ public:
 
     /* Operations */
     // template<typename t = std::enable_if_t<std::is_default_constructible<T>::value>>
-    constexpr void clear() { 
+    constexpr void clear() {
         static_assert(std::is_default_constructible<T>::value, "T needs to be default constructable in order to use clear(). Use fill() instead");
         fill( T() );
     }
@@ -58,7 +58,7 @@ public:
     using ConstIterator = const T*;
     using ReverseIterator = std::reverse_iterator<Iterator>;
     using ConstReverseIterator = std::reverse_iterator<ConstIterator>;
-    
+
     constexpr Iterator begin()                                { return Iterator( data() ); }
     constexpr ConstIterator begin()                     const { return ConstIterator( data() ); }
     constexpr ConstIterator cbegin()                    const { return ConstIterator( data() ); }
