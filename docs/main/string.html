@@ -280,8 +280,12 @@
 </tr>
 </table>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tldr"><a class="anchor" href="#_tldr"></a>TL;DR</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<div class="title">TL;DR</div>
 <p>The following example shows some usage of string <a href="#_operations">operations</a> to check if <code>string</code> is a palindrome or not without mutating the original <code>string</code>.</p>
 </div>
 <div class="listingblock">
@@ -291,8 +295,12 @@ auto normalized = string.getToLower().strip( " ,." );
 bool isPalindrome = normalized.equals( normalized.getReversed() );</code></pre>
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<div class="title">Overview</div>
 <p>String is a a fixed max size character array that has many operations. At its core a string is a <code>std::size_t</code> length + a <code>char buffer[N]</code>, where <code>buffer[length]</code> always has the value <code>'\0'</code>. This class is provided to make common string manipulations using a character array.</p>
 </div>
 <div class="paragraph">
