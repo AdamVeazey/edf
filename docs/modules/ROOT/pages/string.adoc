@@ -93,7 +93,7 @@ include::{path_example_edf_string_main_cpp}[tag=init_const_uint8_t_star]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init_str_literal_char]
 include::{path_example_edf_string_main_cpp}[tag=init_p_literal_char]
-include::{path_example_edf_string_main_cpp}[tag=init_char_star_n]
+include::{path_example_edf_string_main_cpp}[tag=init_const_char_star_n]
 ----
 
 ---
@@ -124,7 +124,7 @@ include::{path_example_edf_string_main_cpp}[tag=init_const_char_ref]
 [source,indent=0,c++]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init_str_literal_uint8_t]
-include::{path_example_edf_string_main_cpp}[tag=init_const_const_uint8_t_ref]
+include::{path_example_edf_string_main_cpp}[tag=init_const_uint8_t_ref]
 ----
 
 ---
