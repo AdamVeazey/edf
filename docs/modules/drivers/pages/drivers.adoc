@@ -6,6 +6,6 @@ include::ROOT:partial$refs.adoc[]
 - {ref_edf}
 - {ref_peripherals}
 
-.Overview
+== Overview
 This contains drivers for specific ICs, as well as 'higher level' generic uses of Peripherals.
 

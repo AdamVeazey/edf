@@ -11,14 +11,14 @@ include::ROOT:partial$refs.adoc[]
 
 NOTE: `N` includes '\0', so if `N = 8` the string can hold `7` characters, with the remaining spot used to store a null terminator ('\0')
 
-.TL;DR
+== TL;DR
 The following example shows some usage of string <<Operations,operations>> to check if `string` is a palindrome or not without mutating the original `string`.
 [source,indent=0,c++]
 ----
 include::{path_example_edf_string_main_cpp}[tag=example_is_palindrome]
 ----
 
-.Overview
+== Overview
 String is a a fixed max size character array that has many operations. At its core a string is a `std::size_t` length + a `char buffer[N]`, where `buffer[length]` always has the value `'\0'`. This class is provided to make common string manipulations using a character array.
 
 There are three big picture concepts that will help make sense of this large class.
