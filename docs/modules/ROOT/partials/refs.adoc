@@ -41,6 +41,7 @@
 :path_example_edf_stack_main_cpp: {path_example_edf}/Stack/main.cpp
 :path_example_edf_string_main_cpp: {path_example_edf}/String/main.cpp
 :path_example_edf_vector_main_cpp: {path_example_edf}/Vector/main.cpp
+:path_example_edf_version_main_cpp: {path_example_edf}/Version/main.cpp
 
 // Peripherals
 :ref_module_peripherals: xref:peripherals

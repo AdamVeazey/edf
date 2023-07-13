@@ -1,3 +1,189 @@
 = Version
 
 include::ROOT:partial$refs.adoc[]
+
+== Overview
+Version is a class to handle semantic version numbers, AKA https://semver.org/#semantic-versioning-200["SemVer"]. The current version of EDF being used can be found with <<EDF Version>>
+
+There are a few important limitations to be aware of.
+
+. Version is able to support up to 3 digits per element.
+. Version does not support https://semver.org/#spec-item-9[pre-release]
+. Version does not support https://semver.org/#spec-item-10[build metadata].
+
+There are 4 groups of member functions:
+
+. <<Initialization>>
+. <<Access>>
+. <<EDF Version>>
+. <<Comparison Operators>>
+
+== Initialization
+
+=== Version()
+Default version number of 0.0.0
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_version_main_cpp}[tag=init_default]
+----
+
+---
+
+=== Version( const char* )
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_version_main_cpp}[tag=init]
+----
+
+---
+
+=== Version( const uint32_t& )
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_version_main_cpp}[tag=init_value]
+----
+
+---
+
+=== Version( const char (&str)[N] )
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_version_main_cpp}[tag=init_str_array]
+----
+
+---
+
+=== Version( const EDF::String<N>& str )
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_version_main_cpp}[tag=init_edf_string]
+----
+
+== Access
+
+=== getMajor()
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_version_main_cpp}[tag=access_get_major]
+----
+
+---
+
+=== getMinor()
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_version_main_cpp}[tag=access_get_minor]
+----
+
+---
+
+=== getPatch()
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_version_main_cpp}[tag=access_get_patch]
+----
+
+---
+
+=== asNumber()
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_version_main_cpp}[tag=access_as_number]
+----
+
+---
+
+=== asString()
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_version_main_cpp}[tag=access_as_string]
+----
+
+---
+
+=== asCString()
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_version_main_cpp}[tag=access_as_c_string]
+----
+
+== EDF Version
+This is a static function to get the current version of EDF being used.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_version_main_cpp}[tag=edf_version]
+----
+
+== Comparison Operators
+
+=== operator>()
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_version_main_cpp}[tag=operator_greater]
+----
+
+=== operator<()
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_version_main_cpp}[tag=operator_less]
+----
+
+=== operator>=()
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_version_main_cpp}[tag=operator_greater_equal]
+----
+
+=== operator<=()
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_version_main_cpp}[tag=operator_less_equal]
+----
+
+=== operator==()
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_version_main_cpp}[tag=operator_equal]
+----
+
+=== operator!=()
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_version_main_cpp}[tag=operator_not_equal]
+----
