@@ -281,6 +281,17 @@
 </table>
 </div>
 <div class="paragraph">
+<div class="title">TL;DR</div>
+<p>The following example shows some usage of string <a href="#_operations">operations</a> to check if <code>string</code> is a palindrome or not without mutating the original <code>string</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;32&gt; string = "Madam in Eden, Im Adam.";
+auto normalized = string.getToLower().strip( " ,." );
+bool isPalindrome = normalized.equals( normalized.getReversed() );</code></pre>
+</div>
+</div>
+<div class="paragraph">
 <div class="title">Overview</div>
 <p>String is a a fixed max size character array that has many operations. At its core a string is a <code>std::size_t</code> length + a <code>char buffer[N]</code>, where <code>buffer[length]</code> always has the value <code>'\0'</code>. This class is provided to make common string manipulations using a character array.</p>
 </div>
@@ -600,7 +611,7 @@ Provided to make a common conditional check slightly more readable, as well as c
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 if( !string.isEmpty() ) {
     /* ... */
 }</code></pre>
@@ -616,7 +627,7 @@ if( !string.isEmpty() ) {
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 if( !string.isFull() ) {
     /* ... */
 }</code></pre>
@@ -640,7 +651,7 @@ if( !string.isFull() ) {
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 auto nCharactersInString = string.length();</code></pre>
 </div>
 </div>
@@ -654,7 +665,7 @@ auto nCharactersInString = string.length();</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 constexpr auto maxNumberOfCharacters = string.maxLength();</code></pre>
 </div>
 </div>
@@ -672,7 +683,7 @@ constexpr auto maxNumberOfCharacters = string.maxLength();</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string[0_uz] = 'h';</code></pre>
 </div>
 </div>
@@ -710,7 +721,7 @@ This also means that there is no boundary checking, so it is possible to attempt
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string.at( 0_uz ) = 'h';</code></pre>
 </div>
 </div>
@@ -738,7 +749,7 @@ string.at( 0_uz ) = 'h';</code></pre>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">void working_with_a_c_library_function( const char *data, size_t n ) { /* ... */}
 
-EDF::String&lt;128&gt; string = "Hello, world!";;
+EDF::String&lt;128&gt; string = "Hello, world!";
 working_with_a_c_library_function( string.asCString(), string.length() );</code></pre>
 </div>
 </div>
@@ -766,7 +777,7 @@ Can be called in order to "decay" to a pointer like a C-Style array
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">void working_with_a_c_library_function( const uint8_t *data, size_t n ) { /* ... */}
 
-EDF::String&lt;128&gt; string = "Hello, world!";;
+EDF::String&lt;128&gt; string = "Hello, world!";
 working_with_a_c_library_function( string.asByteData(), string.length() );</code></pre>
 </div>
 </div>
@@ -1009,7 +1020,7 @@ For member functions that have an index/position as their first argument, it mea
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string.append( "Hello, world!" );
 string.append( 1234 );
 string.append( "0x" ).append( 0x5678, 16 );</code></pre>
@@ -1025,7 +1036,7 @@ string.append( "0x" ).append( 0x5678, 16 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string.getAppended( "Hello, world!" );
 string.getAppended( 1234 );
 string.getAppended( "0x" ).append( 0x5678, 16 );</code></pre>
@@ -1041,7 +1052,7 @@ string.getAppended( "0x" ).append( 0x5678, 16 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string.insert( 0_uz, "Hello, world!");
 string.insert( 6_uz, 4 );
 string.insert( 7, 0x2, 16 );
@@ -1059,7 +1070,7 @@ string.insert( 6, ' ' );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string.getInserted( 6_uz, 4 );
 string.getInserted( 7, 0x2, 16 );
 string.getInserted( string.end() - 1, "s and solar system" );
@@ -1076,7 +1087,7 @@ string.getInserted( 6, ' ' );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string.erase( 5 );</code></pre>
 </div>
 </div>
@@ -1090,7 +1101,7 @@ string.erase( 5 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string.getErased( 5 );</code></pre>
 </div>
 </div>
@@ -1104,7 +1115,7 @@ string.getErased( 5 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string.erase( 5, 12 );</code></pre>
 </div>
 </div>
@@ -1118,7 +1129,7 @@ string.erase( 5, 12 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string.getErased( 5, 12 );</code></pre>
 </div>
 </div>
@@ -1139,7 +1150,7 @@ string.getErased( 5, 12 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 char destinationBuffer[128];
 string.copyTo( destinationBuffer, 128 );</code></pre>
 </div>
@@ -1154,7 +1165,7 @@ string.copyTo( destinationBuffer, 128 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 uint8_t destination[128];
 string.copyTo( destination );</code></pre>
 </div>
@@ -1169,7 +1180,7 @@ string.copyTo( destination );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string.find( ',' );
 string.find( "world");</code></pre>
 </div>
@@ -1184,7 +1195,7 @@ string.find( "world");</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string.find( ",", 1_uz );
 string.find( "world", std::strlen("world") );</code></pre>
 </div>
@@ -1199,7 +1210,7 @@ string.find( "world", std::strlen("world") );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string.find( string.begin() + 3, ',' );
 string.find( string.begin() + 3, "world" );</code></pre>
 </div>
@@ -1214,7 +1225,7 @@ string.find( string.begin() + 3, "world" );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string.find( ",", 1_uz );
 string.find( "world", std::strlen("world") );</code></pre>
 </div>
@@ -1229,7 +1240,7 @@ string.find( "world", std::strlen("world") );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string.rfind( ',' );
 string.rfind( "world");</code></pre>
 </div>
@@ -1244,7 +1255,7 @@ string.rfind( "world");</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string.rfind( ",", 1_uz );
 string.rfind( "world", std::strlen("world") );</code></pre>
 </div>
@@ -1259,7 +1270,7 @@ string.rfind( "world", std::strlen("world") );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string.rfind( string.rbegin() + 3, ',' );
 string.rfind( string.rbegin() + 3, "world" );</code></pre>
 </div>
@@ -1274,7 +1285,7 @@ string.rfind( string.rbegin() + 3, "world" );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string.rfind( ",", 1_uz );
 string.rfind( "world", std::strlen("world") );</code></pre>
 </div>
@@ -1289,7 +1300,7 @@ string.rfind( "world", std::strlen("world") );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 if( string.contains( "Hello" ) ) {
     /* .. */
 }</code></pre>
@@ -1305,7 +1316,7 @@ if( string.contains( "Hello" ) ) {
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 if( string.contains( "Hello", std::strlen("Hello") ) ) {
     /* .. */
 }</code></pre>
@@ -1321,7 +1332,7 @@ if( string.contains( "Hello", std::strlen("Hello") ) ) {
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 if( string.equals( "Hello, world!" ) ) {
     /* ... */
 }</code></pre>
@@ -1337,7 +1348,7 @@ if( string.equals( "Hello, world!" ) ) {
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 if( string.equals( "Hello", std::strlen("Hello") ) ) {
     /* ... */
 }</code></pre>
@@ -1365,7 +1376,7 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string.strip();
 string.strip( '\n' );
 string.strip( " ,\t\n" );
@@ -1394,17 +1405,14 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string.strip( " \x1B", std::strlen("\x1B") );</code></pre>
 </div>
 </div>
 <hr>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_getstripped_value"><a class="anchor" href="#_getstripped_value"></a>getStripped( value )</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_getstripped_value"><a class="anchor" href="#_getstripped_value"></a>getStripped( value )</h3>
 <div class="paragraph">
 <p>If value is provided, all occurrences of each character provided are removed from a copy of the string. If no value is provided, strip removes all non-printable characters.</p>
 </div>
@@ -1423,7 +1431,7 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string.getStripped();
 string.getStripped( '\n' );
 string.getStripped( " ,\t\n" );
@@ -1432,10 +1440,8 @@ string.getStripped( EDF::String&lt;4&gt;("lo") );</code></pre>
 </div>
 <hr>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_getstripped_value_n"><a class="anchor" href="#_getstripped_value_n"></a>getStripped( value, n )</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_getstripped_value_n"><a class="anchor" href="#_getstripped_value_n"></a>getStripped( value, n )</h3>
 <div class="paragraph">
 <p>If value is provided, all occurrences of each character provided are removed from a copy of the string. If no value is provided, strip removes all non-printable characters.</p>
 </div>
@@ -1454,11 +1460,12 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string.getStripped( " \x1B", std::strlen("\x1B") );</code></pre>
 </div>
 </div>
 <hr>
+</div>
 <div class="sect2">
 <h3 id="trim"><a class="anchor" href="#trim"></a>trim( value )</h3>
 <div class="paragraph">
@@ -1479,7 +1486,7 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string = "\t\x1B Hello, world! \r\n ";
 string.trim( '\t' ); // "\x1B Hello, world! \r\n "
 string.trim( " \r\n" ); // "\t\x1B Hello, world!"
@@ -1508,7 +1515,7 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string = "\t\x1B Hello, world! \r\n ";
 string.trim( "\r \n\x1B", std::strlen("\r \n\x1B") ); // "\t\x1B Hello, world!"</code></pre>
 </div>
@@ -1535,7 +1542,7 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string = "\t\x1B Hello, world! \r\n ";
 string.getTrimmed( '\t' ); // "\x1B Hello, world! \r\n "
 string.getTrimmed( "\r\n" ); // "\t\x1B Hello, world! \r\n "
@@ -1564,7 +1571,7 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string = "\t\x1B Hello, world! \r\n ";
 string.getTrimmed( "\r \n\x1B", std::strlen("\r \n\x1B") ); // "\t\x1B Hello, world!"</code></pre>
 </div>
@@ -1591,7 +1598,7 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string = "\t\x1B Hello, world! \r\n ";
 string.trimLeft( '\t' ); // "\x1B Hello, world! \r\n "
 string.trimLeft( "\r\n" ); // "\t\x1B Hello, world! \r\n "
@@ -1620,7 +1627,7 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string = "\t\x1B Hello, world! \r\n ";
 string.trimLeft( "\r \n\x1B", std::strlen("\r \n\x1B") ); // "\t\x1B Hello, world! \r\n "</code></pre>
 </div>
@@ -1647,7 +1654,7 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string = "\t\x1B Hello, world! \r\n ";
 string.getTrimmedLeft( '\t' ); // "\x1B Hello, world! \r\n "
 string.getTrimmedLeft( "\r\n" ); // "\t\x1B Hello, world! \r\n "
@@ -1676,7 +1683,7 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string = "\t\x1B Hello, world! \r\n ";
 string.getTrimmedLeft( "\r \n\x1B", std::strlen("\r \n\x1B") ); // "\t\x1B Hello, world! \r\n "</code></pre>
 </div>
@@ -1703,7 +1710,7 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string = "\t\x1B Hello, world! \r\n ";
 string.trimRight( '\t' ); // "\t\x1B Hello, world! \r\n "
 string.trimRight( "\r\n" ); // "\t\x1B Hello, world! \r\n "
@@ -1732,7 +1739,7 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string = "\t\x1B Hello, world! \r\n ";
 string.trimRight( "\r \n\x1B", std::strlen("\r \n\x1B") ); // "\t\x1B Hello, world!"</code></pre>
 </div>
@@ -1759,7 +1766,7 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string = "\t\x1B Hello, world! \r\n ";
 string.getTrimmedRight( '\t' ); // "\t\x1B Hello, world! \r\n "
 string.getTrimmedRight( "\r\n" ); // "\t\x1B Hello, world! \r\n "
@@ -1788,7 +1795,7 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string = "\t\x1B Hello, world! \r\n ";
 string.getTrimmedRight( "\r \n\x1B", std::strlen("\r \n\x1B") ); // "\t\x1B Hello, world!"</code></pre>
 </div>
@@ -1803,7 +1810,7 @@ string.getTrimmedRight( "\r \n\x1B", std::strlen("\r \n\x1B") ); // "\t\x1B Hell
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string.reverse(); // "!dlrow ,olleH"</code></pre>
 </div>
 </div>
@@ -1817,12 +1824,8 @@ string.reverse(); // "!dlrow ,olleH"</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
-string.getReversed(); // "!dlrow ,olleH"
-
-string = "Madam in Eden, Im Adam.";
-auto normalized = string.getToLower().strip( " ,." );
-bool isPalindrome = normalized.equals( normalized.getReversed() );</code></pre>
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+string.getReversed(); // "!dlrow ,olleH"</code></pre>
 </div>
 </div>
 <hr>
@@ -1835,7 +1838,7 @@ bool isPalindrome = normalized.equals( normalized.getReversed() );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string.toLower(); // "hello, world!";</code></pre>
 </div>
 </div>
@@ -1849,7 +1852,7 @@ string.toLower(); // "hello, world!";</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string.getToLower(); // "hello, world!";</code></pre>
 </div>
 </div>
@@ -1863,7 +1866,7 @@ string.getToLower(); // "hello, world!";</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string.toUpper(); // "HELLO, WORLD!";</code></pre>
 </div>
 </div>
@@ -1877,7 +1880,7 @@ string.toUpper(); // "HELLO, WORLD!";</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string.getToUpper(); // "HELLO, WORLD!";</code></pre>
 </div>
 </div>
@@ -1891,7 +1894,7 @@ string.getToUpper(); // "HELLO, WORLD!";</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string.replace( 'e', 'a' );
 string.replace( "\r\n", '\n' );
 string.replace( "'s", std::strlen("'s"), 's' );
@@ -1915,7 +1918,7 @@ string.replace( "going", std::strlen("going"), "saying goodbye", std::strlen("sa
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string.getReplaced( 'e', 'a' );
 string.getReplaced( "\r\n", '\n' );
 string.getReplaced( "'s", std::strlen("'s"), 's' );
@@ -1939,7 +1942,7 @@ string.getReplaced( "going", std::strlen("going"), "saying goodbye", std::strlen
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string.subString( string.begin(), string.begin() + 5 );</code></pre>
 </div>
 </div>
@@ -1953,7 +1956,7 @@ string.subString( string.begin(), string.begin() + 5 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
 string.getSubString( string.begin(), string.begin() + 5 );
 
 string.getSubString( string.find(", ") + std::strlen(", "), string.find( '!' ) );</code></pre>
@@ -1969,7 +1972,8 @@ string.getSubString( string.find(", ") + std::strlen(", "), string.find( '!' ) )
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">    EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">    EDF::String&lt;128&gt; string = "Hello, world!";
+
 /*
  * Copyright (c) 2023, Adam Veazey
  * All rights reserved.
@@ -1980,6 +1984,14 @@ string.getSubString( string.find(", ") + std::strlen(", "), string.find( '!' ) )
 #include "EDF/String.hpp"
 
 #include &lt;iostream&gt;
+
+static void tldr() {
+    // tag::example_is_palindrome[]
+    EDF::String&lt;32&gt; string = "Madam in Eden, Im Adam.";
+    auto normalized = string.getToLower().strip( " ,." );
+    bool isPalindrome = normalized.equals( normalized.getReversed() );
+    // end::example_is_palindrome[]
+}
 
 static void examples() {
     // tag::init_str_literal_char[]
@@ -2032,7 +2044,7 @@ static void examples() {
     // end::init_default[]
 
     // tag::init[]
-    EDF::String&lt;128&gt; string = "Hello, world!";;
+    EDF::String&lt;128&gt; string = "Hello, world!";
     // end::init[]
 
     // tag::init_const_char_star[]
@@ -2407,12 +2419,7 @@ static void examples() {
 
     // tag::operation_get_reversed[]
     string.getReversed(); // "!dlrow ,olleH"
-
-    string = "Madam in Eden, Im Adam.";
-    auto normalized = string.getToLower().strip( " ,." );
-    bool isPalindrome = normalized.equals( normalized.getReversed() );
     // end::operation_get_reversed[]
-    std::cout &lt;&lt; "isPalindrome: " &lt;&lt; isPalindrome &lt;&lt; std::endl;
 
     string = "Hello, world!";
     // tag::operation_to_lower[]
@@ -2485,9 +2492,9 @@ static void examples() {
     string += valueUint8_t; // assumes base 10, use append() for a different base
     string += valueUint16_t; // assumes base 10, use append() for a different base
     string += valueUint32_t; // assumes base 10, use append() for a different base
-    // tag::operation_plus_equals1[]
+    // end::operation_plus_equals1[]
     string.clear(); // for this example, string is running out of space, just clear it
-    // end::operation_plus_equals2[]
+    // tag::operation_plus_equals2[]
     string += valueUint64_t; // assumes base 10, use append() for a different base
     string += differentSizedString;
     // end::operation_plus_equals2[]
@@ -2604,6 +2611,14 @@ int main() {
 
 #include &lt;iostream&gt;
 
+static void tldr() {
+    // tag::example_is_palindrome[]
+    EDF::String&lt;32&gt; string = "Madam in Eden, Im Adam.";
+    auto normalized = string.getToLower().strip( " ,." );
+    bool isPalindrome = normalized.equals( normalized.getReversed() );
+    // end::example_is_palindrome[]
+}
+
 static void examples() {
     // tag::init_str_literal_char[]
     const char strLiteralChar[] = "const char*";
@@ -2655,7 +2670,7 @@ static void examples() {
     // end::init_default[]
 
     // tag::init[]
-    EDF::String&lt;128&gt; string = "Hello, world!";;
+    EDF::String&lt;128&gt; string = "Hello, world!";
     // end::init[]
 
     // tag::init_const_char_star[]
@@ -3030,12 +3045,7 @@ static void examples() {
 
     // tag::operation_get_reversed[]
     string.getReversed(); // "!dlrow ,olleH"
-
-    string = "Madam in Eden, Im Adam.";
-    auto normalized = string.getToLower().strip( " ,." );
-    bool isPalindrome = normalized.equals( normalized.getReversed() );
     // end::operation_get_reversed[]
-    std::cout &lt;&lt; "isPalindrome: " &lt;&lt; isPalindrome &lt;&lt; std::endl;
 
     string = "Hello, world!";
     // tag::operation_to_lower[]
@@ -3108,9 +3118,9 @@ static void examples() {
     string += valueUint8_t; // assumes base 10, use append() for a different base
     string += valueUint16_t; // assumes base 10, use append() for a different base
     string += valueUint32_t; // assumes base 10, use append() for a different base
-    // tag::operation_plus_equals1[]
+    // end::operation_plus_equals1[]
     string.clear(); // for this example, string is running out of space, just clear it
-    // end::operation_plus_equals2[]
+    // tag::operation_plus_equals2[]
     string += valueUint64_t; // assumes base 10, use append() for a different base
     string += differentSizedString;
     // end::operation_plus_equals2[]
@@ -3227,6 +3237,14 @@ int main() {
 
 #include &lt;iostream&gt;
 
+static void tldr() {
+    // tag::example_is_palindrome[]
+    EDF::String&lt;32&gt; string = "Madam in Eden, Im Adam.";
+    auto normalized = string.getToLower().strip( " ,." );
+    bool isPalindrome = normalized.equals( normalized.getReversed() );
+    // end::example_is_palindrome[]
+}
+
 static void examples() {
     // tag::init_str_literal_char[]
     const char strLiteralChar[] = "const char*";
@@ -3278,7 +3296,7 @@ static void examples() {
     // end::init_default[]
 
     // tag::init[]
-    EDF::String&lt;128&gt; string = "Hello, world!";;
+    EDF::String&lt;128&gt; string = "Hello, world!";
     // end::init[]
 
     // tag::init_const_char_star[]
@@ -3653,12 +3671,7 @@ static void examples() {
 
     // tag::operation_get_reversed[]
     string.getReversed(); // "!dlrow ,olleH"
-
-    string = "Madam in Eden, Im Adam.";
-    auto normalized = string.getToLower().strip( " ,." );
-    bool isPalindrome = normalized.equals( normalized.getReversed() );
     // end::operation_get_reversed[]
-    std::cout &lt;&lt; "isPalindrome: " &lt;&lt; isPalindrome &lt;&lt; std::endl;
 
     string = "Hello, world!";
     // tag::operation_to_lower[]
@@ -3731,9 +3744,9 @@ static void examples() {
     string += valueUint8_t; // assumes base 10, use append() for a different base
     string += valueUint16_t; // assumes base 10, use append() for a different base
     string += valueUint32_t; // assumes base 10, use append() for a different base
-    // tag::operation_plus_equals1[]
+    // end::operation_plus_equals1[]
     string.clear(); // for this example, string is running out of space, just clear it
-    // end::operation_plus_equals2[]
+    // tag::operation_plus_equals2[]
     string += valueUint64_t; // assumes base 10, use append() for a different base
     string += differentSizedString;
     // end::operation_plus_equals2[]
@@ -3850,6 +3863,14 @@ int main() {
 
 #include &lt;iostream&gt;
 
+static void tldr() {
+    // tag::example_is_palindrome[]
+    EDF::String&lt;32&gt; string = "Madam in Eden, Im Adam.";
+    auto normalized = string.getToLower().strip( " ,." );
+    bool isPalindrome = normalized.equals( normalized.getReversed() );
+    // end::example_is_palindrome[]
+}
+
 static void examples() {
     // tag::init_str_literal_char[]
     const char strLiteralChar[] = "const char*";
@@ -3901,7 +3922,7 @@ static void examples() {
     // end::init_default[]
 
     // tag::init[]
-    EDF::String&lt;128&gt; string = "Hello, world!";;
+    EDF::String&lt;128&gt; string = "Hello, world!";
     // end::init[]
 
     // tag::init_const_char_star[]
@@ -4276,12 +4297,7 @@ static void examples() {
 
     // tag::operation_get_reversed[]
     string.getReversed(); // "!dlrow ,olleH"
-
-    string = "Madam in Eden, Im Adam.";
-    auto normalized = string.getToLower().strip( " ,." );
-    bool isPalindrome = normalized.equals( normalized.getReversed() );
     // end::operation_get_reversed[]
-    std::cout &lt;&lt; "isPalindrome: " &lt;&lt; isPalindrome &lt;&lt; std::endl;
 
     string = "Hello, world!";
     // tag::operation_to_lower[]
@@ -4354,9 +4370,9 @@ static void examples() {
     string += valueUint8_t; // assumes base 10, use append() for a different base
     string += valueUint16_t; // assumes base 10, use append() for a different base
     string += valueUint32_t; // assumes base 10, use append() for a different base
-    // tag::operation_plus_equals1[]
+    // end::operation_plus_equals1[]
     string.clear(); // for this example, string is running out of space, just clear it
-    // end::operation_plus_equals2[]
+    // tag::operation_plus_equals2[]
     string += valueUint64_t; // assumes base 10, use append() for a different base
     string += differentSizedString;
     // end::operation_plus_equals2[]
@@ -4473,6 +4489,14 @@ int main() {
 
 #include &lt;iostream&gt;
 
+static void tldr() {
+    // tag::example_is_palindrome[]
+    EDF::String&lt;32&gt; string = "Madam in Eden, Im Adam.";
+    auto normalized = string.getToLower().strip( " ,." );
+    bool isPalindrome = normalized.equals( normalized.getReversed() );
+    // end::example_is_palindrome[]
+}
+
 static void examples() {
     // tag::init_str_literal_char[]
     const char strLiteralChar[] = "const char*";
@@ -4524,7 +4548,7 @@ static void examples() {
     // end::init_default[]
 
     // tag::init[]
-    EDF::String&lt;128&gt; string = "Hello, world!";;
+    EDF::String&lt;128&gt; string = "Hello, world!";
     // end::init[]
 
     // tag::init_const_char_star[]
@@ -4899,12 +4923,7 @@ static void examples() {
 
     // tag::operation_get_reversed[]
     string.getReversed(); // "!dlrow ,olleH"
-
-    string = "Madam in Eden, Im Adam.";
-    auto normalized = string.getToLower().strip( " ,." );
-    bool isPalindrome = normalized.equals( normalized.getReversed() );
     // end::operation_get_reversed[]
-    std::cout &lt;&lt; "isPalindrome: " &lt;&lt; isPalindrome &lt;&lt; std::endl;
 
     string = "Hello, world!";
     // tag::operation_to_lower[]
@@ -4977,9 +4996,9 @@ static void examples() {
     string += valueUint8_t; // assumes base 10, use append() for a different base
     string += valueUint16_t; // assumes base 10, use append() for a different base
     string += valueUint32_t; // assumes base 10, use append() for a different base
-    // tag::operation_plus_equals1[]
+    // end::operation_plus_equals1[]
     string.clear(); // for this example, string is running out of space, just clear it
-    // end::operation_plus_equals2[]
+    // tag::operation_plus_equals2[]
     string += valueUint64_t; // assumes base 10, use append() for a different base
     string += differentSizedString;
     // end::operation_plus_equals2[]
@@ -5096,6 +5115,14 @@ int main() {
 
 #include &lt;iostream&gt;
 
+static void tldr() {
+    // tag::example_is_palindrome[]
+    EDF::String&lt;32&gt; string = "Madam in Eden, Im Adam.";
+    auto normalized = string.getToLower().strip( " ,." );
+    bool isPalindrome = normalized.equals( normalized.getReversed() );
+    // end::example_is_palindrome[]
+}
+
 static void examples() {
     // tag::init_str_literal_char[]
     const char strLiteralChar[] = "const char*";
@@ -5147,7 +5174,7 @@ static void examples() {
     // end::init_default[]
 
     // tag::init[]
-    EDF::String&lt;128&gt; string = "Hello, world!";;
+    EDF::String&lt;128&gt; string = "Hello, world!";
     // end::init[]
 
     // tag::init_const_char_star[]
@@ -5522,12 +5549,7 @@ static void examples() {
 
     // tag::operation_get_reversed[]
     string.getReversed(); // "!dlrow ,olleH"
-
-    string = "Madam in Eden, Im Adam.";
-    auto normalized = string.getToLower().strip( " ,." );
-    bool isPalindrome = normalized.equals( normalized.getReversed() );
     // end::operation_get_reversed[]
-    std::cout &lt;&lt; "isPalindrome: " &lt;&lt; isPalindrome &lt;&lt; std::endl;
 
     string = "Hello, world!";
     // tag::operation_to_lower[]
@@ -5600,9 +5622,9 @@ static void examples() {
     string += valueUint8_t; // assumes base 10, use append() for a different base
     string += valueUint16_t; // assumes base 10, use append() for a different base
     string += valueUint32_t; // assumes base 10, use append() for a different base
-    // tag::operation_plus_equals1[]
+    // end::operation_plus_equals1[]
     string.clear(); // for this example, string is running out of space, just clear it
-    // end::operation_plus_equals2[]
+    // tag::operation_plus_equals2[]
     string += valueUint64_t; // assumes base 10, use append() for a different base
     string += differentSizedString;
     // end::operation_plus_equals2[]
@@ -5719,6 +5741,14 @@ int main() {
 
 #include &lt;iostream&gt;
 
+static void tldr() {
+    // tag::example_is_palindrome[]
+    EDF::String&lt;32&gt; string = "Madam in Eden, Im Adam.";
+    auto normalized = string.getToLower().strip( " ,." );
+    bool isPalindrome = normalized.equals( normalized.getReversed() );
+    // end::example_is_palindrome[]
+}
+
 static void examples() {
     // tag::init_str_literal_char[]
     const char strLiteralChar[] = "const char*";
@@ -5770,7 +5800,7 @@ static void examples() {
     // end::init_default[]
 
     // tag::init[]
-    EDF::String&lt;128&gt; string = "Hello, world!";;
+    EDF::String&lt;128&gt; string = "Hello, world!";
     // end::init[]
 
     // tag::init_const_char_star[]
@@ -6145,12 +6175,7 @@ static void examples() {
 
     // tag::operation_get_reversed[]
     string.getReversed(); // "!dlrow ,olleH"
-
-    string = "Madam in Eden, Im Adam.";
-    auto normalized = string.getToLower().strip( " ,." );
-    bool isPalindrome = normalized.equals( normalized.getReversed() );
     // end::operation_get_reversed[]
-    std::cout &lt;&lt; "isPalindrome: " &lt;&lt; isPalindrome &lt;&lt; std::endl;
 
     string = "Hello, world!";
     // tag::operation_to_lower[]
@@ -6223,9 +6248,9 @@ static void examples() {
     string += valueUint8_t; // assumes base 10, use append() for a different base
     string += valueUint16_t; // assumes base 10, use append() for a different base
     string += valueUint32_t; // assumes base 10, use append() for a different base
-    // tag::operation_plus_equals1[]
+    // end::operation_plus_equals1[]
     string.clear(); // for this example, string is running out of space, just clear it
-    // end::operation_plus_equals2[]
+    // tag::operation_plus_equals2[]
     string += valueUint64_t; // assumes base 10, use append() for a different base
     string += differentSizedString;
     // end::operation_plus_equals2[]
@@ -6342,6 +6367,14 @@ int main() {
 
 #include &lt;iostream&gt;
 
+static void tldr() {
+    // tag::example_is_palindrome[]
+    EDF::String&lt;32&gt; string = "Madam in Eden, Im Adam.";
+    auto normalized = string.getToLower().strip( " ,." );
+    bool isPalindrome = normalized.equals( normalized.getReversed() );
+    // end::example_is_palindrome[]
+}
+
 static void examples() {
     // tag::init_str_literal_char[]
     const char strLiteralChar[] = "const char*";
@@ -6393,7 +6426,7 @@ static void examples() {
     // end::init_default[]
 
     // tag::init[]
-    EDF::String&lt;128&gt; string = "Hello, world!";;
+    EDF::String&lt;128&gt; string = "Hello, world!";
     // end::init[]
 
     // tag::init_const_char_star[]
@@ -6768,12 +6801,7 @@ static void examples() {
 
     // tag::operation_get_reversed[]
     string.getReversed(); // "!dlrow ,olleH"
-
-    string = "Madam in Eden, Im Adam.";
-    auto normalized = string.getToLower().strip( " ,." );
-    bool isPalindrome = normalized.equals( normalized.getReversed() );
     // end::operation_get_reversed[]
-    std::cout &lt;&lt; "isPalindrome: " &lt;&lt; isPalindrome &lt;&lt; std::endl;
 
     string = "Hello, world!";
     // tag::operation_to_lower[]
@@ -6846,9 +6874,9 @@ static void examples() {
     string += valueUint8_t; // assumes base 10, use append() for a different base
     string += valueUint16_t; // assumes base 10, use append() for a different base
     string += valueUint32_t; // assumes base 10, use append() for a different base
-    // tag::operation_plus_equals1[]
+    // end::operation_plus_equals1[]
     string.clear(); // for this example, string is running out of space, just clear it
-    // end::operation_plus_equals2[]
+    // tag::operation_plus_equals2[]
     string += valueUint64_t; // assumes base 10, use append() for a different base
     string += differentSizedString;
     // end::operation_plus_equals2[]
@@ -6965,6 +6993,14 @@ int main() {
 
 #include &lt;iostream&gt;
 
+static void tldr() {
+    // tag::example_is_palindrome[]
+    EDF::String&lt;32&gt; string = "Madam in Eden, Im Adam.";
+    auto normalized = string.getToLower().strip( " ,." );
+    bool isPalindrome = normalized.equals( normalized.getReversed() );
+    // end::example_is_palindrome[]
+}
+
 static void examples() {
     // tag::init_str_literal_char[]
     const char strLiteralChar[] = "const char*";
@@ -7016,7 +7052,7 @@ static void examples() {
     // end::init_default[]
 
     // tag::init[]
-    EDF::String&lt;128&gt; string = "Hello, world!";;
+    EDF::String&lt;128&gt; string = "Hello, world!";
     // end::init[]
 
     // tag::init_const_char_star[]
@@ -7391,12 +7427,7 @@ static void examples() {
 
     // tag::operation_get_reversed[]
     string.getReversed(); // "!dlrow ,olleH"
-
-    string = "Madam in Eden, Im Adam.";
-    auto normalized = string.getToLower().strip( " ,." );
-    bool isPalindrome = normalized.equals( normalized.getReversed() );
     // end::operation_get_reversed[]
-    std::cout &lt;&lt; "isPalindrome: " &lt;&lt; isPalindrome &lt;&lt; std::endl;
 
     string = "Hello, world!";
     // tag::operation_to_lower[]
@@ -7469,9 +7500,9 @@ static void examples() {
     string += valueUint8_t; // assumes base 10, use append() for a different base
     string += valueUint16_t; // assumes base 10, use append() for a different base
     string += valueUint32_t; // assumes base 10, use append() for a different base
-    // tag::operation_plus_equals1[]
+    // end::operation_plus_equals1[]
     string.clear(); // for this example, string is running out of space, just clear it
-    // end::operation_plus_equals2[]
+    // tag::operation_plus_equals2[]
     string += valueUint64_t; // assumes base 10, use append() for a different base
     string += differentSizedString;
     // end::operation_plus_equals2[]
@@ -7588,6 +7619,14 @@ int main() {
 
 #include &lt;iostream&gt;
 
+static void tldr() {
+    // tag::example_is_palindrome[]
+    EDF::String&lt;32&gt; string = "Madam in Eden, Im Adam.";
+    auto normalized = string.getToLower().strip( " ,." );
+    bool isPalindrome = normalized.equals( normalized.getReversed() );
+    // end::example_is_palindrome[]
+}
+
 static void examples() {
     // tag::init_str_literal_char[]
     const char strLiteralChar[] = "const char*";
@@ -7639,7 +7678,7 @@ static void examples() {
     // end::init_default[]
 
     // tag::init[]
-    EDF::String&lt;128&gt; string = "Hello, world!";;
+    EDF::String&lt;128&gt; string = "Hello, world!";
     // end::init[]
 
     // tag::init_const_char_star[]
@@ -8014,12 +8053,7 @@ static void examples() {
 
     // tag::operation_get_reversed[]
     string.getReversed(); // "!dlrow ,olleH"
-
-    string = "Madam in Eden, Im Adam.";
-    auto normalized = string.getToLower().strip( " ,." );
-    bool isPalindrome = normalized.equals( normalized.getReversed() );
     // end::operation_get_reversed[]
-    std::cout &lt;&lt; "isPalindrome: " &lt;&lt; isPalindrome &lt;&lt; std::endl;
 
     string = "Hello, world!";
     // tag::operation_to_lower[]
@@ -8092,9 +8126,9 @@ static void examples() {
     string += valueUint8_t; // assumes base 10, use append() for a different base
     string += valueUint16_t; // assumes base 10, use append() for a different base
     string += valueUint32_t; // assumes base 10, use append() for a different base
-    // tag::operation_plus_equals1[]
+    // end::operation_plus_equals1[]
     string.clear(); // for this example, string is running out of space, just clear it
-    // end::operation_plus_equals2[]
+    // tag::operation_plus_equals2[]
     string += valueUint64_t; // assumes base 10, use append() for a different base
     string += differentSizedString;
     // end::operation_plus_equals2[]
@@ -8211,6 +8245,14 @@ int main() {
 
 #include &lt;iostream&gt;
 
+static void tldr() {
+    // tag::example_is_palindrome[]
+    EDF::String&lt;32&gt; string = "Madam in Eden, Im Adam.";
+    auto normalized = string.getToLower().strip( " ,." );
+    bool isPalindrome = normalized.equals( normalized.getReversed() );
+    // end::example_is_palindrome[]
+}
+
 static void examples() {
     // tag::init_str_literal_char[]
     const char strLiteralChar[] = "const char*";
@@ -8262,7 +8304,7 @@ static void examples() {
     // end::init_default[]
 
     // tag::init[]
-    EDF::String&lt;128&gt; string = "Hello, world!";;
+    EDF::String&lt;128&gt; string = "Hello, world!";
     // end::init[]
 
     // tag::init_const_char_star[]
@@ -8637,12 +8679,7 @@ static void examples() {
 
     // tag::operation_get_reversed[]
     string.getReversed(); // "!dlrow ,olleH"
-
-    string = "Madam in Eden, Im Adam.";
-    auto normalized = string.getToLower().strip( " ,." );
-    bool isPalindrome = normalized.equals( normalized.getReversed() );
     // end::operation_get_reversed[]
-    std::cout &lt;&lt; "isPalindrome: " &lt;&lt; isPalindrome &lt;&lt; std::endl;
 
     string = "Hello, world!";
     // tag::operation_to_lower[]
@@ -8715,9 +8752,9 @@ static void examples() {
     string += valueUint8_t; // assumes base 10, use append() for a different base
     string += valueUint16_t; // assumes base 10, use append() for a different base
     string += valueUint32_t; // assumes base 10, use append() for a different base
-    // tag::operation_plus_equals1[]
+    // end::operation_plus_equals1[]
     string.clear(); // for this example, string is running out of space, just clear it
-    // end::operation_plus_equals2[]
+    // tag::operation_plus_equals2[]
     string += valueUint64_t; // assumes base 10, use append() for a different base
     string += differentSizedString;
     // end::operation_plus_equals2[]
@@ -8834,6 +8871,14 @@ int main() {
 
 #include &lt;iostream&gt;
 
+static void tldr() {
+    // tag::example_is_palindrome[]
+    EDF::String&lt;32&gt; string = "Madam in Eden, Im Adam.";
+    auto normalized = string.getToLower().strip( " ,." );
+    bool isPalindrome = normalized.equals( normalized.getReversed() );
+    // end::example_is_palindrome[]
+}
+
 static void examples() {
     // tag::init_str_literal_char[]
     const char strLiteralChar[] = "const char*";
@@ -8885,7 +8930,7 @@ static void examples() {
     // end::init_default[]
 
     // tag::init[]
-    EDF::String&lt;128&gt; string = "Hello, world!";;
+    EDF::String&lt;128&gt; string = "Hello, world!";
     // end::init[]
 
     // tag::init_const_char_star[]
@@ -9260,12 +9305,7 @@ static void examples() {
 
     // tag::operation_get_reversed[]
     string.getReversed(); // "!dlrow ,olleH"
-
-    string = "Madam in Eden, Im Adam.";
-    auto normalized = string.getToLower().strip( " ,." );
-    bool isPalindrome = normalized.equals( normalized.getReversed() );
     // end::operation_get_reversed[]
-    std::cout &lt;&lt; "isPalindrome: " &lt;&lt; isPalindrome &lt;&lt; std::endl;
 
     string = "Hello, world!";
     // tag::operation_to_lower[]
@@ -9338,9 +9378,9 @@ static void examples() {
     string += valueUint8_t; // assumes base 10, use append() for a different base
     string += valueUint16_t; // assumes base 10, use append() for a different base
     string += valueUint32_t; // assumes base 10, use append() for a different base
-    // tag::operation_plus_equals1[]
+    // end::operation_plus_equals1[]
     string.clear(); // for this example, string is running out of space, just clear it
-    // end::operation_plus_equals2[]
+    // tag::operation_plus_equals2[]
     string += valueUint64_t; // assumes base 10, use append() for a different base
     string += differentSizedString;
     // end::operation_plus_equals2[]
@@ -9446,6 +9486,7 @@ int main() {
 
     return 0;
 }
+
     string += " c string";
     string += pLiteralUint8_t;
     string += strLiteralChar;
@@ -9459,105 +9500,8 @@ int main() {
     string += valueUint8_t; // assumes base 10, use append() for a different base
     string += valueUint16_t; // assumes base 10, use append() for a different base
     string += valueUint32_t; // assumes base 10, use append() for a different base
-    string.clear(); // for this example, string is running out of space, just clear it
     string += valueUint64_t; // assumes base 10, use append() for a different base
-    string += differentSizedString;
-    string = "Hello, world!";
-
-    EDF::String&lt;128&gt; result;
-
-    result = string + " c string";
-    result = string + pLiteralUint8_t;
-    result = string + strLiteralChar;
-    result = string + strLiteralUint8_t;
-    result = string + ch;
-    result = string + 'c';
-    result = string + valueInt8_t; // assumes base 10, use append() for a different base
-    result = string + valueInt16_t; // assumes base 10, use append() for a different base
-    result = string + valueInt32_t; // assumes base 10, use append() for a different base
-    result = string + valueInt64_t; // assumes base 10, use append() for a different base
-    result = string + valueUint8_t; // assumes base 10, use append() for a different base
-    result = string + valueUint16_t; // assumes base 10, use append() for a different base
-    result = string + valueUint32_t; // assumes base 10, use append() for a different base
-    result = string + valueUint64_t; // assumes base 10, use append() for a different base
-    result = string + differentSizedString;
-
-    result = " c string" + string;
-    result = pLiteralUint8_t + string;
-    result = strLiteralChar + string;
-    result = strLiteralUint8_t + string;
-    result = ch + string;
-    result = 'c' + string;
-    result = valueInt8_t + string; // assumes base 10, use append() for a different base
-    result = valueInt16_t + string; // assumes base 10, use append() for a different base
-    result = valueInt32_t + string; // assumes base 10, use append() for a different base
-    result = valueInt64_t + string; // assumes base 10, use append() for a different base
-    result = valueUint8_t + string; // assumes base 10, use append() for a different base
-    result = valueUint16_t + string; // assumes base 10, use append() for a different base
-    result = valueUint32_t + string; // assumes base 10, use append() for a different base
-    result = valueUint64_t + string; // assumes base 10, use append() for a different base
-    result = differentSizedString + string;
-
-    std::cout &lt;&lt; result.asCString() &lt;&lt; std::endl;
-}
-
-int main() {
-    EDF::String&lt;128&gt; test( 1234 );
-    test += 567890;
-    std::cout &lt;&lt; "1:" &lt;&lt; test.asCString() &lt;&lt; '\n';
-    test.insert( 4, " Inserted Value" );
-    std::cout &lt;&lt; (4 + (EDF::String&lt;10&gt;(" Okay") + test)).strip().asCString() &lt;&lt; '\n';
-
-    std::cout &lt;&lt; "2:" &lt;&lt; test.asCString() &lt;&lt; '\n';
-    test.insert( 0_uz, " \n Test \n" );
-    std::cout &lt;&lt; "3:" &lt;&lt; test.asCString() &lt;&lt; '\n';
-    std::cout &lt;&lt; "4:" &lt;&lt; test.getStripped( "ea" ).asCString() &lt;&lt; '\n';
-
-    EDF::String&lt;64&gt; smallerTest = "  ! !Hello, world!  !   ";
-    smallerTest.trim( " !" );
-    std::cout &lt;&lt; "5:&gt;" &lt;&lt; smallerTest.asCString() &lt;&lt; "&lt;" &lt;&lt; '\n';
-
-    std::cout &lt;&lt; "6:" &lt;&lt; smallerTest.contains("Hello") &lt;&lt; '\n';
-
-    std::cout &lt;&lt; "7:" &lt;&lt; smallerTest.getReversed().asCString() &lt;&lt; '\n';
-
-    std::cout &lt;&lt; "8:" &lt;&lt; smallerTest.equals( "Hello, world" ) &lt;&lt; '\n';
-
-    std::cout &lt;&lt; "9:" &lt;&lt; smallerTest.getToUpper().asCString() &lt;&lt; '\n';
-
-    std::cout &lt;&lt; "10:" &lt;&lt; smallerTest.getToLower().asCString() &lt;&lt; '\n';
-
-    std::cout &lt;&lt; "11:"
-              &lt;&lt; smallerTest
-                    .getAppended( " world something" )
-                    .getReplaced( "world", "solar system!" )
-                    .asCString()
-              &lt;&lt; '\n';
-
-    auto comma = smallerTest.find( smallerTest.begin(), ',' );
-    auto firstWord = smallerTest.find( comma + 2, ' ' );
-    std::cout &lt;&lt; "12:"
-              &lt;&lt; smallerTest.getSubString( comma + 2, firstWord ).asCString()
-              &lt;&lt; '\n';
-
-    std::cout &lt;&lt; "13:" &lt;&lt; smallerTest.asCString() &lt;&lt; '\n';
-
-    EDF::String&lt;32&gt; stringNumber = 1'000'000;
-    int counter = 0;
-    for( EDF::String&lt;32&gt;::ReverseIterator it = stringNumber.rbegin(); it != stringNumber.rend(); ++it ) {
-        if( ++counter == 3 ) {
-            // it will point to the "right" of the element, similar to end() being +1 to the "right"
-            stringNumber.insert( (it+1).base(), ',' );
-            counter = 0;
-        }
-    }
-
-    std::cout &lt;&lt; "14:" &lt;&lt; stringNumber.asCString() &lt;&lt; '\n';
-
-    examples();
-
-    return 0;
-}</code></pre>
+    string += differentSizedString;</code></pre>
 </div>
 </div>
 <hr>
@@ -9570,7 +9514,8 @@ int main() {
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+
 const char strLiteralChar[] = "const char*";
 const uint8_t strLiteralUint8_t[] = "const uint8_t*";
 const uint8_t* pLiteralUint8_t = strLiteralUint8_t;
@@ -9583,7 +9528,9 @@ uint8_t valueUint8_t = 0xA5;
 uint16_t valueUint16_t = 0xA5A5;
 uint32_t valueUint32_t = 0xA5A5A5A5;
 uint64_t valueUint64_t = 0xA5A5A5A5A5A5A5A5;
+
 EDF::String&lt;128&gt; result;
+
 result = string + " c string";
 result = string + pLiteralUint8_t;
 result = string + strLiteralChar;
@@ -9611,7 +9558,8 @@ result = string + differentSizedString;</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";;
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+
 const char strLiteralChar[] = "const char*";
 const uint8_t strLiteralUint8_t[] = "const uint8_t*";
 const uint8_t* pLiteralUint8_t = strLiteralUint8_t;
@@ -9624,7 +9572,9 @@ uint8_t valueUint8_t = 0xA5;
 uint16_t valueUint16_t = 0xA5A5;
 uint32_t valueUint32_t = 0xA5A5A5A5;
 uint64_t valueUint64_t = 0xA5A5A5A5A5A5A5A5;
+
 EDF::String&lt;128&gt; result;
+
 result = " c string" + string;
 result = pLiteralUint8_t + string;
 result = strLiteralChar + string;
