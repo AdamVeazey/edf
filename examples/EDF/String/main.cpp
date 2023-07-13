@@ -9,6 +9,14 @@
 
 #include <iostream>
 
+static void tldr() {
+    // tag::example_is_palindrome[]
+    EDF::String<32> string = "Madam in Eden, Im Adam.";
+    auto normalized = string.getToLower().strip( " ,." );
+    bool isPalindrome = normalized.equals( normalized.getReversed() );
+    // end::example_is_palindrome[]
+}
+
 static void examples() {
     // tag::init_str_literal_char[]
     const char strLiteralChar[] = "const char*";
@@ -435,12 +443,7 @@ static void examples() {
 
     // tag::operation_get_reversed[]
     string.getReversed(); // "!dlrow ,olleH"
-
-    string = "Madam in Eden, Im Adam.";
-    auto normalized = string.getToLower().strip( " ,." );
-    bool isPalindrome = normalized.equals( normalized.getReversed() );
     // end::operation_get_reversed[]
-    std::cout << "isPalindrome: " << isPalindrome << std::endl;
 
     string = "Hello, world!";
     // tag::operation_to_lower[]
