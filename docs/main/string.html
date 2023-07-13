@@ -445,7 +445,8 @@ EDF::String&lt;32&gt; stringConstUint8_tStar2( pLiteralUint8_t );</code></pre>
 <div class="title">Example</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">const char strLiteralChar[] = "const char*";
-const char* pLiteralChar = strLiteralChar;</code></pre>
+const char* pLiteralChar = strLiteralChar;
+EDF::String&lt;32&gt; stringConstCharStarN( pLiteralChar, std::strlen( strLiteralChar ) );</code></pre>
 </div>
 </div>
 <hr>
@@ -478,7 +479,8 @@ EDF::String&lt;32&gt; stringConstCharStarRef( strLiteralChar );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">const uint8_t strLiteralUint8_t[] = "const uint8_t*";</code></pre>
+<pre class="highlightjs highlight"><code class="language-none hljs">const uint8_t strLiteralUint8_t[] = "const uint8_t*";
+EDF::String&lt;32&gt; stringConstUint8_tStarRef( strLiteralUint8_t );</code></pre>
 </div>
 </div>
 <hr>

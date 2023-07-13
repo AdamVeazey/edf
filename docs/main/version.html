@@ -262,7 +262,278 @@
 </aside>
 <article class="doc">
 <h1 class="page">Version</h1>
-
+<div class="sect1">
+<h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Version is a class to handle semantic version numbers, AKA <a href="https://semver.org/#semantic-versioning-200">"SemVer"</a>. The current version of EDF being used can be found with <a href="#_edf_version">EDF Version</a></p>
+</div>
+<div class="paragraph">
+<p>There are a few important limitations to be aware of.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Version is able to support up to 3 digits per element.</p>
+</li>
+<li>
+<p>Version does not support <a href="https://semver.org/#spec-item-9">pre-release</a></p>
+</li>
+<li>
+<p>Version does not support <a href="https://semver.org/#spec-item-10">build metadata</a>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>There are 4 groups of member functions:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="#_initialization">Initialization</a></p>
+</li>
+<li>
+<p><a href="#_access">Access</a></p>
+</li>
+<li>
+<p><a href="#_edf_version">EDF Version</a></p>
+</li>
+<li>
+<p><a href="#_comparison_operators">Comparison Operators</a></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_initialization"><a class="anchor" href="#_initialization"></a>Initialization</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_version"><a class="anchor" href="#_version"></a>Version()</h3>
+<div class="paragraph">
+<p>Default version number of 0.0.0</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Version versionDefault;</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_version_const_char"><a class="anchor" href="#_version_const_char"></a>Version( const char* )</h3>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Version version( "1.2.3" );</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_version_const_uint32_t"><a class="anchor" href="#_version_const_uint32_t"></a>Version( const uint32_t&amp; )</h3>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Version versionValue( 10203 );</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_version_const_char_strn"><a class="anchor" href="#_version_const_char_strn"></a>Version( const char (&amp;str)[N] )</h3>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">const char array[] = "10.20.30";
+EDF::Version versionArray( array );</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_version_const_edfstringn_str"><a class="anchor" href="#_version_const_edfstringn_str"></a>Version( const EDF::String&lt;N&gt;&amp; str )</h3>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;32&gt; string( "123.456.789" );
+EDF::Version versionString( string );</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_access"><a class="anchor" href="#_access"></a>Access</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_getmajor"><a class="anchor" href="#_getmajor"></a>getMajor()</h3>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">version.getMajor(); // 1</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_getminor"><a class="anchor" href="#_getminor"></a>getMinor()</h3>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">version.getMinor(); // 2</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_getpatch"><a class="anchor" href="#_getpatch"></a>getPatch()</h3>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">version.getPatch(); // 3</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_asnumber"><a class="anchor" href="#_asnumber"></a>asNumber()</h3>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">version.asNumber(); // 10203</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_asstring"><a class="anchor" href="#_asstring"></a>asString()</h3>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">version.asString(); // EDF::String&lt;9&gt;("01.02.03")</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_ascstring"><a class="anchor" href="#_ascstring"></a>asCString()</h3>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">version.asCString(); // "01.02.03"</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_edf_version"><a class="anchor" href="#_edf_version"></a>EDF Version</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is a static function to get the current version of EDF being used.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Version::EDF();</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_comparison_operators"><a class="anchor" href="#_comparison_operators"></a>Comparison Operators</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_operator"><a class="anchor" href="#_operator"></a>operator&gt;()</h3>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">if( version &gt; "0.1.0" ) {
+    /* ... */
+}
+if( "0.1.0" &gt; version ) {
+    /* ... */
+}
+if( version &gt; EDF::Version() ) {
+    /* ... */
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_operator_2"><a class="anchor" href="#_operator_2"></a>operator&lt;()</h3>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">if( version &lt; "2.0.0" ) {
+    /* ... */
+}
+if( "2.0.0" &lt; version ) {
+    /* ... */
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_operator_3"><a class="anchor" href="#_operator_3"></a>operator&gt;=()</h3>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">if( version &gt;= "1.1.0" ) {
+    /* ... */
+}
+if( "0.1.0" &gt;= version ) {
+    /* ... */
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_operator_4"><a class="anchor" href="#_operator_4"></a>operator&#8656;()</h3>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">if( version &lt;= "2.0.0" ) {
+    /* ... */
+}
+if( "2.0.0" &lt;= version ) {
+    /* ... */
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_operator_5"><a class="anchor" href="#_operator_5"></a>operator==()</h3>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">if( version == "1.2.3" ) {
+    /* ... */
+}
+if( "1.2.3" == version ) {
+    /* ... */
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_operator_6"><a class="anchor" href="#_operator_6"></a>operator!=()</h3>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">if( version != "2.14.56" ) {
+    /* ... */
+}
+if( "2.14.56" != version ) {
+    /* ... */
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </article>
   </div>
 </main>
