@@ -21,7 +21,7 @@ private:
     T bits;
 private:
     static constexpr T createMask( std::size_t startBit, std::size_t span ) {
-        EDF_ASSERTD( (startBit + span) < sizeof(T)*8 );
+        EDF_ASSERTD( (startBit + span) < sizeof(T)*8 ); // must be a valid number of bits
         return ((T{1} << span) - 1) << startBit;
     }
 public:
