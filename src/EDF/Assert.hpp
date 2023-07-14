@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2023, Adam Veazey
  * All rights reserved.
- * 
+ *
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
@@ -9,6 +9,7 @@
 
 #include <cstddef>
 #include <cstdio>
+#include <cstdlib>
 
 // TODO: keep an eye out for C++23 support to use <stacktrace>
 
@@ -30,7 +31,7 @@
                                             __PRETTY_FUNCTION__,    \
                                             __FILE__, __LINE__      \
                                         );                          \
-                                        abort();                    \
+                                        std::abort();               \
                                     }                               \
                                 }while(0)                           \
 /* tag::EDF_ASSERTD[] */
