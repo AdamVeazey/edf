@@ -13,7 +13,6 @@
 // tag::example_register_psr[]
 // Cortex-M0 Program Status Register
 // Composed of APSR (Application), IPSR (Interrupt), and EPSR (Execution)
-// https://developer.arm.com/documentation/dui0497/a/the-cortex-m0-processor/programmers-model/core-registers?lang=en
 class PSR : public EDF::BitField32 {
 public:
     enum class InterruptExceptionNumber {
@@ -85,7 +84,6 @@ void function() {
 
 // tag::example_bme280_config[]
 // BME280 - Combined humidity and pressure sensor
-// https://www.mouser.com/datasheet/2/783/BST-BME280-DS002-1509607.pdf
 class Config : public EDF::BitField8 {
 public:
     enum class Filter {

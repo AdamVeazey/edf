@@ -80,14 +80,14 @@ include::{path_example_edf_bit_field_main_cpp}[tag=operation_get]
 ----
 
 [#PSR]
-== ARM Cortex-M0 PSR Registers
+== https://developer.arm.com/documentation/dui0497/a/the-cortex-m0-processor/programmers-model/core-registers?lang=en[ARM Cortex-M0 PSR Registers]
 [source,indent=0,c++]
 ----
 include::{path_example_edf_bit_field_main_cpp}[tag=example_register_psr]
 ----
 
 [#Config]
-== BME280 Config register
+== https://www.mouser.com/datasheet/2/783/BST-BME280-DS002-1509607.pdf[BME280 Config register]
 [source,indent=0,c++]
 ----
 include::{path_example_edf_bit_field_main_cpp}[tag=example_bme280_config]
