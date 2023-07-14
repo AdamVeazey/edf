@@ -376,13 +376,12 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="PSR"><a class="anchor" href="#PSR"></a>ARM Cortex-M0 PSR Registers</h2>
+<h2 id="PSR"><a class="anchor" href="#PSR"></a><a href="https://developer.arm.com/documentation/dui0497/a/the-cortex-m0-processor/programmers-model/core-registers?lang=en">ARM Cortex-M0 PSR Registers</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">// Cortex-M0 Program Status Register
 // Composed of APSR (Application), IPSR (Interrupt), and EPSR (Execution)
-// https://developer.arm.com/documentation/dui0497/a/the-cortex-m0-processor/programmers-model/core-registers?lang=en
 class PSR : public EDF::BitField32 {
 public:
     enum class InterruptExceptionNumber {
@@ -455,12 +454,11 @@ void function() {
 </div>
 </div>
 <div class="sect1">
-<h2 id="Config"><a class="anchor" href="#Config"></a>BME280 Config register</h2>
+<h2 id="Config"><a class="anchor" href="#Config"></a><a href="https://www.mouser.com/datasheet/2/783/BST-BME280-DS002-1509607.pdf">BME280 Config register</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">// BME280 - Combined humidity and pressure sensor
-// https://www.mouser.com/datasheet/2/783/BST-BME280-DS002-1509607.pdf
 class Config : public EDF::BitField8 {
 public:
     enum class Filter {
