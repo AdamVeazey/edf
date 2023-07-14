@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>BitField :: EDF</title>
+    <title>BitField&lt;T&gt; :: EDF</title>
     <link rel="canonical" href="https://adamveazey.github.io/edf/docs/main/docs/main/bit_field.html">
     <meta name="generator" content="Antora 3.1.4">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -261,8 +261,267 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">BitField</h1>
+<h1 class="page">BitField&lt;T&gt;</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<div class="title">Template arguments</div>
+<p><code>T</code> = Integer (T)ype where expected values are <code>uint8_t</code>, <code>uint16_t</code>, <code>uint32_t</code>, or <code>uint64_t</code></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>BitField is designed as a building block for naming bits within a register. BitField ensures that only the specific bits within the register you&#8217;re interested in are modified or read. This should reduce the number of bugs related to bit manipulation. Another goal of BitField is to create derived classes that have descriptive names to reduce the number of times you have to reference a datasheet. <a href="#PSR">ARM Cortex-M0 PSR</a> and <a href="#Config">BME280 config</a> are two examples of how you might use a BitField. More examples can be found throughout various <a href="drivers/drivers.html" class="xref page">Drivers</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="_bitfield8"><a class="anchor" href="#_bitfield8"></a>BitField8</h3>
+<div class="paragraph">
+<p>This is an alias for a BitField of 8 bits</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">using BitField8 = BitField&lt;uint8_t&gt;;</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_bitfield16"><a class="anchor" href="#_bitfield16"></a>BitField16</h3>
+<div class="paragraph">
+<p>This is an alias for a BitField of 16 bits</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">using BitField16 = BitField&lt;uint16_t&gt;;</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_bitfield32"><a class="anchor" href="#_bitfield32"></a>BitField32</h3>
+<div class="paragraph">
+<p>This is an alias for a BitField of 32 bits</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">using BitField32 = BitField&lt;uint32_t&gt;;</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_bitfield64"><a class="anchor" href="#_bitfield64"></a>BitField64</h3>
+<div class="paragraph">
+<p>This is an alias for a BitField of 64 bits</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">using BitField64 = BitField&lt;uint64_t&gt;;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_initialization"><a class="anchor" href="#_initialization"></a>Initialization</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If using a default constructor the initial value will be 0.</p>
+</div>
+<div class="listingblock">
+<div class="title">Default Constructor</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::BitField32 bitfield;</code></pre>
+</div>
+</div>
+<hr>
+<div class="listingblock">
+<div class="title">From Value</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::BitField8 bitfieldWithValue( 0xB1 );</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_operations"><a class="anchor" href="#_operations"></a>Operations</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_set_startbit_span_value"><a class="anchor" href="#_set_startbit_span_value"></a>set( startBit, span, value )</h3>
+<div class="paragraph">
+<p>Assigns value to the BitField at <code>startBit</code> for <code>span</code> number of bits.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">bitfield.set( 8, 16, 0xAA55 ); // 0x0000000000AA5500</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_get_startbit_span"><a class="anchor" href="#_get_startbit_span"></a>get( startBit, span )</h3>
+<div class="paragraph">
+<p>Reads the value from the BitField at <code>startBit</code> for <code>span</code> number of bits.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">bitfield.get( 10, 4 ); // 0x00000000000000A5</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="PSR"><a class="anchor" href="#PSR"></a>ARM Cortex-M0 PSR Registers</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">// Cortex-M0 Program Status Register
+// Composed of APSR (Application), IPSR (Interrupt), and EPSR (Execution)
+// https://developer.arm.com/documentation/dui0497/a/the-cortex-m0-processor/programmers-model/core-registers?lang=en
+class PSR : public EDF::BitField32 {
+public:
+    enum class InterruptExceptionNumber {
+        ThreadMode  = 0,
+        NMI         = 2,
+        HardFault   = 3,
+        PendSV      = 14,
+        SysTick     = 15, // Might not be implemented
+        IRQ0,  IRQ1,  IRQ2,  IRQ3,
+        IRQ4,  IRQ5,  IRQ6,  IRQ7,
+        IRQ8,  IRQ9,  IRQ10, IRQ11,
+        IRQ12, IRQ13, IRQ14, IRQ15,
+        IRQ16, IRQ17, IRQ18, IRQ19,
+        IRQ20, IRQ21, IRQ22, IRQ23,
+        IRQ24, IRQ25, IRQ26, IRQ27,
+        IRQ28, IRQ29, IRQ30, IRQ31,
+        // else Reserved
+    };
+    using IEN = InterruptExceptionNumber;
+public:
+    constexpr PSR( uint32_t initialValue = 0 ) : EDF::BitField32( initialValue ) {}
 
+    /* IPSR bits */
+    constexpr IEN getInterruptExceptionNumber()     const { return static_cast&lt;IEN&gt;(get( 0, 6 )); }
+    constexpr IEN getIEN()                          const { return getInterruptExceptionNumber(); }
+    constexpr void setInterruptExceptionNumber( IEN n )   { set( 0, 6, static_cast&lt;uint32_t&gt;(n) ); }
+    constexpr void setIEN( IEN n )                        { setInterruptExceptionNumber( n ); }
+
+    /* EPSR bits */
+    constexpr bool isExecutionThumbBitSet()         const { return get( 24, 1 ); }
+    constexpr bool isT()                            const { return isExecutionThumbBitSet(); }
+    constexpr void setExecutionThumbBit( bool v )         { set( 24, 1, v ); }
+    constexpr void setT( bool v )                         { setExecutionThumbBit( v ); }
+
+    /* APSR bits */
+    constexpr bool isApplicationOverflowSet()       const { return get( 28, 1 ); }
+    constexpr bool isV()                            const { return isApplicationOverflowSet(); }
+    constexpr void setApplicationOverflow( bool v )       { set( 28, 1, v ); }
+    constexpr void setV( bool v )                         { setApplicationOverflow( v ); }
+
+    constexpr bool isApplicationCarryBorrowSet()    const { return get( 29, 1 ); }
+    constexpr bool isC()                            const { return isApplicationCarryBorrowSet(); }
+    constexpr void setApplicationCarryBorrow( bool v )    { set( 29, 1, v ); }
+    constexpr void setC( bool v )                         { setApplicationCarryBorrow( v ); }
+
+    constexpr bool isApplicationZeroSet()           const { return get( 30, 1 ); }
+    constexpr bool isZ()                            const { return isApplicationZeroSet(); }
+    constexpr void setApplicationZero( bool v )           { set( 30, 1, v ); }
+    constexpr void setZ( bool v )                         { setApplicationZero( v ); }
+
+    constexpr bool isApplicationNegativeSet()       const { return get( 31, 1 ); }
+    constexpr bool isN()                            const { return isApplicationNegativeSet(); }
+    constexpr void setApplicationNegative( bool v )       { set( 31, 1, v ); }
+    constexpr void setN( bool v )                         { setApplicationNegative( v ); }
+};
+
+void function() {
+    PSR currentState = 0x41000000;
+    bool isEqual = currentState.isApplicationZeroSet();
+    bool isGreaterThan = !isEqual &amp;&amp; currentState.isN() == currentState.isV();
+    if( isGreaterThan ) {
+        currentState.setIEN( PSR::IEN::IRQ23 ); // software trigger interrupt
+    }
+    else if( currentState.isApplicationZeroSet() ) {
+        currentState.setIEN( PSR::IEN::HardFault ); // software trigger interrupt
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Config"><a class="anchor" href="#Config"></a>BME280 Config register</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">// BME280 - Combined humidity and pressure sensor
+// https://www.mouser.com/datasheet/2/783/BST-BME280-DS002-1509607.pdf
+class Config : public EDF::BitField8 {
+public:
+    enum class Filter {
+        OFF     = 0b000,
+        Two     = 0b001,
+        Four    = 0b010,
+        Eight   = 0b011,
+        Sixteen = 0b100
+    };
+    enum class InactiveDuration {
+        MS_0_5  = 0b000, // 0.5 ms
+        MS_62_5 = 0b001, // 62.5 ms
+        MS_125  = 0b010, // 125 ms
+        MS_250  = 0b011, // 250 ms
+        MS_500  = 0b100, // 500 ms
+        MS_1000 = 0b101, // 1000 ms
+        MS_10   = 0b110, // 10 ms
+        MS_20   = 0b111, // 20 ms
+    };
+public:
+    constexpr Config( uint8_t initialValue = 0 ) : EDF::BitField8( initialValue ) {}
+
+    /* 3-wire SPI enabled = 1, disabled = 0 */
+    constexpr bool isSPI3w_en() const { return get( 0, 1 ); }
+    constexpr void setSPI3w_en( bool enable ) { set( 0, 1, enable ); }
+
+    /* IIR time constant */
+    constexpr Filter getFilter() const { return static_cast&lt;Filter&gt;(get( 2, 3 )); }
+    constexpr void setFilter( Filter f ) { set( 2, 3, static_cast&lt;uint8_t&gt;(f) ); }
+
+    /* Inactive duration t_standby in normal mode */
+    constexpr InactiveDuration getT_sb() const { return static_cast&lt;InactiveDuration&gt;(get( 5, 3 )); }
+    constexpr InactiveDuration getInactiveDuration() const { return getT_sb(); }
+    constexpr void setT_sb( InactiveDuration d ) { set( 5, 3, static_cast&lt;uint8_t&gt;(d)); }
+    constexpr void setInactiveDuration( InactiveDuration d ) { setT_sb( d ); }
+};
+
+void BME280_init() {
+    // ...
+    Config cfg;
+    cfg.setSPI3w_en( false );
+    cfg.setFilter( Config::Filter::OFF );
+    cfg.setInactiveDuration( Config::InactiveDuration::MS_10 );
+    // ...
+}
+
+Config readConfig() {
+    // Imagine this value was read from the sensor
+    return Config( 0xC0 );
+}
+
+void someOtherFunction() {
+    // Imagine Config
+    if( readConfig().getInactiveDuration() == Config::InactiveDuration::MS_10 ) {
+        /* ...  */
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
 </article>
   </div>
 </main>
