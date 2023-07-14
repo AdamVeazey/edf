@@ -1,3 +1,94 @@
-= BitField
+= BitField<T>
 
 include::ROOT:partial$refs.adoc[]
+
+.Template arguments
+`T` = Integer (T)ype where expected values are `uint8_t`, `uint16_t`, `uint32_t`, or `uint64_t`
+
+== Overview
+BitField is designed as a building block for naming bits within a register. BitField ensures that only the specific bits within the register you're interested in are modified or read. This should reduce the number of bugs related to bit manipulation. Another goal of BitField is to create derived classes that have descriptive names to reduce the number of times you have to reference a datasheet. <<PSR,ARM Cortex-M0 PSR>> and <<Config,BME280 config>> are two examples of how you might use a BitField. More examples can be found throughout various {ref_drivers}.
+
+=== BitField8
+This is an alias for a BitField of 8 bits
+[source,indent=0,c++]
+----
+include::{path_src_edf_bit_field_hpp}[tag=uint8_t]
+----
+
+---
+
+=== BitField16
+This is an alias for a BitField of 16 bits
+[source,indent=0,c++]
+----
+include::{path_src_edf_bit_field_hpp}[tag=uint16_t]
+----
+
+---
+
+=== BitField32
+This is an alias for a BitField of 32 bits
+[source,indent=0,c++]
+----
+include::{path_src_edf_bit_field_hpp}[tag=uint32_t]
+----
+
+---
+
+=== BitField64
+This is an alias for a BitField of 64 bits
+[source,indent=0,c++]
+----
+include::{path_src_edf_bit_field_hpp}[tag=uint64_t]
+----
+
+== Initialization
+If using a default constructor the initial value will be 0.
+
+.Default Constructor
+[source,indent=0,c++]
+----
+include::{path_example_edf_bit_field_main_cpp}[tag=init_default]
+----
+
+---
+
+.From Value
+[source,indent=0,c++]
+----
+include::{path_example_edf_bit_field_main_cpp}[tag=init_with_value]
+----
+
+== Operations
+
+=== set( startBit, span, value )
+Assigns value to the BitField at `startBit` for `span` number of bits.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_bit_field_main_cpp}[tag=operation_set]
+----
+
+=== get( startBit, span )
+Reads the value from the BitField at `startBit` for `span` number of bits.
+
+.Example
+[source,indent=0,c++]
+----
+include::{path_example_edf_bit_field_main_cpp}[tag=operation_get]
+----
+
+[#PSR]
+== ARM Cortex-M0 PSR Registers
+[source,indent=0,c++]
+----
+include::{path_example_edf_bit_field_main_cpp}[tag=example_register_psr]
+----
+
+[#Config]
+== BME280 Config register
+[source,indent=0,c++]
+----
+include::{path_example_edf_bit_field_main_cpp}[tag=example_bme280_config]
+----
