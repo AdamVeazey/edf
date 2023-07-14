@@ -156,11 +156,11 @@ int main( void ) {
     // end::init_with_value[]
 
     // tag::operation_set[]
-    bitfield.set( 8, 16, 0xAA55 ); // 0x0000000000AA5500
+    bitfield.set( 8, 16, 0xAA55 ); // 0x00AA5500
     // end::operation_set[]
 
     // tag::operation_get[]
-    bitfield.get( 10, 4 ); // 0x00000000000000A5
+    bitfield.get( 10, 4 ); // 0x000000A5
     // end::operation_get[]
 
     return 0;
