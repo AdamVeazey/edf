@@ -87,7 +87,7 @@ include::{path_example_edf_bit_field_main_cpp}[tag=example_register_psr]
 ----
 
 [#Config]
-== https://www.mouser.com/datasheet/2/783/BST-BME280-DS002-1509607.pdf[BME280 Config register]
+== https://www.mouser.com/datasheet/2/783/BST-BME280-DS002-1509607.pdf#page=30[BME280 Config register]
 [source,indent=0,c++]
 ----
 include::{path_example_edf_bit_field_main_cpp}[tag=example_bme280_config]
