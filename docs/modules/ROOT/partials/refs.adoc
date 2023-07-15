@@ -22,7 +22,6 @@
 :ref_edf_queue: {ref_module_root}:queue.adoc[Queue]
 :ref_edf_stack: {ref_module_root}:stack.adoc[Stack]
 :ref_edf_string: {ref_module_root}:string.adoc[String]
-:ref_edf_unix_timestamp: {ref_module_root}:unix_timestamp.adoc[UnixTimestamp]
 :ref_edf_vector: {ref_module_root}:vector.adoc[Vector]
 :ref_edf_version: {ref_module_root}:version.adoc[Version]
 

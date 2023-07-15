@@ -12,4 +12,3 @@
 *** xref:math.adoc[Math]
 *** xref:bit_field.adoc[BitField]
 *** xref:color.adoc[Color]
-*** xref:unix_timestamp.adoc[UnixTimestamp]

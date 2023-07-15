@@ -16,7 +16,7 @@ The files here are written to be completely platform independent that are useful
 . {ref_edf_queue} - circular queue (AKA ring buffer) using an EDF::Array
 . {ref_edf_heap} - min and max heap using an EDF::Vector
 
-== Miscellaneous 
+== Miscellaneous
 . {ref_edf_assert} - assert a condition is true, abort() if false
 . {ref_edf_string} - Strings that can "grow" up to a maximum size
 . {ref_edf_version} - String to semantic version for easy comparisons
@@ -24,7 +24,6 @@ The files here are written to be completely platform independent that are useful
 include::math.adoc[tag=function_list]
 . {ref_edf_bit_field} - Name one or more specific bits within an unsigned integer
 . {ref_edf_color} - RGBA colors
-. {ref_edf_unix_timestamp} - wrapper for <ctime>
 
 // TODO: Should RTOS include things like a generic CLI implementation? Logger?
 // == RTOS
