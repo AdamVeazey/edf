@@ -108,7 +108,7 @@ include::{path_src_edf_color_hpp}[tag=named_colors]
 ---
 
 .Example Syntax to Access Predefined Colors
-[source,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_color_main_cpp}[tag=named_colors]
 ----
