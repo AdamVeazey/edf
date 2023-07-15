@@ -262,7 +262,221 @@
 </aside>
 <article class="doc">
 <h1 class="page">Color</h1>
+<div class="sect1">
+<h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Color is a 32-bit value where 8-bits are dedicated to red, green, blue, and alpha. Color565 is a 16-bit value where 5 bits are dedicated to red, 6 for blue, and 5 for blue. Pre-defined named colors are static members of Color.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_initialization"><a class="anchor" href="#_initialization"></a>Initialization</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_color_color565"><a class="anchor" href="#_color_color565"></a>Color(), Color565()</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Color black;
+EDF::Color565 black;</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_color_initialvalue_color565_initialvalue"><a class="anchor" href="#_color_initialvalue_color565_initialvalue"></a>Color( initialValue ), Color565( initialValue )</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Color salmon( 0xFA8072 );
+EDF::Color565 salmon( 0xFC0E );</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_color_r_g_b_a"><a class="anchor" href="#_color_r_g_b_a"></a>Color( r, g, b, a )</h3>
+<div class="paragraph">
+<p><code>a</code> is optional, default&#8217;s to 255 if not provided which means opacity is 100%.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Color white( 255, 255, 255 );
+EDF::Color gray( 128, 128, 128, 255 );</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_color565_r_g_b"><a class="anchor" href="#_color565_r_g_b"></a>Color565( r, g, b )</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Color565 white( 255, 255, 255 );</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_color565_c"><a class="anchor" href="#_color565_c"></a>Color565( c )</h3>
+<div class="paragraph">
+<p><code>c</code> is a <code>Color</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Color565 color( EDF::Color::blueViolet() );</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_set_color_components"><a class="anchor" href="#_set_color_components"></a>Set Color Components</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_setr_r_setg_g_setb_b_seta_a"><a class="anchor" href="#_setr_r_setg_g_setb_b_seta_a"></a>setR( r ), setG( g ), setB( b ), setA( a )</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>setA( a )</code> only exists for <code>Color</code> not <code>Color565</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Color black;
+black.setR( 255 );  // turn red
+black.setG( 255 );  // turn yellow
+black.setB( 255 );  // turn white
+black.setA( 0 );    // turn transparent
 
+EDF::Color565 black;
+black.setR( 255 );  // turn red
+black.setG( 255 );  // turn yellow
+black.setB( 255 );  // turn white</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_get_color_components"><a class="anchor" href="#_get_color_components"></a>Get Color Components</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_r_g_b_a"><a class="anchor" href="#_r_g_b_a"></a>r(), g(), b(), a()</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>a()</code> only exists for <code>Color</code> not <code>Color565</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Color salmon( 0xFA8072 );
+salmon.r(); // 0xFA
+salmon.g(); // 0x80
+salmon.b(); // 0x72
+salmon.a(); // 0xFF
+
+EDF::Color565 salmon( 0xFC0E );
+salmon.r(); // 0xF8
+salmon.g(); // 0x80
+salmon.b(); // 0x70</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_asrgb_asrgba"><a class="anchor" href="#_asrgb_asrgba"></a>asRGB(), asRGBA()</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>asRGBA()</code> only exists for <code>Color</code> not <code>Color565</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Color white( 255, 255, 255 );
+EDF::Color gray( 128, 128, 128, 255 );
+white.asRGB();  // 0xFFFFFF
+gray.asRGBA();  // 0xFFFFFFFF
+
+EDF::Color565 white( 255, 255, 255 );
+white.asRGB();  // 0xFFFF</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_named_colors"><a class="anchor" href="#_named_colors"></a>Named Colors</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are a few named colors predefined in <code>Color</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Predefined Colors</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">  static constexpr Color red()        { return Color( 255,   0,   0 ); }
+  static constexpr Color orange()     { return Color( 255, 128,   0 ); }
+  static constexpr Color yellow()     { return Color( 255, 255,   0 ); }
+  static constexpr Color lime()       { return Color( 128, 255,   0 ); }
+  static constexpr Color green()      { return Color(   0, 255,   0 ); }
+  static constexpr Color springGreen(){ return Color(   0, 255, 128 ); }
+  static constexpr Color cyan()       { return Color(   0, 255, 255 ); }
+  static constexpr Color dodgerBlue() { return Color(   0, 128, 255 ); }
+  static constexpr Color blue()       { return Color(   0,   0, 255 ); }
+  static constexpr Color blueViolet() { return Color( 128,   0, 255 ); }
+  static constexpr Color magenta()    { return Color( 255,   0, 255 ); }
+  static constexpr Color deepPink()   { return Color( 255,   0, 128 ); }
+
+static constexpr Color black()	    { return Color(   0,   0,   0 ); }
+static constexpr Color dimGray()	{ return Color( 105, 105, 105 ); }
+static constexpr Color gray()	    { return Color( 128, 128, 128 ); }
+static constexpr Color darkGray()	{ return Color( 169, 169, 169 ); }
+static constexpr Color silver()	    { return Color( 192, 192, 192 ); }
+static constexpr Color lightGray()	{ return Color( 211, 211, 211 ); }
+static constexpr Color gainsboro()	{ return Color( 220, 220, 220 ); }
+static constexpr Color whiteSmoke()	{ return Color( 245, 245, 245 ); }
+static constexpr Color white()	    { return Color( 255, 255, 255 ); }</code></pre>
+</div>
+</div>
+<hr>
+<div class="listingblock">
+<div class="title">Example Syntax to Access Predefined Colors</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Color::red();
+EDF::Color::springGreen();
+EDF::Color::cyan();</code></pre>
+</div>
+</div>
+<hr>
+<div class="listingblock">
+<div class="title">Example of how to use Color565 and Predefined Colors</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">void function( const EDF::Color565&amp; color ) {
+    /* ... */
+}
+    function( EDF::Color::magenta() );</code></pre>
+</div>
+</div>
+</div>
+</div>
 </article>
   </div>
 </main>
