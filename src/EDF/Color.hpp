@@ -51,15 +51,15 @@ public:
     static constexpr Color magenta()    { return Color( 255,   0, 255 ); }
     static constexpr Color deepPink()   { return Color( 255,   0, 128 ); }
 
- 	static constexpr Color black()	    { return Color(   0,   0,   0 ); }
- 	static constexpr Color dimGray()	{ return Color( 105, 105, 105 ); }
- 	static constexpr Color gray()	    { return Color( 128, 128, 128 ); }
- 	static constexpr Color darkGray()	{ return Color( 169, 169, 169 ); }
- 	static constexpr Color silver()	    { return Color( 192, 192, 192 ); }
- 	static constexpr Color lightGray()	{ return Color( 211, 211, 211 ); }
- 	static constexpr Color gainsboro()	{ return Color( 220, 220, 220 ); }
- 	static constexpr Color whiteSmoke()	{ return Color( 245, 245, 245 ); }
- 	static constexpr Color white()	    { return Color( 255, 255, 255 ); }
+    static constexpr Color black()	    { return Color(   0,   0,   0 ); }
+    static constexpr Color dimGray()	{ return Color( 105, 105, 105 ); }
+    static constexpr Color gray()	    { return Color( 128, 128, 128 ); }
+    static constexpr Color darkGray()	{ return Color( 169, 169, 169 ); }
+    static constexpr Color silver()	    { return Color( 192, 192, 192 ); }
+    static constexpr Color lightGray()	{ return Color( 211, 211, 211 ); }
+    static constexpr Color gainsboro()	{ return Color( 220, 220, 220 ); }
+    static constexpr Color whiteSmoke()	{ return Color( 245, 245, 245 ); }
+    static constexpr Color white()	    { return Color( 255, 255, 255 ); }
     // end::named_colors[]
 };
 
