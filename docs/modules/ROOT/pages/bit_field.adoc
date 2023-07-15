@@ -6,7 +6,7 @@ include::ROOT:partial$refs.adoc[]
 `T` = Integer (T)ype where expected values are `uint8_t`, `uint16_t`, `uint32_t`, or `uint64_t`
 
 == Overview
-BitField is designed as a building block for naming bits within a register. BitField ensures that only the specific bits within the register you're interested in are modified or read. This should reduce the number of bugs related to bit manipulation. Another goal of BitField is to create derived classes that have descriptive names to reduce the number of times you have to reference a datasheet. <<PSR,ARM Cortex-M0 PSR>> and <<Config,BME280 config>> are two examples of how you might use a BitField. More examples can be found throughout various {ref_drivers}.
+BitField is designed as a building block for naming bits within a register. BitField ensures that only the specific bits within the register you're interested in are modified or read. This should reduce the number of bugs related to bit manipulation. Another goal of BitField is to create derived classes that have descriptive names to reduce the number of times you have to reference a datasheet. <<PSR,ARM Cortex-M0 PSR>> and <<Config,BME280 config>> are two examples of how you might use a BitField. {ref_edf_color} uses BitField to represent RGB(A) values in a single value.
 
 === BitField8
 This is an alias for a BitField of 8 bits
