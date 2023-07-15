@@ -410,7 +410,7 @@ if( myVector.length() == 0 ) { /* ... */ }</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
 std::size_t numberOfElementsInVector = vector.length(); <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
 </div>
@@ -444,7 +444,7 @@ The name <code>length()</code> is used instead of <code>size()</code> or <code>c
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
 static constexpr int someArray[vector.maxSize()]; <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
 </div>
@@ -470,7 +470,7 @@ static constexpr int someArray[vector.maxSize()]; <i class="conum" data-value="1
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
 vector[0_uz] = 100;</code></pre>
 </div>
 </div>
@@ -508,7 +508,7 @@ This also means that there is no boundary checking, so it is possible to attempt
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
 vector.at( 0_uz ) = 1;</code></pre>
 </div>
 </div>
@@ -534,7 +534,7 @@ vector.at( 0_uz ) = 1;</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
 auto&amp; firstElement = vector.front();</code></pre>
 </div>
 </div>
@@ -548,7 +548,7 @@ auto&amp; firstElement = vector.front();</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
 auto&amp; lastElement = vector.back();</code></pre>
 </div>
 </div>
@@ -562,7 +562,7 @@ auto&amp; lastElement = vector.back();</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">void working_with_a_c_library_function( int *data, size_t n ) { /* ... */}
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">void working_with_a_c_library_function( int *data, size_t n ) { /* ... */}
 
 EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
 working_with_a_c_library_function( vector.data(), vector.length() );</code></pre>
@@ -618,7 +618,7 @@ For member functions that have an index/position as their first argument, it mea
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
 vector.clear();
 std::size_t numberOfElementsInVector = vector.length(); <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
@@ -641,7 +641,7 @@ std::size_t numberOfElementsInVector = vector.length(); <i class="conum" data-va
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
 vector.insert( 0_uz, 0 );           <i class="conum" data-value="1"></i><b>(1)</b>
 vector.insert( vector.begin(), 0 ); <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
@@ -667,7 +667,7 @@ vector.insert( vector.begin(), 0 ); <i class="conum" data-value="2"></i><b>(2)</
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
 vector.insert( 0_uz, 2, 0 );            <i class="conum" data-value="1"></i><b>(1)</b>
 vector.insert( vector.begin(), 2, 0 );  <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
@@ -693,7 +693,7 @@ vector.insert( vector.begin(), 2, 0 );  <i class="conum" data-value="2"></i><b>(
 <div class="listingblock">
 <div class="title">Example 1</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
 vector.insert( 0_uz, { 0 } );           <i class="conum" data-value="1"></i><b>(1)</b>
 vector.insert( vector.begin(), { 0 } ); <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
@@ -713,7 +713,7 @@ vector.insert( vector.begin(), { 0 } ); <i class="conum" data-value="2"></i><b>(
 <div class="listingblock">
 <div class="title">Example 2</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
 for( auto it = vector.cbegin(); it != vector.cend(); ++it ) {
     if( *it == 3 ) {
         vector.insert( it, {99, 88, 77, 66, 55} );
@@ -768,7 +768,7 @@ vector2.emplace( 1, 2, 2 );     <i class="conum" data-value="2"></i><b>(2)</b></
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
 vector.erase( vector.length() - 2 ); 
 vector.erase( std::find( vector.cbegin(), vector.cend(), 12345 ) );</code></pre>
 </div>
@@ -782,7 +782,7 @@ vector.erase( std::find( vector.cbegin(), vector.cend(), 12345 ) );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
 vector.erase( 2, 4 );    // [2,4) 
 auto seventySeven = std::find(vector.cbegin(), vector.cend(), 77);
 vector.erase( seventySeven, seventySeven + 3 );</code></pre>
@@ -798,7 +798,7 @@ vector.erase( seventySeven, seventySeven + 3 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
 vector.pushBack( 2 + 2 );
 vector.pushBack( 12345 );</code></pre>
 </div>
@@ -813,7 +813,7 @@ vector.pushBack( 12345 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
 vector.emplaceBack( 100 );</code></pre>
 </div>
 </div>
@@ -827,7 +827,7 @@ vector.emplaceBack( 100 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
 auto copyOfLastElement = vector.popBack();</code></pre>
 </div>
 </div>

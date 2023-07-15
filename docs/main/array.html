@@ -319,13 +319,13 @@
 <div class="listingblock">
 <div class="title">Example: Plain Old Data (<a href="https://stackoverflow.com/a/146454/19291638">POD</a>)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Array&lt;int, 4&gt; array;</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Array&lt;int, 4&gt; array;</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Example: Custom Type</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">struct CustomType{
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">struct CustomType{
     int value;
     CustomType( int v ) : value(v) {}        
 };
@@ -341,7 +341,7 @@ EDF::Array&lt;CustomType, 4&gt; array2 = {
 <div class="listingblock">
 <div class="title">Example: Copy Assignment</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Array&lt;CustomType, 4&gt; array3 = array2;</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Array&lt;CustomType, 4&gt; array3 = array2;</code></pre>
 </div>
 </div>
 </div>
@@ -357,7 +357,7 @@ EDF::Array&lt;CustomType, 4&gt; array2 = {
 <h3 id="_operator"><a class="anchor" href="#_operator"></a>operator[]</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Array&lt;int, 4&gt; array;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Array&lt;int, 4&gt; array;
 array[0] = 1;</code></pre>
 </div>
 </div>
@@ -385,7 +385,7 @@ This also means that there is no boundary checking, so it is possible to attempt
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Array&lt;int, 4&gt; array;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Array&lt;int, 4&gt; array;
 array.at( 40 ) = 100;</code></pre>
 </div>
 </div>

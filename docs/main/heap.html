@@ -297,7 +297,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">template&lt;typename T, std::size_t N&gt;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">template&lt;typename T, std::size_t N&gt;
 using HeapMax = Heap&lt;T, N, std::greater&lt;T&gt;&gt;;</code></pre>
 </div>
 </div>
@@ -309,7 +309,7 @@ using HeapMax = Heap&lt;T, N, std::greater&lt;T&gt;&gt;;</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">template&lt;typename T, std::size_t N&gt;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">template&lt;typename T, std::size_t N&gt;
 using HeapMin = Heap&lt;T, N, std::less&lt;T&gt;&gt;;</code></pre>
 </div>
 </div>
@@ -325,13 +325,13 @@ using HeapMin = Heap&lt;T, N, std::less&lt;T&gt;&gt;;</code></pre>
 <div class="listingblock">
 <div class="title">Example: <code>T</code> is default constructable</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::HeapMax&lt;int, 7&gt; heap;</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::HeapMax&lt;int, 7&gt; heap;</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Example: <a href="https://en.cppreference.com/w/cpp/language/list_initialization">list-initialization</a> with a custom type</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::HeapMax&lt;int, 7&gt; heapInitializationList = { 10, 20 };</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::HeapMax&lt;int, 7&gt; heapInitializationList = { 10, 20 };</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -363,7 +363,7 @@ Provided to make a common conditional check slightly more readable, as well as c
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::HeapMax&lt;int, 7&gt; heap;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::HeapMax&lt;int, 7&gt; heap;
 while( !heap.isEmpty() ) {
     /* ... */</code></pre>
 </div>
@@ -377,7 +377,7 @@ while( !heap.isEmpty() ) {
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::HeapMax&lt;int, 7&gt; heap;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::HeapMax&lt;int, 7&gt; heap;
 if( !heap.isFull() ) {
     /* ... */
 }</code></pre>
@@ -400,7 +400,7 @@ if( !heap.isFull() ) {
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::HeapMax&lt;int, 7&gt; heap;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::HeapMax&lt;int, 7&gt; heap;
 auto&amp; nElementsInHeap = heap.length();</code></pre>
 </div>
 </div>
@@ -413,7 +413,7 @@ auto&amp; nElementsInHeap = heap.length();</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::HeapMax&lt;int, 7&gt; heap;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::HeapMax&lt;int, 7&gt; heap;
 constexpr auto maxNumberOfElements = heap.maxLength();</code></pre>
 </div>
 </div>
@@ -443,7 +443,7 @@ Many, if not all, of the Operation member functions use <a href="assert.html#_ed
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::HeapMax&lt;int, 7&gt; heap;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::HeapMax&lt;int, 7&gt; heap;
 heap.push( 2 );
 auto&amp; rootElement = heap.peek();</code></pre>
 </div>
@@ -457,7 +457,7 @@ auto&amp; rootElement = heap.peek();</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::HeapMax&lt;int, 7&gt; heap;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::HeapMax&lt;int, 7&gt; heap;
 heap.push( 2 );</code></pre>
 </div>
 </div>
@@ -470,7 +470,7 @@ heap.push( 2 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::HeapMax&lt;int, 7&gt; heap;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::HeapMax&lt;int, 7&gt; heap;
 heap.emplace( 6 );</code></pre>
 </div>
 </div>
@@ -483,7 +483,7 @@ heap.emplace( 6 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::HeapMax&lt;int, 7&gt; heap;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::HeapMax&lt;int, 7&gt; heap;
     auto removedElement = heap.pop();</code></pre>
 </div>
 </div>
@@ -496,7 +496,7 @@ heap.emplace( 6 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::HeapMax&lt;int, 7&gt; heap;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::HeapMax&lt;int, 7&gt; heap;
 heap.clear();</code></pre>
 </div>
 </div>

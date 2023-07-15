@@ -290,7 +290,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;32&gt; string = "Madam in Eden, Im Adam.";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;32&gt; string = "Madam in Eden, Im Adam.";
 auto normalized = string.getToLower().strip( " ,." );
 bool isPalindrome = normalized.equals( normalized.getReversed() );</code></pre>
 </div>
@@ -410,7 +410,7 @@ bool isPalindrome = normalized.equals( normalized.getReversed() );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; stringDefault;</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; stringDefault;</code></pre>
 </div>
 </div>
 <hr>
@@ -420,7 +420,7 @@ bool isPalindrome = normalized.equals( normalized.getReversed() );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;32&gt; stringConstCharStar = "const char*";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;32&gt; stringConstCharStar = "const char*";
 EDF::String&lt;32&gt; stringConstCharStar2( "const char*" );</code></pre>
 </div>
 </div>
@@ -431,7 +431,7 @@ EDF::String&lt;32&gt; stringConstCharStar2( "const char*" );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">const uint8_t strLiteralUint8_t[] = "const uint8_t*";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">const uint8_t strLiteralUint8_t[] = "const uint8_t*";
 const uint8_t* pLiteralUint8_t = strLiteralUint8_t;
 EDF::String&lt;32&gt; stringConstUint8_tStar = pLiteralUint8_t;
 EDF::String&lt;32&gt; stringConstUint8_tStar2( pLiteralUint8_t );</code></pre>
@@ -444,7 +444,7 @@ EDF::String&lt;32&gt; stringConstUint8_tStar2( pLiteralUint8_t );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">const char strLiteralChar[] = "const char*";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">const char strLiteralChar[] = "const char*";
 const char* pLiteralChar = strLiteralChar;
 EDF::String&lt;32&gt; stringConstCharStarN( pLiteralChar, std::strlen( strLiteralChar ) );</code></pre>
 </div>
@@ -456,7 +456,7 @@ EDF::String&lt;32&gt; stringConstCharStarN( pLiteralChar, std::strlen( strLitera
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">const uint8_t strLiteralUint8_t[] = "const uint8_t*";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">const uint8_t strLiteralUint8_t[] = "const uint8_t*";
 const uint8_t* pLiteralUint8_t = strLiteralUint8_t;
 EDF::String&lt;32&gt; stringConstUint8_tStarN( pLiteralUint8_t, std::strlen( reinterpret_cast&lt;const char*&gt;( strLiteralUint8_t ) ) );</code></pre>
 </div>
@@ -468,7 +468,7 @@ EDF::String&lt;32&gt; stringConstUint8_tStarN( pLiteralUint8_t, std::strlen( rei
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">const char strLiteralChar[] = "const char*";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">const char strLiteralChar[] = "const char*";
 EDF::String&lt;32&gt; stringConstCharStarRef( strLiteralChar );</code></pre>
 </div>
 </div>
@@ -479,7 +479,7 @@ EDF::String&lt;32&gt; stringConstCharStarRef( strLiteralChar );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">const uint8_t strLiteralUint8_t[] = "const uint8_t*";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">const uint8_t strLiteralUint8_t[] = "const uint8_t*";
 EDF::String&lt;32&gt; stringConstUint8_tStarRef( strLiteralUint8_t );</code></pre>
 </div>
 </div>
@@ -490,7 +490,7 @@ EDF::String&lt;32&gt; stringConstUint8_tStarRef( strLiteralUint8_t );</code></pr
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;32&gt; stringChar = 'C';
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;32&gt; stringChar = 'C';
 EDF::String&lt;32&gt; stringChar2( 'C' );</code></pre>
 </div>
 </div>
@@ -501,7 +501,7 @@ EDF::String&lt;32&gt; stringChar2( 'C' );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">int8_t valueInt8_t = 0xA5;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">int8_t valueInt8_t = 0xA5;
 EDF::String&lt;32&gt; stringInt8_t( valueInt8_t );
 EDF::String&lt;32&gt; stringInt8_tHex( valueInt8_t, 16 );</code></pre>
 </div>
@@ -513,7 +513,7 @@ EDF::String&lt;32&gt; stringInt8_tHex( valueInt8_t, 16 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">int16_t valueInt16_t = 0xA5A5;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">int16_t valueInt16_t = 0xA5A5;
 EDF::String&lt;32&gt; stringInt16_t( valueInt16_t );
 EDF::String&lt;32&gt; stringInt16_tHex( valueInt16_t, 16 );</code></pre>
 </div>
@@ -525,7 +525,7 @@ EDF::String&lt;32&gt; stringInt16_tHex( valueInt16_t, 16 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">int32_t valueInt32_t = 0xA5A5A5A5;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">int32_t valueInt32_t = 0xA5A5A5A5;
 EDF::String&lt;32&gt; stringInt32_t( valueInt32_t );
 EDF::String&lt;32&gt; stringInt32_tHex( valueInt32_t, 16 );</code></pre>
 </div>
@@ -537,7 +537,7 @@ EDF::String&lt;32&gt; stringInt32_tHex( valueInt32_t, 16 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">int64_t valueInt64_t = 0xA5A5A5A5A5A5A5A5;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">int64_t valueInt64_t = 0xA5A5A5A5A5A5A5A5;
 EDF::String&lt;32&gt; stringInt64_t( valueInt64_t );
 EDF::String&lt;32&gt; stringInt64_tHex( valueInt64_t, 16 );</code></pre>
 </div>
@@ -549,7 +549,7 @@ EDF::String&lt;32&gt; stringInt64_tHex( valueInt64_t, 16 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">uint8_t valueUint8_t = 0xA5;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">uint8_t valueUint8_t = 0xA5;
 EDF::String&lt;32&gt; stringUint8_t( valueUint8_t );
 EDF::String&lt;32&gt; stringUint8_tHex( valueUint8_t, 16 );</code></pre>
 </div>
@@ -561,7 +561,7 @@ EDF::String&lt;32&gt; stringUint8_tHex( valueUint8_t, 16 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">uint16_t valueUint16_t = 0xA5A5;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">uint16_t valueUint16_t = 0xA5A5;
 EDF::String&lt;32&gt; stringUint16_t( valueUint16_t );
 EDF::String&lt;32&gt; stringUint16_tHex( valueUint16_t, 16 );</code></pre>
 </div>
@@ -573,7 +573,7 @@ EDF::String&lt;32&gt; stringUint16_tHex( valueUint16_t, 16 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">uint32_t valueUint32_t = 0xA5A5A5A5;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">uint32_t valueUint32_t = 0xA5A5A5A5;
 EDF::String&lt;32&gt; stringUint32_t( valueUint32_t );
 EDF::String&lt;32&gt; stringUint32_tHex( valueUint32_t, 16 );</code></pre>
 </div>
@@ -585,7 +585,7 @@ EDF::String&lt;32&gt; stringUint32_tHex( valueUint32_t, 16 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">uint64_t valueUint64_t = 0xA5A5A5A5A5A5A5A5;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">uint64_t valueUint64_t = 0xA5A5A5A5A5A5A5A5;
 EDF::String&lt;32&gt; stringUint64_t( valueUint64_t );
 EDF::String&lt;32&gt; stringUint64_tHex( valueUint64_t, 16 );</code></pre>
 </div>
@@ -597,7 +597,7 @@ EDF::String&lt;32&gt; stringUint64_tHex( valueUint64_t, 16 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;8&gt; differentSizedString = "Hello";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;8&gt; differentSizedString = "Hello";
 EDF::String&lt;32&gt; stringEDFString = differentSizedString;
 EDF::String&lt;32&gt; stringEDFString2( differentSizedString );</code></pre>
 </div>
@@ -621,7 +621,7 @@ Provided to make a common conditional check slightly more readable, as well as c
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 if( !string.isEmpty() ) {
     /* ... */
 }</code></pre>
@@ -637,7 +637,7 @@ if( !string.isEmpty() ) {
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 if( !string.isFull() ) {
     /* ... */
 }</code></pre>
@@ -661,7 +661,7 @@ if( !string.isFull() ) {
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 auto nCharactersInString = string.length();</code></pre>
 </div>
 </div>
@@ -675,7 +675,7 @@ auto nCharactersInString = string.length();</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 constexpr auto maxNumberOfCharacters = string.maxLength();</code></pre>
 </div>
 </div>
@@ -693,7 +693,7 @@ constexpr auto maxNumberOfCharacters = string.maxLength();</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string[0_uz] = 'h';</code></pre>
 </div>
 </div>
@@ -731,7 +731,7 @@ This also means that there is no boundary checking, so it is possible to attempt
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string.at( 0_uz ) = 'h';</code></pre>
 </div>
 </div>
@@ -757,7 +757,7 @@ string.at( 0_uz ) = 'h';</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">void working_with_a_c_library_function( const char *data, size_t n ) { /* ... */}
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">void working_with_a_c_library_function( const char *data, size_t n ) { /* ... */}
 
 EDF::String&lt;128&gt; string = "Hello, world!";
 working_with_a_c_library_function( string.asCString(), string.length() );</code></pre>
@@ -785,7 +785,7 @@ Can be called in order to "decay" to a pointer like a C-Style array
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">void working_with_a_c_library_function( const uint8_t *data, size_t n ) { /* ... */}
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">void working_with_a_c_library_function( const uint8_t *data, size_t n ) { /* ... */}
 
 EDF::String&lt;128&gt; string = "Hello, world!";
 working_with_a_c_library_function( string.asByteData(), string.length() );</code></pre>
@@ -818,7 +818,7 @@ Can be called in order to "decay" to a pointer like a C-Style array
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">int8_t valueInt8_t = 0xA5;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">int8_t valueInt8_t = 0xA5;
 EDF::String&lt;32&gt; stringInt8_t( valueInt8_t );
 EDF::String&lt;32&gt; stringInt8_tHex( valueInt8_t, 16 );
 int8_t valueInt8_tBase10 = stringInt8_t.toInt8_t();
@@ -832,7 +832,7 @@ int8_t valueInt8_tBase16 = stringInt8_tHex.toInt8_t( 16 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">int16_t valueInt16_t = 0xA5A5;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">int16_t valueInt16_t = 0xA5A5;
 EDF::String&lt;32&gt; stringInt16_t( valueInt16_t );
 EDF::String&lt;32&gt; stringInt16_tHex( valueInt16_t, 16 );
 int16_t valueInt16_tBase10 = stringInt16_t.toInt16_t();
@@ -846,7 +846,7 @@ int16_t valueInt16_tBase16 = stringInt16_tHex.toInt16_t( 16 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">int32_t valueInt32_t = 0xA5A5A5A5;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">int32_t valueInt32_t = 0xA5A5A5A5;
 EDF::String&lt;32&gt; stringInt32_t( valueInt32_t );
 EDF::String&lt;32&gt; stringInt32_tHex( valueInt32_t, 16 );
 int32_t valueInt32_tBase10 = stringInt32_t.toInt32_t();
@@ -860,7 +860,7 @@ int32_t valueInt32_tBase16 = stringInt32_tHex.toInt32_t( 16 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">int64_t valueInt64_t = 0xA5A5A5A5A5A5A5A5;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">int64_t valueInt64_t = 0xA5A5A5A5A5A5A5A5;
 EDF::String&lt;32&gt; stringInt64_t( valueInt64_t );
 EDF::String&lt;32&gt; stringInt64_tHex( valueInt64_t, 16 );
 int64_t valueInt64_tBase10 = stringInt64_t.toInt64_t();
@@ -874,7 +874,7 @@ int64_t valueInt64_tBase16 = stringInt64_tHex.toInt64_t( 16 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">uint8_t valueUint8_t = 0xA5;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">uint8_t valueUint8_t = 0xA5;
 EDF::String&lt;32&gt; stringUint8_t( valueUint8_t );
 EDF::String&lt;32&gt; stringUint8_tHex( valueUint8_t, 16 );
 uint8_t valueUint8_tBase10 = stringUint8_t.toUint8_t();
@@ -888,7 +888,7 @@ uint8_t valueUint8_tBase16 = stringUint8_tHex.toUint8_t( 16 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">uint16_t valueUint16_t = 0xA5A5;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">uint16_t valueUint16_t = 0xA5A5;
 EDF::String&lt;32&gt; stringUint16_t( valueUint16_t );
 EDF::String&lt;32&gt; stringUint16_tHex( valueUint16_t, 16 );
 uint16_t valueUint16_tBase10 = stringUint16_t.toUint16_t();
@@ -902,7 +902,7 @@ uint16_t valueUint16_tBase16 = stringUint16_tHex.toUint16_t( 16 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">uint32_t valueUint32_t = 0xA5A5A5A5;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">uint32_t valueUint32_t = 0xA5A5A5A5;
 EDF::String&lt;32&gt; stringUint32_t( valueUint32_t );
 EDF::String&lt;32&gt; stringUint32_tHex( valueUint32_t, 16 );
 uint32_t valueUint32_tBase10 = stringUint32_t.toUint32_t();
@@ -916,7 +916,7 @@ uint32_t valueUint32_tBase16 = stringUint32_tHex.toUint32_t( 16 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">uint64_t valueUint64_t = 0xA5A5A5A5A5A5A5A5;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">uint64_t valueUint64_t = 0xA5A5A5A5A5A5A5A5;
 EDF::String&lt;32&gt; stringUint64_t( valueUint64_t );
 EDF::String&lt;32&gt; stringUint64_tHex( valueUint64_t, 16 );
 uint64_t valueUint64_tBase10 = stringUint64_t.toUint64_t();
@@ -1030,7 +1030,7 @@ For member functions that have an index/position as their first argument, it mea
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string.append( "Hello, world!" );
 string.append( 1234 );
 string.append( "0x" ).append( 0x5678, 16 );</code></pre>
@@ -1046,7 +1046,7 @@ string.append( "0x" ).append( 0x5678, 16 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string.getAppended( "Hello, world!" );
 string.getAppended( 1234 );
 string.getAppended( "0x" ).append( 0x5678, 16 );</code></pre>
@@ -1062,7 +1062,7 @@ string.getAppended( "0x" ).append( 0x5678, 16 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string.insert( 0_uz, "Hello, world!");
 string.insert( 6_uz, 4 );
 string.insert( 7, 0x2, 16 );
@@ -1080,7 +1080,7 @@ string.insert( 6, ' ' );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string.getInserted( 6_uz, 4 );
 string.getInserted( 7, 0x2, 16 );
 string.getInserted( string.end() - 1, "s and solar system" );
@@ -1097,7 +1097,7 @@ string.getInserted( 6, ' ' );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string.erase( 5 );</code></pre>
 </div>
 </div>
@@ -1111,7 +1111,7 @@ string.erase( 5 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string.getErased( 5 );</code></pre>
 </div>
 </div>
@@ -1125,7 +1125,7 @@ string.getErased( 5 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string.erase( 5, 12 );</code></pre>
 </div>
 </div>
@@ -1139,7 +1139,7 @@ string.erase( 5, 12 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string.getErased( 5, 12 );</code></pre>
 </div>
 </div>
@@ -1160,7 +1160,7 @@ string.getErased( 5, 12 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 char destinationBuffer[128];
 string.copyTo( destinationBuffer, 128 );</code></pre>
 </div>
@@ -1175,7 +1175,7 @@ string.copyTo( destinationBuffer, 128 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 uint8_t destination[128];
 string.copyTo( destination );</code></pre>
 </div>
@@ -1190,7 +1190,7 @@ string.copyTo( destination );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string.find( ',' );
 string.find( "world");</code></pre>
 </div>
@@ -1205,7 +1205,7 @@ string.find( "world");</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string.find( ",", 1_uz );
 string.find( "world", std::strlen("world") );</code></pre>
 </div>
@@ -1220,7 +1220,7 @@ string.find( "world", std::strlen("world") );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string.find( string.begin() + 3, ',' );
 string.find( string.begin() + 3, "world" );</code></pre>
 </div>
@@ -1235,7 +1235,7 @@ string.find( string.begin() + 3, "world" );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string.find( ",", 1_uz );
 string.find( "world", std::strlen("world") );</code></pre>
 </div>
@@ -1250,7 +1250,7 @@ string.find( "world", std::strlen("world") );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string.rfind( ',' );
 string.rfind( "world");</code></pre>
 </div>
@@ -1265,7 +1265,7 @@ string.rfind( "world");</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string.rfind( ",", 1_uz );
 string.rfind( "world", std::strlen("world") );</code></pre>
 </div>
@@ -1280,7 +1280,7 @@ string.rfind( "world", std::strlen("world") );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string.rfind( string.rbegin() + 3, ',' );
 string.rfind( string.rbegin() + 3, "world" );</code></pre>
 </div>
@@ -1295,7 +1295,7 @@ string.rfind( string.rbegin() + 3, "world" );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string.rfind( ",", 1_uz );
 string.rfind( "world", std::strlen("world") );</code></pre>
 </div>
@@ -1310,7 +1310,7 @@ string.rfind( "world", std::strlen("world") );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 if( string.contains( "Hello" ) ) {
     /* .. */
 }</code></pre>
@@ -1326,7 +1326,7 @@ if( string.contains( "Hello" ) ) {
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 if( string.contains( "Hello", std::strlen("Hello") ) ) {
     /* .. */
 }</code></pre>
@@ -1342,7 +1342,7 @@ if( string.contains( "Hello", std::strlen("Hello") ) ) {
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 if( string.equals( "Hello, world!" ) ) {
     /* ... */
 }</code></pre>
@@ -1358,7 +1358,7 @@ if( string.equals( "Hello, world!" ) ) {
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 if( string.equals( "Hello", std::strlen("Hello") ) ) {
     /* ... */
 }</code></pre>
@@ -1386,7 +1386,7 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string.strip();
 string.strip( '\n' );
 string.strip( " ,\t\n" );
@@ -1415,7 +1415,7 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string.strip( " \x1B", std::strlen("\x1B") );</code></pre>
 </div>
 </div>
@@ -1441,7 +1441,7 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string.getStripped();
 string.getStripped( '\n' );
 string.getStripped( " ,\t\n" );
@@ -1470,7 +1470,7 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string.getStripped( " \x1B", std::strlen("\x1B") );</code></pre>
 </div>
 </div>
@@ -1496,7 +1496,7 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string = "\t\x1B Hello, world! \r\n ";
 string.trim( '\t' ); // "\x1B Hello, world! \r\n "
 string.trim( " \r\n" ); // "\t\x1B Hello, world!"
@@ -1525,7 +1525,7 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string = "\t\x1B Hello, world! \r\n ";
 string.trim( "\r \n\x1B", std::strlen("\r \n\x1B") ); // "\t\x1B Hello, world!"</code></pre>
 </div>
@@ -1552,7 +1552,7 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string = "\t\x1B Hello, world! \r\n ";
 string.getTrimmed( '\t' ); // "\x1B Hello, world! \r\n "
 string.getTrimmed( "\r\n" ); // "\t\x1B Hello, world! \r\n "
@@ -1581,7 +1581,7 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string = "\t\x1B Hello, world! \r\n ";
 string.getTrimmed( "\r \n\x1B", std::strlen("\r \n\x1B") ); // "\t\x1B Hello, world!"</code></pre>
 </div>
@@ -1608,7 +1608,7 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string = "\t\x1B Hello, world! \r\n ";
 string.trimLeft( '\t' ); // "\x1B Hello, world! \r\n "
 string.trimLeft( "\r\n" ); // "\t\x1B Hello, world! \r\n "
@@ -1637,7 +1637,7 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string = "\t\x1B Hello, world! \r\n ";
 string.trimLeft( "\r \n\x1B", std::strlen("\r \n\x1B") ); // "\t\x1B Hello, world! \r\n "</code></pre>
 </div>
@@ -1664,7 +1664,7 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string = "\t\x1B Hello, world! \r\n ";
 string.getTrimmedLeft( '\t' ); // "\x1B Hello, world! \r\n "
 string.getTrimmedLeft( "\r\n" ); // "\t\x1B Hello, world! \r\n "
@@ -1693,7 +1693,7 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string = "\t\x1B Hello, world! \r\n ";
 string.getTrimmedLeft( "\r \n\x1B", std::strlen("\r \n\x1B") ); // "\t\x1B Hello, world! \r\n "</code></pre>
 </div>
@@ -1720,7 +1720,7 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string = "\t\x1B Hello, world! \r\n ";
 string.trimRight( '\t' ); // "\t\x1B Hello, world! \r\n "
 string.trimRight( "\r\n" ); // "\t\x1B Hello, world! \r\n "
@@ -1749,7 +1749,7 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string = "\t\x1B Hello, world! \r\n ";
 string.trimRight( "\r \n\x1B", std::strlen("\r \n\x1B") ); // "\t\x1B Hello, world!"</code></pre>
 </div>
@@ -1776,7 +1776,7 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string = "\t\x1B Hello, world! \r\n ";
 string.getTrimmedRight( '\t' ); // "\t\x1B Hello, world! \r\n "
 string.getTrimmedRight( "\r\n" ); // "\t\x1B Hello, world! \r\n "
@@ -1805,7 +1805,7 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string = "\t\x1B Hello, world! \r\n ";
 string.getTrimmedRight( "\r \n\x1B", std::strlen("\r \n\x1B") ); // "\t\x1B Hello, world!"</code></pre>
 </div>
@@ -1820,7 +1820,7 @@ string.getTrimmedRight( "\r \n\x1B", std::strlen("\r \n\x1B") ); // "\t\x1B Hell
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string.reverse(); // "!dlrow ,olleH"</code></pre>
 </div>
 </div>
@@ -1834,7 +1834,7 @@ string.reverse(); // "!dlrow ,olleH"</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string.getReversed(); // "!dlrow ,olleH"</code></pre>
 </div>
 </div>
@@ -1848,7 +1848,7 @@ string.getReversed(); // "!dlrow ,olleH"</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string.toLower(); // "hello, world!";</code></pre>
 </div>
 </div>
@@ -1862,7 +1862,7 @@ string.toLower(); // "hello, world!";</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string.getToLower(); // "hello, world!";</code></pre>
 </div>
 </div>
@@ -1876,7 +1876,7 @@ string.getToLower(); // "hello, world!";</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string.toUpper(); // "HELLO, WORLD!";</code></pre>
 </div>
 </div>
@@ -1890,7 +1890,7 @@ string.toUpper(); // "HELLO, WORLD!";</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string.getToUpper(); // "HELLO, WORLD!";</code></pre>
 </div>
 </div>
@@ -1904,7 +1904,7 @@ string.getToUpper(); // "HELLO, WORLD!";</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string.replace( 'e', 'a' );
 string.replace( "\r\n", '\n' );
 string.replace( "'s", std::strlen("'s"), 's' );
@@ -1928,7 +1928,7 @@ string.replace( "going", std::strlen("going"), "saying goodbye", std::strlen("sa
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string.getReplaced( 'e', 'a' );
 string.getReplaced( "\r\n", '\n' );
 string.getReplaced( "'s", std::strlen("'s"), 's' );
@@ -1952,7 +1952,7 @@ string.getReplaced( "going", std::strlen("going"), "saying goodbye", std::strlen
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string.subString( string.begin(), string.begin() + 5 );</code></pre>
 </div>
 </div>
@@ -1966,7 +1966,7 @@ string.subString( string.begin(), string.begin() + 5 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string.getSubString( string.begin(), string.begin() + 5 );
 
 string.getSubString( string.find(", ") + std::strlen(", "), string.find( '!' ) );</code></pre>
@@ -1982,7 +1982,7 @@ string.getSubString( string.find(", ") + std::strlen(", "), string.find( '!' ) )
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">    EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">    EDF::String&lt;128&gt; string = "Hello, world!";
 
 /*
  * Copyright (c) 2023, Adam Veazey
@@ -9524,7 +9524,7 @@ int main() {
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 
 const char strLiteralChar[] = "const char*";
 const uint8_t strLiteralUint8_t[] = "const uint8_t*";
@@ -9568,7 +9568,7 @@ result = string + differentSizedString;</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::String&lt;128&gt; string = "Hello, world!";
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 
 const char strLiteralChar[] = "const char*";
 const uint8_t strLiteralUint8_t[] = "const uint8_t*";

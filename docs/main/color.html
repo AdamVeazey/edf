@@ -277,7 +277,7 @@
 <h3 id="_color_color565"><a class="anchor" href="#_color_color565"></a>Color(), Color565()</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Color black;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Color black;
 EDF::Color565 black;</code></pre>
 </div>
 </div>
@@ -287,7 +287,7 @@ EDF::Color565 black;</code></pre>
 <h3 id="_color_initialvalue_color565_initialvalue"><a class="anchor" href="#_color_initialvalue_color565_initialvalue"></a>Color( initialValue ), Color565( initialValue )</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Color salmon( 0xFA8072 );
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Color salmon( 0xFA8072 );
 EDF::Color565 salmon( 0xFC0E );</code></pre>
 </div>
 </div>
@@ -300,7 +300,7 @@ EDF::Color565 salmon( 0xFC0E );</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Color white( 255, 255, 255 );
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Color white( 255, 255, 255 );
 EDF::Color gray( 128, 128, 128, 255 );</code></pre>
 </div>
 </div>
@@ -310,7 +310,7 @@ EDF::Color gray( 128, 128, 128, 255 );</code></pre>
 <h3 id="_color565_r_g_b"><a class="anchor" href="#_color565_r_g_b"></a>Color565( r, g, b )</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Color565 white( 255, 255, 255 );</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Color565 white( 255, 255, 255 );</code></pre>
 </div>
 </div>
 <hr>
@@ -322,7 +322,7 @@ EDF::Color gray( 128, 128, 128, 255 );</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Color565 color( EDF::Color::blueViolet() );</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Color565 color( EDF::Color::blueViolet() );</code></pre>
 </div>
 </div>
 </div>
@@ -347,7 +347,7 @@ EDF::Color gray( 128, 128, 128, 255 );</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Color black;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Color black;
 black.setR( 255 );  // turn red
 black.setG( 255 );  // turn yellow
 black.setB( 255 );  // turn white
@@ -381,7 +381,7 @@ black.setB( 255 );  // turn white</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Color salmon( 0xFA8072 );
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Color salmon( 0xFA8072 );
 salmon.r(); // 0xFA
 salmon.g(); // 0x80
 salmon.b(); // 0x72
@@ -411,7 +411,7 @@ salmon.b(); // 0x70</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Color white( 255, 255, 255 );
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Color white( 255, 255, 255 );
 EDF::Color gray( 128, 128, 128, 255 );
 white.asRGB();  // 0xFFFFFF
 gray.asRGBA();  // 0xFFFFFFFF
@@ -432,7 +432,7 @@ white.asRGB();  // 0xFFFF</code></pre>
 <div class="listingblock">
 <div class="title">Predefined Colors</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">static constexpr Color red()        { return Color( 255,   0,   0 ); }
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">static constexpr Color red()        { return Color( 255,   0,   0 ); }
 static constexpr Color orange()     { return Color( 255, 128,   0 ); }
 static constexpr Color yellow()     { return Color( 255, 255,   0 ); }
 static constexpr Color lime()       { return Color( 128, 255,   0 ); }
@@ -460,7 +460,7 @@ static constexpr Color white()	    { return Color( 255, 255, 255 ); }</code></pr
 <div class="listingblock">
 <div class="title">Example Syntax to Access Predefined Colors</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Color::red();
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Color::red();
 EDF::Color::springGreen();
 EDF::Color::cyan();</code></pre>
 </div>

@@ -331,13 +331,13 @@ The queue can hold at most N-1 number of elements.
 <div class="listingblock">
 <div class="title">Example: <code>T</code> is default constructable</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;int, 8&gt; queue;</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;int, 8&gt; queue;</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Example: <a href="https://en.cppreference.com/w/cpp/language/list_initialization">list-initialization</a> with a custom type</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">struct CustomType{
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">struct CustomType{
     int value;
     CustomType( int v ) : value(v) {}
 };
@@ -380,7 +380,7 @@ Provided to make a common conditional check slightly more readable, as well as c
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;int, 8&gt; queue;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;int, 8&gt; queue;
 while( !queue.isEmpty() ){
     /* ... */</code></pre>
 </div>
@@ -394,7 +394,7 @@ while( !queue.isEmpty() ){
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;int, 8&gt; queue;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;int, 8&gt; queue;
 if( !queue.isFull() ) {
     /* ... */
 }</code></pre>
@@ -417,7 +417,7 @@ if( !queue.isFull() ) {
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;int, 8&gt; queue;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;int, 8&gt; queue;
 auto nElementsInQueue = queue.length();</code></pre>
 </div>
 </div>
@@ -430,7 +430,7 @@ auto nElementsInQueue = queue.length();</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;int, 8&gt; queue;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;int, 8&gt; queue;
 constexpr auto maxNumberOfElements = queue.maxLength();</code></pre>
 </div>
 </div>
@@ -460,7 +460,7 @@ Many, if not all, of the Operation member functions use <a href="assert.html#_ed
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;int, 8&gt; queue;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;int, 8&gt; queue;
 queue.push( 1 );
 auto&amp; firstElement = queue.peek();</code></pre>
 </div>
@@ -486,7 +486,7 @@ Name is peek instead of "front" for consistency with <a href="stack.html" class=
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;int, 8&gt; queue;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;int, 8&gt; queue;
 queue.push( 1 );</code></pre>
 </div>
 </div>
@@ -499,7 +499,7 @@ queue.push( 1 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;int, 8&gt; queue;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;int, 8&gt; queue;
 auto&amp; valueConstructed = queue.emplace( 2 );</code></pre>
 </div>
 </div>
@@ -512,7 +512,7 @@ auto&amp; valueConstructed = queue.emplace( 2 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;int, 8&gt; queue;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;int, 8&gt; queue;
     auto firstElement = queue.pop();</code></pre>
 </div>
 </div>
@@ -525,7 +525,7 @@ auto&amp; valueConstructed = queue.emplace( 2 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;int, 8&gt; queue;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;int, 8&gt; queue;
 queue.clear();</code></pre>
 </div>
 </div>
@@ -554,7 +554,7 @@ queue.clear();</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;uint8_t, 32&gt; q;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;uint8_t, 32&gt; q;
 q.push( 0x12 );
 uint8_t data8be = q.pop8be(); // 0x12</code></pre>
 </div>
@@ -568,7 +568,7 @@ uint8_t data8be = q.pop8be(); // 0x12</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;uint8_t, 32&gt; q;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;uint8_t, 32&gt; q;
 q.push( 0x12 );
 q.push( 0x34 );
 uint16_t data16be = q.pop16be(); // 0x1234</code></pre>
@@ -583,7 +583,7 @@ uint16_t data16be = q.pop16be(); // 0x1234</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;uint8_t, 32&gt; q;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;uint8_t, 32&gt; q;
 q.push( 0x12 );
 q.push( 0x34 );
 q.push( 0x56 );
@@ -600,7 +600,7 @@ uint32_t data32be = q.pop32be(); // 0x12345678</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;uint8_t, 32&gt; q;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;uint8_t, 32&gt; q;
 q.push( 0x12 );
 q.push( 0x34 );
 q.push( 0x56 );
@@ -626,7 +626,7 @@ uint64_t data64be = q.pop64be(); // 0x123456789ABCDEF0</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;uint8_t, 32&gt; q;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;uint8_t, 32&gt; q;
 q.push( 0x12 );
 uint8_t data8le = q.pop8le(); // 0x12</code></pre>
 </div>
@@ -640,7 +640,7 @@ uint8_t data8le = q.pop8le(); // 0x12</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;uint8_t, 32&gt; q;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;uint8_t, 32&gt; q;
 q.push( 0x34 );
 q.push( 0x12 );
 uint16_t data16le = q.pop16le(); // 0x1234</code></pre>
@@ -655,7 +655,7 @@ uint16_t data16le = q.pop16le(); // 0x1234</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;uint8_t, 32&gt; q;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;uint8_t, 32&gt; q;
 q.push( 0x78 );
 q.push( 0x56 );
 q.push( 0x34 );
@@ -672,7 +672,7 @@ uint32_t data32le = q.pop32le(); // 0x12345678</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Queue&lt;uint8_t, 32&gt; q;
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;uint8_t, 32&gt; q;
 q.push( 0xF0 );
 q.push( 0xDE );
 q.push( 0xBC );

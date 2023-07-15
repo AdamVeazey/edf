@@ -283,7 +283,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">using BitField8 = BitField&lt;uint8_t&gt;;</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">using BitField8 = BitField&lt;uint8_t&gt;;</code></pre>
 </div>
 </div>
 <hr>
@@ -295,7 +295,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">using BitField16 = BitField&lt;uint16_t&gt;;</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">using BitField16 = BitField&lt;uint16_t&gt;;</code></pre>
 </div>
 </div>
 <hr>
@@ -307,7 +307,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">using BitField32 = BitField&lt;uint32_t&gt;;</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">using BitField32 = BitField&lt;uint32_t&gt;;</code></pre>
 </div>
 </div>
 <hr>
@@ -319,7 +319,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">using BitField64 = BitField&lt;uint64_t&gt;;</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">using BitField64 = BitField&lt;uint64_t&gt;;</code></pre>
 </div>
 </div>
 </div>
@@ -334,14 +334,14 @@
 <div class="listingblock">
 <div class="title">Default Constructor</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::BitField32 bitfield;</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::BitField32 bitfield;</code></pre>
 </div>
 </div>
 <hr>
 <div class="listingblock">
 <div class="title">From Value</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::BitField8 bitfieldWithValue( 0xB1 );</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::BitField8 bitfieldWithValue( 0xB1 );</code></pre>
 </div>
 </div>
 </div>
@@ -357,7 +357,7 @@
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">bitfield.set( 8, 16, 0xAA55 ); // 0x00AA5500</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">bitfield.set( 8, 16, 0xAA55 ); // 0x00AA5500</code></pre>
 </div>
 </div>
 </div>
@@ -369,7 +369,7 @@
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">bitfield.get( 10, 4 ); // 0x000000A5</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">bitfield.get( 10, 4 ); // 0x000000A5</code></pre>
 </div>
 </div>
 </div>
@@ -380,7 +380,7 @@
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">// Cortex-M0 Program Status Register
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Cortex-M0 Program Status Register
 // Composed of APSR (Application), IPSR (Interrupt), and EPSR (Execution)
 class PSR : public EDF::BitField32 {
 public:
@@ -458,7 +458,7 @@ void function() {
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">// BME280 - Combined humidity and pressure sensor
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// BME280 - Combined humidity and pressure sensor
 class Config : public EDF::BitField8 {
 public:
     enum class Filter {
