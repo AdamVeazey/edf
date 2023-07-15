@@ -118,6 +118,6 @@ include::{path_example_edf_color_main_cpp}[tag=named_colors]
 .Example of how to use Color565 and Predefined Colors
 [source,indent=0,c++]
 ----
-    include::{path_example_edf_color_main_cpp}[tag=example_565_1]
+include::{path_example_edf_color_main_cpp}[tag=example_565_1,indent=1]
 include::{path_example_edf_color_main_cpp}[tag=example_565_2]
 ----
