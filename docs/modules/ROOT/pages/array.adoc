@@ -22,19 +22,19 @@ NOTE: `T` _Needs_ to be copyable, and _helps_ if `T` is also default constructab
 Default initialization requires type `T` to be default constructable. Otherwise https://en.cppreference.com/w/cpp/language/list_initialization[List-initialization] is required.
 
 .Example: Plain Old Data (https://stackoverflow.com/a/146454/19291638[POD])
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_array_main_cpp}[tag=init_POD]
 ----
 
 .Example: Custom Type
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_array_main_cpp}[tag=init_custom_type]
 ----
 
 .Example: Copy Assignment
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_array_main_cpp}[tag=init_copy_assignment]
 ----
@@ -45,22 +45,22 @@ Elements can be accessed in a few different ways. The first is the "standard" me
 ---
 
 === operator[]
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_array_main_cpp}[tag=init_POD]
 include::{path_example_edf_array_main_cpp}[tag=element_access_standard]
 ----
 
-This is exactly the same as with a C-style array. 
+This is exactly the same as with a C-style array.
 
-NOTE: This also means that there is no boundary checking, so it is possible to attempt to access data outside of the array. 
+NOTE: This also means that there is no boundary checking, so it is possible to attempt to access data outside of the array.
 
 ---
 
 [#at]
 === at( index )
 `index` is checked with {ref_edf_assert_EDF_ASSERTD} to be sure index is valid. In this example `abort()` is called when built in Debug mode.
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_array_main_cpp}[tag=init_POD]
 include::{path_example_edf_array_main_cpp}[tag=element_access_at]
@@ -105,4 +105,4 @@ Forward iterators and const iterators are available through `begin()`, `end()`, 
 
 Revese iterators and const reverse iterators are available through `rbegin()`, `rend()`, `crbegin()`, `crend()`
 
-TIP: https://en.cppreference.com/w/cpp/language/range-for[Range-based for loops] are therefore supported. 
+TIP: https://en.cppreference.com/w/cpp/language/range-for[Range-based for loops] are therefore supported.

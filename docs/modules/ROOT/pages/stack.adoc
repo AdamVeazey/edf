@@ -11,7 +11,7 @@ include::ROOT:partial$refs.adoc[]
 NOTE: `T` _Needs_ to be copyable, and _helps_ if `T` is also default constructable.
 
 == Overview
-This is a container adapter class to provide a LIFO data structure. Stack uses a {ref_edf_vector} as the underlying container. Stack has a maximum number of elements (`N`) the stack can "grow" to. 
+This is a container adapter class to provide a LIFO data structure. Stack uses a {ref_edf_vector} as the underlying container. Stack has a maximum number of elements (`N`) the stack can "grow" to.
 
 There are 3 groups of member functions:
 
@@ -24,13 +24,13 @@ Default initialization requires type `T` to be default constructable. Otherwise 
 
 
 .Example: `T` is default constructable
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_stack_main_cpp}[tag=init]
 ----
 
 .Example: {link_list_initialization} with a custom type
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_stack_main_cpp}[tag=init_no_default]
 ----
@@ -45,7 +45,7 @@ Equivalent to `<<length>> == 0` +
 Provided to make a common conditional check slightly more readable, as well as consistency with other xref:edf.adoc#_stl_like_containers[EDF containers].
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_stack_main_cpp}[tag=init]
 include::{path_example_edf_stack_main_cpp}[tag=is_question_empty]
@@ -56,7 +56,7 @@ include::{path_example_edf_stack_main_cpp}[tag=is_question_empty]
 Since a stack doesn't grow the underlying container, you should check if it is full before adding an element.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_stack_main_cpp}[tag=init]
 include::{path_example_edf_stack_main_cpp}[tag=is_question_full]
@@ -70,7 +70,7 @@ Provides information about how many current elements are in the stack, as well a
 Returns the number of elements currently in the stack.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_stack_main_cpp}[tag=init]
 include::{path_example_edf_stack_main_cpp}[tag=capacity_length]
@@ -81,7 +81,7 @@ include::{path_example_edf_stack_main_cpp}[tag=capacity_length]
 Returns template parameter `N`. It acts the same as a compile time constant. No need to remember how a macro for the stack max number of elements is named.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_stack_main_cpp}[tag=init]
 include::{path_example_edf_stack_main_cpp}[tag=capacity_max_length]
@@ -92,10 +92,10 @@ NOTE: Many, if not all, of the Operation member functions use {ref_edf_assert_ED
 
 [#peek]
 === peek()
-Returns the last value inserted into the stack without modifying the number of elements in the stack. 
+Returns the last value inserted into the stack without modifying the number of elements in the stack.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_stack_main_cpp}[tag=init]
 include::{path_example_edf_stack_main_cpp}[tag=operation_push]
@@ -106,10 +106,10 @@ NOTE: Name is peek instead of "top" for consistency with {ref_edf_queue}. It giv
 
 [#push]
 === push( value )
-Add element to the end of the stack. 
+Add element to the end of the stack.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_stack_main_cpp}[tag=init]
 include::{path_example_edf_stack_main_cpp}[tag=operation_push]
@@ -120,7 +120,7 @@ include::{path_example_edf_stack_main_cpp}[tag=operation_push]
 Add element to the end of the stack by constructing the element in place using https://en.cppreference.com/w/cpp/language/new#Placement_new[placement new].
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_stack_main_cpp}[tag=init]
 include::{path_example_edf_stack_main_cpp}[tag=operation_emplace]
@@ -131,7 +131,7 @@ include::{path_example_edf_stack_main_cpp}[tag=operation_emplace]
 Remove element from the end of the stack then return a copy of the value.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_stack_main_cpp}[tag=init]
 include::{path_example_edf_stack_main_cpp}[tag=operation_pop]
@@ -142,7 +142,7 @@ include::{path_example_edf_stack_main_cpp}[tag=operation_pop]
 Calls destructor for each element in stack. Sets the number of elements to 0.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_stack_main_cpp}[tag=init]
 include::{path_example_edf_stack_main_cpp}[tag=operation_clear]

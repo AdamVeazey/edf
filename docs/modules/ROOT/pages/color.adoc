@@ -8,7 +8,7 @@ Color is a 32-bit value where 8-bits are dedicated to red, green, blue, and alph
 == Initialization
 
 === Color(), Color565()
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_color_main_cpp}[tag=init_default]
 include::{path_example_edf_color_main_cpp}[tag=init_default_565]
@@ -17,7 +17,7 @@ include::{path_example_edf_color_main_cpp}[tag=init_default_565]
 ---
 
 === Color( initialValue ), Color565( initialValue )
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_color_main_cpp}[tag=init_initial_value]
 include::{path_example_edf_color_main_cpp}[tag=init_initial_value_565]
@@ -28,7 +28,7 @@ include::{path_example_edf_color_main_cpp}[tag=init_initial_value_565]
 === Color( r, g, b, a )
 `a` is optional, default's to 255 if not provided which means opacity is 100%.
 
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_color_main_cpp}[tag=init_rgba]
 ----
@@ -36,7 +36,7 @@ include::{path_example_edf_color_main_cpp}[tag=init_rgba]
 ---
 
 === Color565( r, g, b )
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_color_main_cpp}[tag=init_rgba_565]
 ----
@@ -46,7 +46,7 @@ include::{path_example_edf_color_main_cpp}[tag=init_rgba_565]
 === Color565( c )
 `c` is a `Color`
 
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_color_main_cpp}[tag=init_color_565]
 ----
@@ -57,7 +57,7 @@ include::{path_example_edf_color_main_cpp}[tag=init_color_565]
 
 NOTE: `setA( a )` only exists for `Color` not `Color565`.
 
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_color_main_cpp}[tag=init_default]
 include::{path_example_edf_color_main_cpp}[tag=set_rgba]
@@ -72,7 +72,7 @@ include::{path_example_edf_color_main_cpp}[tag=set_rgba_565]
 
 NOTE: `a()` only exists for `Color` not `Color565`.
 
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_color_main_cpp}[tag=init_initial_value]
 include::{path_example_edf_color_main_cpp}[tag=get_rgba]
@@ -87,7 +87,7 @@ include::{path_example_edf_color_main_cpp}[tag=get_rgba_565]
 
 NOTE: `asRGBA()` only exists for `Color` not `Color565`.
 
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_color_main_cpp}[tag=init_rgba]
 include::{path_example_edf_color_main_cpp}[tag=get_as]
@@ -100,7 +100,7 @@ include::{path_example_edf_color_main_cpp}[tag=get_as_565]
 There are a few named colors predefined in `Color`.
 
 .Predefined Colors
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_src_edf_color_hpp}[tag=named_colors]
 ----
@@ -108,7 +108,7 @@ include::{path_src_edf_color_hpp}[tag=named_colors]
 ---
 
 .Example Syntax to Access Predefined Colors
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_color_main_cpp}[tag=named_colors]
 ----

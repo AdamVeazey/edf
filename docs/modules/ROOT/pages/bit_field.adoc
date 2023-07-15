@@ -10,7 +10,7 @@ BitField is designed as a building block for naming bits within a register. BitF
 
 === BitField8
 This is an alias for a BitField of 8 bits
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_src_edf_bit_field_hpp}[tag=uint8_t]
 ----
@@ -19,7 +19,7 @@ include::{path_src_edf_bit_field_hpp}[tag=uint8_t]
 
 === BitField16
 This is an alias for a BitField of 16 bits
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_src_edf_bit_field_hpp}[tag=uint16_t]
 ----
@@ -28,7 +28,7 @@ include::{path_src_edf_bit_field_hpp}[tag=uint16_t]
 
 === BitField32
 This is an alias for a BitField of 32 bits
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_src_edf_bit_field_hpp}[tag=uint32_t]
 ----
@@ -37,7 +37,7 @@ include::{path_src_edf_bit_field_hpp}[tag=uint32_t]
 
 === BitField64
 This is an alias for a BitField of 64 bits
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_src_edf_bit_field_hpp}[tag=uint64_t]
 ----
@@ -46,7 +46,7 @@ include::{path_src_edf_bit_field_hpp}[tag=uint64_t]
 If using a default constructor the initial value will be 0.
 
 .Default Constructor
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_bit_field_main_cpp}[tag=init_default]
 ----
@@ -54,7 +54,7 @@ include::{path_example_edf_bit_field_main_cpp}[tag=init_default]
 ---
 
 .From Value
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_bit_field_main_cpp}[tag=init_with_value]
 ----
@@ -65,7 +65,7 @@ include::{path_example_edf_bit_field_main_cpp}[tag=init_with_value]
 Assigns value to the BitField at `startBit` for `span` number of bits.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_bit_field_main_cpp}[tag=operation_set]
 ----
@@ -74,21 +74,21 @@ include::{path_example_edf_bit_field_main_cpp}[tag=operation_set]
 Reads the value from the BitField at `startBit` for `span` number of bits.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_bit_field_main_cpp}[tag=operation_get]
 ----
 
 [#PSR]
 == https://developer.arm.com/documentation/dui0497/a/the-cortex-m0-processor/programmers-model/core-registers?lang=en[ARM Cortex-M0 PSR Registers]
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_bit_field_main_cpp}[tag=example_register_psr]
 ----
 
 [#Config]
 == https://www.mouser.com/datasheet/2/783/BST-BME280-DS002-1509607.pdf#page=30[BME280 Config register]
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_bit_field_main_cpp}[tag=example_bme280_config]
 ----

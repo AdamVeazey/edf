@@ -26,13 +26,13 @@ There are 4 main groups of member functions:
 Default initialization requires type `T` to be default constructable. Otherwise {link_list_initialization} is required.
 
 .Example: `T` is default constructable
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_queue_main_cpp}[tag=init]
 ----
 
 .Example: {link_list_initialization} with a custom type
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_queue_main_cpp}[tag=init_no_default]
 ----
@@ -47,7 +47,7 @@ Equivalent to `<<length>> == 0` +
 Provided to make a common conditional check slightly more readable, as well as consistency with other xref:edf.adoc#_stl_like_containers[EDF containers].
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_queue_main_cpp}[tag=init]
 include::{path_example_edf_queue_main_cpp}[tag=is_question_empty]
@@ -58,7 +58,7 @@ include::{path_example_edf_queue_main_cpp}[tag=is_question_empty]
 Since a queue doesn't grow the underlying container, you should check if it is full before adding an element.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_queue_main_cpp}[tag=init]
 include::{path_example_edf_queue_main_cpp}[tag=is_question_full]
@@ -72,7 +72,7 @@ Provides information about how many current elements are in the queue, as well a
 Returns the number of elements currently in the queue.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_queue_main_cpp}[tag=init]
 include::{path_example_edf_queue_main_cpp}[tag=capacity_length]
@@ -83,7 +83,7 @@ include::{path_example_edf_queue_main_cpp}[tag=capacity_length]
 Returns template parameter `N` - 1. It acts the same as a compile time constant. No need to remember how a macro for the queue max number of elements is named.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_queue_main_cpp}[tag=init]
 include::{path_example_edf_queue_main_cpp}[tag=capacity_max_length]
@@ -94,10 +94,10 @@ NOTE: Many, if not all, of the Operation member functions use {ref_edf_assert_ED
 
 [#peek]
 === peek()
-Returns the first value inserted into the queue without modifying the number of elements in the queue. 
+Returns the first value inserted into the queue without modifying the number of elements in the queue.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_queue_main_cpp}[tag=init]
 include::{path_example_edf_queue_main_cpp}[tag=operation_push]
@@ -108,10 +108,10 @@ NOTE: Name is peek instead of "front" for consistency with {ref_edf_stack}. It g
 
 [#push]
 === push( value )
-Add element to the end of the queue. 
+Add element to the end of the queue.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_queue_main_cpp}[tag=init]
 include::{path_example_edf_queue_main_cpp}[tag=operation_push]
@@ -122,7 +122,7 @@ include::{path_example_edf_queue_main_cpp}[tag=operation_push]
 Add element to the end of the queue by constructing the element in place using https://en.cppreference.com/w/cpp/language/new#Placement_new[placement new].
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_queue_main_cpp}[tag=init]
 include::{path_example_edf_queue_main_cpp}[tag=operation_emplace]
@@ -133,7 +133,7 @@ include::{path_example_edf_queue_main_cpp}[tag=operation_emplace]
 Remove element from the end of the queue then return a copy of the value.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_queue_main_cpp}[tag=init]
 include::{path_example_edf_queue_main_cpp}[tag=operation_pop]
@@ -144,16 +144,16 @@ include::{path_example_edf_queue_main_cpp}[tag=operation_pop]
 Calls destructor for each element in queue. Sets the number of elements to 0.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_queue_main_cpp}[tag=init]
 include::{path_example_edf_queue_main_cpp}[tag=operation_clear]
 ----
 
 == uint8_t Specialized Member Functions
-A common usage of a queue is to hold a buffer of incoming data from a data source, like {ref_peripherals_uart} for example. Add incoming data to the queue with <<push>> and parse that data using <<pop>>. The following set of functions are provided as alternatives to <<pop>> when parsing an integer from the stream of data. 
+A common usage of a queue is to hold a buffer of incoming data from a data source, like {ref_peripherals_uart} for example. Add incoming data to the queue with <<push>> and parse that data using <<pop>>. The following set of functions are provided as alternatives to <<pop>> when parsing an integer from the stream of data.
 
-There are two groups of uint8_t Specialized Member Functions, big endian (AKA https://en.wikipedia.org/wiki/Endianness#Networking[Network Order]) and little endian. Big endian member functions are marked with the suffix "be". Little endian member functions are marked with the suffix "le". 
+There are two groups of uint8_t Specialized Member Functions, big endian (AKA https://en.wikipedia.org/wiki/Endianness#Networking[Network Order]) and little endian. Big endian member functions are marked with the suffix "be". Little endian member functions are marked with the suffix "le".
 
 == Big Endian pop() Member Functions
 
@@ -162,7 +162,7 @@ There are two groups of uint8_t Specialized Member Functions, big endian (AKA ht
 Alias for <<pop>>, only provided for consistency of other big endian pop functions.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_queue_main_cpp}[tag=uint8_t_init]
 include::{path_example_edf_queue_main_cpp}[tag=uint8_t_pop8be]
@@ -170,10 +170,10 @@ include::{path_example_edf_queue_main_cpp}[tag=uint8_t_pop8be]
 
 [#pop16be]
 === pop16be()
-Calls <<pop8be>> twice to get two bytes from the queue and interpret them as a big-endian 16-bit unsigned integer. 
+Calls <<pop8be>> twice to get two bytes from the queue and interpret them as a big-endian 16-bit unsigned integer.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_queue_main_cpp}[tag=uint8_t_init]
 include::{path_example_edf_queue_main_cpp}[tag=uint8_t_pop16be]
@@ -181,10 +181,10 @@ include::{path_example_edf_queue_main_cpp}[tag=uint8_t_pop16be]
 
 [#pop32be]
 === pop32be()
-Calls <<pop16be>> twice to get four bytes from the queue and interpret them as a big-endian 32-bit unsigned integer. 
+Calls <<pop16be>> twice to get four bytes from the queue and interpret them as a big-endian 32-bit unsigned integer.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_queue_main_cpp}[tag=uint8_t_init]
 include::{path_example_edf_queue_main_cpp}[tag=uint8_t_pop32be]
@@ -192,10 +192,10 @@ include::{path_example_edf_queue_main_cpp}[tag=uint8_t_pop32be]
 
 [#pop64be]
 === pop64be()
-Calls <<pop32be>> twice to get eight bytes from the queue and interpret them as a big-endian 64-bit unsigned integer. 
+Calls <<pop32be>> twice to get eight bytes from the queue and interpret them as a big-endian 64-bit unsigned integer.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_queue_main_cpp}[tag=uint8_t_init]
 include::{path_example_edf_queue_main_cpp}[tag=uint8_t_pop64be]
@@ -208,7 +208,7 @@ include::{path_example_edf_queue_main_cpp}[tag=uint8_t_pop64be]
 Alias for <<pop>>, only provided for consistency of other little endian pop functions.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_queue_main_cpp}[tag=uint8_t_init]
 include::{path_example_edf_queue_main_cpp}[tag=uint8_t_pop8le]
@@ -216,10 +216,10 @@ include::{path_example_edf_queue_main_cpp}[tag=uint8_t_pop8le]
 
 [#pop16le]
 === pop16le()
-Calls <<pop8le>> twice to get two bytes from the queue and interpret them as a little-endian 16-bit unsigned integer. 
+Calls <<pop8le>> twice to get two bytes from the queue and interpret them as a little-endian 16-bit unsigned integer.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_queue_main_cpp}[tag=uint8_t_init]
 include::{path_example_edf_queue_main_cpp}[tag=uint8_t_pop16le]
@@ -227,10 +227,10 @@ include::{path_example_edf_queue_main_cpp}[tag=uint8_t_pop16le]
 
 [#pop32le]
 === pop32le()
-Calls <<pop16le>> twice to get four bytes from the queue and interpret them as a little-endian 32-bit unsigned integer. 
+Calls <<pop16le>> twice to get four bytes from the queue and interpret them as a little-endian 32-bit unsigned integer.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_queue_main_cpp}[tag=uint8_t_init]
 include::{path_example_edf_queue_main_cpp}[tag=uint8_t_pop32le]
@@ -238,10 +238,10 @@ include::{path_example_edf_queue_main_cpp}[tag=uint8_t_pop32le]
 
 [#pop64le]
 === pop64le()
-Calls <<pop32le>> twice to get eight bytes from the queue and interpret them as a little-endian 64-bit unsigned integer. 
+Calls <<pop32le>> twice to get eight bytes from the queue and interpret them as a little-endian 64-bit unsigned integer.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_queue_main_cpp}[tag=uint8_t_init]
 include::{path_example_edf_queue_main_cpp}[tag=uint8_t_pop64le]

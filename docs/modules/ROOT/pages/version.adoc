@@ -24,7 +24,7 @@ There are 4 groups of member functions:
 Default version number of 0.0.0
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_version_main_cpp}[tag=init_default]
 ----
@@ -34,7 +34,7 @@ include::{path_example_edf_version_main_cpp}[tag=init_default]
 === Version( const char* )
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_version_main_cpp}[tag=init]
 ----
@@ -44,7 +44,7 @@ include::{path_example_edf_version_main_cpp}[tag=init]
 === Version( const uint32_t& )
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_version_main_cpp}[tag=init_value]
 ----
@@ -54,7 +54,7 @@ include::{path_example_edf_version_main_cpp}[tag=init_value]
 === Version( const char (&str)[N] )
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_version_main_cpp}[tag=init_str_array]
 ----
@@ -64,7 +64,7 @@ include::{path_example_edf_version_main_cpp}[tag=init_str_array]
 === Version( const EDF::String<N>& str )
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_version_main_cpp}[tag=init_edf_string]
 ----
@@ -74,7 +74,7 @@ include::{path_example_edf_version_main_cpp}[tag=init_edf_string]
 === getMajor()
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_version_main_cpp}[tag=init]
 include::{path_example_edf_version_main_cpp}[tag=access_get_major]
@@ -85,7 +85,7 @@ include::{path_example_edf_version_main_cpp}[tag=access_get_major]
 === getMinor()
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_version_main_cpp}[tag=init]
 include::{path_example_edf_version_main_cpp}[tag=access_get_minor]
@@ -96,7 +96,7 @@ include::{path_example_edf_version_main_cpp}[tag=access_get_minor]
 === getPatch()
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_version_main_cpp}[tag=init]
 include::{path_example_edf_version_main_cpp}[tag=access_get_patch]
@@ -107,7 +107,7 @@ include::{path_example_edf_version_main_cpp}[tag=access_get_patch]
 === asNumber()
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_version_main_cpp}[tag=init]
 include::{path_example_edf_version_main_cpp}[tag=access_as_number]
@@ -118,7 +118,7 @@ include::{path_example_edf_version_main_cpp}[tag=access_as_number]
 === asString()
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_version_main_cpp}[tag=init]
 include::{path_example_edf_version_main_cpp}[tag=access_as_string]
@@ -129,7 +129,7 @@ include::{path_example_edf_version_main_cpp}[tag=access_as_string]
 === asCString()
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_version_main_cpp}[tag=init]
 include::{path_example_edf_version_main_cpp}[tag=access_as_c_string]
@@ -139,7 +139,7 @@ include::{path_example_edf_version_main_cpp}[tag=access_as_c_string]
 This is a static function to get the current version of EDF being used.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_version_main_cpp}[tag=edf_version]
 ----
@@ -149,7 +149,7 @@ include::{path_example_edf_version_main_cpp}[tag=edf_version]
 === operator>()
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_version_main_cpp}[tag=init]
 include::{path_example_edf_version_main_cpp}[tag=operator_greater]
@@ -158,7 +158,7 @@ include::{path_example_edf_version_main_cpp}[tag=operator_greater]
 === operator<()
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_version_main_cpp}[tag=init]
 include::{path_example_edf_version_main_cpp}[tag=operator_less]
@@ -167,7 +167,7 @@ include::{path_example_edf_version_main_cpp}[tag=operator_less]
 === operator>=()
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_version_main_cpp}[tag=init]
 include::{path_example_edf_version_main_cpp}[tag=operator_greater_equal]
@@ -176,7 +176,7 @@ include::{path_example_edf_version_main_cpp}[tag=operator_greater_equal]
 === operator<=()
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_version_main_cpp}[tag=init]
 include::{path_example_edf_version_main_cpp}[tag=operator_less_equal]
@@ -185,7 +185,7 @@ include::{path_example_edf_version_main_cpp}[tag=operator_less_equal]
 === operator==()
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_version_main_cpp}[tag=init]
 include::{path_example_edf_version_main_cpp}[tag=operator_equal]
@@ -194,7 +194,7 @@ include::{path_example_edf_version_main_cpp}[tag=operator_equal]
 === operator!=()
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_version_main_cpp}[tag=init]
 include::{path_example_edf_version_main_cpp}[tag=operator_not_equal]

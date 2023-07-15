@@ -13,7 +13,7 @@ NOTE: `N` includes '\0', so if `N = 8` the string can hold `7` characters, with 
 
 == TL;DR
 The following example shows some usage of string <<Operations,operations>> to check if `string` is a palindrome or not without mutating the original `string`.
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=example_is_palindrome]
 ----
@@ -60,7 +60,7 @@ A string can be created with any of the <<overloads, overloads>>.
 === String()
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init_default]
 ----
@@ -69,7 +69,7 @@ include::{path_example_edf_string_main_cpp}[tag=init_default]
 
 === <<const_char_star,String( const char* )>>
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init_const_char_star]
 ----
@@ -78,7 +78,7 @@ include::{path_example_edf_string_main_cpp}[tag=init_const_char_star]
 
 === <<const_uint8_t_star,String( const uint8_t* )>>
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init_str_literal_uint8_t]
 include::{path_example_edf_string_main_cpp}[tag=init_p_literal_uint8_t]
@@ -89,7 +89,7 @@ include::{path_example_edf_string_main_cpp}[tag=init_const_uint8_t_star]
 
 === <<const_char_star_n,String( const char*, n )>>
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init_str_literal_char]
 include::{path_example_edf_string_main_cpp}[tag=init_p_literal_char]
@@ -100,7 +100,7 @@ include::{path_example_edf_string_main_cpp}[tag=init_const_char_star_n]
 
 === <<const_uint8_t_star_n,String( const uint8_t*, n )>>
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init_str_literal_uint8_t]
 include::{path_example_edf_string_main_cpp}[tag=init_p_literal_uint8_t]
@@ -111,7 +111,7 @@ include::{path_example_edf_string_main_cpp}[tag=init_const_uint8_t_star_n]
 
 === <<const_char_ref,String( const char (&)[S] )>>
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init_str_literal_char]
 include::{path_example_edf_string_main_cpp}[tag=init_const_char_ref]
@@ -121,7 +121,7 @@ include::{path_example_edf_string_main_cpp}[tag=init_const_char_ref]
 
 === <<const_const_uint8_t_ref,String( const uint8_t (&)[S] )>>
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init_str_literal_uint8_t]
 include::{path_example_edf_string_main_cpp}[tag=init_const_uint8_t_ref]
@@ -131,7 +131,7 @@ include::{path_example_edf_string_main_cpp}[tag=init_const_uint8_t_ref]
 
 === <<char,String( char )>>
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init_char]
 ----
@@ -140,7 +140,7 @@ include::{path_example_edf_string_main_cpp}[tag=init_char]
 
 === <<int8_t,String( int8_t, base )>>
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init_literal_int8_t]
 include::{path_example_edf_string_main_cpp}[tag=init_int8_t]
@@ -150,7 +150,7 @@ include::{path_example_edf_string_main_cpp}[tag=init_int8_t]
 
 === <<int16_t,String( int16_t, base )>>
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init_literal_int16_t]
 include::{path_example_edf_string_main_cpp}[tag=init_int16_t]
@@ -160,7 +160,7 @@ include::{path_example_edf_string_main_cpp}[tag=init_int16_t]
 
 === <<int32_t,String( int32_t, base )>>
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init_literal_int32_t]
 include::{path_example_edf_string_main_cpp}[tag=init_int32_t]
@@ -170,7 +170,7 @@ include::{path_example_edf_string_main_cpp}[tag=init_int32_t]
 
 === <<int64_t,String( int64_t, base )>>
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init_literal_int64_t]
 include::{path_example_edf_string_main_cpp}[tag=init_int64_t]
@@ -180,7 +180,7 @@ include::{path_example_edf_string_main_cpp}[tag=init_int64_t]
 
 === <<uint8_t,String( uint8_t, base )>>
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init_literal_uint8_t]
 include::{path_example_edf_string_main_cpp}[tag=init_uint8_t]
@@ -190,7 +190,7 @@ include::{path_example_edf_string_main_cpp}[tag=init_uint8_t]
 
 === <<uint16_t,String( uint16_t, base )>>
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init_literal_uint16_t]
 include::{path_example_edf_string_main_cpp}[tag=init_uint16_t]
@@ -200,7 +200,7 @@ include::{path_example_edf_string_main_cpp}[tag=init_uint16_t]
 
 === <<uint32_t,String( uint32_t, base )>>
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init_literal_uint32_t]
 include::{path_example_edf_string_main_cpp}[tag=init_uint32_t]
@@ -210,7 +210,7 @@ include::{path_example_edf_string_main_cpp}[tag=init_uint32_t]
 
 === <<uint64_t,String( uint64_t, base )>>
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init_literal_uint64_t]
 include::{path_example_edf_string_main_cpp}[tag=init_uint64_t]
@@ -220,7 +220,7 @@ include::{path_example_edf_string_main_cpp}[tag=init_uint64_t]
 
 === <<string,String( string )>>
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init_literal_different_sized_string]
 include::{path_example_edf_string_main_cpp}[tag=init_string]
@@ -237,7 +237,7 @@ Equivalent to `<<length>> == 0` +
 Provided to make a common conditional check slightly more readable, as well as consistency with other xref:edf.adoc#_stl_like_containers[EDF containers].
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=is_question_empty]
@@ -250,7 +250,7 @@ include::{path_example_edf_string_main_cpp}[tag=is_question_empty]
 Since a string doesn't grow the underlying container. Returns if `<<length>> == N - 1`
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=is_question_full]
@@ -266,7 +266,7 @@ Provides information about how many current characters are in the string, as wel
 Returns the number of characters currently in the string.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=capacity_length]
@@ -279,7 +279,7 @@ include::{path_example_edf_string_main_cpp}[tag=capacity_length]
 Returns template parameter `N` - 1. It acts the same as a compile time constant. No need to remember how a macro for the string max number of characters is named.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=capacity_max_length]
@@ -291,7 +291,7 @@ include::{path_example_edf_string_main_cpp}[tag=capacity_max_length]
 This is exactly the same as with a C-style array.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=element_access_standard]
@@ -308,7 +308,7 @@ NOTE: 0{ref_edf_math_uz}
 `index` is checked with {ref_edf_assert_EDF_ASSERTD} to be sure index is valid.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=element_access_at]
@@ -322,7 +322,7 @@ NOTE: 0{ref_edf_math_uz}
 Returns a raw pointer to the first element of the string.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
     void working_with_a_c_library_function( const char *data, size_t n ) { /* ... */}
 
@@ -338,7 +338,7 @@ NOTE: Can be called in order to "decay" to a pointer like a C-Style array
 Returns a raw pointer to the first element of the string.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
     void working_with_a_c_library_function( const uint8_t *data, size_t n ) { /* ... */}
 
@@ -355,7 +355,7 @@ A string that contains _only_ a series of characters that represent a single num
 
 === toInt8_t( base )
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init_literal_int8_t]
 include::{path_example_edf_string_main_cpp}[tag=init_int8_t]
@@ -366,7 +366,7 @@ include::{path_example_edf_string_main_cpp}[tag=conversion_to_int8_t]
 
 === toInt16_t( base )
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init_literal_int16_t]
 include::{path_example_edf_string_main_cpp}[tag=init_int16_t]
@@ -377,7 +377,7 @@ include::{path_example_edf_string_main_cpp}[tag=conversion_to_int16_t]
 
 === toInt32_t( base )
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init_literal_int32_t]
 include::{path_example_edf_string_main_cpp}[tag=init_int32_t]
@@ -388,7 +388,7 @@ include::{path_example_edf_string_main_cpp}[tag=conversion_to_int32_t]
 
 === toInt64_t( base )
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init_literal_int64_t]
 include::{path_example_edf_string_main_cpp}[tag=init_int64_t]
@@ -399,7 +399,7 @@ include::{path_example_edf_string_main_cpp}[tag=conversion_to_int64_t]
 
 === toUint8_t( base )
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init_literal_uint8_t]
 include::{path_example_edf_string_main_cpp}[tag=init_uint8_t]
@@ -410,7 +410,7 @@ include::{path_example_edf_string_main_cpp}[tag=conversion_to_uint8_t]
 
 === toUint16_t( base )
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init_literal_uint16_t]
 include::{path_example_edf_string_main_cpp}[tag=init_uint16_t]
@@ -421,7 +421,7 @@ include::{path_example_edf_string_main_cpp}[tag=conversion_to_uint16_t]
 
 === toUint32_t( base )
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init_literal_uint32_t]
 include::{path_example_edf_string_main_cpp}[tag=init_uint32_t]
@@ -432,7 +432,7 @@ include::{path_example_edf_string_main_cpp}[tag=conversion_to_uint32_t]
 
 === toUint64_t( base )
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init_literal_uint64_t]
 include::{path_example_edf_string_main_cpp}[tag=init_uint64_t]
@@ -475,7 +475,7 @@ NOTE: For member functions that have an index/position as their first argument, 
 Appends the `value` to the end of the string, given there is enough space to hold that `value`. All of the <<overloads, overloads>> for different values exist for <<append>>. This set of member functions do mutate string.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_append]
@@ -488,7 +488,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_append]
 Makes a copy of the current string, then appends `value` to the copied string. All of the <<overloads, overloads>> for different values exist for <<get_appended>>. This set of member functions do *NOT* mutate string.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_get_appended]
@@ -501,7 +501,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_get_appended]
 Inserts the `value` to at the specified index/position, given there is enough space to hold that `value`. All of the <<overloads, overloads>> for different values exist for <<insert>>, with the additional index/position parameter as the first argument. This set of member functions do mutate string.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_insert]
@@ -514,7 +514,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_insert]
 Makes a copy of the current string, then inserts `value` to the copied string at the specified index/position. All of the <<overloads, overloads>> for different values exist for <<get_inserted>>, with the additional index/position parameter as the first argument. This set of member functions do *NOT* mutate string.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_get_inserted]
@@ -527,7 +527,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_get_inserted]
 Erase a single character at the selected index/position. This member function does mutate the string.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_erase]
@@ -540,7 +540,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_erase]
 Makes a copy of the current string, then erases a single character at the selected index/position. This member function does *NOT* mutate the string.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_get_erased]
@@ -553,7 +553,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_get_erased]
 Erase a range of characters [start, end) starting from `start` up to but not including `end`. This member function does mutate the string.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_erase_range]
@@ -566,7 +566,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_erase_range]
 Makes a copy of the current string, then erases a range of characters [start, end) starting from `start` up to but not including `end`. This member function does *NOT* mutate the string.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_get_erased_range]
@@ -585,7 +585,7 @@ Erases everything in the string, such that <<length>> returns 0. Underlying buff
 Copy string to the output parameter buffer.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_copy_to]
@@ -597,7 +597,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_copy_to]
 Copy string to the output parameter buffer.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_copy_to_array]
@@ -610,7 +610,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_copy_to_array]
 Find the first occurrence of a given value, starting at `begin()`.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_find]
@@ -622,7 +622,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_find]
 Find the first occurrence of a given value, starting at `begin()`.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_find_n]
@@ -634,7 +634,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_find_n]
 Find the first occurrence of a given value, starting at `pos`.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_find_pos]
@@ -646,7 +646,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_find_pos]
 Find the first occurrence of a given value, starting at `pos`.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_find_pos_n]
@@ -659,7 +659,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_find_pos_n]
 Reverse find first occurrence of a given value, starting at `rbegin()`.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_rfind]
@@ -671,7 +671,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_rfind]
 Reverse find first occurrence of a given value, starting at `rbegin()`.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_rfind_n]
@@ -683,7 +683,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_rfind_n]
 Reverse find first occurrence of a given value, starting at `pos`.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_rfind_pos]
@@ -695,7 +695,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_rfind_pos]
 Reverse find first occurrence of a given value, starting at `pos`.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_rfind_pos_n]
@@ -708,7 +708,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_rfind_pos_n]
 Check if value is contained anywhere within string.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_contains]
@@ -720,7 +720,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_contains]
 Check if value is contained anywhere within string.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_contains_n]
@@ -733,7 +733,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_contains_n]
 Check if value is exactly equal to string. Lexicographically compares the two strings.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_equals]
@@ -745,7 +745,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_equals]
 Check if value is exactly equal to string. Lexicographically compares the two strings.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_equals_n]
@@ -760,7 +760,7 @@ If value is provided, all occurrences of each character provided are removed fro
 NOTE: {printable_characters}
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_strip]
@@ -774,7 +774,7 @@ If value is provided, all occurrences of each character provided are removed fro
 NOTE: {printable_characters}
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_strip_n]
@@ -788,7 +788,7 @@ If value is provided, all occurrences of each character provided are removed fro
 NOTE: {printable_characters}
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_get_stripped]
@@ -802,7 +802,7 @@ If value is provided, all occurrences of each character provided are removed fro
 NOTE: {printable_characters}
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_get_stripped_n]
@@ -817,7 +817,7 @@ If no value is provided, trim removes all non-printable characters from this str
 NOTE: {printable_characters}
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_trim]
@@ -831,7 +831,7 @@ If no value is provided, trim removes all non-printable characters from this str
 NOTE: {printable_characters}
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_trim_n]
@@ -845,7 +845,7 @@ If no value is provided, trim removes all non-printable characters from a copy o
 NOTE: {printable_characters}
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_get_trim]
@@ -859,7 +859,7 @@ If no value is provided, trim removes all non-printable characters from a copy o
 NOTE: {printable_characters}
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_get_trim_n]
@@ -874,7 +874,7 @@ If no value is provided, trim removes all non-printable characters from this str
 NOTE: {printable_characters}
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_trim_left]
@@ -888,7 +888,7 @@ If no value is provided, trim removes all non-printable characters from this str
 NOTE: {printable_characters}
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_trim_left_n]
@@ -902,7 +902,7 @@ If no value is provided, trim removes all non-printable characters from a copy o
 NOTE: {printable_characters}
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_get_trimmed_left]
@@ -916,7 +916,7 @@ If no value is provided, trim removes all non-printable characters from a copy o
 NOTE: {printable_characters}
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_get_trimmed_left_n]
@@ -931,7 +931,7 @@ If no value is provided, trim removes all non-printable characters from this str
 NOTE: {printable_characters}
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_trim_right]
@@ -945,7 +945,7 @@ If no value is provided, trim removes all non-printable characters from this str
 NOTE: {printable_characters}
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_trim_right_n]
@@ -959,7 +959,7 @@ If no value is provided, trim removes all non-printable characters from a copy o
 NOTE: {printable_characters}
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_get_trimmed_right]
@@ -973,7 +973,7 @@ If no value is provided, trim removes all non-printable characters from a copy o
 NOTE: {printable_characters}
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_get_trimmed_right_n]
@@ -985,7 +985,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_get_trimmed_right_n]
 This reverses all of the characters in the string.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_reverse]
@@ -997,7 +997,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_reverse]
 This reverses all of the characters in a copy of the string.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_get_reversed]
@@ -1010,7 +1010,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_get_reversed]
 This changes all uppercase characters in the string to lowercase. Ignores symbols, numbers, non-printable characters.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_to_lower]
@@ -1022,7 +1022,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_to_lower]
 This changes all uppercase characters in a copy of the string to lowercase. Ignores symbols, numbers, non-printable characters.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_get_to_lower]
@@ -1035,7 +1035,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_get_to_lower]
 This changes all lowercase characters in the string to uppercase. Ignores symbols, numbers, non-printable characters.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_to_upper]
@@ -1047,7 +1047,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_to_upper]
 This changes all lowercase characters in a copy of the string to uppercase. Ignores symbols, numbers, non-printable characters.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_get_to_upper]
@@ -1060,7 +1060,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_get_to_upper]
 Replace all occurrences of `lookFor` in the string with the value of `replaceWith`.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_replace]
@@ -1072,7 +1072,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_replace]
 Replace all occurrences of `lookFor` in a copy of the string with the value of `replaceWith`.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_get_replace]
@@ -1085,7 +1085,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_get_replace]
 Remove everything except for the range [`start`, `end`) in the string. Erase [`end`, end()), then erase [begin(), `start`)
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_substring]
@@ -1097,7 +1097,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_substring]
 Remove everything except for the range [`start`, `end`) in a copy of the string. Erase [`end`, end()), then erase [begin(), `start`)
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_get_substring]
@@ -1110,7 +1110,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_get_substring]
 Syntax sugar for calling <<append>>.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 
@@ -1138,7 +1138,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_plus_equals2]
 Syntax sugar for calling <<get_appended>>.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 
@@ -1166,7 +1166,7 @@ include::{path_example_edf_string_main_cpp}[tag=operation_plus_rhs]
 Syntax sugar for calling <<get_appended>>.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 

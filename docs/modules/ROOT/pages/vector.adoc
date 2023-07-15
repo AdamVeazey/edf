@@ -36,7 +36,7 @@ EDF::Vector<int, 30> vector;
 .Example: {link_list_initialization} with a custom type
 [source,c++]
 ----
-class CustomType { 
+class CustomType {
 private:
     int x;
     int y;
@@ -45,10 +45,10 @@ public:
     // ...
 };
 
-EDF::Vector<CustomType, 3> vector = { 
-    CustomType(1, 1), 
-    CustomType(2, 2), 
-    CustomType(3, 3) 
+EDF::Vector<CustomType, 3> vector = {
+    CustomType(1, 1),
+    CustomType(2, 2),
+    CustomType(3, 3)
 };
 ----
 
@@ -63,7 +63,7 @@ Provided to make a common conditional check slightly more readable, as well as c
 [source,c++]
 ----
 if( myVector.isEmpty() ) { /* ... */}
-// vs. 
+// vs.
 if( myVector.length() == 0 ) { /* ... */ }
 ----
 
@@ -85,10 +85,10 @@ Provides information about how many current elements are in the vector, as well 
 
 [#length]
 === length()
-Returns the number of elements currently in the vector. 
+Returns the number of elements currently in the vector.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_vector_main_cpp}[tag=init]
     std::size_t numberOfElementsInVector = vector.length(); // <1>
@@ -104,7 +104,7 @@ NOTE: The name `length()` is used instead of `size()` or `count()` for consisten
 Returns template parameter `N`. It acts the same as a compile time constant. No need to remember how a macro for a vector max number of elements is named.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_vector_main_cpp}[tag=init]
     static constexpr int someArray[vector.maxSize()]; // <1>
@@ -114,16 +114,16 @@ include::{path_example_edf_vector_main_cpp}[tag=init]
 == Element Access
 
 === operator[]
-This is exactly the same as with a C-style array. 
+This is exactly the same as with a C-style array.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_vector_main_cpp}[tag=init]
 include::{path_example_edf_vector_main_cpp}[tag=element_access_standard]
 ----
 
-NOTE: This also means that there is no boundary checking, so it is possible to attempt to access data outside of the vector. 
+NOTE: This also means that there is no boundary checking, so it is possible to attempt to access data outside of the vector.
 
 NOTE: 0{ref_edf_math_uz}
 
@@ -134,7 +134,7 @@ NOTE: 0{ref_edf_math_uz}
 `index` is checked with {ref_edf_assert_EDF_ASSERTD} to be sure index is valid.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_vector_main_cpp}[tag=init]
 include::{path_example_edf_vector_main_cpp}[tag=element_access_at]
@@ -148,7 +148,7 @@ NOTE: 0{ref_edf_math_uz}
 Return the first element of the vector. Calls <<at>>
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_vector_main_cpp}[tag=init]
     auto& firstElement = vector.front();
@@ -160,7 +160,7 @@ include::{path_example_edf_vector_main_cpp}[tag=init]
 Return the last element of the vector (<<length>> - 1). Calls <<at>>
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_vector_main_cpp}[tag=init]
     auto& lastElement = vector.back();
@@ -172,7 +172,7 @@ include::{path_example_edf_vector_main_cpp}[tag=init]
 Returns a raw pointer to the first element of the vector.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
     void working_with_a_c_library_function( int *data, size_t n ) { /* ... */}
 
@@ -191,7 +191,7 @@ NOTE: For member functions that have an index/position as their first argument, 
 Calls destructor for each element in vector. Sets number of elements to 0.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_vector_main_cpp}[tag=init]
     vector.clear();
@@ -202,10 +202,10 @@ include::{path_example_edf_vector_main_cpp}[tag=init]
 ---
 
 === insert( index/position, value )
-Inserts `value` at the specified `index` or `position`.  
+Inserts `value` at the specified `index` or `position`.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_vector_main_cpp}[tag=init]
     vector.insert( 0_uz, 0 );           // <1>
@@ -215,23 +215,23 @@ include::{path_example_edf_vector_main_cpp}[tag=init]
 <2> Iterator usage
 
 === insert( index/position, count, value )
-Inserts `value` for `count` number of times starting at the specified `index` or `position`. 
+Inserts `value` for `count` number of times starting at the specified `index` or `position`.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_vector_main_cpp}[tag=init]
     vector.insert( 0_uz, 2, 0 );            // <1>
     vector.insert( vector.begin(), 2, 0 );  // <2>
 ----
 <1> Index usage to insert 2 `0`'s at the beginning of the vector. NOTE: 0{ref_edf_math_uz}
-<2> Iterator usage. In this particular example, {ref_edf_assert_EDF_ASSERTD} will catch the fact that the vector is already full. 
+<2> Iterator usage. In this particular example, {ref_edf_assert_EDF_ASSERTD} will catch the fact that the vector is already full.
 
 === insert( index/position, { values... } )
-Inserts the list of `values...` provided starting at the specified `index` or `position`. 
+Inserts the list of `values...` provided starting at the specified `index` or `position`.
 
 .Example 1
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_vector_main_cpp}[tag=init]
     vector.insert( 0_uz, { 0 } );           // <1>
@@ -241,7 +241,7 @@ include::{path_example_edf_vector_main_cpp}[tag=init]
 <2> Iterator usage
 
 .Example 2
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_vector_main_cpp}[tag=init]
 include::{path_example_edf_vector_main_cpp}[tag=operation_insert_list]
@@ -250,12 +250,12 @@ include::{path_example_edf_vector_main_cpp}[tag=operation_insert_list]
 ---
 
 === emplace( index/position, args... )
-Overwrites an element by using https://en.cppreference.com/w/cpp/language/new#Placement_new[placement new] and `args...` to construct the an element in place. 
+Overwrites an element by using https://en.cppreference.com/w/cpp/language/new#Placement_new[placement new] and `args...` to construct the an element in place.
 
 .Example
 [source,c++]
 ----
-class CustomType { 
+class CustomType {
 private:
     int x;
     int y;
@@ -277,7 +277,7 @@ vector2.emplace( 1, 2, 2 );     // <2>
 Erase a single element at the specified `index` or `position`. Calls destructor for erased element.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_vector_main_cpp}[tag=init]
 include::{path_example_edf_vector_main_cpp}[tag=operation_erase_single]
@@ -287,7 +287,7 @@ include::{path_example_edf_vector_main_cpp}[tag=operation_erase_single]
 Erase a range [`first`, `last`) of elements. Includes erasing `first` up to, but not including, `last`. Calls destructor for erased elements.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_vector_main_cpp}[tag=init]
 include::{path_example_edf_vector_main_cpp}[tag=operation_erase_range]
@@ -299,7 +299,7 @@ include::{path_example_edf_vector_main_cpp}[tag=operation_erase_range]
 Copy `value` to a new element at the end of the vector.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_vector_main_cpp}[tag=init]
 include::{path_example_edf_vector_main_cpp}[tag=operation_push_back]
@@ -311,7 +311,7 @@ include::{path_example_edf_vector_main_cpp}[tag=operation_push_back]
 Construct in place a new element at the end of the vector using `args...`.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_vector_main_cpp}[tag=init]
 include::{path_example_edf_vector_main_cpp}[tag=operation_emplace_back]
@@ -322,7 +322,7 @@ include::{path_example_edf_vector_main_cpp}[tag=operation_emplace_back]
 Remove the last element in a vector and return a copy of it.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_vector_main_cpp}[tag=init]
 include::{path_example_edf_vector_main_cpp}[tag=operation_pop_back]
@@ -340,4 +340,4 @@ Forward iterators and const iterators are available through `begin()`, `end()`, 
 
 Revese iterators and const reverse iterators are available through `rbegin()`, `rend()`, `crbegin()`, `crend()`
 
-TIP: https://en.cppreference.com/w/cpp/language/range-for[Range-based for loops] are therefore supported. 
+TIP: https://en.cppreference.com/w/cpp/language/range-for[Range-based for loops] are therefore supported.

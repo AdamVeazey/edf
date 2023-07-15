@@ -12,20 +12,20 @@ include::ROOT:partial$refs.adoc[]
 NOTE: `T` _Needs_ to be copyable, and _helps_ if `T` is also default constructable.
 
 == Overview
-This is a fixed max size binary heap container. Providing different `Compare` functors allows you to choose how the heap is sorted. There are two pre-defined aliases <<heap_max>> and <<heap_min>>. 
+This is a fixed max size binary heap container. Providing different `Compare` functors allows you to choose how the heap is sorted. There are two pre-defined aliases <<heap_max>> and <<heap_min>>.
 
 [#heap_max]
 === HeapMax<T, N>
 This is an alias for a binary max heap.
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_src_edf_heap_hpp}[tag=declare_heap_max]
 ----
 
 [#heap_min]
 === HeapMin<T, N>
-This is an alias for a binary min heap. 
-[source,indent=0,c++]
+This is an alias for a binary min heap.
+[source,c++,indent=0]
 ----
 include::{path_src_edf_heap_hpp}[tag=declare_heap_min]
 ----
@@ -34,13 +34,13 @@ include::{path_src_edf_heap_hpp}[tag=declare_heap_min]
 Default initialization requires type `T` to be default constructable. Otherwise {link_list_initialization} is required.
 
 .Example: `T` is default constructable
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_heap_main_cpp}[tag=init_max]
 ----
 
 .Example: {link_list_initialization} with a custom type
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_heap_main_cpp}[tag=init_max_list]
 ----
@@ -55,7 +55,7 @@ Equivalent to `<<length>> == 0` +
 Provided to make a common conditional check slightly more readable, as well as consistency with other xref:edf.adoc#_stl_like_containers[EDF containers].
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_heap_main_cpp}[tag=init_max]
 include::{path_example_edf_heap_main_cpp}[tag=is_question_empty]
@@ -66,7 +66,7 @@ include::{path_example_edf_heap_main_cpp}[tag=is_question_empty]
 Since a heap doesn't grow the underlying container, you should check if it is full before adding an element.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_heap_main_cpp}[tag=init_max]
 include::{path_example_edf_heap_main_cpp}[tag=is_question_full]
@@ -80,7 +80,7 @@ Provides information about how many current elements are in the heap, as well as
 Returns the number of elements currently in the heap.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_heap_main_cpp}[tag=init_max]
 include::{path_example_edf_heap_main_cpp}[tag=capacity_length]
@@ -91,7 +91,7 @@ include::{path_example_edf_heap_main_cpp}[tag=capacity_length]
 Returns template parameter `N` - 1. It acts the same as a compile time constant. No need to remember how a macro for the heap max number of elements is named.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_heap_main_cpp}[tag=init_max]
 include::{path_example_edf_heap_main_cpp}[tag=capacity_max_length]
@@ -102,10 +102,10 @@ NOTE: Many, if not all, of the Operation member functions use {ref_edf_assert_ED
 
 [#peek]
 === peek()
-Returns the value at the root of the heap without modifying the number of elements in the heap. 
+Returns the value at the root of the heap without modifying the number of elements in the heap.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_heap_main_cpp}[tag=init_max]
 include::{path_example_edf_heap_main_cpp}[tag=operation_push]
@@ -114,10 +114,10 @@ include::{path_example_edf_heap_main_cpp}[tag=operation_peek]
 
 [#push]
 === push( value )
-Add element to the the heap. 
+Add element to the the heap.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_heap_main_cpp}[tag=init_max]
 include::{path_example_edf_heap_main_cpp}[tag=operation_push]
@@ -128,7 +128,7 @@ include::{path_example_edf_heap_main_cpp}[tag=operation_push]
 Add element to the heap by constructing the element in place using https://en.cppreference.com/w/cpp/language/new#Placement_new[placement new].
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_heap_main_cpp}[tag=init_max]
 include::{path_example_edf_heap_main_cpp}[tag=operation_emplace]
@@ -139,7 +139,7 @@ include::{path_example_edf_heap_main_cpp}[tag=operation_emplace]
 Remove element from the heap then return a copy of the value.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_heap_main_cpp}[tag=init_max]
 include::{path_example_edf_heap_main_cpp}[tag=operation_pop]
@@ -150,7 +150,7 @@ include::{path_example_edf_heap_main_cpp}[tag=operation_pop]
 Calls destructor for each element in heap. Sets the number of elements to 0.
 
 .Example
-[source,indent=0,c++]
+[source,c++,indent=0]
 ----
 include::{path_example_edf_heap_main_cpp}[tag=init_max]
 include::{path_example_edf_heap_main_cpp}[tag=operation_clear]
