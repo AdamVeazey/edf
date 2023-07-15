@@ -36,6 +36,7 @@ public:
     constexpr uint32_t asRGB()          const { return rgba.get( 0, 24 ); }
 
     /* Named colors */
+
     // tag::named_colors[]
     static constexpr Color red()        { return Color( 255,   0,   0 ); }
     static constexpr Color orange()     { return Color( 255, 128,   0 ); }
