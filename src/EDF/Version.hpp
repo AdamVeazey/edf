@@ -23,6 +23,13 @@ class Version final{
 private:
     static constexpr std::size_t DOTS = 2;      // two '.' characters
     static constexpr std::size_t DIGITS = 3;    // number of digits per element
+    static constexpr std::size_t MULT = [](){
+        std::size_t multiplier = 1;
+        for(int k = 0; k < DIGITS; ++k) {
+            multiplier *= 10;
+        }
+        return multiplier;
+    }();
 public:
     using String = String<DOTS+(3*DIGITS)+1>;   // (3*DIGITS) for 3 elements, plus 1 null
 private:
@@ -42,9 +49,9 @@ public:
     ~Version() = default;
 
     /* Access */
-    constexpr uint32_t getMajor()                   const { return number / (100*100); }
-    constexpr uint32_t getMinor()                   const { return (number / 100) % 100; }
-    constexpr uint32_t getPatch()                   const { return number % 100; }
+    constexpr uint32_t getMajor()                   const { return number / (MULT*MULT); }
+    constexpr uint32_t getMinor()                   const { return (number / MULT) % MULT; }
+    constexpr uint32_t getPatch()                   const { return number % MULT; }
     constexpr const uint32_t& asNumber()            const { return number; }
     constexpr const String& asString()              const { return string; }
     constexpr const char* asCString()               const { return string.asCString(); }
@@ -84,8 +91,8 @@ private:
         EDF_ASSERTD( (*(firstDot + 1)  != '0') || (secondDot - (firstDot + 1)  == 1) ); // MUST NOT contain leading zeros https://semver.org/#spec-item-2
         EDF_ASSERTD( (*(secondDot + 1) != '0') || (str.end() - (secondDot + 1) == 1) ); // MUST NOT contain leading zeros https://semver.org/#spec-item-2
         EDF_ASSERTD( !str.contains( '-' ) );                                            // MUST NOT contain negative numbers https://semver.org/#spec-item-2
-        return str.getSubString( str.begin(), firstDot ).toUint32_t() * (100*100)   // major
-             + str.getSubString( firstDot + 1, secondDot ).toUint32_t() * 100       // minor
+        return str.getSubString( str.begin(), firstDot ).toUint32_t() * (MULT*MULT) // major
+             + str.getSubString( firstDot + 1, secondDot ).toUint32_t() * MULT      // minor
              + str.getSubString( secondDot + 1, str.end() ).toUint32_t();           // patch
     }
     constexpr String fromNumber() {
