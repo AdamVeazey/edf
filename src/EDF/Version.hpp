@@ -23,6 +23,7 @@ class Version final{
 private:
     static constexpr std::size_t DOTS = 2;      // two '.' characters
     static constexpr std::size_t DIGITS = 3;    // number of digits per element
+    static_assert( DIGITS <= 3, "A uint32_t for number can only easily support versions from 999.999.999" );
     static constexpr std::size_t MULT = [](){
         std::size_t multiplier = 1;
         for(int k = 0; k < DIGITS; ++k) {
