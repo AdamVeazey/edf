@@ -28,6 +28,7 @@ public:
     constexpr BitField( T initialValue = 0 ) : bits( initialValue ) {}
 
     constexpr void set( std::size_t startBit, std::size_t span, T value ) {
+        EDF_ASSERTD( value < (1 << span) ); // value must fit within "span"
         const auto mask = createMask( startBit, span );
         bits = (bits & ~mask) | ((value << startBit) & mask);
     }
