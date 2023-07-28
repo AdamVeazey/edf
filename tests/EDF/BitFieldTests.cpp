@@ -13,7 +13,7 @@ TEST(BitField, Initialization) {
     EXPECT_EQ( bitField64.get(0, 64), 0 );
 
     EDF::BitField32 bitField32 = 0x12345678;
-    EXPECT_EQ( bitField32.get(0, 32), 0 );
+    EXPECT_EQ( bitField32.get(0, 32), 0x12345678 );
 
     EDF::BitField16 bitField16( 0xA500 );
     EXPECT_EQ( bitField16.get(0, 16), 0xA500 );
@@ -34,6 +34,7 @@ TEST(BitField, SetAndGetBits) {
     bitField.set( 4, 8, 255 );
     EXPECT_EQ( bitField.get( 0, 4 ), 5 ); // these bits should not have changed
     EXPECT_EQ( bitField.get( 4, 8 ), 255 );
+    EXPECT_EQ( bitField.get( 0, 32 ), 0xFF5 );
 }
 
 // Example Register description
