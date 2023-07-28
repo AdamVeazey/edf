@@ -9,6 +9,7 @@
 
 #include "EDF/Assert.hpp"
 
+#include <limits>
 #include <type_traits>
 #include <cstdint>
 
@@ -22,6 +23,9 @@ private:
 private:
     static constexpr T createMask( std::size_t startBit, std::size_t span ) {
         EDF_ASSERTD( (startBit + span) <= sizeof(T)*8 ); // must be a valid number of bits
+        if( span == (sizeof(T)*8) ) {
+            return std::numeric_limits<T>::max();
+        }
         return ((T{1} << span) - 1) << startBit;
     }
 public:
