@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2023, Adam Veazey
  * All rights reserved.
- * 
+ *
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
@@ -65,6 +65,12 @@ void exampleMaxHeap() {
     struct CustomType {
         int value;
         CustomType( int v ) : value(v) {}
+        constexpr bool operator>( const CustomType& rhs ) const {
+            return value > rhs.value;
+        }
+        constexpr bool operator<(  const CustomType& rhs ) const {
+            return value < rhs.value;
+        }
     };
 
     EDF::HeapMax<CustomType, 3> heap2 = {
@@ -106,8 +112,8 @@ int main( int argc, char* argv[] ){
             exampleMaxHeap();
         }
         else{
-            std::cout << "Argument must be 'min' or 'max'. You entered: " 
-                << argv[1] 
+            std::cout << "Argument must be 'min' or 'max'. You entered: "
+                << argv[1]
                 << std::endl;
         }
     }
