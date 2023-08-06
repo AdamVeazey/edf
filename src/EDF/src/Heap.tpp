@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2023, Adam Veazey
  * All rights reserved.
- * 
+ *
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
@@ -46,6 +46,17 @@ bubbleDown( std::size_t index ) {
         }
         std::swap(heap[index], heap[topIndex]);
         index = topIndex;
+    }
+}
+
+template<typename T, std::size_t N, typename Compare>
+template<typename... I>
+constexpr Heap<T,N,Compare>::
+Heap( I... iList ) : heap{iList...} {
+    // Starting from the last non-leaf node, perform bubbleDown to build the heap
+    // Leaf nodes are already heaps, so we don't need to consider them (index < N/2)
+    for( int k = sizeof...(I) / 2; k > 0; --k ){
+        bubbleDown( k - 1 );
     }
 }
 

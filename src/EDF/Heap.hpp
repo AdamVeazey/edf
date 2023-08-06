@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2023, Adam Veazey
  * All rights reserved.
- * 
+ *
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
@@ -21,9 +21,9 @@ private:
     constexpr void bubbleUp( std::size_t index );
     constexpr void bubbleDown( std::size_t index );
 public:
-    Heap() = default;
+    constexpr Heap() = default;
     template<typename... I>
-    Heap( I... iList ) : heap{iList...} {}
+    constexpr Heap( I... iList );
     ~Heap() = default;
 
     /* Is Questions */
