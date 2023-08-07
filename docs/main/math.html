@@ -427,7 +427,7 @@ ARRAY_SIZE( decayedArray ); <i class="conum" data-value="5"></i><b>(5)</b></code
 <div class="listingblock">
 <div class="title">Implementation Explanation</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">constexpr bool isPow2( std::size_t v ) { return !(v&amp;(v-1)); }</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">constexpr bool isPow2( std::size_t v ) { return (v != 0) &amp;&amp; !(v&amp;(v-1)); }</code></pre>
 </div>
 </div>
 <div class="paragraph">
