@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2023, Adam Veazey
  * All rights reserved.
- * 
+ *
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
@@ -21,9 +21,9 @@ private:
     std::size_t tail;
     EDF::Array<T, N> buffer;
 public:
-    Queue() : head(0), tail(0), buffer{} {}
+    constexpr Queue() : head(0), tail(0), buffer{} {}
     template<typename... I>
-    Queue( I... iList ) : head(sizeof...(I)), tail(0), buffer{iList...} {}
+    constexpr Queue( I... iList ) : head(0), tail(sizeof...(I)), buffer{iList...} {}
     ~Queue() = default;
 
     /* Is Questions */

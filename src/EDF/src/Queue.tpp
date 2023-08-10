@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2023, Adam Veazey
  * All rights reserved.
- * 
+ *
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
@@ -14,9 +14,9 @@ namespace EDF {
 
 template<typename T, std::size_t N>
 constexpr bool Queue<T, N>::
-isFull() const { 
+isFull() const {
     if constexpr( isPow2( N ) ) {
-        return head == ((tail+1) & WRAP); 
+        return head == ((tail+1) & WRAP);
     }
     return head == ((tail+1) % N);
 }
@@ -25,9 +25,9 @@ template<typename T, std::size_t N>
 constexpr std::size_t Queue<T, N>::
 length() const {
     if constexpr( isPow2( N ) ) {
-        return (head - tail) & WRAP;
-    }    
-    return (head - tail) % N;
+        return (tail - head) & WRAP;
+    }
+    return (tail - head) % N;
 }
 
 template<typename T, std::size_t N>
