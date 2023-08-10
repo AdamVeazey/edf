@@ -175,7 +175,7 @@ TEST(Queue, Clear) {
 /* uint8_t specialized member functions */
 
 TEST(Queue, PopBigEndian) {
-    EDF::Queue<uint8_t, 17> queue = {
+    EDF::Queue<uint8_t, 16> queue = {
         (uint8_t)0x12,
 
         (uint8_t)0x12, (uint8_t)0x34,
@@ -192,7 +192,7 @@ TEST(Queue, PopBigEndian) {
 }
 
 TEST(Queue, PopLittleEndian) {
-    EDF::Queue<uint8_t, 17> queue = {
+    EDF::Queue<uint8_t, 16> queue = {
         (uint8_t)0x12,
 
         (uint8_t)0x34, (uint8_t)0x12,
