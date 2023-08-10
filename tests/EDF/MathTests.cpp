@@ -69,10 +69,10 @@ TEST(Math, VoltageDividerCalculateVoltageOutput) {
     EXPECT_EQ( vOutInt_V, 8 );
 
     constexpr float vOutFloat_mV = EDF::voltageDividerCalcVout<R1, R2>( 3.3f );
-    EXPECT_EQ( vOutFloat_mV, 2.2f );
+    EXPECT_FLOAT_EQ( vOutFloat_mV, 2.2f );
 
     constexpr double vOutDouble_V = EDF::voltageDividerCalcVout<R1, R2>( 12.0 );
-    EXPECT_EQ( vOutDouble_V, 8.0 );
+    EXPECT_FLOAT_EQ( vOutDouble_V, 8.0 );
 }
 
 TEST(Math, VoltageDividerCalculateVoltageInput) {
@@ -86,10 +86,10 @@ TEST(Math, VoltageDividerCalculateVoltageInput) {
     EXPECT_EQ( vInInt_V, 12 );
 
     constexpr float vInFloat_mV = EDF::voltageDividerCalcVin<R1, R2>( 2.2f );
-    EXPECT_EQ( vInFloat_mV, 3.3f );
+    EXPECT_FLOAT_EQ( vInFloat_mV, 3.3f );
 
     constexpr double vInDouble_V = EDF::voltageDividerCalcVin<R1, R2>( 8.0 );
-    EXPECT_EQ( vInDouble_V, 12.0 );
+    EXPECT_FLOAT_EQ( vInDouble_V, 12.0 );
 }
 
 TEST(Math, TemperatureCelsiusToFahrenheit) {
@@ -103,13 +103,13 @@ TEST(Math, TemperatureCelsiusToFahrenheit) {
     EXPECT_EQ( degreesFInt3, 212 );
 
     const float degreesFFloat1 = EDF::temperatureCtoF( 0.0f );
-    EXPECT_EQ( degreesFFloat1, 32.0f );
+    EXPECT_FLOAT_EQ( degreesFFloat1, 32.0f );
 
     const float degreesFFloat2 = EDF::temperatureCtoF( -40.0f );
-    EXPECT_EQ( degreesFFloat2, -40.0f );
+    EXPECT_FLOAT_EQ( degreesFFloat2, -40.0f );
 
     const float degreesFFloat3 = EDF::temperatureCtoF( 100.0f );
-    EXPECT_EQ( degreesFFloat3, 212.0f );
+    EXPECT_FLOAT_EQ( degreesFFloat3, 212.0f );
 }
 
 TEST(Math, TemperatureFahrenheitToCelsius) {
@@ -123,11 +123,11 @@ TEST(Math, TemperatureFahrenheitToCelsius) {
     EXPECT_EQ( degreesCInt3, 100 );
 
     const float degreesCFloat1 = EDF::temperatureFtoC( 32.0f );
-    EXPECT_EQ( degreesCFloat1, 0.0f );
+    EXPECT_FLOAT_EQ( degreesCFloat1, 0.0f );
 
     const float degreesCFloat2 = EDF::temperatureFtoC( -40.0f );
-    EXPECT_EQ( degreesCFloat2, -40.0f );
+    EXPECT_FLOAT_EQ( degreesCFloat2, -40.0f );
 
     const double degreesCFloat3 = EDF::temperatureFtoC( 212.0 );
-    EXPECT_EQ( degreesCFloat3, 100.0f );
+    EXPECT_FLOAT_EQ( degreesCFloat3, 100.0f );
 }
