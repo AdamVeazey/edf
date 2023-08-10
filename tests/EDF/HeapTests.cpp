@@ -115,8 +115,6 @@ TEST(Heap, Peek) {
 
     heap.push( 30 );
     EXPECT_EQ( heap.peek(), 30 );
-
-    EXPECT_DEATH( heap.push( 1 ), "" );
 }
 
 TEST(Heap, Push) {
@@ -127,6 +125,11 @@ TEST(Heap, Push) {
     int value5 = 5;
     heapMin.push( value5 );
     EXPECT_EQ( heapMin.peek(), value5 );
+
+    while( !heapMin.isFull() ) {
+        heapMin.push( heapMin.peek() - 1 );
+    }
+    EXPECT_DEATH( heapMin.push( 1 ), "" );
 
     EDF::HeapMax<int, 20> heapMax;
     heapMax.push( 2 );
