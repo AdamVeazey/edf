@@ -53,9 +53,7 @@ template<typename T, std::size_t N, typename Compare>
 template<typename... I>
 constexpr Heap<T,N,Compare>::
 Heap( I... iList ) : heap{iList...} {
-    // Starting from the last non-leaf node, perform bubbleDown to build the heap
-    // Leaf nodes are already heaps, so we don't need to consider them (index < N/2)
-    for( int k = sizeof...(I) / 2; k > 0; --k ){
+    for( std::size_t k = length() / 2; k > 0; --k ) {
         bubbleDown( k - 1 );
     }
 }
