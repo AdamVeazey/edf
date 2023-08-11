@@ -32,7 +32,9 @@ TEST(Heap, InitializationInt) {
     EDF::HeapMin<int, 4> heapIntMin = { 3, 1, -2 };
     EXPECT_EQ( heapIntMin.maxLength(), 4 );
     EXPECT_EQ( heapIntMin.length(), 3 );
-    EXPECT_EQ( heapIntMin.peek(), -2 );
+    EXPECT_EQ( heapIntMin.pop(), -2 );
+    EXPECT_EQ( heapIntMin.pop(), 1 );
+    EXPECT_EQ( heapIntMin.pop(), 3 );
 }
 
 TEST(Heap, InitializationCustomClass) {
@@ -40,29 +42,36 @@ TEST(Heap, InitializationCustomClass) {
     EXPECT_EQ( heapCustomClass.maxLength(), 32 );
     EXPECT_EQ( heapCustomClass.length(), 0 );
 
-    EDF::HeapMax<CustomClass, 4> heapCustomClassMax = { 3, 1, -2 };
+    // when N is a power of two, this test fails?
+    EDF::HeapMax<CustomClass, 4> heapCustomClassMax = {
+        CustomClass( 1 ),
+        CustomClass( 2 ),
+        CustomClass( 3 ),
+    };
     EXPECT_EQ( heapCustomClassMax.maxLength(), 4 );
     EXPECT_EQ( heapCustomClassMax.length(), 3 );
-    EXPECT_EQ( heapCustomClassMax.peek().getValue(), 3 );
+    EXPECT_EQ( heapCustomClassMax.pop().getValue(), 3 );
+    EXPECT_EQ( heapCustomClassMax.pop().getValue(), 2 );
+    EXPECT_EQ( heapCustomClassMax.pop().getValue(), 1 );
 }
 
 TEST(Heap, IsEmpty) {
     EDF::HeapMin<int, 4> heap;
-    EXPECT_EQ( heap.isEmpty(), true );
+    EXPECT_TRUE( heap.isEmpty() );
 
     heap.push( 10 );
-    EXPECT_EQ( heap.isEmpty(), false );
+    EXPECT_FALSE( heap.isEmpty() );
 }
 
 TEST(Heap, IsFull) {
     EDF::HeapMin<int, 4> heap;
-    EXPECT_EQ( heap.isFull(), false );
+    EXPECT_FALSE( heap.isFull() );
 
     heap.push( 10 );
     heap.push( 11 );
     heap.push( 12 );
     heap.push( 13 );
-    EXPECT_EQ( heap.isFull(), true );
+    EXPECT_TRUE( heap.isFull() );
 }
 
 TEST(Heap, LengthInt) {

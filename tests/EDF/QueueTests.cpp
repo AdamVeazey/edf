@@ -34,10 +34,12 @@ TEST(Queue, InitializationCustomClass) {
     EXPECT_EQ( queueCustomClass.maxLength(), 31 );
     EXPECT_EQ( queueCustomClass.length(), 0 );
 
-    EDF::Queue<CustomClass, 4> queueCustomClassIList( 3, 1, -2 );
+    EDF::Queue<CustomClass, 4> queueCustomClassIList = { 3, 1, -2 };
     EXPECT_EQ( queueCustomClassIList.maxLength(), 3 );
     EXPECT_EQ( queueCustomClassIList.length(), 3 );
-    EXPECT_EQ( queueCustomClassIList.peek().getValue(), 3 );
+    EXPECT_EQ( queueCustomClassIList.pop().getValue(), 3 );
+    EXPECT_EQ( queueCustomClassIList.pop().getValue(), 1 );
+    EXPECT_EQ( queueCustomClassIList.pop().getValue(), -2 );
 }
 
 TEST(Queue, IsEmpty) {
