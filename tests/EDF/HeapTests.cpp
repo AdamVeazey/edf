@@ -42,7 +42,7 @@ TEST(Heap, InitializationCustomClass) {
     EXPECT_EQ( heapCustomClass.maxLength(), 32 );
     EXPECT_EQ( heapCustomClass.length(), 0 );
 
-    // when N is a power of two, this test fails?
+    // when N is a power of two, this test fails? Only occurs in gtest? This works if copy pasted to example code
     EDF::HeapMax<CustomClass, 4> heapCustomClassMax = {
         CustomClass( 1 ),
         CustomClass( 2 ),
