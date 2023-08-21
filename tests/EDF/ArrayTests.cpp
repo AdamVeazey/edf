@@ -143,6 +143,32 @@ TEST(Array, IndexOperator_ValidIndex) {
     EXPECT_EQ( refConst, 20 );
 }
 
+TEST(Array, IndexOperator_ValidIndexCustomClass) {
+    EDF::Array<CustomClass, 4> array = {
+        CustomClass( 10 ),
+        CustomClass( 20 ),
+        CustomClass( 30 ),
+        CustomClass( 40 ),
+    };
+
+    EXPECT_EQ( array[0].getValue(), 10 );
+    EXPECT_EQ( array[1].getValue(), 20 );
+    EXPECT_EQ( array[2].getValue(), 30 );
+    EXPECT_EQ( array[3].getValue(), 40 );
+
+    array[2] = CustomClass( 1 );
+    EXPECT_EQ( array[2].getValue(), 1 );
+
+    CustomClass& ref = array[2];
+    EXPECT_EQ( ref.getValue(), 1 );
+
+    ref = CustomClass( 2 );
+    EXPECT_EQ( array[2].getValue(), 2 );
+
+    const CustomClass& refConst = array[2];
+    EXPECT_EQ( refConst.getValue(), 2 );
+}
+
 TEST(Array, IndexOperator_InvalidIndex) {
     EDF::Array<int, 4> array = { 5, 6, 7, 8 };
 
