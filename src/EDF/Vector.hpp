@@ -39,8 +39,8 @@ public:
     constexpr std::size_t maxLength()                                               const { return N; }
 
     /* Element access */
-    constexpr T& at( std::size_t index )                                                  { return buffer.at( index ); }
-    constexpr const T& at( std::size_t index )                                      const { return buffer.at( index ); }
+    constexpr T& at( std::size_t index )                                                  { EDF_ASSERTD(index < length()); return buffer.at( index ); }
+    constexpr const T& at( std::size_t index )                                      const { EDF_ASSERTD(index < length()); return buffer.at( index ); }
 
     constexpr T& operator[]( std::size_t index )                                          { return buffer[index]; }
     constexpr const T& operator[]( std::size_t index )                              const { return buffer[index]; }
