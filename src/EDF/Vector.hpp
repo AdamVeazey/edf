@@ -25,10 +25,10 @@ public:
     constexpr Vector( I... iList ) : buffer{iList...}, n(sizeof...(I)) {}
     ~Vector() = default;
 
-    using Iterator = T*;
-    using ConstIterator = const T*;
-    using ReverseIterator = std::reverse_iterator<Iterator>;
-    using ConstReverseIterator = std::reverse_iterator<ConstIterator>;
+    using Iterator = typename Array<T,N>::Iterator;
+    using ConstIterator = typename Array<T,N>::ConstIterator;
+    using ReverseIterator = typename Array<T,N>::ReverseIterator;
+    using ConstReverseIterator = typename Array<T,N>::ConstReverseIterator;
 
      /* Current state */
     constexpr bool isEmpty()                                                        const { return n == 0; }
