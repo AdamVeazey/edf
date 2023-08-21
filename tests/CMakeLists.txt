@@ -2,7 +2,8 @@ include(FetchContent)
 FetchContent_Declare(gtest
   QUIET
   DOWNLOAD_EXTRACT_TIMESTAMP true
-  URL https://github.com/google/googletest/archive/release-1.12.0.tar.gz
+  # URL https://github.com/google/googletest/archive/release-1.12.0.tar.gz
+  URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.tar.gz
 )
 
 # configure build of googletest
