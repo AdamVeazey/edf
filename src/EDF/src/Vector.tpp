@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2023, Adam Veazey
  * All rights reserved.
- * 
+ *
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
@@ -11,11 +11,11 @@
 
 namespace EDF {
 
-template<typename T, std::size_t N> 
+template<typename T, std::size_t N>
 constexpr typename Vector<T, N>::Iterator Vector<T, N>::
-insert( ConstIterator pos, T&& value ) { 
+insert( ConstIterator pos, T&& value ) {
     EDF_ASSERTD(pos >= begin());    // position must be valid
-    EDF_ASSERTD(pos < end());       // position must be valid
+    EDF_ASSERTD(pos <= end());      // position must be valid
     EDF_ASSERTD(!isFull());         // must have enough space for new element
 
     Iterator position = begin() + (pos - begin());
@@ -25,13 +25,13 @@ insert( ConstIterator pos, T&& value ) {
     return position;                // iterator pointing to the inserted value
 }
 
-template<typename T, std::size_t N> 
+template<typename T, std::size_t N>
 constexpr typename Vector<T, N>::Iterator Vector<T, N>::
 insert( ConstIterator pos, std::size_t count, const T& value ) {
     EDF_ASSERTD(pos >= begin());                // position must be valid
     EDF_ASSERTD(pos <= end());                  // position must be valid
     EDF_ASSERTD((end() + count) <= (begin() + maxLength())); // new values must be able to fit
-    
+
     Iterator position = begin() + (pos - begin());
     std::move_backward( position, end(), end() + count );
     std::fill_n( position, count, value );
@@ -39,7 +39,7 @@ insert( ConstIterator pos, std::size_t count, const T& value ) {
     return position;
 }
 
-template<typename T, std::size_t N> 
+template<typename T, std::size_t N>
 constexpr typename Vector<T, N>::Iterator Vector<T, N>::
 insert( ConstIterator pos, std::initializer_list<T> iList ) {
     EDF_ASSERTD(pos >= begin());                // position must be valid
@@ -60,7 +60,7 @@ emplace( ConstIterator pos, Args&&... args ) {
     EDF_ASSERTD(pos >= begin());    // position must be valid
     EDF_ASSERTD(pos <= end());      // position must be valid
     EDF_ASSERTD(!isFull());         // must have enough space for new element
-    
+
     Iterator position = begin() + (pos - begin());
     std::move_backward( position, end(), end() + 1 );
     new (position) T(std::forward<Args>(args)...);
@@ -68,7 +68,7 @@ emplace( ConstIterator pos, Args&&... args ) {
     return position;
 }
 
-template<typename T, std::size_t N> 
+template<typename T, std::size_t N>
 constexpr typename Vector<T, N>::Iterator Vector<T, N>::
 erase( ConstIterator pos ) {
     EDF_ASSERTD(pos >= begin());    // position must be valid
@@ -81,7 +81,7 @@ erase( ConstIterator pos ) {
     return position;
 }
 
-template<typename T, std::size_t N> 
+template<typename T, std::size_t N>
 constexpr typename Vector<T, N>::Iterator Vector<T, N>::
 erase( ConstIterator first, ConstIterator last ) {
     EDF_ASSERTD(first >= begin());  // first position must be valid
@@ -93,7 +93,7 @@ erase( ConstIterator first, ConstIterator last ) {
     // "convert" const iterator to iterator
     Iterator s = begin() + (first - begin());
     Iterator e = begin() + (last - begin());
-    
+
     // destruct elements to be erased
     std::destroy(s, e);
 
