@@ -53,3 +53,184 @@ TEST(String, InitializationFromChar) {
     EXPECT_STREQ( string.asCString(), "c" );
 }
 
+TEST(String, InitializationFromIntegerBase10) {
+    int8_t valueInt8_t = 0xAA;
+    EDF::String<32> stringInt8_t( valueInt8_t );
+    EXPECT_STREQ( stringInt8_t.asCString(), "-86" );
+
+    int16_t valueInt16_t = 0xAA55;
+    EDF::String<32> stringInt16_t( valueInt16_t );
+    EXPECT_STREQ( stringInt16_t.asCString(), "-21931" );
+
+    int32_t valueInt32_t = 0x12345678;
+    EDF::String<32> stringInt32_t( valueInt32_t );
+    EXPECT_STREQ( stringInt32_t.asCString(), "305419896" );
+
+    int64_t valueInt64_t = 0x123456789ABCDEF0;
+    EDF::String<32> stringInt64_t( valueInt64_t );
+    EXPECT_STREQ( stringInt64_t.asCString(), "1311768467463790320" );
+
+    uint8_t valueUint8_t = 0xAA;
+    EDF::String<32> stringUint8_t( valueUint8_t );
+    EXPECT_STREQ( stringUint8_t.asCString(), "170" );
+
+    uint16_t valueUint16_t = 0xAA55;
+    EDF::String<32> stringUint16_t( valueUint16_t );
+    EXPECT_STREQ( stringUint16_t.asCString(), "43605" );
+
+    uint32_t valueUint32_t = 0x12345678;
+    EDF::String<32> stringUint32_t( valueUint32_t );
+    EXPECT_STREQ( stringUint32_t.asCString(), "305419896" );
+
+    uint64_t valueUint64_t = 0x123456789ABCDEF0;
+    EDF::String<32> stringUint64_t( valueUint64_t );
+    EXPECT_STREQ( stringUint64_t.asCString(), "1311768467463790320" );
+}
+
+TEST(String, InitializationFromIntegerBase2) {
+    int8_t valueInt8_t = 0xAA;
+    EDF::String<32> stringInt8_t( valueInt8_t, 2 );
+    EXPECT_STREQ( stringInt8_t.asCString(), "10101010" );
+
+    int16_t valueInt16_t = 0xAA55;
+    EDF::String<32> stringInt16_t( valueInt16_t, 2 );
+    EXPECT_STREQ( stringInt16_t.asCString(), "1010101001010101" );
+
+    int32_t valueInt32_t = 0x12345678;
+    EDF::String<32> stringInt32_t( valueInt32_t, 2 );
+    EXPECT_STREQ( stringInt32_t.asCString(), "10010001101000101011001111000" );
+
+    int64_t valueInt64_t = 0x123456789ABCDEF0;
+    EDF::String<64> stringInt64_t( valueInt64_t, 2 );
+    EXPECT_STREQ( stringInt64_t.asCString(), "1001000110100010101100111100010011010101111001101111011110000" );
+
+    uint8_t valueUint8_t = 0xAA;
+    EDF::String<32> stringUint8_t( valueUint8_t, 2 );
+    EXPECT_STREQ( stringUint8_t.asCString(), "10101010" );
+
+    uint16_t valueUint16_t = 0xAA55;
+    EDF::String<32> stringUint16_t( valueUint16_t, 2 );
+    EXPECT_STREQ( stringUint16_t.asCString(), "1010101001010101" );
+
+    uint32_t valueUint32_t = 0x12345678;
+    EDF::String<32> stringUint32_t( valueUint32_t, 2 );
+    EXPECT_STREQ( stringUint32_t.asCString(), "10010001101000101011001111000" );
+
+    uint64_t valueUint64_t = 0x123456789ABCDEF0;
+    EDF::String<64> stringUint64_t( valueUint64_t, 2 );
+    EXPECT_STREQ( stringUint64_t.asCString(), "1001000110100010101100111100010011010101111001101111011110000" );
+}
+
+TEST(String, InitializationFromIntegerBase8) {
+    int8_t valueInt8_t = 0xAA;
+    EDF::String<32> stringInt8_t( valueInt8_t, 8 );
+    EXPECT_STREQ( stringInt8_t.asCString(), "252" );
+
+    int16_t valueInt16_t = 0xAA55;
+    EDF::String<32> stringInt16_t( valueInt16_t, 8 );
+    EXPECT_STREQ( stringInt16_t.asCString(), "125125" );
+
+    int32_t valueInt32_t = 0x12345678;
+    EDF::String<32> stringInt32_t( valueInt32_t, 8 );
+    EXPECT_STREQ( stringInt32_t.asCString(), "2215053170" );
+
+    int64_t valueInt64_t = 0x123456789ABCDEF0;
+    EDF::String<32> stringInt64_t( valueInt64_t, 8 );
+    EXPECT_STREQ( stringInt64_t.asCString(), "110642547423257157360" );
+
+    uint8_t valueUint8_t = 0xAA;
+    EDF::String<32> stringUint8_t( valueUint8_t, 8 );
+    EXPECT_STREQ( stringUint8_t.asCString(), "252" );
+
+    uint16_t valueUint16_t = 0xAA55;
+    EDF::String<32> stringUint16_t( valueUint16_t, 8 );
+    EXPECT_STREQ( stringUint16_t.asCString(), "125125" );
+
+    uint32_t valueUint32_t = 0x12345678;
+    EDF::String<32> stringUint32_t( valueUint32_t, 8 );
+    EXPECT_STREQ( stringUint32_t.asCString(), "2215053170" );
+
+    uint64_t valueUint64_t = 0x123456789ABCDEF0;
+    EDF::String<32> stringUint64_t( valueUint64_t, 8 );
+    EXPECT_STREQ( stringUint64_t.asCString(), "110642547423257157360" );
+}
+
+TEST(String, InitializationFromIntegerBase16) {
+    int8_t valueInt8_t = 0xAA;
+    EDF::String<32> stringInt8_t( valueInt8_t, 16 );
+    EXPECT_STREQ( stringInt8_t.asCString(), "AA" );
+
+    int16_t valueInt16_t = 0xAA55;
+    EDF::String<32> stringInt16_t( valueInt16_t, 16 );
+    EXPECT_STREQ( stringInt16_t.asCString(), "AA55" );
+
+    int32_t valueInt32_t = 0x12345678;
+    EDF::String<32> stringInt32_t( valueInt32_t, 16 );
+    EXPECT_STREQ( stringInt32_t.asCString(), "12345678" );
+
+    int64_t valueInt64_t = 0x123456789ABCDEF0;
+    EDF::String<32> stringInt64_t( valueInt64_t, 16 );
+    EXPECT_STREQ( stringInt64_t.asCString(), "123456789ABCDEF0" );
+
+    uint8_t valueUint8_t = 0xAA;
+    EDF::String<32> stringUint8_t( valueUint8_t, 16 );
+    EXPECT_STREQ( stringUint8_t.asCString(), "AA" );
+
+    uint16_t valueUint16_t = 0xAA55;
+    EDF::String<32> stringUint16_t( valueUint16_t, 16 );
+    EXPECT_STREQ( stringUint16_t.asCString(), "AA55" );
+
+    uint32_t valueUint32_t = 0x12345678;
+    EDF::String<32> stringUint32_t( valueUint32_t, 16 );
+    EXPECT_STREQ( stringUint32_t.asCString(), "12345678" );
+
+    uint64_t valueUint64_t = 0x123456789ABCDEF0;
+    EDF::String<32> stringUint64_t( valueUint64_t, 16 );
+    EXPECT_STREQ( stringUint64_t.asCString(), "123456789ABCDEF0" );
+}
+
+TEST(String, InitializationFromIntegerBase36) {
+    int8_t valueInt8_t = 0xAA;
+    EDF::String<32> stringInt8_t( valueInt8_t, 36 );
+    EXPECT_STREQ( stringInt8_t.asCString(), "4Q" );
+
+    int16_t valueInt16_t = 0xAA55;
+    EDF::String<32> stringInt16_t( valueInt16_t, 36 );
+    EXPECT_STREQ( stringInt16_t.asCString(), "XN9" );
+
+    int32_t valueInt32_t = 0x12345678;
+    EDF::String<32> stringInt32_t( valueInt32_t, 36 );
+    EXPECT_STREQ( stringInt32_t.asCString(), "51U7I0" );
+
+    int64_t valueInt64_t = 0x123456789ABCDEF0;
+    EDF::String<32> stringInt64_t( valueInt64_t, 36 );
+    EXPECT_STREQ( stringInt64_t.asCString(), "9YS742PPS3QO" );
+
+    uint8_t valueUint8_t = 0xAA;
+    EDF::String<32> stringUint8_t( valueUint8_t, 36 );
+    EXPECT_STREQ( stringUint8_t.asCString(), "4Q" );
+
+    uint16_t valueUint16_t = 0xAA55;
+    EDF::String<32> stringUint16_t( valueUint16_t, 36 );
+    EXPECT_STREQ( stringUint16_t.asCString(), "XN9" );
+
+    uint32_t valueUint32_t = 0x12345678;
+    EDF::String<32> stringUint32_t( valueUint32_t, 36 );
+    EXPECT_STREQ( stringUint32_t.asCString(), "51U7I0" );
+
+    uint64_t valueUint64_t = 0x123456789ABCDEF0;
+    EDF::String<32> stringUint64_t( valueUint64_t, 36 );
+    EXPECT_STREQ( stringUint64_t.asCString(), "9YS742PPS3QO" );
+}
+
+TEST(String, InitializationFromEDFString) {
+    EDF::String<16> smallerString = "Smaller String";
+    EDF::String<32> string( smallerString );
+
+    EXPECT_EQ( string.length(), 14 );
+    EXPECT_STREQ( string.asCString(), "Smaller String" );
+
+    EDF::String<20> fromLargerString( string );
+    EXPECT_EQ( fromLargerString.length(), 14 );
+    EXPECT_STREQ( fromLargerString.asCString(), "Smaller String" );
+}
