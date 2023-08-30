@@ -77,7 +77,6 @@ static constexpr void string_from( char* str, const std::size_t& len, std::size_
     bool negative = false;                  // only used for when T is signed. Probably optimized out when T is unsigned
     if constexpr( std::is_signed_v<T> ) {   // deal with sign if number is signed
         if( value < 0 ) {
-            negative = true;
             if( value == std::numeric_limits<T>::min() ) { // handle edge case when value = -value causes overflow
                 string_from<std::make_unsigned_t<T>>( str, len, N, value, base );
                 if( base == 10 ){
@@ -86,6 +85,11 @@ static constexpr void string_from( char* str, const std::size_t& len, std::size_
                 }
                 return;
             }
+            else if( base != 10 ) {
+                string_from<std::make_unsigned_t<T>>( str, len, N, value, base );
+                return;
+            }
+            negative = true;
             value = -value;      // turn back to positive, to treat it like it was unsigned
         }
     }
