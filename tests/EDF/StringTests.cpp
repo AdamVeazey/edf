@@ -234,3 +234,55 @@ TEST(String, InitializationFromEDFString) {
     EXPECT_EQ( fromLargerString.length(), 14 );
     EXPECT_STREQ( fromLargerString.asCString(), "Smaller String" );
 }
+
+TEST(String, IsEmpty) {
+    EDF::String<2> string;
+    EXPECT_TRUE( string.isEmpty() );
+
+    string += 'H';
+    EXPECT_FALSE( string.isEmpty() );
+}
+
+TEST(String, IsFull) {
+    EDF::String<2> string;
+    EXPECT_FALSE( string.isFull() );
+
+    string += 'H';
+    EXPECT_EQ( string.length(), 1 );
+    EXPECT_TRUE( string.isFull() );
+}
+
+TEST(String, Length) {
+    EDF::String<32> string;
+    EXPECT_EQ( string.length(), 0 );
+
+    string = "Four";
+    EXPECT_EQ( string.length(), 4 );
+
+    string += " more characters";
+    EXPECT_EQ( string.length(), 20 );
+
+    string.insert( string.begin(), "Twelve ch. " );
+    EXPECT_EQ( string.length(), 31 );
+    EXPECT_EQ( string.length(), string.maxLength() );
+}
+
+TEST(String, MaxLength) {
+    EDF::String<1> stringOne;
+    EXPECT_EQ( stringOne.maxLength(), 0 );
+
+    EDF::String<2> stringTwo;
+    EXPECT_EQ( stringTwo.maxLength(), 1 );
+
+    EDF::String<8> stringEight;
+    EXPECT_EQ( stringEight.maxLength(), 7 );
+
+    EDF::String<10> stringTen;
+    EXPECT_EQ( stringTen.maxLength(), 9 );
+
+    EDF::String<100> stringOneHundred;
+    EXPECT_EQ( stringOneHundred.maxLength(), 99 );
+
+    EDF::String<1000> stringOneThousand;
+    EXPECT_EQ( stringOneThousand.maxLength(), 999 );
+}
