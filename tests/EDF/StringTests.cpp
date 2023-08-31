@@ -286,3 +286,71 @@ TEST(String, MaxLength) {
     EDF::String<1000> stringOneThousand;
     EXPECT_EQ( stringOneThousand.maxLength(), 999 );
 }
+
+TEST(String, At) {
+    EDF::String<16> string = "Hello, World!";
+
+    EXPECT_EQ( string.at( 0 ), 'H' );
+    EXPECT_EQ( string.at( 1 ), 'e' );
+    EXPECT_EQ( string.at( 2 ), 'l' );
+    EXPECT_EQ( string.at( 3 ), 'l' );
+    EXPECT_EQ( string.at( 4 ), 'o' );
+    EXPECT_EQ( string.at( 5 ), ',' );
+    EXPECT_EQ( string.at( 6 ), ' ' );
+    EXPECT_EQ( string.at( 7 ), 'W' );
+    EXPECT_EQ( string.at( 8 ), 'o' );
+    EXPECT_EQ( string.at( 9 ), 'r' );
+    EXPECT_EQ( string.at( 10 ), 'l' );
+    EXPECT_EQ( string.at( 11 ), 'd' );
+    EXPECT_EQ( string.at( 12 ), '!' );
+
+    EXPECT_DEATH( string.at( 13 ), "" );
+
+    string.at( 7 ) = 'w';
+    EXPECT_EQ( string.at( 7 ), 'w' );
+}
+
+TEST(String, OperatorIndex) {
+    EDF::String<16> string = "Hello, World!";
+
+    EXPECT_EQ( string[0], 'H' );
+    EXPECT_EQ( string[1], 'e' );
+    EXPECT_EQ( string[2], 'l' );
+    EXPECT_EQ( string[3], 'l' );
+    EXPECT_EQ( string[4], 'o' );
+    EXPECT_EQ( string[5], ',' );
+    EXPECT_EQ( string[6], ' ' );
+    EXPECT_EQ( string[7], 'W' );
+    EXPECT_EQ( string[8], 'o' );
+    EXPECT_EQ( string[9], 'r' );
+    EXPECT_EQ( string[10], 'l' );
+    EXPECT_EQ( string[11], 'd' );
+    EXPECT_EQ( string[12], '!' );
+
+    string[7] = 'w';
+    EXPECT_EQ( string[7], 'w' );
+}
+
+TEST(String, AsCString) {
+    EDF::String<16> string = "Hello, world!";
+    EXPECT_STREQ( string.asCString(), "Hello, world!" );
+
+    EXPECT_STREQ( EDF::String<16>().asCString(), "" );
+
+    char* p = string.asCString();
+    EXPECT_STREQ( p, "Hello, world!" );
+}
+
+TEST(String, AsByteData) {
+    static constexpr uint8_t data[] = { 0x27, 'O', 'k', 'a', 'y', '\0' };
+    EDF::String<16> string = data;
+
+    for( std::size_t k = 0; k < sizeof(data)/sizeof(data[0]); ++k ) {
+        EXPECT_EQ( string.asByteData()[k], data[k] );
+    }
+
+    uint8_t* p = string.asByteData();
+    p[1] = 'o';
+    EXPECT_EQ( string.asByteData()[1], 'o' );
+}
+
