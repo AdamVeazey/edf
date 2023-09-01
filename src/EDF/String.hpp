@@ -36,14 +36,14 @@ public:
 
     constexpr String( char ch );
 
-    constexpr String( const int8_t& value, std::size_t base = 10 );
-    constexpr String( const int16_t& value, std::size_t base = 10 );
-    constexpr String( const int32_t& value, std::size_t base = 10 );
-    constexpr String( const int64_t& value, std::size_t base = 10 );
-    constexpr String( const uint8_t& value, std::size_t base = 10 );
-    constexpr String( const uint16_t& value, std::size_t base = 10 );
-    constexpr String( const uint32_t& value, std::size_t base = 10 );
-    constexpr String( const uint64_t& value, std::size_t base = 10 );
+    constexpr String( int8_t value, std::size_t base = 10 );
+    constexpr String( int16_t value, std::size_t base = 10 );
+    constexpr String( int32_t value, std::size_t base = 10 );
+    constexpr String( int64_t value, std::size_t base = 10 );
+    constexpr String( uint8_t value, std::size_t base = 10 );
+    constexpr String( uint16_t value, std::size_t base = 10 );
+    constexpr String( uint32_t value, std::size_t base = 10 );
+    constexpr String( uint64_t value, std::size_t base = 10 );
 
     template<std::size_t S>
     constexpr String( const String<S>& o );
@@ -97,17 +97,16 @@ public:
     template<std::size_t S>
     constexpr String& append( const uint8_t (&str)[S] )                                           { insert( end(), str ); return *this; }
 
-    constexpr String& append( const char& ch )                                                    { insert( end(), ch ); return *this; }
-    constexpr String& append( char&& ch )                                                         { insert( end(), ch ); return *this; }
+    constexpr String& append( char ch )                                                           { insert( end(), ch ); return *this; }
 
-    constexpr String& append( const int8_t& value, std::size_t base = 10 )                        { insert( end(), value, base ); return *this; }
-    constexpr String& append( const int16_t& value, std::size_t base = 10 )                       { insert( end(), value, base ); return *this; }
-    constexpr String& append( const int32_t& value, std::size_t base = 10 )                       { insert( end(), value, base ); return *this; }
-    constexpr String& append( const int64_t& value, std::size_t base = 10 )                       { insert( end(), value, base ); return *this; }
-    constexpr String& append( const uint8_t& value, std::size_t base = 10 )                       { insert( end(), value, base ); return *this; }
-    constexpr String& append( const uint16_t& value, std::size_t base = 10 )                      { insert( end(), value, base ); return *this; }
-    constexpr String& append( const uint32_t& value, std::size_t base = 10 )                      { insert( end(), value, base ); return *this; }
-    constexpr String& append( const uint64_t& value, std::size_t base = 10 )                      { insert( end(), value, base ); return *this; }
+    constexpr String& append( int8_t value, std::size_t base = 10 )                               { insert( end(), value, base ); return *this; }
+    constexpr String& append( int16_t value, std::size_t base = 10 )                              { insert( end(), value, base ); return *this; }
+    constexpr String& append( int32_t value, std::size_t base = 10 )                              { insert( end(), value, base ); return *this; }
+    constexpr String& append( int64_t value, std::size_t base = 10 )                              { insert( end(), value, base ); return *this; }
+    constexpr String& append( uint8_t value, std::size_t base = 10 )                              { insert( end(), value, base ); return *this; }
+    constexpr String& append( uint16_t value, std::size_t base = 10 )                             { insert( end(), value, base ); return *this; }
+    constexpr String& append( uint32_t value, std::size_t base = 10 )                             { insert( end(), value, base ); return *this; }
+    constexpr String& append( uint64_t value, std::size_t base = 10 )                             { insert( end(), value, base ); return *this; }
 
     template<std::size_t S>
     constexpr String& append( const String<S>& str )                                              { insert( end(), str ); return *this; }
@@ -123,29 +122,26 @@ public:
     template<std::size_t S>
     constexpr String getAppended( const uint8_t (&str)[S] )                                 const { return getInserted( end(), str ); }
 
-    constexpr String getAppended( const char& ch )                                          const { return getInserted( end(), ch ); }
-    constexpr String getAppended( char&& ch )                                               const { return getInserted( end(), ch ); }
+    constexpr String getAppended( char ch )                                                 const { return getInserted( end(), ch ); }
 
-    constexpr String getAppended( const int8_t& value, std::size_t base = 10 )              const { return getInserted( end(), value, base ); }
-    constexpr String getAppended( const int16_t& value, std::size_t base = 10 )             const { return getInserted( end(), value, base ); }
-    constexpr String getAppended( const int32_t& value, std::size_t base = 10 )             const { return getInserted( end(), value, base ); }
-    constexpr String getAppended( const int64_t& value, std::size_t base = 10 )             const { return getInserted( end(), value, base ); }
-    constexpr String getAppended( const uint8_t& value, std::size_t base = 10 )             const { return getInserted( end(), value, base ); }
-    constexpr String getAppended( const uint16_t& value, std::size_t base = 10 )            const { return getInserted( end(), value, base ); }
-    constexpr String getAppended( const uint32_t& value, std::size_t base = 10 )            const { return getInserted( end(), value, base ); }
-    constexpr String getAppended( const uint64_t& value, std::size_t base = 10 )            const { return getInserted( end(), value, base ); }
+    constexpr String getAppended( int8_t value, std::size_t base = 10 )                     const { return getInserted( end(), value, base ); }
+    constexpr String getAppended( int16_t value, std::size_t base = 10 )                    const { return getInserted( end(), value, base ); }
+    constexpr String getAppended( int32_t value, std::size_t base = 10 )                    const { return getInserted( end(), value, base ); }
+    constexpr String getAppended( int64_t value, std::size_t base = 10 )                    const { return getInserted( end(), value, base ); }
+    constexpr String getAppended( uint8_t value, std::size_t base = 10 )                    const { return getInserted( end(), value, base ); }
+    constexpr String getAppended( uint16_t value, std::size_t base = 10 )                   const { return getInserted( end(), value, base ); }
+    constexpr String getAppended( uint32_t value, std::size_t base = 10 )                   const { return getInserted( end(), value, base ); }
+    constexpr String getAppended( uint64_t value, std::size_t base = 10 )                   const { return getInserted( end(), value, base ); }
 
     template<std::size_t S>
     constexpr String getAppended( const String<S>& str )                                    const { return getInserted( end(), str ); }
 
     /* Operations: In/Out-of-Place - insert */
-    constexpr void insert( std::size_t index, const char& value )                                 { insert( cbegin() + index, value ); }
-    constexpr void insert( std::size_t index, char&& value )                                      { insert( cbegin() + index, value ); }
-    constexpr void insert( std::size_t index, std::size_t count, const char& value )              { insert( cbegin() + index, count, value ); }
+    constexpr void insert( std::size_t index, char value )                                        { insert( cbegin() + index, value ); }
+    constexpr void insert( std::size_t index, std::size_t count, char value )                     { insert( cbegin() + index, count, value ); }
     constexpr void insert( std::size_t index, std::initializer_list<char> iList )                 { insert( cbegin() + index, iList ); }
-    constexpr Iterator insert( ConstIterator pos, const char& value )                             { return insert( pos, 1_uz, value ); }
-    constexpr Iterator insert( ConstIterator pos, char&& value );
-    constexpr Iterator insert( ConstIterator pos, std::size_t count, const char& value );
+    constexpr Iterator insert( ConstIterator pos, char value );
+    constexpr Iterator insert( ConstIterator pos, std::size_t count, char value );
     constexpr Iterator insert( ConstIterator pos, std::initializer_list<char> iList );
 
     constexpr void insert( std::size_t index, const char* str )                                   { insert( cbegin() + index, str ); }
@@ -167,36 +163,34 @@ public:
     template<std::size_t S>
     constexpr Iterator insert( ConstIterator pos, const char (&str)[S] )                          { return insert( pos, str, S ); }
 
-    constexpr void insert( std::size_t index, const int8_t& value, std::size_t base = 10 )        { insert( cbegin() + index, value, base ); }
-    constexpr void insert( std::size_t index, const int16_t& value, std::size_t base = 10 )       { insert( cbegin() + index, value, base ); }
-    constexpr void insert( std::size_t index, const int32_t& value, std::size_t base = 10 )       { insert( cbegin() + index, value, base ); }
-    constexpr void insert( std::size_t index, const int64_t& value, std::size_t base = 10 )       { insert( cbegin() + index, value, base ); }
-    constexpr void insert( std::size_t index, const uint8_t& value, std::size_t base = 10 )       { insert( cbegin() + index, value, base ); }
-    constexpr void insert( std::size_t index, const uint16_t& value, std::size_t base = 10 )      { insert( cbegin() + index, value, base ); }
-    constexpr void insert( std::size_t index, const uint32_t& value, std::size_t base = 10 )      { insert( cbegin() + index, value, base ); }
-    constexpr void insert( std::size_t index, const uint64_t& value, std::size_t base = 10 )      { insert( cbegin() + index, value, base ); }
+    constexpr void insert( std::size_t index, int8_t value, std::size_t base = 10 )               { insert( cbegin() + index, value, base ); }
+    constexpr void insert( std::size_t index, int16_t value, std::size_t base = 10 )              { insert( cbegin() + index, value, base ); }
+    constexpr void insert( std::size_t index, int32_t value, std::size_t base = 10 )              { insert( cbegin() + index, value, base ); }
+    constexpr void insert( std::size_t index, int64_t value, std::size_t base = 10 )              { insert( cbegin() + index, value, base ); }
+    constexpr void insert( std::size_t index, uint8_t value, std::size_t base = 10 )              { insert( cbegin() + index, value, base ); }
+    constexpr void insert( std::size_t index, uint16_t value, std::size_t base = 10 )             { insert( cbegin() + index, value, base ); }
+    constexpr void insert( std::size_t index, uint32_t value, std::size_t base = 10 )             { insert( cbegin() + index, value, base ); }
+    constexpr void insert( std::size_t index, uint64_t value, std::size_t base = 10 )             { insert( cbegin() + index, value, base ); }
 
-    constexpr Iterator insert( ConstIterator pos, const int8_t& value, std::size_t base = 10 )    { return insert( pos, String<8+1>( value, base ) ); }
-    constexpr Iterator insert( ConstIterator pos, const int16_t& value, std::size_t base = 10 )   { return insert( pos, String<16+1>( value, base ) ); }
-    constexpr Iterator insert( ConstIterator pos, const int32_t& value, std::size_t base = 10 )   { return insert( pos, String<32+1>( value, base ) ); }
-    constexpr Iterator insert( ConstIterator pos, const int64_t& value, std::size_t base = 10 )   { return insert( pos, String<64+1>( value, base ) ); }
-    constexpr Iterator insert( ConstIterator pos, const uint8_t& value, std::size_t base = 10 )   { return insert( pos, String<8+1>( value, base ) ); }
-    constexpr Iterator insert( ConstIterator pos, const uint16_t& value, std::size_t base = 10 )  { return insert( pos, String<16+1>( value, base ) ); }
-    constexpr Iterator insert( ConstIterator pos, const uint32_t& value, std::size_t base = 10 )  { return insert( pos, String<32+1>( value, base ) ); }
-    constexpr Iterator insert( ConstIterator pos, const uint64_t& value, std::size_t base = 10 )  { return insert( pos, String<64+1>( value, base ) ); }
+    constexpr Iterator insert( ConstIterator pos, int8_t value, std::size_t base = 10 )           { return insert( pos, String<8+1>( value, base ) ); }
+    constexpr Iterator insert( ConstIterator pos, int16_t value, std::size_t base = 10 )          { return insert( pos, String<16+1>( value, base ) ); }
+    constexpr Iterator insert( ConstIterator pos, int32_t value, std::size_t base = 10 )          { return insert( pos, String<32+1>( value, base ) ); }
+    constexpr Iterator insert( ConstIterator pos, int64_t value, std::size_t base = 10 )          { return insert( pos, String<64+1>( value, base ) ); }
+    constexpr Iterator insert( ConstIterator pos, uint8_t value, std::size_t base = 10 )          { return insert( pos, String<8+1>( value, base ) ); }
+    constexpr Iterator insert( ConstIterator pos, uint16_t value, std::size_t base = 10 )         { return insert( pos, String<16+1>( value, base ) ); }
+    constexpr Iterator insert( ConstIterator pos, uint32_t value, std::size_t base = 10 )         { return insert( pos, String<32+1>( value, base ) ); }
+    constexpr Iterator insert( ConstIterator pos, uint64_t value, std::size_t base = 10 )         { return insert( pos, String<64+1>( value, base ) ); }
 
     template<std::size_t S>
     constexpr void insert( std::size_t index, const String<S>& str )                              { insert( cbegin() + index, str ); }
     template<std::size_t S>
     constexpr Iterator insert( ConstIterator pos, const String<S>& str )                          { return insert( pos, str.asCString(), str.length() ); }
 
-    constexpr String getInserted( std::size_t index, const char& value )                    const { String tmp(*this); tmp.insert( index, value ); return tmp; }
-    constexpr String getInserted( std::size_t index, char&& value )                         const { String tmp(*this); tmp.insert( index, value ); return tmp; }
-    constexpr String getInserted( std::size_t index, std::size_t count, const char& value ) const { String tmp(*this); tmp.insert( index, count, value ); return tmp; }
+    constexpr String getInserted( std::size_t index, char value )                           const { String tmp(*this); tmp.insert( index, value ); return tmp; }
+    constexpr String getInserted( std::size_t index, std::size_t count, char value )        const { String tmp(*this); tmp.insert( index, count, value ); return tmp; }
     constexpr String getInserted( std::size_t index, std::initializer_list<char> iList )    const { String tmp(*this); tmp.insert( index, iList ); return tmp; }
-    constexpr String getInserted( ConstIterator pos, const char& value )                    const { String tmp(*this); tmp.insert( pos - begin(), value ); return tmp; }
-    constexpr String getInserted( ConstIterator pos, char&& value )                         const { String tmp(*this); tmp.insert( pos - begin(), value ); return tmp; }
-    constexpr String getInserted( ConstIterator pos, std::size_t count, const char& value ) const { String tmp(*this); tmp.insert( pos - begin(), value ); return tmp; }
+    constexpr String getInserted( ConstIterator pos, char value )                           const { String tmp(*this); tmp.insert( pos - begin(), value ); return tmp; }
+    constexpr String getInserted( ConstIterator pos, std::size_t count, char value )        const { String tmp(*this); tmp.insert( pos - begin(), value ); return tmp; }
     constexpr String getInserted( ConstIterator pos, std::initializer_list<char> iList )    const { String tmp(*this); tmp.insert( pos - begin(), iList ); return tmp; }
 
     constexpr String getInserted( std::size_t index, const char* str )                      const { String tmp(*this); tmp.insert( index, str ); return tmp; }
@@ -218,23 +212,23 @@ public:
     template<std::size_t S>
     constexpr String getInserted( ConstIterator pos, const char (&str)[S] )                 const { String tmp(*this); tmp.insert( pos - begin(), str ); return tmp; }
 
-    constexpr String getInserted( std::size_t index, const int8_t& value, std::size_t base = 10 )  const { String tmp(*this); tmp.insert( index, value, base ); return tmp; }
-    constexpr String getInserted( std::size_t index, const int16_t& value, std::size_t base = 10 ) const { String tmp(*this); tmp.insert( index, value, base ); return tmp; }
-    constexpr String getInserted( std::size_t index, const int32_t& value, std::size_t base = 10 ) const { String tmp(*this); tmp.insert( index, value, base ); return tmp; }
-    constexpr String getInserted( std::size_t index, const int64_t& value, std::size_t base = 10 ) const { String tmp(*this); tmp.insert( index, value, base ); return tmp; }
-    constexpr String getInserted( std::size_t index, const uint8_t& value, std::size_t base = 10 ) const { String tmp(*this); tmp.insert( index, value, base ); return tmp; }
-    constexpr String getInserted( std::size_t index, const uint16_t& value, std::size_t base = 10 )const { String tmp(*this); tmp.insert( index, value, base ); return tmp; }
-    constexpr String getInserted( std::size_t index, const uint32_t& value, std::size_t base = 10 )const { String tmp(*this); tmp.insert( index, value, base ); return tmp; }
-    constexpr String getInserted( std::size_t index, const uint64_t& value, std::size_t base = 10 )const { String tmp(*this); tmp.insert( index, value, base ); return tmp; }
+    constexpr String getInserted( std::size_t index, int8_t value, std::size_t base = 10 )  const { String tmp(*this); tmp.insert( index, value, base ); return tmp; }
+    constexpr String getInserted( std::size_t index, int16_t value, std::size_t base = 10 ) const { String tmp(*this); tmp.insert( index, value, base ); return tmp; }
+    constexpr String getInserted( std::size_t index, int32_t value, std::size_t base = 10 ) const { String tmp(*this); tmp.insert( index, value, base ); return tmp; }
+    constexpr String getInserted( std::size_t index, int64_t value, std::size_t base = 10 ) const { String tmp(*this); tmp.insert( index, value, base ); return tmp; }
+    constexpr String getInserted( std::size_t index, uint8_t value, std::size_t base = 10 ) const { String tmp(*this); tmp.insert( index, value, base ); return tmp; }
+    constexpr String getInserted( std::size_t index, uint16_t value, std::size_t base = 10 )const { String tmp(*this); tmp.insert( index, value, base ); return tmp; }
+    constexpr String getInserted( std::size_t index, uint32_t value, std::size_t base = 10 )const { String tmp(*this); tmp.insert( index, value, base ); return tmp; }
+    constexpr String getInserted( std::size_t index, uint64_t value, std::size_t base = 10 )const { String tmp(*this); tmp.insert( index, value, base ); return tmp; }
 
-    constexpr String getInserted( ConstIterator pos, const int8_t& value, std::size_t base = 10 )  const { String tmp(*this); tmp.insert( pos - begin(), value, base ); return tmp; }
-    constexpr String getInserted( ConstIterator pos, const int16_t& value, std::size_t base = 10 ) const { String tmp(*this); tmp.insert( pos - begin(), value, base ); return tmp; }
-    constexpr String getInserted( ConstIterator pos, const int32_t& value, std::size_t base = 10 ) const { String tmp(*this); tmp.insert( pos - begin(), value, base ); return tmp; }
-    constexpr String getInserted( ConstIterator pos, const int64_t& value, std::size_t base = 10 ) const { String tmp(*this); tmp.insert( pos - begin(), value, base ); return tmp; }
-    constexpr String getInserted( ConstIterator pos, const uint8_t& value, std::size_t base = 10 ) const { String tmp(*this); tmp.insert( pos - begin(), value, base ); return tmp; }
-    constexpr String getInserted( ConstIterator pos, const uint16_t& value, std::size_t base = 10 )const { String tmp(*this); tmp.insert( pos - begin(), value, base ); return tmp; }
-    constexpr String getInserted( ConstIterator pos, const uint32_t& value, std::size_t base = 10 )const { String tmp(*this); tmp.insert( pos - begin(), value, base ); return tmp; }
-    constexpr String getInserted( ConstIterator pos, const uint64_t& value, std::size_t base = 10 )const { String tmp(*this); tmp.insert( pos - begin(), value, base ); return tmp; }
+    constexpr String getInserted( ConstIterator pos, int8_t value, std::size_t base = 10 )  const { String tmp(*this); tmp.insert( pos - begin(), value, base ); return tmp; }
+    constexpr String getInserted( ConstIterator pos, int16_t value, std::size_t base = 10 ) const { String tmp(*this); tmp.insert( pos - begin(), value, base ); return tmp; }
+    constexpr String getInserted( ConstIterator pos, int32_t value, std::size_t base = 10 ) const { String tmp(*this); tmp.insert( pos - begin(), value, base ); return tmp; }
+    constexpr String getInserted( ConstIterator pos, int64_t value, std::size_t base = 10 ) const { String tmp(*this); tmp.insert( pos - begin(), value, base ); return tmp; }
+    constexpr String getInserted( ConstIterator pos, uint8_t value, std::size_t base = 10 ) const { String tmp(*this); tmp.insert( pos - begin(), value, base ); return tmp; }
+    constexpr String getInserted( ConstIterator pos, uint16_t value, std::size_t base = 10 )const { String tmp(*this); tmp.insert( pos - begin(), value, base ); return tmp; }
+    constexpr String getInserted( ConstIterator pos, uint32_t value, std::size_t base = 10 )const { String tmp(*this); tmp.insert( pos - begin(), value, base ); return tmp; }
+    constexpr String getInserted( ConstIterator pos, uint64_t value, std::size_t base = 10 )const { String tmp(*this); tmp.insert( pos - begin(), value, base ); return tmp; }
 
     template<std::size_t S>
     constexpr String getInserted( std::size_t index, const String<S>& str )                 const { String tmp(*this); tmp.insert( index, str ); return tmp; }
@@ -265,39 +259,39 @@ public:
     constexpr void copyTo( uint8_t (&outputString)[S] )                                     const { copyTo( reinterpret_cast<char(&)[S]>(outputString) ); }
 
     /* Operations: Out-of-Place - find and rfind */
-    constexpr Iterator find( const char& value )                                            const { return find( begin(), value ); };
+    constexpr Iterator find( char value )                                                   const { return find( begin(), value ); };
     constexpr Iterator find( const char* value )                                            const { return find( begin(), value, std::strlen( value ) ); }
     constexpr Iterator find( const char* value, std::size_t n )                             const { return find( begin(), value, n ); }
     template<std::size_t S>
     constexpr Iterator find( const String<S>& value )                                       const { return find( begin(), value, value.length() ); }
 
-    constexpr Iterator find( ConstIterator pos, const char& value )                         const;
+    constexpr Iterator find( ConstIterator pos, char value )                                const;
     constexpr Iterator find( ConstIterator pos, const char* value )                         const { return find( pos, value, std::strlen( value ) ); }
     constexpr Iterator find( ConstIterator pos, const char* value, std::size_t n )          const;
     template<std::size_t S>
     constexpr Iterator find( ConstIterator pos, const String<S>& value )                    const { return find( pos, value, value.length() ); }
 
-    constexpr ReverseIterator rfind( const char& value )                                    const { return rfind( rbegin(), value ); }
+    constexpr ReverseIterator rfind( char value )                                           const { return rfind( rbegin(), value ); }
     constexpr ReverseIterator rfind( const char* value )                                    const { return rfind( rbegin(), value ); }
     constexpr ReverseIterator rfind( const char* value, std::size_t n )                     const { return rfind( rbegin(), value, n ); }
     template<std::size_t S>
     constexpr ReverseIterator rfind( const String<S>& value )                               const { return rfind( rbegin(), value, value.length() ); }
 
-    constexpr ReverseIterator rfind( ConstReverseIterator pos, const char& value )          const;
+    constexpr ReverseIterator rfind( ConstReverseIterator pos, char value )                 const;
     constexpr ReverseIterator rfind( ConstReverseIterator pos, const char* value )          const;
     constexpr ReverseIterator rfind( ConstReverseIterator pos, const char* value, std::size_t n )  const;
     template<std::size_t S>
     constexpr ReverseIterator rfind( ConstReverseIterator pos, const String<S>& value )     const { return rfind( pos, value, value.length() ); }
 
     /* Operations: Out-of-Place - contains */
-    constexpr bool contains( const char& value )                                            const { return find( begin(), value ) != end(); }
+    constexpr bool contains( char value )                                                   const { return find( begin(), value ) != end(); }
     constexpr bool contains( const char* value )                                            const { return find( begin(), value ) != end(); }
     constexpr bool contains( const char* value, std::size_t n )                             const { return find( begin(), value ) != end(); }
     template<std::size_t S>
     constexpr bool contains( const String<S>& value )                                       const { return find( begin(), value ) != end(); }
 
     /* Operations: Out-of-Place - equals */
-    constexpr bool equals( const char& value )                                              const { return contains( &value, 1 ); }
+    constexpr bool equals( char value )                                                     const { return contains( &value, 1 ); }
     constexpr bool equals( const char* value )                                              const;
     constexpr bool equals( const char* value, std::size_t n )                               const;
     constexpr bool equals( const String& value )                                            const { return equals( value.asCString(), value.length() ); }
@@ -305,13 +299,13 @@ public:
     constexpr bool equals( const String<S>& value )                                         const { return equals( value.asCString(), value.length() ); }
 
     /* Operations: In/Out-of-Place - strip */
-    constexpr String& strip( const char& value = '\0' );
+    constexpr String& strip( char value = '\0' );
     constexpr String& strip( const char* values );
     constexpr String& strip( const char* values, std::size_t n );
     template<std::size_t S>
     constexpr String& strip( const String<S>& values )                                            { return strip( values.asCString(), values.length() ); }
 
-    constexpr String getStripped( const char& value = '\0' )                                const { String tmp(*this); tmp.strip( value ); return tmp; }
+    constexpr String getStripped( char value = '\0' )                                       const { String tmp(*this); tmp.strip( value ); return tmp; }
     constexpr String getStripped( const char* values )                                      const { String tmp(*this); tmp.strip( values ); return tmp; }
     constexpr String getStripped( const char* values, std::size_t n )                       const { String tmp(*this); tmp.strip( values, n ); return tmp; }
     template<std::size_t S>
@@ -319,29 +313,29 @@ public:
 
 
     /* Operations: In/Out-of-Place - trim */
-    constexpr String& trim( const char& value = '\0' )                                            { return trimRight( value ).trimLeft( value ); }
+    constexpr String& trim( char value = '\0' )                                                   { return trimRight( value ).trimLeft( value ); }
     constexpr String& trim( const char* values )                                                  { return trimRight( values ).trimLeft( values ); }
     constexpr String& trim( const char* values, std::size_t n )                                   { return trimRight( values, n ).trimLeft( values, n ); }
 
-    constexpr String getTrimmed( const char& value = '\0' )                                 const { String tmp(*this); tmp.trim( value ); return tmp; }
+    constexpr String getTrimmed( char value = '\0' )                                        const { String tmp(*this); tmp.trim( value ); return tmp; }
     constexpr String getTrimmed( const char* values )                                       const { String tmp(*this); tmp.trim( values ); return tmp; }
     constexpr String getTrimmed( const char* values, std::size_t n )                        const { String tmp(*this); tmp.trim( values, n ); return tmp; }
 
     /* Operations: In/Out-of-Place - trimLeft */
-    constexpr String& trimLeft( const char& value = '\0' );
+    constexpr String& trimLeft( char value = '\0' );
     constexpr String& trimLeft( const char* values );
     constexpr String& trimLeft( const char* values, std::size_t n );
 
-    constexpr String getTrimmedLeft( const char& value = '\0' )                             const { String tmp(*this); tmp.trimLeft( value ); return tmp; }
+    constexpr String getTrimmedLeft( char value = '\0' )                                    const { String tmp(*this); tmp.trimLeft( value ); return tmp; }
     constexpr String getTrimmedLeft( const char* values )                                   const { String tmp(*this); tmp.trimLeft( values ); return tmp; }
     constexpr String getTrimmedLeft( const char* values, std::size_t n )                    const { String tmp(*this); tmp.trimLeft( values, n ); return tmp; }
 
     /* Operations: In/Out-of-Place - trimRight */
-    constexpr String& trimRight( const char& value = '\0' );
+    constexpr String& trimRight( char value = '\0' );
     constexpr String& trimRight( const char* values );
     constexpr String& trimRight( const char* values, std::size_t n );
 
-    constexpr String getTrimmedRight( const char& value = '\0' )                            const { String tmp(*this); tmp.trimRight( value ); return tmp; }
+    constexpr String getTrimmedRight( char value = '\0' )                                   const { String tmp(*this); tmp.trimRight( value ); return tmp; }
     constexpr String getTrimmedRight( const char* values )                                  const { String tmp(*this); tmp.trimRight( values ); return tmp; }
     constexpr String getTrimmedRight( const char* values, std::size_t n )                   const { String tmp(*this); tmp.trimRight( values, n ); return tmp; }
 
@@ -358,29 +352,29 @@ public:
     constexpr String getToUpper()                                                           const { String tmp(*this); tmp.toUpper(); return tmp; }
 
     /* Operations: In/Out-of-Place - replace */
-    constexpr String& replace( const char& lookFor, const char& replaceWith )                     { return replace( &lookFor, 1_uz, &replaceWith, 1_uz ); }
-    constexpr String& replace( const char* lookFor, const char& replaceWith )                     { return replace( lookFor, std::strlen(lookFor), &replaceWith, 1_uz ); }
-    constexpr String& replace( const char* lookFor, std::size_t nLF, const char& replaceWith )    { return replace( lookFor, nLF, &replaceWith, 1_uz ); }
+    constexpr String& replace( char lookFor, char replaceWith )                                   { return replace( &lookFor, 1_uz, &replaceWith, 1_uz ); }
+    constexpr String& replace( const char* lookFor, char replaceWith )                            { return replace( lookFor, std::strlen(lookFor), &replaceWith, 1_uz ); }
+    constexpr String& replace( const char* lookFor, std::size_t nLF, char replaceWith )           { return replace( lookFor, nLF, &replaceWith, 1_uz ); }
     template<std::size_t S>
-    constexpr String& replace( const String<S>& lookFor, const char& replaceWith)                 { return replace( lookFor.asCString(), lookFor.length(), &replaceWith, 1_uz ); }
+    constexpr String& replace( const String<S>& lookFor, char replaceWith )                       { return replace( lookFor.asCString(), lookFor.length(), &replaceWith, 1_uz ); }
 
-    constexpr String& replace( const char& lookFor, const char* replaceWith )                     { return replace( &lookFor, 1_uz, replaceWith, std::strlen(replaceWith) ); }
+    constexpr String& replace( char lookFor, const char* replaceWith )                            { return replace( &lookFor, 1_uz, replaceWith, std::strlen(replaceWith) ); }
     constexpr String& replace( const char* lookFor, const char* replaceWith )                     { return replace( lookFor, std::strlen(lookFor), replaceWith, std::strlen(replaceWith) ); }
     constexpr String& replace( const char* lookFor, std::size_t nLF, const char* replaceWith )    { return replace( lookFor, nLF, replaceWith, std::strlen(replaceWith) ); }
     template<std::size_t S>
     constexpr String& replace( const String<S>& lookFor, const char* replaceWith )                { return replace( lookFor.asCString(), lookFor.length(), replaceWith, std::strlen(replaceWith) ); }
 
-    constexpr String& replace( const char& lookFor, const char* replaceWith, std::size_t nRW )    { return replace( &lookFor, 1_uz, replaceWith, nRW ); }
+    constexpr String& replace( char lookFor, const char* replaceWith, std::size_t nRW )           { return replace( &lookFor, 1_uz, replaceWith, nRW ); }
     constexpr String& replace( const char* lookFor, const char* replaceWith, std::size_t nRW )    { return replace( lookFor, std::strlen(lookFor), replaceWith, nRW ); }
     constexpr String& replace(
         const char* lookFor, std::size_t nLF,
         const char* replaceWith, std::size_t nRW
     );
     template<std::size_t S>
-    constexpr String& replace( const String<S>& lookFor, const char& replaceWith, std::size_t nRW ){ return replace( lookFor.asCString(), lookFor.length(), replaceWith, nRW ); }
+    constexpr String& replace( const String<S>& lookFor, char replaceWith, std::size_t nRW )      { return replace( lookFor.asCString(), lookFor.length(), replaceWith, nRW ); }
 
     template<std::size_t S>
-    constexpr String& replace( const char& lookFor, const String<S>& replaceWith )                { return replace( &lookFor, 1_uz, replaceWith.asCString(), replaceWith.length() ); }
+    constexpr String& replace( char lookFor, const String<S>& replaceWith )                       { return replace( &lookFor, 1_uz, replaceWith.asCString(), replaceWith.length() ); }
     template<std::size_t S>
     constexpr String& replace( const char* lookFor, const String<S>& replaceWith )                { return replace( lookFor, std::strlen(lookFor), replaceWith.asCString(), replaceWith.length() ); }
     template<std::size_t S>
@@ -391,19 +385,19 @@ public:
     template<std::size_t S1, std::size_t S2>
     constexpr String& replace( const String<S1>& lookFor, const String<S2>& replaceWith )         { return replace( lookFor.asCString(), lookFor.length(), replaceWith.asCString(), replaceWith.length() ); }
 
-    constexpr String getReplaced( const char& lookFor, const char& replaceWith )            const { String tmp(*this); tmp.replace( lookFor, replaceWith ); return tmp; }
-    constexpr String getReplaced( const char* lookFor, const char& replaceWith )            const { String tmp(*this); tmp.replace( lookFor, replaceWith ); return tmp; }
-    constexpr String getReplaced( const char* lookFor, std::size_t nLF, const char& replaceWith )const { String tmp(*this); tmp.replace( lookFor, nLF, replaceWith ); return tmp; }
+    constexpr String getReplaced( char lookFor, char replaceWith )                          const { String tmp(*this); tmp.replace( lookFor, replaceWith ); return tmp; }
+    constexpr String getReplaced( const char* lookFor, char replaceWith )                   const { String tmp(*this); tmp.replace( lookFor, replaceWith ); return tmp; }
+    constexpr String getReplaced( const char* lookFor, std::size_t nLF, char replaceWith )  const { String tmp(*this); tmp.replace( lookFor, nLF, replaceWith ); return tmp; }
     template<std::size_t S>
-    constexpr String& getReplaced( const String<S>& lookFor, const char& replaceWith)       const { String tmp(*this); tmp.replace( lookFor, replaceWith ); return tmp; }
+    constexpr String& getReplaced( const String<S>& lookFor, char replaceWith )             const { String tmp(*this); tmp.replace( lookFor, replaceWith ); return tmp; }
 
-    constexpr String getReplaced( const char& lookFor, const char* replaceWith )            const { String tmp(*this); tmp.replace( lookFor, replaceWith ); return tmp; }
+    constexpr String getReplaced( char lookFor, const char* replaceWith )                   const { String tmp(*this); tmp.replace( lookFor, replaceWith ); return tmp; }
     constexpr String getReplaced( const char* lookFor, const char* replaceWith )            const { String tmp(*this); tmp.replace( lookFor, replaceWith ); return tmp; }
     constexpr String getReplaced( const char* lookFor, std::size_t nLF, const char* replaceWith )const { String tmp(*this); tmp.replace( lookFor, nLF, replaceWith ); return tmp; }
     template<std::size_t S>
     constexpr String& getReplaced( const String<S>& lookFor, const char* replaceWith )      const { String tmp(*this); tmp.replace( lookFor, replaceWith ); return tmp; }
 
-    constexpr String getReplaced( const char& lookFor, const char* replaceWith, std::size_t nRW )const { String tmp(*this); tmp.replace( lookFor, replaceWith, nRW ); return tmp; }
+    constexpr String getReplaced( char lookFor, const char* replaceWith, std::size_t nRW )  const { String tmp(*this); tmp.replace( lookFor, replaceWith, nRW ); return tmp; }
     constexpr String getReplaced( const char* lookFor, const char* replaceWith, std::size_t nRW )const { String tmp(*this); tmp.replace( lookFor, replaceWith, nRW ); return tmp; }
     constexpr String getReplaced(
         const char* lookFor, std::size_t nLF,
@@ -425,41 +419,39 @@ public:
     template<std::size_t S>
     constexpr String& operator+=( const uint8_t (&rhs)[S] )                                       { return append( rhs ); }
 
-    constexpr String& operator+=( const char& rhs )                                               { return append( rhs ); }
-    constexpr String& operator+=( char&& rhs )                                                    { return append( rhs ); }
+    constexpr String& operator+=( char rhs )                                                      { return append( rhs ); }
 
-    constexpr String& operator+=( const int8_t& rhs )                                             { return append( rhs ); }
-    constexpr String& operator+=( const int16_t& rhs )                                            { return append( rhs ); }
-    constexpr String& operator+=( const int32_t& rhs )                                            { return append( rhs ); }
-    constexpr String& operator+=( const int64_t& rhs )                                            { return append( rhs ); }
-    constexpr String& operator+=( const uint8_t& rhs )                                            { return append( rhs ); }
-    constexpr String& operator+=( const uint16_t& rhs )                                           { return append( rhs ); }
-    constexpr String& operator+=( const uint32_t& rhs )                                           { return append( rhs ); }
-    constexpr String& operator+=( const uint64_t& rhs )                                           { return append( rhs ); }
+    constexpr String& operator+=( int8_t rhs )                                                    { return append( rhs ); }
+    constexpr String& operator+=( int16_t rhs )                                                   { return append( rhs ); }
+    constexpr String& operator+=( int32_t rhs )                                                   { return append( rhs ); }
+    constexpr String& operator+=( int64_t rhs )                                                   { return append( rhs ); }
+    constexpr String& operator+=( uint8_t rhs )                                                   { return append( rhs ); }
+    constexpr String& operator+=( uint16_t rhs )                                                  { return append( rhs ); }
+    constexpr String& operator+=( uint32_t rhs )                                                  { return append( rhs ); }
+    constexpr String& operator+=( uint64_t rhs )                                                  { return append( rhs ); }
 
     template<std::size_t S>
     constexpr String& operator+=( const String<S>& rhs )                                          { return append( rhs ); }
 
     /* Operations: Operator Overload - +(this, rhs) */
-    constexpr String operator+( const char* rhs )                                          const { return getAppended( rhs ); }
-    constexpr String operator+( const uint8_t* rhs )                                       const { return getAppended( rhs ); }
+    constexpr String operator+( const char* rhs )                                           const { return getAppended( rhs ); }
+    constexpr String operator+( const uint8_t* rhs )                                        const { return getAppended( rhs ); }
 
     template<std::size_t S>
-    constexpr String operator+( const char (&rhs)[S] )                                     const { return getAppended( rhs ); }
+    constexpr String operator+( const char (&rhs)[S] )                                      const { return getAppended( rhs ); }
     template<std::size_t S>
-    constexpr String operator+( const uint8_t (&rhs)[S] )                                  const { return getAppended( rhs ); }
+    constexpr String operator+( const uint8_t (&rhs)[S] )                                   const { return getAppended( rhs ); }
 
-    constexpr String operator+( const char& rhs )                                          const { return getAppended( rhs ); }
-    constexpr String operator+( char&& rhs )                                               const { return getAppended( rhs ); }
+    constexpr String operator+( char rhs )                                                  const { return getAppended( rhs ); }
 
-    constexpr String operator+( const int8_t& rhs )                                        const { return getAppended( rhs ); }
-    constexpr String operator+( const int16_t& rhs )                                       const { return getAppended( rhs ); }
-    constexpr String operator+( const int32_t& rhs )                                       const { return getAppended( rhs ); }
-    constexpr String operator+( const int64_t& rhs )                                       const { return getAppended( rhs ); }
-    constexpr String operator+( const uint8_t& rhs )                                       const { return getAppended( rhs ); }
-    constexpr String operator+( const uint16_t& rhs )                                      const { return getAppended( rhs ); }
-    constexpr String operator+( const uint32_t& rhs )                                      const { return getAppended( rhs ); }
-    constexpr String operator+( const uint64_t& rhs )                                      const { return getAppended( rhs ); }
+    constexpr String operator+( const int8_t& rhs )                                         const { return getAppended( rhs ); }
+    constexpr String operator+( const int16_t& rhs )                                        const { return getAppended( rhs ); }
+    constexpr String operator+( const int32_t& rhs )                                        const { return getAppended( rhs ); }
+    constexpr String operator+( const int64_t& rhs )                                        const { return getAppended( rhs ); }
+    constexpr String operator+( const uint8_t& rhs )                                        const { return getAppended( rhs ); }
+    constexpr String operator+( const uint16_t& rhs )                                       const { return getAppended( rhs ); }
+    constexpr String operator+( const uint32_t& rhs )                                       const { return getAppended( rhs ); }
+    constexpr String operator+( const uint64_t& rhs )                                       const { return getAppended( rhs ); }
 
     /* Operations: Operator Overload - +(lhs, String) */
     friend constexpr String operator+( const char* lhs, const String& rhs )                       { String result(lhs); result.append(rhs); return result; }
@@ -470,17 +462,16 @@ public:
     template<std::size_t S>
     friend constexpr String operator+( const uint8_t (&lhs)[S], const String& rhs )               { String result(lhs); result.append(rhs); return result; }
 
-    friend constexpr String operator+( const char& lhs, const String& rhs )                       { String result(lhs); result.append(rhs); return result; }
-    friend constexpr String operator+( char&& lhs, const String& rhs )                            { String result(lhs); result.append(rhs); return result; }
+    friend constexpr String operator+( char lhs, const String& rhs )                              { String result(lhs); result.append(rhs); return result; }
 
-    friend constexpr String operator+( const int8_t& lhs, const String& rhs )                     { String result(lhs); result.append(rhs); return result; }
-    friend constexpr String operator+( const int16_t& lhs, const String& rhs )                    { String result(lhs); result.append(rhs); return result; }
-    friend constexpr String operator+( const int32_t& lhs, const String& rhs )                    { String result(lhs); result.append(rhs); return result; }
-    friend constexpr String operator+( const int64_t& lhs, const String& rhs )                    { String result(lhs); result.append(rhs); return result; }
-    friend constexpr String operator+( const uint8_t& lhs, const String& rhs )                    { String result(lhs); result.append(rhs); return result; }
-    friend constexpr String operator+( const uint16_t& lhs, const String& rhs )                   { String result(lhs); result.append(rhs); return result; }
-    friend constexpr String operator+( const uint32_t& lhs, const String& rhs )                   { String result(lhs); result.append(rhs); return result; }
-    friend constexpr String operator+( const uint64_t& lhs, const String& rhs )                   { String result(lhs); result.append(rhs); return result; }
+    friend constexpr String operator+( int8_t lhs, const String& rhs )                            { String result(lhs); result.append(rhs); return result; }
+    friend constexpr String operator+( int16_t lhs, const String& rhs )                           { String result(lhs); result.append(rhs); return result; }
+    friend constexpr String operator+( int32_t lhs, const String& rhs )                           { String result(lhs); result.append(rhs); return result; }
+    friend constexpr String operator+( int64_t lhs, const String& rhs )                           { String result(lhs); result.append(rhs); return result; }
+    friend constexpr String operator+( uint8_t lhs, const String& rhs )                           { String result(lhs); result.append(rhs); return result; }
+    friend constexpr String operator+( uint16_t lhs, const String& rhs )                          { String result(lhs); result.append(rhs); return result; }
+    friend constexpr String operator+( uint32_t lhs, const String& rhs )                          { String result(lhs); result.append(rhs); return result; }
+    friend constexpr String operator+( uint64_t lhs, const String& rhs )                          { String result(lhs); result.append(rhs); return result; }
 
     template<std::size_t S>
     friend constexpr auto operator+( const String<S>& lhs, const String& rhs )                    { String<EDF::max(N, S)> result(lhs); result.append(rhs); return result; }

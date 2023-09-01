@@ -206,7 +206,7 @@ String( char ch ) {
 
 template<std::size_t N>
 constexpr String<N>::
-String( const int8_t& value, std::size_t base ) {
+String( int8_t value, std::size_t base ) {
     EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
     EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
     string_from(
@@ -221,7 +221,7 @@ String( const int8_t& value, std::size_t base ) {
 
 template<std::size_t N>
 constexpr String<N>::
-String( const int16_t& value, std::size_t base ) {
+String( int16_t value, std::size_t base ) {
     EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
     EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
     string_from(
@@ -236,7 +236,7 @@ String( const int16_t& value, std::size_t base ) {
 
 template<std::size_t N>
 constexpr String<N>::
-String( const int32_t& value, std::size_t base ) {
+String( int32_t value, std::size_t base ) {
     EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
     EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
     string_from(
@@ -251,7 +251,7 @@ String( const int32_t& value, std::size_t base ) {
 
 template<std::size_t N>
 constexpr String<N>::
-String( const int64_t& value, std::size_t base ) {
+String( int64_t value, std::size_t base ) {
     EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
     EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
     string_from(
@@ -266,7 +266,7 @@ String( const int64_t& value, std::size_t base ) {
 
 template<std::size_t N>
 constexpr String<N>::
-String( const uint8_t& value, std::size_t base ) {
+String( uint8_t value, std::size_t base ) {
     EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
     EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
     string_from(
@@ -281,7 +281,7 @@ String( const uint8_t& value, std::size_t base ) {
 
 template<std::size_t N>
 constexpr String<N>::
-String( const uint16_t& value, std::size_t base ) {
+String( uint16_t value, std::size_t base ) {
     EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
     EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
     string_from(
@@ -296,7 +296,7 @@ String( const uint16_t& value, std::size_t base ) {
 
 template<std::size_t N>
 constexpr String<N>::
-String( const uint32_t& value, std::size_t base ) {
+String( uint32_t value, std::size_t base ) {
     EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
     EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
     string_from(
@@ -311,7 +311,7 @@ String( const uint32_t& value, std::size_t base ) {
 
 template<std::size_t N>
 constexpr String<N>::
-String( const uint64_t& value, std::size_t base ) {
+String( uint64_t value, std::size_t base ) {
     EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
     EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
     string_from(
@@ -361,7 +361,7 @@ toUint64_t( int base ) const {
 
 template<std::size_t N>
 constexpr typename String<N>::Iterator String<N>::
-insert( ConstIterator pos, char&& value) {
+insert( ConstIterator pos, char value ) {
     EDF_ASSERTD( pos >= cbegin() );  // position must be valid
     EDF_ASSERTD( pos <= cend() );    // position must be valid
     EDF_ASSERTD( !isFull() );      // must be able to fit value
@@ -373,7 +373,7 @@ insert( ConstIterator pos, char&& value) {
 
 template<std::size_t N>
 constexpr typename String<N>::Iterator String<N>::
-insert( ConstIterator pos, std::size_t count, const char& value ) {
+insert( ConstIterator pos, std::size_t count, char value ) {
     EDF_ASSERTD( pos >= cbegin() );  // position must be valid
     EDF_ASSERTD( pos <= cend() );    // position must be valid
     EDF_ASSERTD( (count + length()) <= maxLength() );    // must be able to fit value
@@ -424,7 +424,7 @@ copyTo( char* outputString, std::size_t maxBufferLength ) const {
 
 template<std::size_t N>
 constexpr typename String<N>::Iterator String<N>::
-find( ConstIterator pos, const char& value ) const {
+find( ConstIterator pos, char value ) const {
     EDF_ASSERTD( value != '\0' );    // simply use end() or a variation instead
     EDF_ASSERTD( pos >= cbegin() );  // position must be valid
     EDF_ASSERTD( pos <= cend() );    // position must be valid
@@ -460,7 +460,7 @@ find( ConstIterator pos, const char* value, std::size_t n ) const {
 
 template<std::size_t N>
 constexpr typename String<N>::ReverseIterator String<N>::
-rfind( ConstReverseIterator pos, const char& value ) const {
+rfind( ConstReverseIterator pos, char value ) const {
     EDF_ASSERTD( value != '\0' );    // simply use end() or a variation instead
     EDF_ASSERTD( pos >= crbegin() ); // position must be valid
     EDF_ASSERTD( pos <= crend() );   // position must be valid
@@ -514,8 +514,8 @@ equals( const char* value, std::size_t n ) const {
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
-strip( const char& value ) {
-    constexpr auto isPrintable = []( const char& ch ) -> bool {
+strip( char value ) {
+    constexpr auto isPrintable = []( char ch ) -> bool {
         return ch > ' ' && ch <= '~';
     };
     std::size_t& mutateLen = const_cast<std::size_t&>(length()); // in this case, we need to make sure we're mutating len
@@ -551,8 +551,8 @@ strip( const char* values, std::size_t n ) {
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
-trimLeft( const char& value ) {
-    constexpr auto isNotMatch = [](const char& ch, const char& value) -> bool {
+trimLeft( char value ) {
+    constexpr auto isNotMatch = [](char ch, char value) -> bool {
         return ( ((value == '\0') && (ch <= ' ' || ch > '~')) || // if value is default '\0', check if printable
                  ((value != '\0') && (value != ch))              // else, check if ch matches
         );
@@ -589,13 +589,13 @@ trimLeft( const char* values, std::size_t n ) {
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
-trimRight( const char& value ) {
-    constexpr auto isNotMatch = [](const char& ch, const char& value) -> bool {
+trimRight( char value ) {
+    constexpr auto isNotMatch = [](char ch, char value) -> bool {
         return ( ((value == '\0') && (ch > ' ' && ch <= '~')) || // if value is default '\0', check if printable
                  ((value != '\0') && (value != ch)) // else, check if ch matches
         );
     };
-    auto firstNonMatch = std::find_if( rbegin(), rend(), [&value, &isNotMatch](const char& ch) {
+    auto firstNonMatch = std::find_if( rbegin(), rend(), [&value, &isNotMatch](char ch) {
         return isNotMatch( ch, value );
     });
     if( firstNonMatch != rbegin() ) {
