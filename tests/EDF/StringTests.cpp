@@ -466,7 +466,7 @@ TEST(String, Append) {
 }
 
 TEST(String, GetAppended) {
-    EDF::String<1024> string;
+    EDF::String<32> string;
 
     EXPECT_STREQ( string.getAppended( "one " ).asCString(), "one " );
 
@@ -510,4 +510,248 @@ TEST(String, GetAppended) {
 
     EDF::String<32> otherString = "fifteen";
     EXPECT_STREQ( string.getAppended( otherString ).asCString(), "fifteen" );
+}
+
+TEST(String, Insert) {
+    EDF::String<1024> string;
+
+    string.insert( 0_uz, ' ' );
+    EXPECT_STREQ( string.asCString(), " " );
+
+    string.insert( 1_uz, 3_uz, ' ' );
+    EXPECT_STREQ( string.asCString(), "    " );
+
+    string.insert( 4_uz, { 't', 'e', 'e', 'n' } );
+    EXPECT_STREQ( string.asCString(), "    teen" );
+
+    string.insert( string.find('t'), 2_uz, 'f' );
+    EXPECT_STREQ( string.asCString(), "    ffteen" );
+
+    string.insert( string.find('f') + 1, 'i' );
+    EXPECT_STREQ( string.asCString(), "    fifteen" );
+
+    string.insert( string.find('f') - 1, {'f', 'o', 'u', 'r' } );
+    EXPECT_STREQ( string.asCString(), "   four fifteen" );
+
+    /**********************************************************************************************/
+
+    string.insert( 7_uz, "teen" );
+    EXPECT_STREQ( string.asCString(), "   fourteen fifteen" );
+
+    string.insert( 2_uz, reinterpret_cast<const uint8_t*>("teen") );
+    EXPECT_STREQ( string.asCString(), "  teen fourteen fifteen" );
+
+    string.insert( string.find('t'), "th" );
+    EXPECT_STREQ( string.asCString(), "  thteen fourteen fifteen" );
+
+    string.insert( string.find('h') + 1, reinterpret_cast<const uint8_t*>("ir") );
+    EXPECT_STREQ( string.asCString(), "  thirteen fourteen fifteen" );
+
+    /**********************************************************************************************/
+
+    string.insert( 1_uz, "twel", std::strlen("twel") );
+    EXPECT_STREQ( string.asCString(), " twel thirteen fourteen fifteen" );
+
+    string.insert( 5_uz, reinterpret_cast<const uint8_t*>("ve"), 2 );
+    EXPECT_STREQ( string.asCString(), " twelve thirteen fourteen fifteen" );
+
+    string.insert( string.begin(), reinterpret_cast<const uint8_t*>("ele"), 3 );
+    EXPECT_STREQ( string.asCString(), "ele twelve thirteen fourteen fifteen" );
+
+    string.insert( string.find( string.find('e') + 1, 'e' ) + 1, "ven", std::strlen("ven") );
+    EXPECT_STREQ( string.asCString(), "eleven twelve thirteen fourteen fifteen" );
+
+    /**********************************************************************************************/
+
+    const char literalCharArray[] = "          ";
+    string.insert( 0_uz, literalCharArray );
+    EXPECT_STREQ( string.asCString(), "          eleven twelve thirteen fourteen fifteen" );
+
+    const uint8_t literalUint8_tArray[] = "        ";
+    string.insert( 49_uz, literalUint8_tArray );
+    EXPECT_STREQ( string.asCString(), "          eleven twelve thirteen fourteen fifteen        " );
+
+    const uint8_t literalUint8_tArray2[] = "ten";
+    string.insert( string.find('e') - 1, literalUint8_tArray2 );
+    EXPECT_STREQ( string.asCString(), "         ten eleven twelve thirteen fourteen fifteen        " );
+
+    const char literalCharArray2[] = "nine";
+    string.insert( string.find('t') - 1, literalCharArray2 );
+    EXPECT_STREQ( string.asCString(), "        nine ten eleven twelve thirteen fourteen fifteen        " );
+
+    /**********************************************************************************************/
+
+    int8_t vInt8_t = 0x8;
+    string.insert( 7_uz, vInt8_t, 16 );
+    EXPECT_STREQ( string.asCString(), "       8 nine ten eleven twelve thirteen fourteen fifteen        " );
+
+    int16_t vInt16_t = 7;
+    string.insert( 6_uz, vInt16_t );
+    EXPECT_STREQ( string.asCString(), "      7 8 nine ten eleven twelve thirteen fourteen fifteen        " );
+
+    int32_t vInt32_t = 6;
+    string.insert( 5_uz, vInt32_t );
+    EXPECT_STREQ( string.asCString(), "     6 7 8 nine ten eleven twelve thirteen fourteen fifteen        " );
+
+    int64_t vInt64_t = 5;
+    string.insert( 4_uz, vInt64_t );
+    EXPECT_STREQ( string.asCString(), "    5 6 7 8 nine ten eleven twelve thirteen fourteen fifteen        " );
+
+    uint8_t vUint8_t = 4;
+    string.insert( 3_uz, vUint8_t );
+    EXPECT_STREQ( string.asCString(), "   4 5 6 7 8 nine ten eleven twelve thirteen fourteen fifteen        " );
+
+    uint16_t vUint16_t = 3;
+    string.insert( 2_uz, vUint16_t );
+    EXPECT_STREQ( string.asCString(), "  3 4 5 6 7 8 nine ten eleven twelve thirteen fourteen fifteen        " );
+
+    uint32_t vUint32_t = 2;
+    string.insert( 1_uz, vUint32_t );
+    EXPECT_STREQ( string.asCString(), " 2 3 4 5 6 7 8 nine ten eleven twelve thirteen fourteen fifteen        " );
+
+    uint64_t vUint64_t = 1;
+    string.insert( 0_uz, vUint64_t );
+    EXPECT_STREQ( string.asCString(), "1 2 3 4 5 6 7 8 nine ten eleven twelve thirteen fourteen fifteen        " );
+
+    vInt8_t = 16;
+    string.insert( string.rfind('n').base() + 1, vInt8_t );
+    EXPECT_STREQ( string.asCString(), "1 2 3 4 5 6 7 8 nine ten eleven twelve thirteen fourteen fifteen 16       " );
+
+    vInt16_t = 17;
+    string.insert( string.rfind('6').base() + 1, vInt16_t );
+    EXPECT_STREQ( string.asCString(), "1 2 3 4 5 6 7 8 nine ten eleven twelve thirteen fourteen fifteen 16 17      " );
+
+    vInt32_t = 18;
+    string.insert( string.rfind('7').base() + 1, vInt32_t );
+    EXPECT_STREQ( string.asCString(), "1 2 3 4 5 6 7 8 nine ten eleven twelve thirteen fourteen fifteen 16 17 18     " );
+
+    vInt64_t = 19;
+    string.insert( string.rfind('8').base() + 1, vInt64_t );
+    EXPECT_STREQ( string.asCString(), "1 2 3 4 5 6 7 8 nine ten eleven twelve thirteen fourteen fifteen 16 17 18 19    " );
+
+    vUint8_t = 20;
+    string.insert( string.rfind('9').base() + 1, vUint8_t );
+    EXPECT_STREQ( string.asCString(), "1 2 3 4 5 6 7 8 nine ten eleven twelve thirteen fourteen fifteen 16 17 18 19 20   " );
+
+    vUint16_t = 21;
+    string.insert( string.rfind('0').base() + 1, vUint16_t );
+    EXPECT_STREQ( string.asCString(), "1 2 3 4 5 6 7 8 nine ten eleven twelve thirteen fourteen fifteen 16 17 18 19 20 21  " );
+
+    vUint32_t = 22;
+    string.insert( string.rfind('1').base() + 1, vUint32_t );
+    EXPECT_STREQ( string.asCString(), "1 2 3 4 5 6 7 8 nine ten eleven twelve thirteen fourteen fifteen 16 17 18 19 20 21 22 " );
+
+    vUint64_t = 23;
+    string.insert( string.rfind('2').base() + 1, vUint64_t );
+    EXPECT_STREQ( string.asCString(), "1 2 3 4 5 6 7 8 nine ten eleven twelve thirteen fourteen fifteen 16 17 18 19 20 21 22 23" );
+
+    string.insert( 88_uz, EDF::String<13>(" twenty-four") );
+    EXPECT_STREQ( string.asCString(), "1 2 3 4 5 6 7 8 nine ten eleven twelve thirteen fourteen fifteen 16 17 18 19 20 21 22 23 twenty-four" );
+
+    string.insert( string.end(), EDF::String<13>(" twenty-five") );
+    EXPECT_STREQ( string.asCString(), "1 2 3 4 5 6 7 8 nine ten eleven twelve thirteen fourteen fifteen 16 17 18 19 20 21 22 23 twenty-four twenty-five" );
+}
+
+TEST(String, GetInserted) {
+    EDF::String<32> string = "0123456789";
+
+    EXPECT_STREQ( string.getInserted( 5_uz, ' ' ).asCString(), "01234 56789" );
+
+    EXPECT_STREQ( string.getInserted( 2_uz, 3_uz, ' ' ).asCString(), "01   23456789" );
+
+    EXPECT_STREQ( string.getInserted( 4_uz, { 't', 'e', 'e', 'n' } ).asCString(), "0123teen456789" );
+
+    EXPECT_STREQ( string.getInserted( string.find('5'), 2_uz, 'f' ).asCString(), "01234ff56789" );
+
+    EXPECT_STREQ( string.getInserted( string.find('3') + 1, 'i' ).asCString(), "0123i456789" );
+
+    EXPECT_STREQ( string.getInserted( string.find('4') - 1, {'f', 'o', 'u', 'r' } ).asCString(), "012four3456789" );
+
+    /**********************************************************************************************/
+
+    EXPECT_STREQ( string.getInserted( 7_uz, "teen" ).asCString(), "0123456teen789" );
+
+    EXPECT_STREQ( string.getInserted( 2_uz, reinterpret_cast<const uint8_t*>("teen") ).asCString(), "01teen23456789" );
+
+    EXPECT_STREQ( string.getInserted( string.find('0'), "th" ).asCString(), "th0123456789" );
+
+    EXPECT_STREQ( string.getInserted( string.find('3') + 1, reinterpret_cast<const uint8_t*>("ir") ).asCString(), "0123ir456789" );
+
+    /**********************************************************************************************/
+
+    EXPECT_STREQ( string.getInserted( 1_uz, "twel", std::strlen("twel") ).asCString(), "0twel123456789" );
+
+    EXPECT_STREQ( string.getInserted( 5_uz, reinterpret_cast<const uint8_t*>("ve"), 2 ).asCString(), "01234ve56789" );
+
+    EXPECT_STREQ( string.getInserted( string.begin(), reinterpret_cast<const uint8_t*>("ele"), 3 ).asCString(), "ele0123456789" );
+
+    EXPECT_STREQ( string.getInserted( string.begin() + 2, "ven", std::strlen("ven") ).asCString(), "01ven23456789" );
+
+    /**********************************************************************************************/
+
+    const char literalCharArray[] = "          ";
+    EXPECT_STREQ( string.getInserted( 0_uz, literalCharArray ).asCString(), "          0123456789" );
+
+    const uint8_t literalUint8_tArray[] = "        ";
+    EXPECT_STREQ( string.getInserted( 10_uz, literalUint8_tArray ).asCString(), "0123456789        " );
+
+    const uint8_t literalUint8_tArray2[] = "ten";
+    EXPECT_STREQ( string.getInserted( string.find('3') - 1, literalUint8_tArray2 ).asCString(), "01ten23456789" );
+
+    const char literalCharArray2[] = "nine";
+    EXPECT_STREQ( string.getInserted( string.find('7') - 1, literalCharArray2 ).asCString(), "012345nine6789" );
+
+    /**********************************************************************************************/
+
+    int8_t vInt8_t = 0x8;
+    EXPECT_STREQ( string.getInserted( 7_uz, vInt8_t, 16 ).asCString(), "01234568789" );
+
+    int16_t vInt16_t = 7;
+    EXPECT_STREQ( string.getInserted( 6_uz, vInt16_t ).asCString(), "01234576789" );
+
+    int32_t vInt32_t = 6;
+    EXPECT_STREQ( string.getInserted( 5_uz, vInt32_t ).asCString(), "01234656789" );
+
+    int64_t vInt64_t = 5;
+    EXPECT_STREQ( string.getInserted( 4_uz, vInt64_t ).asCString(), "01235456789" );
+
+    uint8_t vUint8_t = 4;
+    EXPECT_STREQ( string.getInserted( 3_uz, vUint8_t ).asCString(), "01243456789" );
+
+    uint16_t vUint16_t = 3;
+    EXPECT_STREQ( string.getInserted( 2_uz, vUint16_t ).asCString(), "01323456789" );
+
+    uint32_t vUint32_t = 2;
+    EXPECT_STREQ( string.getInserted( 1_uz, vUint32_t ).asCString(), "02123456789" );
+
+    uint64_t vUint64_t = 1;
+    EXPECT_STREQ( string.getInserted( 0_uz, vUint64_t ).asCString(), "10123456789" );
+
+    vInt8_t = 16;
+    EXPECT_STREQ( string.getInserted( string.rfind('7').base() + 1, vInt8_t ).asCString(), "012345678169" );
+
+    vInt16_t = 17;
+    EXPECT_STREQ( string.getInserted( string.rfind('6').base() + 1, vInt16_t ).asCString(), "012345671789" );
+
+    vInt32_t = 18;
+    EXPECT_STREQ( string.getInserted( string.rfind('5').base() + 1, vInt32_t ).asCString(), "012345618789" );
+
+    vInt64_t = 19;
+    EXPECT_STREQ( string.getInserted( string.rfind('8').base() + 1, vInt64_t ).asCString(), "012345678919" );
+
+    vUint8_t = 20;
+    EXPECT_STREQ( string.getInserted( string.rfind('1').base() + 1, vUint8_t ).asCString(), "012203456789" );
+
+    vUint16_t = 21;
+    EXPECT_STREQ( string.getInserted( string.rfind('0').base() + 1, vUint16_t ).asCString(), "012123456789" );
+
+    vUint32_t = 22;
+    EXPECT_STREQ( string.getInserted( string.rfind('1').base() + 1, vUint32_t ).asCString(), "012223456789" );
+
+    vUint64_t = 23;
+    EXPECT_STREQ( string.getInserted( string.rfind('2').base() + 1, vUint64_t ).asCString(), "012323456789" );
+
+    EXPECT_STREQ( string.getInserted( 8_uz, EDF::String<13>(" twenty-four") ).asCString(), "01234567 twenty-four89" );
+
+    EXPECT_STREQ( string.getInserted( string.end(), EDF::String<13>(" twenty-five") ).asCString(), "0123456789 twenty-five" );
 }
