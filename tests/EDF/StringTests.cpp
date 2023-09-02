@@ -755,3 +755,31 @@ TEST(String, GetInserted) {
 
     EXPECT_STREQ( string.getInserted( string.end(), EDF::String<13>(" twenty-five") ).asCString(), "0123456789 twenty-five" );
 }
+
+TEST(String, Erase) {
+    EDF::String<40> string = "Messssage with extraa charrrrracters";
+
+    string.erase( 19_uz );
+    EXPECT_STREQ( string.asCString(), "Messssage with extra charrrrracters" );
+
+    string.erase( 2_uz, 4_uz );
+    EXPECT_STREQ( string.asCString(), "Message with extra charrrrracters" );
+
+    auto firstRInLastWord = string.find( string.rfind(' ').base(), 'r' );
+    firstRInLastWord = string.erase( firstRInLastWord );
+    EXPECT_STREQ( string.asCString(), "Message with extra charrrracters" );
+
+    string.erase( firstRInLastWord, string.find( firstRInLastWord, 'a' ) - 1 );
+    EXPECT_STREQ( string.asCString(), "Message with extra characters" );
+}
+
+TEST(String, GetErased) {
+    EDF::String<40> string = "Message with extraa charrrrracters";
+
+    EXPECT_STREQ( string.getErased( 17_uz ).asCString(), "Message with extra charrrrracters" );
+    EXPECT_STREQ( string.getErased( 23_uz, 27_uz ).asCString(), "Message with extraa characters" );
+
+    auto firstRInLastWord = string.find( string.rfind(' ').base(), 'r' );
+    EXPECT_STREQ( string.getErased( firstRInLastWord ).asCString(), "Message with extraa charrrracters" );
+    EXPECT_STREQ( string.getErased( firstRInLastWord, firstRInLastWord + 4 ).asCString(), "Message with extraa characters" );
+}
