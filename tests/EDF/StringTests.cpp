@@ -783,3 +783,11 @@ TEST(String, GetErased) {
     EXPECT_STREQ( string.getErased( firstRInLastWord ).asCString(), "Message with extraa charrrracters" );
     EXPECT_STREQ( string.getErased( firstRInLastWord, firstRInLastWord + 4 ).asCString(), "Message with extraa characters" );
 }
+
+TEST(String, Clear) {
+    EDF::String<32> string = "Something";
+
+    string.clear();
+    EXPECT_STREQ( string.asCString(), "" );
+    EXPECT_EQ( string.length(), 0 );
+}
