@@ -791,3 +791,19 @@ TEST(String, Clear) {
     EXPECT_STREQ( string.asCString(), "" );
     EXPECT_EQ( string.length(), 0 );
 }
+
+TEST(String, CopyTo) {
+    char outputCharBuffer[16];
+    EDF::String<32>("Hello").copyTo( outputCharBuffer, sizeof(outputCharBuffer)/sizeof(outputCharBuffer[0]) );
+    EXPECT_STREQ( outputCharBuffer, "Hello" );
+
+    EDF::String<8>("World").copyTo( outputCharBuffer );
+    EXPECT_STREQ( outputCharBuffer, "World" );
+
+    uint8_t outputUint8_tBuffer[32];
+    EDF::String<64>("Hello").copyTo( outputUint8_tBuffer, sizeof(outputUint8_tBuffer)/sizeof(outputUint8_tBuffer[0]) );
+    EXPECT_STREQ( reinterpret_cast<const char*>(outputUint8_tBuffer), "Hello" );
+
+    EDF::String<8>("World").copyTo( outputUint8_tBuffer );
+    EXPECT_STREQ( reinterpret_cast<const char*>(outputUint8_tBuffer), "World" );
+}
