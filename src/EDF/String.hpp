@@ -190,7 +190,7 @@ public:
     constexpr String getInserted( std::size_t index, std::size_t count, char value )        const { String tmp(*this); tmp.insert( index, count, value ); return tmp; }
     constexpr String getInserted( std::size_t index, std::initializer_list<char> iList )    const { String tmp(*this); tmp.insert( index, iList ); return tmp; }
     constexpr String getInserted( ConstIterator pos, char value )                           const { String tmp(*this); tmp.insert( pos - begin(), value ); return tmp; }
-    constexpr String getInserted( ConstIterator pos, std::size_t count, char value )        const { String tmp(*this); tmp.insert( pos - begin(), value ); return tmp; }
+    constexpr String getInserted( ConstIterator pos, std::size_t count, char value )        const { String tmp(*this); tmp.insert( pos - begin(), count, value ); return tmp; }
     constexpr String getInserted( ConstIterator pos, std::initializer_list<char> iList )    const { String tmp(*this); tmp.insert( pos - begin(), iList ); return tmp; }
 
     constexpr String getInserted( std::size_t index, const char* str )                      const { String tmp(*this); tmp.insert( index, str ); return tmp; }
