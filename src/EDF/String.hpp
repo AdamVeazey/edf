@@ -381,7 +381,7 @@ public:
         const char* replaceWith, std::size_t nRW
     );
     template<std::size_t S>
-    constexpr String& replace( const String<S>& lookFor, char replaceWith, std::size_t nRW )      { return replace( lookFor.asCString(), lookFor.length(), replaceWith, nRW ); }
+    constexpr String& replace( const String<S>& lookFor, const char* replaceWith, std::size_t nRW ){ return replace( lookFor.asCString(), lookFor.length(), replaceWith, nRW ); }
 
     template<std::size_t S>
     constexpr String& replace( char lookFor, const String<S>& replaceWith )                       { return replace( &lookFor, 1_uz, replaceWith.asCString(), replaceWith.length() ); }
@@ -399,13 +399,13 @@ public:
     constexpr String getReplaced( const char* lookFor, char replaceWith )                   const { String tmp(*this); tmp.replace( lookFor, replaceWith ); return tmp; }
     constexpr String getReplaced( const char* lookFor, std::size_t nLF, char replaceWith )  const { String tmp(*this); tmp.replace( lookFor, nLF, replaceWith ); return tmp; }
     template<std::size_t S>
-    constexpr String& getReplaced( const String<S>& lookFor, char replaceWith )             const { String tmp(*this); tmp.replace( lookFor, replaceWith ); return tmp; }
+    constexpr String getReplaced( const String<S>& lookFor, char replaceWith )              const { String tmp(*this); tmp.replace( lookFor, replaceWith ); return tmp; }
 
     constexpr String getReplaced( char lookFor, const char* replaceWith )                   const { String tmp(*this); tmp.replace( lookFor, replaceWith ); return tmp; }
     constexpr String getReplaced( const char* lookFor, const char* replaceWith )            const { String tmp(*this); tmp.replace( lookFor, replaceWith ); return tmp; }
     constexpr String getReplaced( const char* lookFor, std::size_t nLF, const char* replaceWith )const { String tmp(*this); tmp.replace( lookFor, nLF, replaceWith ); return tmp; }
     template<std::size_t S>
-    constexpr String& getReplaced( const String<S>& lookFor, const char* replaceWith )      const { String tmp(*this); tmp.replace( lookFor, replaceWith ); return tmp; }
+    constexpr String getReplaced( const String<S>& lookFor, const char* replaceWith )       const { String tmp(*this); tmp.replace( lookFor, replaceWith ); return tmp; }
 
     constexpr String getReplaced( char lookFor, const char* replaceWith, std::size_t nRW )  const { String tmp(*this); tmp.replace( lookFor, replaceWith, nRW ); return tmp; }
     constexpr String getReplaced( const char* lookFor, const char* replaceWith, std::size_t nRW )const { String tmp(*this); tmp.replace( lookFor, replaceWith, nRW ); return tmp; }
@@ -413,8 +413,17 @@ public:
         const char* lookFor, std::size_t nLF,
         const char* replaceWith, std::size_t nRW
     )                                                                                       const { String tmp(*this); tmp.replace( lookFor, nLF, replaceWith, nRW ); return tmp; }
+    template<std::size_t S>
+    constexpr String getReplaced( const String<S>& lookFor, const char* replaceWith, std::size_t nRW ) const { String tmp(*this); tmp.replace( lookFor, replaceWith, nRW ); return tmp; }
+
+    template<std::size_t S>
+    constexpr String getReplaced( char lookFor, const String<S>& replaceWith )              const { String tmp(*this); tmp.replace( lookFor, replaceWith ); return tmp; }
+    template<std::size_t S>
+    constexpr String getReplaced( const char* lookFor, const String<S>& replaceWith )       const { String tmp(*this); tmp.replace( lookFor, replaceWith ); return tmp; }
+    template<std::size_t S>
+    constexpr String getReplaced( const char* lookFor, std::size_t nLF, const String<S>& replaceWith )const { String tmp(*this); tmp.replace( lookFor, nLF, replaceWith ); return tmp; }
     template<std::size_t S1, std::size_t S2>
-    constexpr String& getReplaced( const String<S1>& lookFor, const String<S2>& replaceWith )const { String tmp(*this); tmp.replace( lookFor, replaceWith ); return tmp; }
+    constexpr String getReplaced( const String<S1>& lookFor, const String<S2>& replaceWith )const { String tmp(*this); tmp.replace( lookFor, replaceWith ); return tmp; }
 
     /* Operations: In/Out-of-Place - subString */
     constexpr String& subString( ConstIterator start, ConstIterator end );

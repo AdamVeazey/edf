@@ -638,22 +638,17 @@ replace(
     const char* replaceWith, std::size_t nRW
 ) {
     for( ReverseIterator posLookFor = rfind( crbegin(), lookFor, nLF ); posLookFor != crend(); ) {
-        auto strBegin = (posLookFor + 1).base();
-        auto strEnd = strBegin + nLF;
+        auto strBegin = (posLookFor + nLF).base();
+        auto strEnd = posLookFor.base();
         if( (strBegin >= begin()) && (strEnd <= end()) ) {
             erase( strBegin, strEnd );
             insert( strBegin, replaceWith, nRW );
         }
-        posLookFor = rfind( posLookFor, lookFor, nLF );
+        if( (posLookFor + nLF) >= crend() ) {
+            break;
+        }
+        posLookFor = rfind( posLookFor + nLF, lookFor, nLF );
     }
-    // for( ConstIterator posLookFor = find( begin(), lookFor, nLF ); posLookFor != end(); ) {
-    //     auto posLookForEnd = posLookFor + nLF;
-    //     if( posLookForEnd <= end() ) {
-    //         erase( posLookFor, posLookForEnd ); // erased lookFor from buffer
-    //         insert( posLookFor, replaceWith, nRW );
-    //     }
-    //     posLookFor = find( posLookForEnd, lookFor, nLF );
-    // }
     return *this;
 }
 
