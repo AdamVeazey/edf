@@ -553,12 +553,6 @@ trimLeft( char value ) {
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
-trimLeft( const char* values ) {
-    return trimLeft( values, std::strlen( values ) );
-}
-
-template<std::size_t N>
-constexpr String<N>& String<N>::
 trimLeft( const char* values, std::size_t n ) {
     EDF_ASSERTD( values != nullptr ); // values must not be nullptr
     auto pos = std::find_if( begin(), end(), [values, n](char ch) {
@@ -587,12 +581,6 @@ trimRight( char value ) {
         erase( firstNonMatch.base(), end() );
     }
     return *this;
-}
-
-template<std::size_t N>
-constexpr String<N>& String<N>::
-trimRight( const char* values ) {
-    return trimRight( values, std::strlen( values ) );
 }
 
 template<std::size_t N>

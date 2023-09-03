@@ -314,28 +314,40 @@ public:
     constexpr String& trim( char value = '\0' )                                                   { return trimRight( value ).trimLeft( value ); }
     constexpr String& trim( const char* values )                                                  { return trimRight( values ).trimLeft( values ); }
     constexpr String& trim( const char* values, std::size_t n )                                   { return trimRight( values, n ).trimLeft( values, n ); }
+    template<std::size_t S>
+    constexpr String& trim( const String<S>& values )                                             { return trim( values.asCString(), values.length() ); }
 
     constexpr String getTrimmed( char value = '\0' )                                        const { String tmp(*this); tmp.trim( value ); return tmp; }
     constexpr String getTrimmed( const char* values )                                       const { String tmp(*this); tmp.trim( values ); return tmp; }
     constexpr String getTrimmed( const char* values, std::size_t n )                        const { String tmp(*this); tmp.trim( values, n ); return tmp; }
+    template<std::size_t S>
+    constexpr String getTrimmed( const String<S>& values )                                  const { String tmp(*this); tmp.trim( values ); return tmp; }
 
     /* Operations: In/Out-of-Place - trimLeft */
     constexpr String& trimLeft( char value = '\0' );
-    constexpr String& trimLeft( const char* values );
+    constexpr String& trimLeft( const char* values )                                              { return trimLeft( values, std::strlen( values ) ); }
     constexpr String& trimLeft( const char* values, std::size_t n );
+    template<std::size_t S>
+    constexpr String& trimLeft( const String<S>& values )                                         { return trimLeft( values.asCString(), values.length() ); }
 
     constexpr String getTrimmedLeft( char value = '\0' )                                    const { String tmp(*this); tmp.trimLeft( value ); return tmp; }
     constexpr String getTrimmedLeft( const char* values )                                   const { String tmp(*this); tmp.trimLeft( values ); return tmp; }
     constexpr String getTrimmedLeft( const char* values, std::size_t n )                    const { String tmp(*this); tmp.trimLeft( values, n ); return tmp; }
+    template<std::size_t S>
+    constexpr String getTrimmedLeft( const String<S>& values )                              const { String tmp(*this); tmp.trimLeft( values ); return tmp; }
 
     /* Operations: In/Out-of-Place - trimRight */
     constexpr String& trimRight( char value = '\0' );
-    constexpr String& trimRight( const char* values );
+    constexpr String& trimRight( const char* values )                                             { return trimRight( values, std::strlen( values ) ); }
     constexpr String& trimRight( const char* values, std::size_t n );
+    template<std::size_t S>
+    constexpr String& trimRight( const String<S>& values )                                        { return trimRight( values.asCString(), values.length() ); }
 
     constexpr String getTrimmedRight( char value = '\0' )                                   const { String tmp(*this); tmp.trimRight( value ); return tmp; }
     constexpr String getTrimmedRight( const char* values )                                  const { String tmp(*this); tmp.trimRight( values ); return tmp; }
     constexpr String getTrimmedRight( const char* values, std::size_t n )                   const { String tmp(*this); tmp.trimRight( values, n ); return tmp; }
+    template<std::size_t S>
+    constexpr String getTrimmedRight( const String<S>& values )                             const { String tmp(*this); tmp.trimRight( values ); return tmp; }
 
     /* Operations: In/Out-of-Place - reverse */
     constexpr String& reverse();
