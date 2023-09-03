@@ -939,3 +939,13 @@ TEST(String, GetTrimmedRight) {
     EXPECT_STREQ( string.getTrimmedRight( "\r \n", 3_uz ).asCString(), " \x1B Hello, world!" );
     EXPECT_STREQ( string.getTrimmedRight( EDF::String<8>("\r\n ") ).asCString(), " \x1B Hello, world!" );
 }
+
+TEST(String, Reverse) {
+    EXPECT_STREQ( EDF::String<32>("9876543210").reverse().asCString(), "0123456789" );
+    EXPECT_STREQ( EDF::String<32>(" \x1B Hello, world! \r\n ").reverse().asCString(), " \n\r !dlrow ,olleH \x1B " );
+}
+
+TEST(String, GetReversed) {
+    EXPECT_STREQ( EDF::String<32>("9876543210").getReversed().asCString(), "0123456789" );
+    EXPECT_STREQ( EDF::String<32>(" \x1B Hello, world! \r\n ").getReversed().asCString(), " \n\r !dlrow ,olleH \x1B " );
+}
