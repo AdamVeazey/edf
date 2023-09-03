@@ -809,15 +809,33 @@ TEST(String, CopyTo) {
 }
 
 TEST(String, Find) {
-    EDF::String<32> string = "abcdefABCDEF0123456789fedcba";
+    //      tens              0000000000111111111122222222
+    //      ones              0123456789012345678901234567
+    EDF::String<32> string = "abcdefABCDEF0123456789abcdef";
 
     EXPECT_EQ( string.find( 'A' ), &string[6] );
     EXPECT_EQ( string.find( "defABC" ), &string[3] );
     EXPECT_EQ( string.find( "cde", 3_uz ), &string[2] );
     EXPECT_EQ( string.find( EDF::String<8>("456") ), &string[16] );
 
-    EXPECT_EQ( string.find( string.find('f') + 1, 'f' ), &string[22] );
-    EXPECT_EQ( string.find( string.find('A'), "ed" ), &string[23] );
-    EXPECT_EQ( string.find( string.find('A'), "cba", std::strlen("cba") ), &string[25] );
-    EXPECT_EQ( string.find( string.find('A'), EDF::String<8>("edc") ), &string[23] );
+    EXPECT_EQ( string.find( string.find('f') + 1, 'f' ), &string[27] );
+    EXPECT_EQ( string.find( string.find('A'), "de" ), &string[25] );
+    EXPECT_EQ( string.find( string.find('A'), "abc", std::strlen("abc") ), &string[22] );
+    EXPECT_EQ( string.find( string.find('A'), EDF::String<8>("cde") ), &string[24] );
+}
+
+TEST(String, ReverseFind) {
+    //      tens              0000000000111111111122222222
+    //      ones              0123456789012345678901234567
+    EDF::String<32> string = "abcdefABCDEF0123456789abcdef";
+
+    EXPECT_EQ( &(*string.rfind( 'A' )), &string[6] );
+    EXPECT_EQ( &(*string.rfind( "defABC" )), &string[8] );
+    EXPECT_EQ( &(*string.rfind( "cde", 3_uz )), &string[26] );
+    EXPECT_EQ( &(*string.rfind( EDF::String<8>("456") )), &string[18] );
+
+    EXPECT_EQ( &(*string.rfind( string.rfind('f') + 1, 'f' )), &string[5] );
+    EXPECT_EQ( &(*string.rfind( string.rfind('A'), "de" )), &string[4] );
+    EXPECT_EQ( &(*string.rfind( string.rfind('A'), "bcd", std::strlen("bcd") )), &string[3] );
+    EXPECT_EQ( &(*string.rfind( string.rfind('A'), EDF::String<8>("cde") )), &string[4] );
 }
