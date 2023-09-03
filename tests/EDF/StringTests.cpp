@@ -871,3 +871,20 @@ TEST(String, Equals) {
     EXPECT_FALSE( EDF::String<16>("Hello world!").equals( EDF::String<32>("Hello, world!") ) );
     EXPECT_TRUE( EDF::String<16>("Hello, world!").equals( EDF::String<14>("Hello, world!") ) );
 }
+
+TEST(String, Strip) {
+    EXPECT_STREQ( EDF::String<32>(" \x1B Hello, world! \r\n ").strip().asCString(), "Hello,world!" );
+    EXPECT_STREQ( EDF::String<32>(" \x1B Hello, world! \r\n ").strip( 'l' ).asCString(), " \x1B Heo, word! \r\n " );
+    EXPECT_STREQ( EDF::String<32>(" \x1B Hello, world! \r\n ").strip( "e o" ).asCString(), "\x1BHll,wrld!\r\n" );
+    EXPECT_STREQ( EDF::String<32>(" \x1B Hello, world! \r\n ").strip( "\x1B\r", 2_uz ).asCString(), "  Hello, world! \n " );
+    EXPECT_STREQ( EDF::String<32>(" \x1B Hello, world! \r\n ").strip( EDF::String<8>("\r\n ") ).asCString(), "\x1BHello,world!" );
+}
+
+TEST(String, GetStripped) {
+    EDF::String<32> string(" \x1B Hello, world! \r\n ");
+    EXPECT_STREQ( string.getStripped().asCString(), "Hello,world!" );
+    EXPECT_STREQ( string.getStripped( 'l' ).asCString(), " \x1B Heo, word! \r\n " );
+    EXPECT_STREQ( string.getStripped( "e o" ).asCString(), "\x1BHll,wrld!\r\n" );
+    EXPECT_STREQ( string.getStripped( "\x1B\r", 2_uz ).asCString(), "  Hello, world! \n " );
+    EXPECT_STREQ( string.getStripped( EDF::String<8>("\r\n ") ).asCString(), "\x1BHello,world!" );
+}
