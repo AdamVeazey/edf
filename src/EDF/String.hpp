@@ -275,13 +275,13 @@ public:
     constexpr ReverseIterator rfind( const char* value )                                    const { return rfind( rbegin(), value ); }
     constexpr ReverseIterator rfind( const char* value, std::size_t n )                     const { return rfind( rbegin(), value, n ); }
     template<std::size_t S>
-    constexpr ReverseIterator rfind( const String<S>& value )                               const { return rfind( rbegin(), value, value.length() ); }
+    constexpr ReverseIterator rfind( const String<S>& value )                               const { return rfind( rbegin(), value.asCString(), value.length() ); }
 
     constexpr ReverseIterator rfind( ConstReverseIterator pos, char value )                 const;
     constexpr ReverseIterator rfind( ConstReverseIterator pos, const char* value )          const;
     constexpr ReverseIterator rfind( ConstReverseIterator pos, const char* value, std::size_t n )  const;
     template<std::size_t S>
-    constexpr ReverseIterator rfind( ConstReverseIterator pos, const String<S>& value )     const { return rfind( pos, value, value.length() ); }
+    constexpr ReverseIterator rfind( ConstReverseIterator pos, const String<S>& value )     const { return rfind( pos, value.asCString(), value.length() ); }
 
     /* Operations: Out-of-Place - contains */
     constexpr bool contains( char value )                                                   const { return find( begin(), value ) != end(); }
