@@ -538,8 +538,8 @@ template<std::size_t N>
 constexpr String<N>& String<N>::
 trimLeft( char value ) {
     constexpr auto isNotMatch = [](char ch, char value) -> bool {
-        return ( ((value == '\0') && (ch <= ' ' || ch > '~')) || // if value is default '\0', check if printable
-                 ((value != '\0') && (value != ch))              // else, check if ch matches
+        return ( ((value == '\0') && (ch > ' ' && ch <= '~')) || // if value is default '\0', check if printable
+                 ((value != '\0') && (value != ch)) // else, check if ch matches
         );
     };
     auto firstNonMatch = std::find_if( begin(), end(), [&value, &isNotMatch](char ch) {
