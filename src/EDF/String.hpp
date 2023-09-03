@@ -263,13 +263,13 @@ public:
     constexpr Iterator find( const char* value )                                            const { return find( begin(), value, std::strlen( value ) ); }
     constexpr Iterator find( const char* value, std::size_t n )                             const { return find( begin(), value, n ); }
     template<std::size_t S>
-    constexpr Iterator find( const String<S>& value )                                       const { return find( begin(), value, value.length() ); }
+    constexpr Iterator find( const String<S>& value )                                       const { return find( begin(), value.asCString(), value.length() ); }
 
     constexpr Iterator find( ConstIterator pos, char value )                                const;
     constexpr Iterator find( ConstIterator pos, const char* value )                         const { return find( pos, value, std::strlen( value ) ); }
     constexpr Iterator find( ConstIterator pos, const char* value, std::size_t n )          const;
     template<std::size_t S>
-    constexpr Iterator find( ConstIterator pos, const String<S>& value )                    const { return find( pos, value, value.length() ); }
+    constexpr Iterator find( ConstIterator pos, const String<S>& value )                    const { return find( pos, value.asCString(), value.length() ); }
 
     constexpr ReverseIterator rfind( char value )                                           const { return rfind( rbegin(), value ); }
     constexpr ReverseIterator rfind( const char* value )                                    const { return rfind( rbegin(), value ); }
