@@ -1011,3 +1011,18 @@ TEST(String, GetReplaced) {
     EXPECT_STREQ( string.getReplaced( "world", 5_uz, EDF::String<16>("man") ).asCString(), "Hello old man!\r\n" );
     EXPECT_STREQ( string.getReplaced( EDF::String<4>("old"), EDF::String<16>("new") ).asCString(), "Hello new world!\r\n" );
 }
+
+TEST(String, SubString) {
+    EDF::String<32> string = "Some kind of string.";
+    string.subString( string.begin(), string.begin() + string.length()/2 );
+    EXPECT_STREQ( string.asCString(), "Some kind " );
+
+    string.subString( string.find('k'), string.find('d') + 1 );
+    EXPECT_STREQ( string.asCString(), "kind" );
+}
+
+TEST(String, GetSubString) {
+    EDF::String<32> str = "Some kind of string.";
+    EXPECT_STREQ( str.getSubString( str.begin(), str.begin() + str.length()/2 ).asCString(), "Some kind " );
+    EXPECT_STREQ( str.getSubString( str.find( 's' ), str.find( '.' ) ).asCString(), "string" );
+}
