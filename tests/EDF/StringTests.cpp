@@ -949,3 +949,19 @@ TEST(String, GetReversed) {
     EXPECT_STREQ( EDF::String<32>("9876543210").getReversed().asCString(), "0123456789" );
     EXPECT_STREQ( EDF::String<32>(" \x1B Hello, world! \r\n ").getReversed().asCString(), " \n\r !dlrow ,olleH \x1B " );
 }
+
+TEST(String, ToLower) {
+    EXPECT_STREQ( EDF::String<32>(" \x1B Hello, world! \r\n ").toLower().asCString(), " \x1B hello, world! \r\n " );
+}
+
+TEST(String, GetToLower) {
+    EXPECT_STREQ( EDF::String<32>(" \x1B Hello, world! \r\n ").getToLower().asCString(), " \x1B hello, world! \r\n " );
+}
+
+TEST(String, ToUpper) {
+    EXPECT_STREQ( EDF::String<32>(" \x1B Hello, world! \r\n ").toUpper().asCString(), " \x1B HELLO, WORLD! \r\n " );
+}
+
+TEST(String, GetToUpper) {
+    EXPECT_STREQ( EDF::String<32>(" \x1B Hello, world! \r\n ").getToUpper().asCString(), " \x1B HELLO, WORLD! \r\n " );
+}
