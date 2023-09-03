@@ -488,9 +488,6 @@ rfind( ConstReverseIterator pos, const char* value, std::size_t n ) const {
         }
         return false;
     });
-    if( pos + n-1 < rend() ) { // match was found
-        pos += n-1;
-    }
     return ReverseIterator( const_cast<Iterator>(pos.base()) );
 }
 
