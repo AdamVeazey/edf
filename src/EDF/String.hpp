@@ -292,9 +292,8 @@ public:
 
     /* Operations: Out-of-Place - equals */
     constexpr bool equals( char value )                                                     const { return contains( &value, 1 ); }
-    constexpr bool equals( const char* value )                                              const;
+    constexpr bool equals( const char* value )                                              const { return equals( value, std::strlen( value ) ); }
     constexpr bool equals( const char* value, std::size_t n )                               const;
-    constexpr bool equals( const String& value )                                            const { return equals( value.asCString(), value.length() ); }
     template<std::size_t S>
     constexpr bool equals( const String<S>& value )                                         const { return equals( value.asCString(), value.length() ); }
 

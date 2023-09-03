@@ -493,12 +493,6 @@ rfind( ConstReverseIterator pos, const char* value, std::size_t n ) const {
 
 template<std::size_t N>
 constexpr bool String<N>::
-equals( const char* value ) const {
-    return equals( value, std::strlen( value ) );
-}
-
-template<std::size_t N>
-constexpr bool String<N>::
 equals( const char* value, std::size_t n ) const {
     EDF_ASSERTD( value != nullptr );
     EDF_ASSERTD( n == std::strlen(value) ); // n represents string length, not buffer size
