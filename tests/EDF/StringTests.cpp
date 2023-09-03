@@ -839,3 +839,20 @@ TEST(String, ReverseFind) {
     EXPECT_EQ( &(*string.rfind( string.rfind('A'), "bcd", std::strlen("bcd") )), &string[3] );
     EXPECT_EQ( &(*string.rfind( string.rfind('A'), EDF::String<8>("cde") )), &string[4] );
 }
+
+TEST(String, Contains) {
+    EDF::String<32> string = "Hello, world!";
+
+    EXPECT_TRUE( string.contains( 'H' ) );
+    EXPECT_FALSE( string.contains( 'h' ) );
+
+    EXPECT_TRUE( string.contains( "Hello" ) );
+    EXPECT_FALSE( string.contains( "hello" ) );
+
+    EXPECT_TRUE( string.contains( "world", std::strlen("world") ) );
+    EXPECT_FALSE( string.contains( "World", 5_uz ) );
+
+    EXPECT_TRUE( string.contains( EDF::String<8>("o, w") ) );
+    EXPECT_FALSE( string.contains( EDF::String<64>("o w") ) );
+    EXPECT_TRUE( string.contains( EDF::String<32>(string) ) );
+}
