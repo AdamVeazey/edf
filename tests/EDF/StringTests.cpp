@@ -807,3 +807,17 @@ TEST(String, CopyTo) {
     EDF::String<8>("World").copyTo( outputUint8_tBuffer );
     EXPECT_STREQ( reinterpret_cast<const char*>(outputUint8_tBuffer), "World" );
 }
+
+TEST(String, Find) {
+    EDF::String<32> string = "abcdefABCDEF0123456789fedcba";
+
+    EXPECT_EQ( string.find( 'A' ), &string[6] );
+    EXPECT_EQ( string.find( "defABC" ), &string[3] );
+    EXPECT_EQ( string.find( "cde", 3_uz ), &string[2] );
+    EXPECT_EQ( string.find( EDF::String<8>("456") ), &string[16] );
+
+    EXPECT_EQ( string.find( string.find('f') + 1, 'f' ), &string[22] );
+    EXPECT_EQ( string.find( string.find('A'), "ed" ), &string[23] );
+    EXPECT_EQ( string.find( string.find('A'), "cba", std::strlen("cba") ), &string[25] );
+    EXPECT_EQ( string.find( string.find('A'), EDF::String<8>("edc") ), &string[23] );
+}
