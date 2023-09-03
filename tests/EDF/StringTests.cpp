@@ -965,3 +965,49 @@ TEST(String, ToUpper) {
 TEST(String, GetToUpper) {
     EXPECT_STREQ( EDF::String<32>(" \x1B Hello, world! \r\n ").getToUpper().asCString(), " \x1B HELLO, WORLD! \r\n " );
 }
+
+TEST(String, Replace) {
+    EXPECT_STREQ( EDF::String<32>("cat").replace( 'c', 'b' ).asCString(), "bat" );
+    EXPECT_STREQ( EDF::String<32>("cat\r\n").replace( "\r\n", '\n' ).asCString(), "cat\n" );
+    EXPECT_STREQ( EDF::String<32>("\r\ncat").replace( "\r\n", 2_uz, '\n' ).asCString(), "\ncat" );
+    EXPECT_STREQ( EDF::String<32>("chat").replace( EDF::String<4>("ch"), 'b' ).asCString(), "bat" );
+
+    EXPECT_STREQ( EDF::String<32>("bat").replace( 'b', "ch" ).asCString(), "chat" );
+    EXPECT_STREQ( EDF::String<32>("bat").replace( "ba", "send a tex" ).asCString(), "send a text" );
+    EXPECT_STREQ( EDF::String<32>("Hello world").replace( "ello wor", 8_uz, "ouseho" ).asCString(), "Household" );
+    EXPECT_STREQ( EDF::String<32>("The old world").replace( EDF::String<4>("old"), "new" ).asCString(), "The new world" );
+
+    EXPECT_STREQ( EDF::String<32>("bat").replace( 'b', "ch", std::strlen("ch") ).asCString(), "chat" );
+    EXPECT_STREQ( EDF::String<32>("bat").replace( "ba", "send a tex", 10_uz ).asCString(), "send a text" );
+    EXPECT_STREQ( EDF::String<32>("Hello world").replace( "ello wor", 8_uz, "ouseho", 6_uz ).asCString(), "Household" );
+    EXPECT_STREQ( EDF::String<32>("The old world").replace( EDF::String<4>("old"), "new", 3_uz ).asCString(), "The new world" );
+
+    EXPECT_STREQ( EDF::String<32>("bat").replace( 'b', EDF::String<16>("ch") ).asCString(), "chat" );
+    EXPECT_STREQ( EDF::String<32>("bat").replace( "ba", EDF::String<16>("send a tex") ).asCString(), "send a text" );
+    EXPECT_STREQ( EDF::String<32>("Hello world").replace( "ello wor", 8_uz, EDF::String<16>("ouseho") ).asCString(), "Household" );
+    EXPECT_STREQ( EDF::String<32>("The old world").replace( EDF::String<4>("old"), EDF::String<16>("new") ).asCString(), "The new world" );
+}
+
+TEST(String, GetReplaced) {
+    EDF::String<36> string = "Hello old world!\r\n";
+
+    EXPECT_STREQ( string.getReplaced( '!', '?' ).asCString(), "Hello old world?\r\n" );
+    EXPECT_STREQ( string.getReplaced( "\r\n", '\n' ).asCString(), "Hello old world!\n" );
+    EXPECT_STREQ( string.getReplaced( "\r\n", 2_uz, '\n' ).asCString(), "Hello old world!\n" );
+    EXPECT_STREQ( string.getReplaced( EDF::String<4>("ld!"), 'd' ).asCString(), "Hello old word\r\n" );
+
+    EXPECT_STREQ( string.getReplaced( '!', ", look at this." ).asCString(), "Hello old world, look at this.\r\n" );
+    EXPECT_STREQ( string.getReplaced( "old", "new" ).asCString(), "Hello new world!\r\n" );
+    EXPECT_STREQ( string.getReplaced( "world", 5_uz, "man" ).asCString(), "Hello old man!\r\n" );
+    EXPECT_STREQ( string.getReplaced( EDF::String<4>("old"), "new" ).asCString(), "Hello new world!\r\n" );
+
+    EXPECT_STREQ( string.getReplaced( '!', ", look at this.", std::strlen(", look at this.") ).asCString(), "Hello old world, look at this.\r\n" );
+    EXPECT_STREQ( string.getReplaced( "old", "new", 3_uz ).asCString(), "Hello new world!\r\n" );
+    EXPECT_STREQ( string.getReplaced( "world", 5_uz, "man", 3_uz ).asCString(), "Hello old man!\r\n" );
+    EXPECT_STREQ( string.getReplaced( EDF::String<4>("old"), "new", 3_uz ).asCString(), "Hello new world!\r\n" );
+
+    EXPECT_STREQ( string.getReplaced( '!', EDF::String<16>(", look at this.") ).asCString(), "Hello old world, look at this.\r\n" );
+    EXPECT_STREQ( string.getReplaced( "old", EDF::String<16>("new") ).asCString(), "Hello new world!\r\n" );
+    EXPECT_STREQ( string.getReplaced( "world", 5_uz, EDF::String<16>("man") ).asCString(), "Hello old man!\r\n" );
+    EXPECT_STREQ( string.getReplaced( EDF::String<4>("old"), EDF::String<16>("new") ).asCString(), "Hello new world!\r\n" );
+}
