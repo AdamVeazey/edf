@@ -888,3 +888,54 @@ TEST(String, GetStripped) {
     EXPECT_STREQ( string.getStripped( "\x1B\r", 2_uz ).asCString(), "  Hello, world! \n " );
     EXPECT_STREQ( string.getStripped( EDF::String<8>("\r\n ") ).asCString(), "\x1BHello,world!" );
 }
+
+TEST(String, Trim) {
+    EXPECT_STREQ( EDF::String<32>(" \x1B Hello, world! \r\n ").trim().asCString(), "Hello, world!" );
+    EXPECT_STREQ( EDF::String<32>(" \x1B Hello, world! \r\n ").trim( ' ' ).asCString(), "\x1B Hello, world! \r\n" );
+    EXPECT_STREQ( EDF::String<32>(" \x1B Hello, world! \r\n ").trim( "\x1B \n" ).asCString(), "Hello, world! \r" );
+    EXPECT_STREQ( EDF::String<32>(" \x1B Hello, world! \r\n ").trim( "\r \n", 3_uz ).asCString(), "\x1B Hello, world!" );
+    EXPECT_STREQ( EDF::String<32>(" \x1B Hello, world! \r\n ").trim( EDF::String<8>("\r\n ") ).asCString(), "\x1B Hello, world!" );
+}
+
+TEST(String, GetTrimmed) {
+    EDF::String<32> string(" \x1B Hello, world! \r\n ");
+    EXPECT_STREQ( string.getTrimmed().asCString(), "Hello, world!" );
+    EXPECT_STREQ( string.getTrimmed( ' ' ).asCString(), "\x1B Hello, world! \r\n" );
+    EXPECT_STREQ( string.getTrimmed( "\x1B \n" ).asCString(), "Hello, world! \r" );
+    EXPECT_STREQ( string.getTrimmed( "\r \n", 3_uz ).asCString(), "\x1B Hello, world!" );
+    EXPECT_STREQ( string.getTrimmed( EDF::String<8>("\r\n ") ).asCString(), "\x1B Hello, world!" );
+}
+
+TEST(String, TrimLeft) {
+    EXPECT_STREQ( EDF::String<32>(" \x1B Hello, world! \r\n ").trimLeft().asCString(), "Hello, world! \r\n " );
+    EXPECT_STREQ( EDF::String<32>(" \x1B Hello, world! \r\n ").trimLeft( ' ' ).asCString(), "\x1B Hello, world! \r\n " );
+    EXPECT_STREQ( EDF::String<32>(" \x1B Hello, world! \r\n ").trimLeft( "\x1B \n" ).asCString(), "Hello, world! \r\n " );
+    EXPECT_STREQ( EDF::String<32>(" \x1B Hello, world! \r\n ").trimLeft( "\r \n", 3_uz ).asCString(), "\x1B Hello, world! \r\n " );
+    EXPECT_STREQ( EDF::String<32>(" \x1B Hello, world! \r\n ").trimLeft( EDF::String<8>("\r\n ") ).asCString(), "\x1B Hello, world! \r\n " );
+}
+
+TEST(String, GetTrimmedLeft) {
+    EDF::String<32> string(" \x1B Hello, world! \r\n ");
+    EXPECT_STREQ( string.getTrimmedLeft().asCString(), "Hello, world! \r\n " );
+    EXPECT_STREQ( string.getTrimmedLeft( ' ' ).asCString(), "\x1B Hello, world! \r\n " );
+    EXPECT_STREQ( string.getTrimmedLeft( "\x1B \n" ).asCString(), "Hello, world! \r\n " );
+    EXPECT_STREQ( string.getTrimmedLeft( "\r \n", 3_uz ).asCString(), "\x1B Hello, world! \r\n " );
+    EXPECT_STREQ( string.getTrimmedLeft( EDF::String<8>("\r\n ") ).asCString(), "\x1B Hello, world! \r\n " );
+}
+
+TEST(String, TrimRight) {
+    EXPECT_STREQ( EDF::String<32>(" \x1B Hello, world! \r\n ").trimRight().asCString(), " \x1B Hello, world!" );
+    EXPECT_STREQ( EDF::String<32>(" \x1B Hello, world! \r\n ").trimRight( ' ' ).asCString(), " \x1B Hello, world! \r\n" );
+    EXPECT_STREQ( EDF::String<32>(" \x1B Hello, world! \r\n ").trimRight( "\x1B \n" ).asCString(), " \x1B Hello, world! \r" );
+    EXPECT_STREQ( EDF::String<32>(" \x1B Hello, world! \r\n ").trimRight( "\r \n", 3_uz ).asCString(), " \x1B Hello, world!" );
+    EXPECT_STREQ( EDF::String<32>(" \x1B Hello, world! \r\n ").trimRight( EDF::String<8>("\r\n ") ).asCString(), " \x1B Hello, world!" );
+}
+
+TEST(String, GetTrimmedRight) {
+    EDF::String<32> string(" \x1B Hello, world! \r\n ");
+    EXPECT_STREQ( string.getTrimmedRight().asCString(), " \x1B Hello, world!" );
+    EXPECT_STREQ( string.getTrimmedRight( ' ' ).asCString(), " \x1B Hello, world! \r\n" );
+    EXPECT_STREQ( string.getTrimmedRight( "\x1B \n" ).asCString(), " \x1B Hello, world! \r" );
+    EXPECT_STREQ( string.getTrimmedRight( "\r \n", 3_uz ).asCString(), " \x1B Hello, world!" );
+    EXPECT_STREQ( string.getTrimmedRight( EDF::String<8>("\r\n ") ).asCString(), " \x1B Hello, world!" );
+}
