@@ -299,7 +299,7 @@ public:
 
     /* Operations: In/Out-of-Place - strip */
     constexpr String& strip( char value = '\0' );
-    constexpr String& strip( const char* values );
+    constexpr String& strip( const char* values )                                                 { return strip( values, std::strlen( values ) ); }
     constexpr String& strip( const char* values, std::size_t n );
     template<std::size_t S>
     constexpr String& strip( const String<S>& values )                                            { return strip( values.asCString(), values.length() ); }
@@ -309,7 +309,6 @@ public:
     constexpr String getStripped( const char* values, std::size_t n )                       const { String tmp(*this); tmp.strip( values, n ); return tmp; }
     template<std::size_t S>
     constexpr String getStripped( const String<S>& values )                                 const { String tmp(*this); tmp.strip( values ); return tmp; }
-
 
     /* Operations: In/Out-of-Place - trim */
     constexpr String& trim( char value = '\0' )                                                   { return trimRight( value ).trimLeft( value ); }

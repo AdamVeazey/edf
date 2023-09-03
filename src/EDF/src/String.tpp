@@ -526,12 +526,6 @@ strip( char value ) {
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
-strip( const char* values ) {
-    return strip( values, std::strlen( values ) );
-}
-
-template<std::size_t N>
-constexpr String<N>& String<N>::
 strip( const char* values, std::size_t n ) {
     EDF_ASSERTD( values != nullptr ); // values must not be nullptr
     for( std::size_t k = 0; k < n; ++k ) {
