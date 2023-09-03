@@ -856,3 +856,18 @@ TEST(String, Contains) {
     EXPECT_FALSE( string.contains( EDF::String<64>("o w") ) );
     EXPECT_TRUE( string.contains( EDF::String<32>(string) ) );
 }
+
+TEST(String, Equals) {
+    EXPECT_TRUE( EDF::String<2>('A').equals( 'A' ) );
+    EXPECT_FALSE( EDF::String<2>('B').equals( 'A' ) );
+
+    EXPECT_TRUE( EDF::String<16>("Hello").equals( "Hello" ) );
+    EXPECT_FALSE( EDF::String<16>("hello").equals( "Hello" ) );
+
+    EXPECT_TRUE( EDF::String<16>("World").equals( "World", std::strlen("World") ) );
+    EXPECT_FALSE( EDF::String<16>("world").equals( "World", 5_uz ) );
+
+    EXPECT_TRUE( EDF::String<16>("Hello, world!").equals( EDF::String<16>("Hello, world!") ) );
+    EXPECT_FALSE( EDF::String<16>("Hello world!").equals( EDF::String<32>("Hello, world!") ) );
+    EXPECT_TRUE( EDF::String<16>("Hello, world!").equals( EDF::String<14>("Hello, world!") ) );
+}
