@@ -1197,3 +1197,31 @@ TEST(String, OperatorPlusLHSString) {
     result = largerString + string;
     EXPECT_STREQ( result.asCString(), "one two" );
 }
+
+TEST(String, BeginEnd) {
+    EDF::String<32> string = "Hello";
+
+    auto begin = string.begin();
+    auto end = string.end();
+    EXPECT_EQ( *begin, 'H' );
+    EXPECT_EQ( *(end - 1), 'o' );
+
+    const auto& cbegin = string.cbegin();
+    const auto& cend = string.cend();
+    EXPECT_EQ( *cbegin, 'H' );
+    EXPECT_EQ( *(cend - 1), 'o' );
+}
+
+TEST(String, ReverseBeginEnd) {
+    EDF::String<32> string = "Hello";
+
+    auto rbegin = string.rbegin();
+    auto rend = string.rend();
+    EXPECT_EQ( *rbegin, 'o' );
+    EXPECT_EQ( *(rend - 1), 'H' );
+
+    const auto& crbegin = string.crbegin();
+    const auto& crend = string.crend();
+    EXPECT_EQ( *crbegin, 'o' );
+    EXPECT_EQ( *(crend - 1), 'H' );
+}
