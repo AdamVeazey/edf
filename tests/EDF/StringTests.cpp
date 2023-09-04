@@ -1026,3 +1026,174 @@ TEST(String, GetSubString) {
     EXPECT_STREQ( str.getSubString( str.begin(), str.begin() + str.length()/2 ).asCString(), "Some kind " );
     EXPECT_STREQ( str.getSubString( str.find( 's' ), str.find( '.' ) ).asCString(), "string" );
 }
+
+TEST(String, OperatorPlusEqualsThisRHS) {
+    EDF::String<256> string;
+
+    string += "one";
+    EXPECT_STREQ( string.asCString(), "one" );
+
+    string += reinterpret_cast<const uint8_t*>(" two");
+    EXPECT_STREQ( string.asCString(), "one two" );
+
+    const char literalCharArray[] = " three";
+    string += literalCharArray;
+    EXPECT_STREQ( string.asCString(), "one two three" );
+
+    const uint8_t literalUint8_tArray[] = " four ";
+    string += literalUint8_tArray;
+    EXPECT_STREQ( string.asCString(), "one two three four " );
+
+    string += '5';
+    EXPECT_STREQ( string.append(' ').asCString(), "one two three four 5 " );
+
+    int8_t vInt8_t = 0x6;
+    string += vInt8_t;
+    EXPECT_STREQ( string.append(' ').asCString(), "one two three four 5 6 " );
+
+    int16_t vInt16_t = 7;
+    string += vInt16_t;
+    EXPECT_STREQ( string.append(' ').asCString(), "one two three four 5 6 7 " );
+
+    int32_t vInt32_t = 8;
+    string += vInt32_t;
+    EXPECT_STREQ( string.append(' ').asCString(), "one two three four 5 6 7 8 " );
+
+    int64_t vInt64_t = 9;
+    string += vInt64_t;
+    EXPECT_STREQ( string.append(' ').asCString(), "one two three four 5 6 7 8 9 " );
+
+    uint8_t vUint8_t = 10;
+    string += vUint8_t;
+    EXPECT_STREQ( string.append(' ').asCString(), "one two three four 5 6 7 8 9 10 " );
+
+    uint16_t vUint16_t = 11;
+    string += vUint16_t;
+    EXPECT_STREQ( string.append(' ').asCString(), "one two three four 5 6 7 8 9 10 11 " );
+
+    uint32_t vUint32_t = 12;
+    string += vUint32_t;
+    EXPECT_STREQ( string.append(' ').asCString(), "one two three four 5 6 7 8 9 10 11 12 " );
+
+    uint64_t vUint64_t = 13;
+    string += vUint64_t;
+    EXPECT_STREQ( string.append(' ').asCString(), "one two three four 5 6 7 8 9 10 11 12 13 " );
+
+    EDF::String<16> str = "fourteen";
+    string += str;
+    EXPECT_STREQ( string.asCString(), "one two three four 5 6 7 8 9 10 11 12 13 fourteen" );
+}
+
+TEST(String, OperatorPlusThisRHS) {
+    EDF::String<256> string = "one ";
+
+    EDF::String<256> result = string + "two";
+    EXPECT_STREQ( result.asCString(), "one two" );
+
+    result = string + reinterpret_cast<const uint8_t*>("two");
+    EXPECT_STREQ( result.asCString(), "one two" );
+
+    const char literalCharArray[] = "two";
+    result = string + literalCharArray;
+    EXPECT_STREQ( result.asCString(), "one two" );
+
+    const uint8_t literalUint8_tArray[] = "two";
+    result = string + literalUint8_tArray;
+    EXPECT_STREQ( result.asCString(), "one two" );
+
+    result = string + '2';
+    EXPECT_STREQ( result.asCString(), "one 2" );
+
+    int8_t vInt8_t = 0x2;
+    result = string + vInt8_t;
+    EXPECT_STREQ( result.asCString(), "one 2" );
+
+    int16_t vInt16_t = 2;
+    result = string + vInt16_t;
+    EXPECT_STREQ( result.asCString(), "one 2" );
+
+    int32_t vInt32_t = 2;
+    result = string + vInt32_t;
+    EXPECT_STREQ( result.asCString(), "one 2" );
+
+    int64_t vInt64_t = 2;
+    result = string + vInt64_t;
+    EXPECT_STREQ( result.asCString(), "one 2" );
+
+    uint8_t vUint8_t = 2;
+    result = string + vUint8_t;
+    EXPECT_STREQ( result.asCString(), "one 2" );
+
+    uint16_t vUint16_t = 2;
+    result = string + vUint16_t;
+    EXPECT_STREQ( result.asCString(), "one 2" );
+
+    uint32_t vUint32_t = 2;
+    result = string + vUint32_t;
+    EXPECT_STREQ( result.asCString(), "one 2" );
+
+    uint64_t vUint64_t = 2;
+    result = string + vUint64_t;
+    EXPECT_STREQ( result.asCString(), "one 2" );
+}
+
+TEST(String, OperatorPlusLHSString) {
+    EDF::String<32> string = " two";
+
+    EDF::String<32> result = "one" + string;
+    EXPECT_STREQ( result.asCString(), "one two" );
+
+    result = reinterpret_cast<const uint8_t*>("one") + string;
+    EXPECT_STREQ( result.asCString(), "one two" );
+
+    const char literalCharArray[] = "one";
+    result = literalCharArray + string;
+    EXPECT_STREQ( result.asCString(), "one two" );
+
+    const uint8_t literalUint8_tArray[] = "one";
+    result = literalUint8_tArray + string;
+    EXPECT_STREQ( result.asCString(), "one two" );
+
+    result = '1' + string;
+    EXPECT_STREQ( result.asCString(), "1 two" );
+
+    int8_t vInt8_t = 0x1;
+    result = vInt8_t + string;
+    EXPECT_STREQ( result.asCString(), "1 two" );
+
+    int16_t vInt16_t = 1;
+    result = vInt16_t + string;
+    EXPECT_STREQ( result.asCString(), "1 two" );
+
+    int32_t vInt32_t = 1;
+    result = vInt32_t + string;
+    EXPECT_STREQ( result.asCString(), "1 two" );
+
+    int64_t vInt64_t = 1;
+    result = vInt64_t + string;
+    EXPECT_STREQ( result.asCString(), "1 two" );
+
+    uint8_t vUint8_t = 1;
+    result = vUint8_t + string;
+    EXPECT_STREQ( result.asCString(), "1 two" );
+
+    uint16_t vUint16_t = 1;
+    result = vUint16_t + string;
+    EXPECT_STREQ( result.asCString(), "1 two" );
+
+    uint32_t vUint32_t = 1;
+    result = vUint32_t + string;
+    EXPECT_STREQ( result.asCString(), "1 two" );
+
+    uint64_t vUint64_t = 1;
+    result = vUint64_t + string;
+    EXPECT_STREQ( result.asCString(), "1 two" );
+
+    EDF::String<16> smallerString = "one";
+    result = smallerString + string;
+    EXPECT_STREQ( result.asCString(), "one two" );
+
+    EDF::String<64> largerString = "one";
+    result = largerString + string;
+    EXPECT_STREQ( result.asCString(), "one two" );
+}
