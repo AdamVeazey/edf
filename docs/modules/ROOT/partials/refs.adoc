@@ -60,10 +60,10 @@
 :ref_peripherals_uart: {ref_module_peripherals}:uart.adoc[UART]
 :ref_peripherals_wdt: {ref_module_peripherals}:wdt.adoc[WDT]
 
-:path_src_peripherals: example$src/Peripherals
+:path_src_peripherals: ROOT:example$src/Peripherals
 :path_src_peripherals_gpio_hpp: {path_src_peripherals}/GPIO.hpp
 
-:path_example_peripherals: example$examples/Peripherals
+:path_example_peripherals: ROOT:example$examples/Peripherals
 :path_example_peripherals_gpio_main_cpp: {path_example_peripherals}/GPIO/main.cpp
 
 // Drivers
