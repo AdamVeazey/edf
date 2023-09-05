@@ -317,7 +317,43 @@ This also means that GPIO interrupt configuration and callback setup are not han
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::example$examples/Peripherals/GPIO/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">/* Simulate a GPIO memory mapped peripheral, here is just a single "register" */
+struct MCU_GPIO_T {
+    volatile uint32_t DATA_REGISTER;
+};
+
+/* For this example, we need a real instance of the fake memory mapped peripheral */
+static MCU_GPIO_T MCU_GPIO_PORTA;
+
+/* Normally the definition is a hardcoded address that comes from the datasheet */
+#define GPIO_PORTA (&amp;MCU_GPIO_PORTA)
+
+class GPIO final : public EDF::GPIO {
+public:
+    using Level = EDF::GPIO::Level;
+private:
+    MCU_GPIO_T* port;
+    uint32_t pin;
+public:
+    GPIO( MCU_GPIO_T* port, uint32_t pin ) : port(port), pin(1 &lt;&lt; pin) {}
+    virtual ~GPIO() = default;
+
+    /* Initialization functions for the specific  */
+    void configureAsInput() {}
+    void configureAsOutput() {}
+
+    virtual Level getLevel() const override {
+        return static_cast&lt;Level&gt;((port-&gt;DATA_REGISTER &amp; pin) != 0);
+    }
+    virtual void set( Level level ) const override {
+        if( level == Level::HIGH ) {
+            port-&gt;DATA_REGISTER |= pin;
+        }
+        else {
+            port-&gt;DATA_REGISTER &amp;= ~pin;
+        }
+    }
+};</code></pre>
 </div>
 </div>
 </div>
@@ -336,8 +372,10 @@ This also means that GPIO interrupt configuration and callback setup are not han
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::example$examples/Peripherals/GPIO/main.cpp[]
-Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::example$examples/Peripherals/GPIO/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">GPIO pin( GPIO_PORTA, 5 );
+if( pin.getLevel() == GPIO::Level::LOW ) {
+    // ...
+}</code></pre>
 </div>
 </div>
 <hr>
@@ -350,8 +388,10 @@ Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::e
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::example$examples/Peripherals/GPIO/main.cpp[]
-Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::example$examples/Peripherals/GPIO/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">GPIO pin( GPIO_PORTA, 5 );
+if( pin.isLow() ) {
+    // ...
+}</code></pre>
 </div>
 </div>
 <hr>
@@ -364,8 +404,10 @@ Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::e
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::example$examples/Peripherals/GPIO/main.cpp[]
-Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::example$examples/Peripherals/GPIO/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">GPIO pin( GPIO_PORTA, 5 );
+if( pin.isHigh() ) {
+    // ...
+}</code></pre>
 </div>
 </div>
 </div>
@@ -385,8 +427,8 @@ Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::e
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::example$examples/Peripherals/GPIO/main.cpp[]
-Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::example$examples/Peripherals/GPIO/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">GPIO pin( GPIO_PORTA, 5 );
+pin.set( GPIO::Level::LOW );</code></pre>
 </div>
 </div>
 <hr>
@@ -405,8 +447,8 @@ Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::e
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::example$examples/Peripherals/GPIO/main.cpp[]
-Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::example$examples/Peripherals/GPIO/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">GPIO pin( GPIO_PORTA, 5 );
+pin.toggle();</code></pre>
 </div>
 </div>
 <hr>
@@ -425,8 +467,8 @@ Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::e
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::example$examples/Peripherals/GPIO/main.cpp[]
-Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::example$examples/Peripherals/GPIO/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">GPIO pin( GPIO_PORTA, 5 );
+pin.setLow();</code></pre>
 </div>
 </div>
 <hr>
@@ -445,8 +487,8 @@ Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::e
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::example$examples/Peripherals/GPIO/main.cpp[]
-Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::example$examples/Peripherals/GPIO/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">GPIO pin( GPIO_PORTA, 5 );
+pin.setHigh();</code></pre>
 </div>
 </div>
 </div>
