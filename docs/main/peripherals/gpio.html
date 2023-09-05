@@ -258,7 +258,200 @@
 </aside>
 <article class="doc">
 <h1 class="page">GPIO</h1>
-
+<div class="sect1">
+<h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>GPIO is the interface for General Purpose Input-Output peripherals for all MCUs. Drivers, like an IO Expander for example, might also find it useful to implement this interface.</p>
+</div>
+<div class="paragraph">
+<p>There are 2 groups of member functions:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="#_input">Input</a></p>
+</li>
+<li>
+<p><a href="#_output">Output</a></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_initialization"><a class="anchor" href="#_initialization"></a>Initialization</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Initialization is not done using this interface. Instead, the specific GPIO driver for a given MCU should be used for configuration.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This also means that GPIO interrupt configuration and callback setup are not handled by this interface.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_example_derived_class"><a class="anchor" href="#_example_derived_class"></a>Example Derived Class</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This example showcases a simplified representation of a memory-mapped GPIO peripheral in a microcontroller. The GPIO (General Purpose Input/Output) interface presented here offers an illustration of its usage. However, it is important to note that this interface is primarily focused on reading and setting GPIO pin levels, without delving into the actual pin configuration, which are represented as empty stubs named <code>configureAsInput</code> and <code>configureAsOutput</code>.</p>
+</div>
+<div class="paragraph">
+<p>In the code, a pseudo-memory-mapped GPIO peripheral is simulated through a structure named <code>MCU_GPIO_T</code>, which contains a single "register" called <code>DATA_REGISTER</code>. For the purpose of this example, an actual instance of this simulated peripheral, <code>MCU_GPIO_PORTA</code>, is created. Typically, in real microcontrollers, the address for such a peripheral would be obtained from the datasheet and hardcoded into the #define.</p>
+</div>
+<div class="paragraph">
+<p>The <code>GPIO</code> class, derived from the <code>EDF::GPIO</code> base class, provides an abstraction for interacting with GPIO pins. It encapsulates the necessary attributes like the GPIO port and pin number. The constructor takes a pointer to the MCU_GPIO_T port and the specific pin number. The class overrides two pure virtual member functions, <a href="#get_level">getLevel()</a> and <a href="#set">set()</a>, as required by EDF&#8217;s GPIO interface.</p>
+</div>
+<div class="paragraph">
+<p>The <a href="#get_level">getLevel()</a> function reads the state of the GPIO pin and returns it as a <code>Level</code> enumeration value, based on whether the corresponding bit in the DATA_REGISTER is set or not. The <a href="#set">set()</a> function allows for setting the GPIO pin to a specified level, either <code>Level::HIGH</code> or <code>Level::LOW</code>, by modifying the <code>DATA_REGISTER</code> accordingly.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::example$examples/Peripherals/GPIO/main.cpp[]</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_input"><a class="anchor" href="#_input"></a>Input</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="get_level"><a class="anchor" href="#get_level"></a>getLevel()</h3>
+<div class="paragraph">
+<p>This is a pure virtual function that retrieves and returns the current logic level of the GPIO pin. It allows you to determine whether the pin is in a high or low logic state.</p>
+</div>
+<div class="paragraph">
+<p>Implementations of this function in derived classes should read the actual logic level of the GPIO pin and return the appropriate Level value.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::example$examples/Peripherals/GPIO/main.cpp[]
+Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::example$examples/Peripherals/GPIO/main.cpp[]</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="is_low"><a class="anchor" href="#is_low"></a>isLow()</h3>
+<div class="paragraph">
+<p>This function queries the current logic level of the GPIO pin and returns <code>true</code> if it is in a low logic level state (0 volts), otherwise it returns <code>false</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::example$examples/Peripherals/GPIO/main.cpp[]
+Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::example$examples/Peripherals/GPIO/main.cpp[]</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="is_high"><a class="anchor" href="#is_high"></a>isHigh()</h3>
+<div class="paragraph">
+<p>This function queries the current logic level of the GPIO pin and returns <code>true</code> if it is in a high logic level state (Vdd), otherwise it returns <code>false</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::example$examples/Peripherals/GPIO/main.cpp[]
+Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::example$examples/Peripherals/GPIO/main.cpp[]</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_output"><a class="anchor" href="#_output"></a>Output</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="set"><a class="anchor" href="#set"></a>set()</h3>
+<div class="paragraph">
+<p>This is a pure virtual function that sets the logic level of the GPIO pin to the specified <code>level</code>.</p>
+</div>
+<div class="paragraph">
+<p>Implementations of this function in derived classes should configure the GPIO pin to the specified logic level based on the <code>level</code> parameter.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::example$examples/Peripherals/GPIO/main.cpp[]
+Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::example$examples/Peripherals/GPIO/main.cpp[]</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="toggle"><a class="anchor" href="#toggle"></a>toggle()</h3>
+<div class="paragraph">
+<p>This function toggles the logic level of the GPIO pin between high and low. If the pin is currently in a high logic level state, it will be set to a low logic level, and vice versa.</p>
+</div>
+<div class="paragraph">
+<p>This function is useful for quickly switching the state of the GPIO pin without needing to read its current state.</p>
+</div>
+<div class="paragraph">
+<p>By default, it internally calls the set function with the opposite logic level, effectively toggling the pin. It is marked virtual so that a derived class can optionally implement a more efficient version if there is a special pin toggle method in the GPIO peripheral.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::example$examples/Peripherals/GPIO/main.cpp[]
+Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::example$examples/Peripherals/GPIO/main.cpp[]</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="set_low"><a class="anchor" href="#set_low"></a>setLow()</h3>
+<div class="paragraph">
+<p>This function sets the GPIO pin to a low logic level.</p>
+</div>
+<div class="paragraph">
+<p>It is a convenient way to explicitly set the pin to a known low state without specifying the logic level as an argument.</p>
+</div>
+<div class="paragraph">
+<p>Internally, it calls the set function with Level::LOW as the argument.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::example$examples/Peripherals/GPIO/main.cpp[]
+Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::example$examples/Peripherals/GPIO/main.cpp[]</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="set_high"><a class="anchor" href="#set_high"></a>setHigh()</h3>
+<div class="paragraph">
+<p>This function sets the GPIO pin to a high logic level.</p>
+</div>
+<div class="paragraph">
+<p>It is a convenient way to explicitly set the pin to a known high state without specifying the logic level as an argument.</p>
+</div>
+<div class="paragraph">
+<p>Internally, it calls the set function with Level::HIGH as the argument.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::example$examples/Peripherals/GPIO/main.cpp[]
+Unresolved include directive in modules/peripherals/pages/gpio.adoc - include::example$examples/Peripherals/GPIO/main.cpp[]</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </article>
   </div>
 </main>
