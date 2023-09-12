@@ -5,11 +5,11 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#include "GPIO.hpp"
+#include "EDF/MCU/ST/STM32C011F6/GPIO.hpp"
 
 void GPIOFast::
 configureAsInput( Pull pull ) {
-    GPIO_InitTypeDef init{};
+    GPIO_InitTypeDef init;
     init.Pin = pin;
     init.Mode = GPIO_MODE_INPUT;
     init.Pull = static_cast<uint32_t>(pull);
@@ -18,7 +18,7 @@ configureAsInput( Pull pull ) {
 
 void GPIOFast::
 configureAsInputInterrupt( Interrupt interruptMode, Pull pull ) {
-    GPIO_InitTypeDef init{};
+    GPIO_InitTypeDef init;
     init.Pin = pin;
     init.Mode = static_cast<uint32_t>(interruptMode);
     init.Pull = static_cast<uint32_t>(pull);
@@ -27,7 +27,7 @@ configureAsInputInterrupt( Interrupt interruptMode, Pull pull ) {
 
 void GPIOFast::
 configureAsInputEvent( Event eventMode, Pull pull ) {
-    GPIO_InitTypeDef init{};
+    GPIO_InitTypeDef init;
     init.Pin = pin;
     init.Mode = static_cast<uint32_t>(eventMode);
     init.Pull = static_cast<uint32_t>(pull);
@@ -42,7 +42,7 @@ configureAsOutput(
     Speed speed
 ) {
     set( initialLevel );
-    GPIO_InitTypeDef init{};
+    GPIO_InitTypeDef init;
     init.Pin = pin;
     init.Mode = static_cast<uint32_t>(outputMode);
     init.Pull = static_cast<uint32_t>(pull);
