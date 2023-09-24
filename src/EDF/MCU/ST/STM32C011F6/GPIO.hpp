@@ -43,7 +43,7 @@ private:
     GPIO_TypeDef* port;
     uint16_t pin;
 public:
-    GPIOFast( GPIO_TypeDef* port, uint16_t pin ) : port(port), pin(pin) {}
+    GPIOFast( GPIO_TypeDef* port, uint16_t pin ) : port(port), pin(1 << pin) {}
     ~GPIOFast() = default;
 
     /* Configuration */
@@ -90,13 +90,13 @@ public:
     virtual ~GPIO() = default;
 
     /* Input member functions */
-    virtual Level getLevel()        const { return GPIOFast::getLevel(); }
+    virtual Level getLevel()        const override { return GPIOFast::getLevel(); }
     inline bool isLow()             const { return GPIOFast::isLow(); }
     inline bool isHigh()            const { return GPIOFast::isHigh(); }
 
     /* Output member functions */
-    virtual void set( Level level ) const { GPIOFast::set( level ); }
-    virtual void toggle()           const { GPIOFast::toggle(); }
+    virtual void set( Level level ) const override { GPIOFast::set( level ); }
+    virtual void toggle()           const override { GPIOFast::toggle(); }
     inline void setLow()            const { GPIOFast::setLow(); }
     inline void setHigh()           const { GPIOFast::setHigh(); }
 };
