@@ -111,4 +111,4 @@ constexpr bool operator==( const Vector<T, N>& lhs, const Vector<T, N>& rhs ) {
 
 } /* EDF */
 
-#include "src/Vector.tpp"
+#include "EDF/src/Vector.tpp"

@@ -70,7 +70,7 @@ template<typename T, std::size_t N, typename Compare>
 constexpr void Heap<T, N, Compare>::
 push( const T&& value ) {
     EDF_ASSERTD( !isFull() );
-    heap.pushBack( value );
+    heap.pushBack( std::move(value) );
     bubbleUp( heap.length() - 1 );
 }
 
@@ -88,11 +88,11 @@ template<typename T, std::size_t N, typename Compare>
 constexpr T Heap<T, N, Compare>::
 pop() {
     EDF_ASSERTD( !isEmpty() );
-    T topCopy = heap.front();
-    heap.front() = heap.back();
+    T topValue = std::move(heap.front());
+    heap.front() = std::move(heap.back());
     heap.popBack();
     bubbleDown( 0 );
-    return topCopy;
+    return topValue;
 }
 
 } /* EDF */

@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2023, Adam Veazey
  * All rights reserved.
- * 
+ *
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
@@ -17,13 +17,13 @@ int main( void ) {
     // tag::element_access_standard[]
     array[0] = 1;
     // end::element_access_standard[]
-    array[1] = 2; 
+    array[1] = 2;
     array[2] = 3;
     array[3] = 4;
 
     // NOTE: Comment out `array.at( 40 ) = 100` to run the rest of the example
     // tag::element_access_at[]
-    array.at( 40 ) = 100;
+    // array.at( 40 ) = 100;
     // end::element_access_at[]
 
     for( auto&& element : array ){
@@ -41,15 +41,15 @@ int main( void ) {
     // tag::init_custom_type[]
     struct CustomType{
         int value;
-        CustomType( int v ) : value(v) {}        
+        CustomType( int v ) : value(v) {}
     };
 
-    EDF::Array<CustomType, 4> array2 = { 
-        CustomType(5), 
-        CustomType(6), 
-        CustomType(7), 
-        CustomType(8) 
-    }; 
+    EDF::Array<CustomType, 4> array2 = {
+        CustomType(5),
+        CustomType(6),
+        CustomType(7),
+        CustomType(8)
+    };
     // end::init_custom_type[]
 
     std::cout << "Print out array2\n";

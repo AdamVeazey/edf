@@ -366,6 +366,7 @@ TEST(Vector, EmplaceBack) {
     EXPECT_EQ( vectorInt.length(), 3 );
     EXPECT_EQ( vectorInt[2], 3 );
 
+    // when N is a power of two, this test fails? Only occurs in gtest? This works if copy pasted to example code
     EDF::Vector<CustomClass, 4> vectorCustomClass;
     EXPECT_EQ( vectorCustomClass.length(), 0 );
 
