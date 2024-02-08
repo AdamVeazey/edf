@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Math :: EDF</title>
     <link rel="canonical" href="https://adamveazey.github.io/edf/docs/main/docs/main/math.html">
-    <meta name="generator" content="Antora 3.1.4">
+    <meta name="generator" content="Antora 3.1.7">
     <link rel="stylesheet" href="../../_/css/site.css">
   </head>
   <body class="article">
@@ -13,7 +13,7 @@
   <nav class="navbar">
     <div class="navbar-brand">
       <a class="navbar-item" href="https://adamveazey.github.io/edf/docs/main">EDF</a>
-      <button class="navbar-burger" data-target="topbar-nav">
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
         <span></span>
         <span></span>
         <span></span>
@@ -53,6 +53,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
     <h3 class="title"><a href="index.html">EDF</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
@@ -228,7 +229,7 @@
   </div>
   <ul class="components">
     <li class="component is-current">
-      <a class="title" href="index.html">EDF</a>
+      <div class="title"><a href="index.html">EDF</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
           <a href="index.html">main</a>
@@ -330,7 +331,7 @@ Decided that a dedicated file for <a href="#uz">_uz</a> would create a temptatio
 <div class="listingblock">
 <div class="title">Signature</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">constexpr std::size_t operator ""_uz( unsigned long long x ) { return x; }</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved directive in math.adoc - include::{path_src_edf_math_hpp}[tag=literal_size_t]</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -427,7 +428,7 @@ ARRAY_SIZE( decayedArray ); <i class="conum" data-value="5"></i><b>(5)</b></code
 <div class="listingblock">
 <div class="title">Implementation Explanation</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">constexpr bool isPow2( std::size_t v ) { return (v != 0) &amp;&amp; !(v&amp;(v-1)); }</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved directive in math.adoc - include::{path_src_edf_math_hpp}[tag=is_pow_2]</code></pre>
 </div>
 </div>
 <div class="paragraph">

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Color :: EDF</title>
     <link rel="canonical" href="https://adamveazey.github.io/edf/docs/main/docs/main/color.html">
-    <meta name="generator" content="Antora 3.1.4">
+    <meta name="generator" content="Antora 3.1.7">
     <link rel="stylesheet" href="../../_/css/site.css">
   </head>
   <body class="article">
@@ -13,7 +13,7 @@
   <nav class="navbar">
     <div class="navbar-brand">
       <a class="navbar-item" href="https://adamveazey.github.io/edf/docs/main">EDF</a>
-      <button class="navbar-burger" data-target="topbar-nav">
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
         <span></span>
         <span></span>
         <span></span>
@@ -53,6 +53,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
     <h3 class="title"><a href="index.html">EDF</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
@@ -228,7 +229,7 @@
   </div>
   <ul class="components">
     <li class="component is-current">
-      <a class="title" href="index.html">EDF</a>
+      <div class="title"><a href="index.html">EDF</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
           <a href="index.html">main</a>
@@ -428,28 +429,7 @@ white.asRGB();  // 0xFFFF</code></pre>
 <div class="listingblock">
 <div class="title">Predefined Colors</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">static constexpr Color red()        { return Color( 255,   0,   0 ); }
-static constexpr Color orange()     { return Color( 255, 128,   0 ); }
-static constexpr Color yellow()     { return Color( 255, 255,   0 ); }
-static constexpr Color lime()       { return Color( 128, 255,   0 ); }
-static constexpr Color green()      { return Color(   0, 255,   0 ); }
-static constexpr Color springGreen(){ return Color(   0, 255, 128 ); }
-static constexpr Color cyan()       { return Color(   0, 255, 255 ); }
-static constexpr Color dodgerBlue() { return Color(   0, 128, 255 ); }
-static constexpr Color blue()       { return Color(   0,   0, 255 ); }
-static constexpr Color blueViolet() { return Color( 128,   0, 255 ); }
-static constexpr Color magenta()    { return Color( 255,   0, 255 ); }
-static constexpr Color deepPink()   { return Color( 255,   0, 128 ); }
-
-static constexpr Color black()	    { return Color(   0,   0,   0 ); }
-static constexpr Color dimGray()	{ return Color( 105, 105, 105 ); }
-static constexpr Color gray()	    { return Color( 128, 128, 128 ); }
-static constexpr Color darkGray()	{ return Color( 169, 169, 169 ); }
-static constexpr Color silver()	    { return Color( 192, 192, 192 ); }
-static constexpr Color lightGray()	{ return Color( 211, 211, 211 ); }
-static constexpr Color gainsboro()	{ return Color( 220, 220, 220 ); }
-static constexpr Color whiteSmoke()	{ return Color( 245, 245, 245 ); }
-static constexpr Color white()	    { return Color( 255, 255, 255 ); }</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved directive in color.adoc - include::{path_src_edf_color_hpp}[tag=named_colors]</code></pre>
 </div>
 </div>
 <hr>
