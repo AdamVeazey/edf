@@ -860,6 +860,8 @@ TEST(String, Contains) {
 TEST(String, Equals) {
     EXPECT_TRUE( EDF::String<2>('A').equals( 'A' ) );
     EXPECT_FALSE( EDF::String<2>('B').equals( 'A' ) );
+    EXPECT_FALSE( EDF::String<8>("hello").equals( 'h' ) );
+    EXPECT_FALSE( EDF::String<8>().equals( 'h' ) );
 
     EXPECT_TRUE( EDF::String<16>("Hello").equals( "Hello" ) );
     EXPECT_FALSE( EDF::String<16>("hello").equals( "Hello" ) );

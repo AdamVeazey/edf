@@ -291,7 +291,7 @@ public:
     constexpr bool contains( const String<S>& value )                                       const { return find( begin(), value ) != end(); }
 
     /* Operations: Out-of-Place - equals */
-    constexpr bool equals( char value )                                                     const { return contains( &value, 1 ); }
+    constexpr bool equals( char value )                                                     const { return (length() == 1) && (*begin() == value); }
     constexpr bool equals( const char* value )                                              const { return equals( value, std::strlen( value ) ); }
     constexpr bool equals( const char* value, std::size_t n )                               const;
     template<std::size_t S>
