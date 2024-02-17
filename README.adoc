@@ -1,13 +1,48 @@
-= README
+= EDF 
+
+:toc:
 
 // NOTE: line below is if github ever bakes in support for AsciiDoc includes
 // include::docs/modules/ROOT/pages/index.adoc[tag=EDF_Home]
 
-== Introduction
-Embedded Development Framework (EDF) is a collection of libraries intended for use in embedded systems.
+== Description
+Embedded Development Framework (EDF) is a collection of libraries intended for use in embedded systems. It consists of the core libary of platform independant building blocks, peripheral interfaces, drivers for specific ICs and common circuits.
 
-== EDF Objective
-The objective of this project is to provide a comprehensive set of reusable building blocks that are commonly utilized in various embedded bare-metal/RTOS projects. It is meant as a way to jump start a project or use of a specific micro-controller. It aims at providing an abstraction for only the parts that make sense to be able to be abstracted for general usage. For example, *_using_* UART to communicate with another device can be easily abstracted. *_Initializing_* a specific UART peripheral on a given micro controller is not as easy to abstract (EX: how many data bits are supported on the given micro?).
+// == Installation
 
+// [source,bash]
+// -----
+// $ git clone https://github.com/AdamVeazey/edf.git
+// $ cd yourlibrary
+// $ mkdir build
+// $ cd build
+// $ cmake ..
+// $ cd ..
+// $ cmake --build build/
+// -----
 
-link:https://AdamVeazey.github.io/edf/docs/main/index.html[Documentation]
+// === Using CMake
+
+// Add the following to your `CMakeLists.txt`:
+
+// [source,cmake]
+// ----
+// find_package(MyAwesomeLibrary REQUIRED)
+// target_link_libraries(your_target MyAwesomeLibrary)
+// ----
+
+== Documentation
+
+For detailed information on the API and usage, please refer to the online link:https://AdamVeazey.github.io/edf/docs/main/index.html[documentation].
+
+== License
+
+EDF is distributed under the BSD-3-Clause License. See the `LICENSE` file for details.
+
+// == Versioning
+
+// EDF follows Semantic Versioning. For a list of released versions, see the link:https://github.com/AdamVeazey/edf/tags[tags on this repository].
+
+== Examples
+
+Check out the `examples` directory for practical use cases and code snippets.
