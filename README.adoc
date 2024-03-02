@@ -1,4 +1,4 @@
-= EDF 
+= EDF
 
 :toc:
 
@@ -6,7 +6,7 @@
 // include::docs/modules/ROOT/pages/index.adoc[tag=EDF_Home]
 
 == Description
-Embedded Development Framework (EDF) is a collection of libraries intended for use in embedded systems. It consists of the core libary of platform independant building blocks, peripheral interfaces, drivers for specific ICs and common circuits.
+Embedded Development Framework (EDF) is a collection of libraries intended for use in embedded systems. It consists of the core library of platform independent building blocks, peripheral interfaces, drivers for specific ICs and common circuits.
 
 // == Installation
 
