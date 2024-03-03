@@ -52,7 +52,9 @@ void example() {
 
 // tag::example_565_1[]
 void function( const EDF::Color565& color ) {
+    uint16_t data = color.asRGB();
     /* ... */
+    (void)data;
 }
 // end::example_565_1[]
 
@@ -72,7 +74,7 @@ void example565() {
     // tag::init_color_565[]
     EDF::Color565 color( EDF::Color::blueViolet() );
     // end::init_color_565[]
-
+    (void)color;
     // tag::set_rgba_565[]
     black.setR( 255 );  // turn red
     black.setG( 255 );  // turn yellow

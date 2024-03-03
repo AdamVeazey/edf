@@ -26,7 +26,7 @@ private:
     static_assert( DIGITS <= 3, "A uint32_t for number can only easily support versions from 999.999.999" );
     static constexpr std::size_t MULT = [](){
         std::size_t multiplier = 1;
-        for(int k = 0; k < DIGITS; ++k) {
+        for( std::size_t k = 0; k < DIGITS; ++k ) {
             multiplier *= 10;
         }
         return multiplier;
