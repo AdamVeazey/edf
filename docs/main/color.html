@@ -446,7 +446,9 @@ EDF::Color::cyan();</code></pre>
 <div class="title">Example of how to use Color565 and Predefined Colors</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">void function( const EDF::Color565&amp; color ) {
+    uint16_t data = color.asRGB();
     /* ... */
+    (void)data;
 }
  function( EDF::Color::magenta() );</code></pre>
 </div>
