@@ -18,10 +18,6 @@ select() {
         // CS is HW controlled, abuse NSSP to control toggling
         spi->Instance->CR2 &= ~SPI_NSS_PULSE_ENABLE; // turn OFF nssp to pull line low
     }
-    else {
-        // SSI bit controls CS via software (SSM=1)
-        spi->Instance->CR1 &= ~SPI_CR1_SSI;
-    }
 }
 
 void SPIControllerFast::
@@ -33,10 +29,6 @@ deselect() {
     else if( !(spi->Instance->CR1 & SPI_CR1_SSM) ) {
         // CS is HW controlled, abuse NSSP to control toggling
         spi->Instance->CR2 |= SPI_NSS_PULSE_ENABLE;
-    }
-    else {
-        // SSI bit controls CS via software (SSM=1)
-        spi->Instance->CR1 |= SPI_CR1_SSI;
     }
 }
 
