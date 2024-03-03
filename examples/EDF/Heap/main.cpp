@@ -38,9 +38,12 @@ void exampleMaxHeap() {
     // tag::capacity_length[]
     auto& nElementsInHeap = heap.length();
     // end::capacity_length[]
+    (void)nElementsInHeap;
     // tag::capacity_max_length[]
     constexpr auto maxNumberOfElements = heap.maxLength();
     // end::capacity_max_length[]
+    (void)maxNumberOfElements;
+
     heap.push( 1 );
     heap.push( 7 );
     heap.push( 4 );
@@ -50,6 +53,7 @@ void exampleMaxHeap() {
     // tag::operation_peek[]
     auto& rootElement = heap.peek();
     // end::operation_peek[]
+    (void)rootElement;
 
     // tag::is_question_empty[]
     while( !heap.isEmpty() ) {

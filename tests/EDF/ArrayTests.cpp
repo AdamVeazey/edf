@@ -6,6 +6,7 @@
  */
 #include <EDF/Array.hpp>
 
+#include <cstddef>
 #include <gtest/gtest.h>
 
 class CustomClass {
@@ -110,16 +111,8 @@ TEST(Array, At_ValidIndex) {
 TEST(Array, At_InvalidIndex) {
     EDF::Array<int, 4> array = { 5, 6, 7, 8 };
 
-    /* Test when NDEBUG is defined, and when it is not defined */
-#ifndef NDEBUG
-    /* Tests with debug mode enabled */
     EXPECT_DEATH( array.at(4), "" );
-    EXPECT_DEATH( array.at(-1), "" );
-#else
-    /* Tests without debug mode enabled */
-    EXPECT_NO_THROW( array.at(4) );
-    EXPECT_NO_THROW( array.at(-1) );
-#endif /* NDEBUG */
+    EXPECT_DEATH( array.at(static_cast<std::size_t>(-1)), "" );
 }
 
 TEST(Array, IndexOperator_ValidIndex) {
@@ -167,13 +160,6 @@ TEST(Array, IndexOperator_ValidIndexCustomClass) {
 
     const CustomClass& refConst = array[2];
     EXPECT_EQ( refConst.getValue(), 2 );
-}
-
-TEST(Array, IndexOperator_InvalidIndex) {
-    EDF::Array<int, 4> array = { 5, 6, 7, 8 };
-
-    EXPECT_NO_THROW( array[4] );
-    EXPECT_NO_THROW( array[-1] );
 }
 
 TEST(Array, FrontSingleElement) {
@@ -250,7 +236,7 @@ TEST(Array, DataMultipleElements) {
     EDF::Array<int, 4> array{ 1, 2, 3, 4 };
 
     const int* pointerToConst = array.data();
-    for( int k = 0; k < array.maxLength(); ++k ) {
+    for( std::size_t k = 0; k < array.maxLength(); ++k ) {
         EXPECT_EQ( *(pointerToConst + k), k + 1 );
     }
 }

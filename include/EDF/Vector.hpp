@@ -22,7 +22,7 @@ private:
 public:
     constexpr Vector() : n(0), buffer{} {}
     template<typename... I>
-    constexpr Vector( I... iList ) : buffer{iList...}, n(sizeof...(I)) {}
+    constexpr Vector( I... iList ) : n(sizeof...(I)), buffer{iList...} {}
     ~Vector() = default;
 
     using Iterator = typename Array<T,N>::Iterator;

@@ -15,7 +15,7 @@ private:
 public:
     constexpr CustomClass( int initialValue = 0, bool ov = false ) : variable(initialValue), otherVariable(ov) {}
     ~CustomClass() = default;
-    constexpr int getValue() const { return variable; }
+    constexpr int getValue() const { (void)otherVariable; return variable; }
 };
 
 TEST(Vector, InitializationInt) {
@@ -293,7 +293,6 @@ TEST(Vector, Emplace) {
     EXPECT_EQ( vectorInt[0], 1 );
     EXPECT_EQ( vectorInt[1], 2 );
 
-    // when N is a power of two, this test fails? Only occurs in gtest? This works if copy pasted to example code
     EDF::Vector<CustomClass, 4> vectorCustomClass;
     vectorCustomClass.emplace( 0_uz, 1 );
     vectorCustomClass.emplace( vectorCustomClass.begin() + 1, 2, true );
@@ -366,7 +365,6 @@ TEST(Vector, EmplaceBack) {
     EXPECT_EQ( vectorInt.length(), 3 );
     EXPECT_EQ( vectorInt[2], 3 );
 
-    // when N is a power of two, this test fails? Only occurs in gtest? This works if copy pasted to example code
     EDF::Vector<CustomClass, 4> vectorCustomClass;
     EXPECT_EQ( vectorCustomClass.length(), 0 );
 

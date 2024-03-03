@@ -152,7 +152,7 @@ int main( void ) {
     // tag::init_with_value[]
     EDF::BitField8 bitfieldWithValue( 0xB1 );
     // end::init_with_value[]
-
+    (void)bitfieldWithValue;
     // tag::operation_set[]
     bitfield.set( 8, 16, 0xAA55 ); // 0x00AA5500
     // end::operation_set[]

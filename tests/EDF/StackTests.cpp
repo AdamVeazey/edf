@@ -15,7 +15,7 @@ private:
 public:
     constexpr CustomClass( int initialValue = 0, bool ov = false ) : variable(initialValue), otherVariable(ov) {}
     ~CustomClass() = default;
-    constexpr auto getValue() const { return variable; }
+    constexpr auto getValue() const { (void)otherVariable; return variable; }
 };
 
 TEST(Stack, InitializationInt) {

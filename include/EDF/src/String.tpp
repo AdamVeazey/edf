@@ -8,661 +8,2183 @@
 #pragma once
 
 #include "EDF/String.hpp"
+#include <cstddef>
 
 namespace EDF {
+namespace impl {
 
-/*
-DOES check for '-' or '+' when T is signed and base == 10
+/* Constructors */
+void make_string( char* buffer, std::size_t& size, std::size_t N );
+void make_string( char* buffer, std::size_t& size, std::size_t N, const char* str );
+void make_string( char* buffer, std::size_t& size, std::size_t N, const uint8_t* str );
+void make_string( char* buffer, std::size_t& size, std::size_t N, const char* str, std::size_t n );
+void make_string( char* buffer, std::size_t& size, std::size_t N, const uint8_t* str, std::size_t n );
+void make_string( char* buffer, std::size_t& size, std::size_t N, char ch );
+void make_string( char* buffer, std::size_t& size, std::size_t N, int8_t value, int base );
+void make_string( char* buffer, std::size_t& size, std::size_t N, int16_t value, int base );
+void make_string( char* buffer, std::size_t& size, std::size_t N, int32_t value, int base );
+void make_string( char* buffer, std::size_t& size, std::size_t N, int64_t value, int base );
+void make_string( char* buffer, std::size_t& size, std::size_t N, uint8_t value, int base );
+void make_string( char* buffer, std::size_t& size, std::size_t N, uint16_t value, int base );
+void make_string( char* buffer, std::size_t& size, std::size_t N, uint32_t value, int base );
+void make_string( char* buffer, std::size_t& size, std::size_t N, uint64_t value, int base );
 
-Assumes 'str' only contains a number ONLY. No prefix for 0x, or 0b or anything else is
-automatically checked. Specify a base between 2 and 36 if the str doesn't represent a
-base 10 number.
+/* Conversions: toX */
+int32_t toInt32_t( const char* buffer, const std::size_t& size, int base );
+int64_t toInt64_t( const char* buffer, const std::size_t& size, int base );
+uint32_t toUint32_t( const char* buffer, const std::size_t& size, int base );
+uint64_t toUint64_t( const char* buffer, const std::size_t& size, int base );
 
-Does not skip whitespace
-*/
-template<typename T>
-static constexpr T string_to( const char* str, const std::size_t& len, int base ) {
-    static_assert( std::is_integral_v<T>, "T must be an integer type!");
-    EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
-    EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
-    size_t k = 0;
-    T result = 0;
-    T sign = 1;
-    if constexpr( std::is_signed_v<T> ) {
-        if( base == 10 ) { // only check sign for base 10 values
-            if( str[k] == '-' ) {
-                sign = -1;
-                ++k;
-            }
-            else if( str[k] == '+' ) {
-                ++k;
-            }
-        }
-    }
-    const char limitNum = (base < 10) ? ('0' + base - 1) : '9';             // 0x30 - 0x39
-    const char limitUpp = (base < 36) ? ('A' + base - 1 - 10) : 'Z';        // 0x41 - 0x5A
-    const char limitLow = (base < 62) ? ('a' + base - 1 - 10 - 26) : 'z';   // 0x61 - 0x7A
-    for( ; k < len; ++k ) {
-        if( str[k] >= '0' && str[k] <= limitNum )
-            result = result*base + str[k] - '0';
-        else if( str[k] >= 'A' && str[k] <= limitUpp )
-            result = result*base + str[k] - ('A' - 10);
-        else if( str[k] >= 'a' && str[k] <= limitLow )
-            result = result*base + str[k] - ('a' - 10 - 26);
-        else {
-            EDF_ASSERTD( str[k] <= limitLow ); // string contains invalid char for specified base
-            break;
-        }
-    }
-    return result * sign;
-}
+Iterator insert( char* buffer, std::size_t& size, std::size_t N, ConstIterator pos, char value );
+Iterator insert( char* buffer, std::size_t& size, std::size_t N, ConstIterator pos, std::size_t count, char value );
+Iterator insert( char* buffer, std::size_t& size, std::size_t N, ConstIterator pos, std::initializer_list<char> iList );
+Iterator insert( char* buffer, std::size_t& size, std::size_t N, ConstIterator pos, const char* str, std::size_t n );
 
-/*
-str, len, and N are the pieces needed for a EDF::Vector, which is exactly what they represent.
-*/
-template<typename T>
-static constexpr void string_from( char* str, const std::size_t& len, std::size_t N, T value, int base ) {
-    static_assert(std::is_integral_v<T>, "This only works for integer types!");
-    std::size_t& mutateLen = const_cast<std::size_t&>(len); // in this case, we need to make sure we're mutating len
+void erase( char* buffer, std::size_t& size, std::size_t N, std::size_t index );
+void erase( char* buffer, std::size_t& size, std::size_t N, std::size_t first, std::size_t last );
+Iterator erase( char* buffer, std::size_t& size, std::size_t N, ConstIterator pos );
+Iterator erase( char* buffer, std::size_t& size, std::size_t N, ConstIterator first, ConstIterator last );
 
-    // handle edge case of 0
-    if( value == 0 ){
-        str[0] = '0';
-        str[1] = '\0';
-        mutateLen = 1;
-        return;
-    }
+void copyTo( const char* buffer, const std::size_t& size, std::size_t N, char* outputString, std::size_t maxBufferLength );
 
-    std::size_t k = N - 1;                  // start the index at the end of the strings buffer
-    bool negative = false;                  // only used for when T is signed. Probably optimized out when T is unsigned
-    if constexpr( std::is_signed_v<T> ) {   // deal with sign if number is signed
-        if( value < 0 ) {
-            if( value == std::numeric_limits<T>::min() ) { // handle edge case when value = -value causes overflow
-                string_from<std::make_unsigned_t<T>>( str, len, N, value, base );
-                if( base == 10 ){
-                    std::memmove( str + 1, str, ++mutateLen );
-                    str[0] = '-';
-                }
-                return;
-            }
-            else if( base != 10 ) {
-                string_from<std::make_unsigned_t<T>>( str, len, N, value, base );
-                return;
-            }
-            negative = true;
-            value = -value;      // turn back to positive, to treat it like it was unsigned
-        }
-    }
-    /*
-    Iterate backwards one digit at a time, right to left. To start at the 1's place, then 10's then 100's, etc..
-    4321
-       ^
-      ^
-     ^
-    ^
-    Building up the string backwards.
-    */
-    for( str[k--] = '\0'; value; --k, value /= base ) {
-        EDF_ASSERTD( k < N ); // if k rolled over, not enough space in the string
-        str[k] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"[value % base];
-    }
-    if constexpr( std::is_signed_v<T> ) {
-        if( negative && (base == 10) ) {
-            EDF_ASSERTD( k < N ); // if k rolled over, not enough space in the string
-            str[k--] = '-';  // if negative sign is needed, add it now
-        }
-    }
-    std::size_t sizeUsed = N - (++k);  // find how the number of digits read in backwards
-    mutateLen = sizeUsed - 1;          // calculate the new length, -1 for null
-    std::memmove( str, str + k, sizeUsed ); // shift over the whole thing so it starts at index 0
-}
+Iterator find( const char* buffer, const std::size_t& size, std::size_t N, ConstIterator pos, char value );
+Iterator find( const char* buffer, const std::size_t& size, std::size_t N, ConstIterator pos, const char* value, std::size_t n );
 
+ReverseIterator rfind( const char* buffer, const std::size_t& size, std::size_t N, ConstReverseIterator pos, char value );
+ReverseIterator rfind( const char* buffer, const std::size_t& size, std::size_t N, ConstReverseIterator pos, const char* value, std::size_t n );
+
+bool equals( const char* buffer, const std::size_t& size, std::size_t N, const char* value, std::size_t n );
+
+void strip( char* buffer, std::size_t& size, std::size_t N, char value );
+void strip( char* buffer, std::size_t& size, std::size_t N, const char* values, std::size_t n );
+
+void trimLeft( char* buffer, std::size_t& size, std::size_t N, char value );
+void trimLeft( char* buffer, std::size_t& size, std::size_t N, const char* values, std::size_t n );
+
+void trimRight( char* buffer, std::size_t& size, std::size_t N, char value );
+void trimRight( char* buffer, std::size_t& size, std::size_t N, const char* values, std::size_t n );
+
+void reverse( char* buffer, std::size_t& size, std::size_t N );
+void toLower( char* buffer, std::size_t& size, std::size_t N );
+void toUpper( char* buffer, std::size_t& size, std::size_t N );
+
+void replace(
+    char* buffer, std::size_t& size, std::size_t N,
+    const char* lookFor, std::size_t nLF,
+    const char* replaceWith, std::size_t nRW
+);
+
+void subString( char* buffer, std::size_t& size, std::size_t N, ConstIterator start, ConstIterator end );
+
+} /* impl */
+
+/* Constructors */
 template<std::size_t N>
 constexpr String<N>::
 String() {
-    terminate();
+    impl::make_string( buffer, size, N );
 }
 
 template<std::size_t N>
 constexpr String<N>::
 String( const char* str ) {
-    EDF_ASSERTD( (std::strlen(str) + length()) <= maxLength() );// str can fit
-    // while str is not null, and buffer has enough space for '\0'
-    while( *str ) {
-        buffer.pushBack( *str++ );
-    }
-    terminate();
+    impl::make_string( buffer, size, N, str );
 }
 
 template<std::size_t N>
 constexpr String<N>::
 String( const uint8_t* str ) {
-    EDF_ASSERTD( (std::strlen(reinterpret_cast<const char*>(str)) + length()) <= maxLength() );// str can fit
-    // while str is not null, and buffer has enough space for '\0'
-    while( *str ) {
-        buffer.pushBack( *str++ );
-    }
-    terminate();
+    impl::make_string( buffer, size, N, str );
 }
 
 template<std::size_t N>
 constexpr String<N>::
 String( const char* str, std::size_t n ) {
-    EDF_ASSERTD( n == std::strlen(str) ); // n represents string length, not buffer size
-    EDF_ASSERTD( ((str != nullptr) && (n > 0)) );   // if n is not 0, str can't be nullptr
-    EDF_ASSERTD( (n + length()) <= maxLength() );   // str can fit
-    for( std::size_t k = 0; k < n; ++k ) {
-        buffer.pushBack( str[k] );
-    }
-    terminate();
+    impl::make_string( buffer, size, N, str, n );
 }
-
 template<std::size_t N>
 constexpr String<N>::
 String( const uint8_t* str, std::size_t n ) {
-    EDF_ASSERTD( n == std::strlen(reinterpret_cast<const char*>(str)) ); // n represents string length, not buffer size
-    EDF_ASSERTD( ((str != nullptr) && (n > 0)) );   // if n is not 0, str can't be nullptr
-    EDF_ASSERTD( (n + length()) <= maxLength() );   // str can fit
-    for( std::size_t k = 0; k < n; ++k ) {
-        buffer.pushBack( str[k] );
-    }
-    terminate();
+    impl::make_string( buffer, size, N, str, n );
 }
-
 
 template<std::size_t N>
 template<std::size_t S>
 constexpr String<N>::
 String( const char (&str)[S] ) {
-    std::size_t len = std::strlen( str );
-    EDF_ASSERTD( len < S );                           // must be a valid string
-    EDF_ASSERTD( (len + length()) <= maxLength() );   // str can fit
-    for( std::size_t k = 0; k < len; ++k ) {
-        buffer.pushBack( str[k] );
-    }
-    terminate();
+    impl::make_string( buffer, size, N, str );
 }
 
 template<std::size_t N>
 template<std::size_t S>
 constexpr String<N>::
 String( const uint8_t (&str)[S] ) {
-    std::size_t len = std::strlen( str );
-    EDF_ASSERTD( len < S );                           // must be a valid string
-    EDF_ASSERTD( (len + length()) <= maxLength() );   // str can fit
-    for( std::size_t k = 0; k < len; ++k ) {
-        buffer.pushBack( str[k] );
-    }
-    terminate();
+    impl::make_string( buffer, size, N, str );
 }
 
 template<std::size_t N>
 constexpr String<N>::
 String( char ch ) {
-    EDF_ASSERTD( !isFull() );   // character can fit
-    buffer.pushBack( ch );
-    terminate();
+    impl::make_string( buffer, size, N, ch );
 }
 
 template<std::size_t N>
 constexpr String<N>::
-String( int8_t value, std::size_t base ) {
-    EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
-    EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
-    string_from(
-        buffer.data(),
-        buffer.length(),
-        buffer.maxLength(),
-        value,
-        base
-    );
-    terminate();
+String( int8_t value, int base ) {
+    impl::make_string( buffer, size, N, value, base );
 }
 
 template<std::size_t N>
 constexpr String<N>::
-String( int16_t value, std::size_t base ) {
-    EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
-    EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
-    string_from(
-        buffer.data(),
-        buffer.length(),
-        buffer.maxLength(),
-        value,
-        base
-    );
-    terminate();
+String( int16_t value, int base ) {
+    impl::make_string( buffer, size, N, value, base );
 }
 
 template<std::size_t N>
 constexpr String<N>::
-String( int32_t value, std::size_t base ) {
-    EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
-    EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
-    string_from(
-        buffer.data(),
-        buffer.length(),
-        buffer.maxLength(),
-        value,
-        base
-    );
-    terminate();
+String( int32_t value, int base ) {
+    impl::make_string( buffer, size, N, value, base );
 }
 
 template<std::size_t N>
 constexpr String<N>::
-String( int64_t value, std::size_t base ) {
-    EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
-    EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
-    string_from(
-        buffer.data(),
-        buffer.length(),
-        buffer.maxLength(),
-        value,
-        base
-    );
-    terminate();
+String( int64_t value, int base ) {
+    impl::make_string( buffer, size, N, value, base );
 }
 
 template<std::size_t N>
 constexpr String<N>::
-String( uint8_t value, std::size_t base ) {
-    EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
-    EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
-    string_from(
-        buffer.data(),
-        buffer.length(),
-        buffer.maxLength(),
-        value,
-        base
-    );
-    terminate();
+String( uint8_t value, int base ) {
+    impl::make_string( buffer, size, N, value, base );
 }
 
 template<std::size_t N>
 constexpr String<N>::
-String( uint16_t value, std::size_t base ) {
-    EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
-    EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
-    string_from(
-        buffer.data(),
-        buffer.length(),
-        buffer.maxLength(),
-        value,
-        base
-    );
-    terminate();
+String( uint16_t value, int base ) {
+    impl::make_string( buffer, size, N, value, base );
 }
 
 template<std::size_t N>
 constexpr String<N>::
-String( uint32_t value, std::size_t base ) {
-    EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
-    EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
-    string_from(
-        buffer.data(),
-        buffer.length(),
-        buffer.maxLength(),
-        value,
-        base
-    );
-    terminate();
+String( uint32_t value, int base ) {
+    impl::make_string( buffer, size, N, value, base );
 }
 
 template<std::size_t N>
 constexpr String<N>::
-String( uint64_t value, std::size_t base ) {
-    EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
-    EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
-    string_from(
-        buffer.data(),
-        buffer.length(),
-        buffer.maxLength(),
-        value,
-        base
-    );
-    terminate();
+String( uint64_t value, int base ) {
+    impl::make_string( buffer, size, N, value, base );
 }
 
 template<std::size_t N>
 template<std::size_t S>
 constexpr String<N>::
 String( const String<S>& o ) {
-    EDF_ASSERTD( o.length() <= maxLength() ); // N must greater than or equal to length of o
-    for( auto&& ch : o ) {
-        buffer.pushBack( ch );
-    }
-    terminate();
+    impl::make_string( buffer, size, N, o.asCString(), o.length() );
+}
+
+/* Is Questions */
+template<std::size_t N>
+constexpr bool String<N>::
+isEmpty() const {
+    return length() == 0;
+}
+
+template<std::size_t N>
+constexpr bool String<N>::
+isFull() const {
+    return length() == (N-1);
+}
+
+/* Capacity */
+template<std::size_t N>
+constexpr const std::size_t& String<N>::
+length() const {
+    return size;
+}
+
+template<std::size_t N>
+constexpr std::size_t String<N>::
+maxLength() const {
+    return (N-1);
+}
+
+/* Element access */
+template<std::size_t N>
+constexpr char& String<N>::
+at( std::size_t index ) {
+    EDF_ASSERTD(index < length());
+    EDF_ASSERTD(index < N);
+    return buffer[index];
+}
+
+template<std::size_t N>
+constexpr const char& String<N>::
+at( std::size_t index ) const {
+    EDF_ASSERTD(index < length());
+    EDF_ASSERTD(index < N);
+    return buffer[index];
+}
+
+template<std::size_t N>
+constexpr char& String<N>::
+operator[]( std::size_t index ) {
+    return buffer[index];
+}
+
+template<std::size_t N>
+constexpr const char& String<N>::
+operator[]( std::size_t index ) const {
+    return buffer[index];
+}
+
+template<std::size_t N>
+constexpr char* String<N>::
+asCString() {
+    return buffer;
+}
+
+template<std::size_t N>
+constexpr const char* String<N>::
+asCString() const {
+    return buffer;
+}
+
+template<std::size_t N>
+constexpr uint8_t* String<N>::
+asByteData() {
+    return reinterpret_cast<uint8_t*>(buffer);
+}
+
+template<std::size_t N>
+constexpr const uint8_t* String<N>::
+asByteData() const {
+    return reinterpret_cast<const uint8_t*>(buffer);
+}
+
+/* Conversions: toX */
+template<std::size_t N>
+constexpr int8_t String<N>::
+toInt8_t( int base ) const {
+    // reuse toInt32_t() to reduce # template instantiations
+    return static_cast<int8_t>(toInt32_t( base ));
+}
+
+template<std::size_t N>
+constexpr int16_t String<N>::
+toInt16_t( int base ) const {
+    // reuse toInt32_t() to reduce # template instantiations
+    return static_cast<int16_t>(toInt32_t( base ));
 }
 
 template<std::size_t N>
 constexpr int32_t String<N>::
 toInt32_t( int base ) const {
-    return string_to<int32_t>( buffer.data(), buffer.length(), base );
+    return impl::toInt32_t( buffer, size, base );
 }
 
 template<std::size_t N>
 constexpr int64_t String<N>::
 toInt64_t( int base ) const {
-    return string_to<int64_t>( buffer.data(), buffer.length(), base );
+    return impl::toInt64_t( buffer, size, base );
+}
+
+template<std::size_t N>
+constexpr uint8_t String<N>::
+toUint8_t( int base ) const {
+    // reuse toUint32_t() to reduce # template instantiations
+    return static_cast<uint8_t>(toUint32_t( base ));
+}
+
+template<std::size_t N>
+constexpr uint16_t String<N>::
+toUint16_t( int base ) const {
+    // reuse toUint32_t() to reduce # template instantiations
+    return static_cast<uint16_t>(toUint32_t( base ));
 }
 
 template<std::size_t N>
 constexpr uint32_t String<N>::
 toUint32_t( int base ) const {
-    return string_to<uint32_t>( buffer.data(), buffer.length(), base );
+    return impl::toUint32_t( buffer, size, base );
 }
 
 template<std::size_t N>
 constexpr uint64_t String<N>::
 toUint64_t( int base ) const {
-    return string_to<uint64_t>( buffer.data(), buffer.length(), base );
+    return impl::toUint64_t( buffer, size, base );
+}
+
+/* Operations: In/Out-of-Place - append */
+template<std::size_t N>
+constexpr String<N>& String<N>::
+append( const char* str ) {
+    insert( end(), str );
+    return *this;
+}
+
+template<std::size_t N>
+constexpr String<N>& String<N>::
+append( const uint8_t* str ) {
+    insert( end(), str );
+    return *this;
+}
+
+template<std::size_t N>
+constexpr String<N>& String<N>::
+append( const char* str, std::size_t n ) {
+    insert( end(), str, n );
+    return *this;
+}
+
+template<std::size_t N>
+constexpr String<N>& String<N>::
+append( const uint8_t* str, std::size_t n ) {
+    insert( end(), str, n );
+    return *this;
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N>& String<N>::
+append( const char (&str)[S] ) {
+    insert( end(), str );
+    return *this;
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N>& String<N>::
+append( const uint8_t (&str)[S] ) {
+    insert( end(), str );
+    return *this;
+}
+
+template<std::size_t N>
+constexpr String<N>& String<N>::
+append( char ch ) {
+    insert( end(), ch );
+    return *this;
+}
+
+template<std::size_t N>
+constexpr String<N>& String<N>::
+append( int8_t value, int base ) {
+    insert( end(), value, base );
+    return *this;
+}
+
+template<std::size_t N>
+constexpr String<N>& String<N>::
+append( int16_t value, int base ) {
+    insert( end(), value, base );
+    return *this;
+}
+
+template<std::size_t N>
+constexpr String<N>& String<N>::
+append( int32_t value, int base ) {
+    insert( end(), value, base );
+    return *this;
+}
+
+template<std::size_t N>
+constexpr String<N>& String<N>::
+append( int64_t value, int base ) {
+    insert( end(), value, base );
+    return *this;
+}
+
+template<std::size_t N>
+constexpr String<N>& String<N>::
+append( uint8_t value, int base ) {
+    insert( end(), value, base );
+    return *this;
+}
+
+template<std::size_t N>
+constexpr String<N>& String<N>::
+append( uint16_t value, int base ) {
+    insert( end(), value, base );
+    return *this;
+}
+
+template<std::size_t N>
+constexpr String<N>& String<N>::
+append( uint32_t value, int base ) {
+    insert( end(), value, base );
+    return *this;
+}
+
+template<std::size_t N>
+constexpr String<N>& String<N>::
+append( uint64_t value, int base ) {
+    insert( end(), value, base );
+    return *this;
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N>& String<N>::
+append( const String<S>& str ) {
+    insert( end(), str );
+    return *this;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getAppended( const char* str ) const {
+    return getInserted( end(), str );
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getAppended( const uint8_t* str ) const {
+    return getInserted( end(), str );
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getAppended( const char* str, std::size_t n ) const {
+    return getInserted( end(), str, n );
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getAppended( const uint8_t* str, std::size_t n ) const {
+    return getInserted( end(), str, n );
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N> String<N>::
+getAppended( const char (&str)[S] ) const {
+    return getInserted( end(), str );
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N> String<N>::
+getAppended( const uint8_t (&str)[S] ) const {
+    return getInserted( end(), str );
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getAppended( char ch ) const {
+    return getInserted( end(), ch );
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getAppended( int8_t value, int base ) const {
+    return getInserted( end(), value, base );
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getAppended( int16_t value, int base ) const {
+    return getInserted( end(), value, base );
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getAppended( int32_t value, int base ) const {
+    return getInserted( end(), value, base );
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getAppended( int64_t value, int base ) const {
+    return getInserted( end(), value, base );
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getAppended( uint8_t value, int base ) const {
+    return getInserted( end(), value, base );
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getAppended( uint16_t value, int base ) const {
+    return getInserted( end(), value, base );
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getAppended( uint32_t value, int base ) const {
+    return getInserted( end(), value, base );
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getAppended( uint64_t value, int base ) const {
+    return getInserted( end(), value, base );
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N> String<N>::
+getAppended( const String<S>& str ) const {
+    return getInserted( end(), str );
+}
+
+/* Operations: In/Out-of-Place - insert */
+template<std::size_t N>
+constexpr void String<N>::
+insert( std::size_t index, char value ) {
+    insert( cbegin() + index, value );
+}
+
+template<std::size_t N>
+constexpr void String<N>::
+insert( std::size_t index, std::size_t count, char value ) {
+    insert( cbegin() + index, count, value );
+}
+
+template<std::size_t N>
+constexpr void String<N>::
+insert( std::size_t index, std::initializer_list<char> iList ) {
+    insert( cbegin() + index, iList );
 }
 
 template<std::size_t N>
 constexpr typename String<N>::Iterator String<N>::
 insert( ConstIterator pos, char value ) {
-    EDF_ASSERTD( pos >= cbegin() );  // position must be valid
-    EDF_ASSERTD( pos <= cend() );    // position must be valid
-    EDF_ASSERTD( !isFull() );      // must be able to fit value
-    EDF_ASSERTD( value != '\0' );  // use erase() instead
-    auto it = buffer.insert( pos, value );
-    terminate();
-    return it;
+    return impl::insert( buffer, size, N, pos, value );
 }
 
 template<std::size_t N>
 constexpr typename String<N>::Iterator String<N>::
 insert( ConstIterator pos, std::size_t count, char value ) {
-    EDF_ASSERTD( pos >= cbegin() );  // position must be valid
-    EDF_ASSERTD( pos <= cend() );    // position must be valid
-    EDF_ASSERTD( (count + length()) <= maxLength() );    // must be able to fit value
-    EDF_ASSERTD( value != '\0' );                       // use erase() instead
-    auto it = buffer.insert( pos, count, value );
-    terminate();
-    return it;
+    return impl::insert( buffer, size, N, pos, count, value );
 }
 
 template<std::size_t N>
 constexpr typename String<N>::Iterator String<N>::
 insert( ConstIterator pos, std::initializer_list<char> iList ) {
-    EDF_ASSERTD( pos >= cbegin() );  // position must be valid
-    EDF_ASSERTD( pos <= cend() );    // position must be valid
-    EDF_ASSERTD( (iList.size() + length()) <= maxLength() ); // must be able to fit value
-    for( auto&& value : iList ){
-        EDF_ASSERTD( value != '\0' );                       // no need to manually add null
-    }
-    auto it = buffer.insert( pos, iList );
-    terminate();
-    return it;
+    return impl::insert( buffer, size, N, pos, iList );
+}
+
+template<std::size_t N>
+constexpr void String<N>::
+insert( std::size_t index, const char* str ) {
+    insert( cbegin() + index, str );
+}
+
+template<std::size_t N>
+constexpr void String<N>::
+insert( std::size_t index, const uint8_t* str ) {
+    insert( cbegin() + index, str );
+}
+
+template<std::size_t N>
+constexpr typename String<N>::Iterator String<N>::
+insert( ConstIterator pos, const uint8_t* str ) {
+    return insert( pos, reinterpret_cast<const char*>(str) );
+}
+
+template<std::size_t N>
+constexpr typename String<N>::Iterator String<N>::
+insert( ConstIterator pos, const char* str ) {
+    return insert( pos, str, std::strlen(str) );
+}
+
+
+template<std::size_t N>
+constexpr void String<N>::
+insert( std::size_t index, const char* str, std::size_t n ) {
+    insert( cbegin() + index, str, n );
+}
+
+template<std::size_t N>
+constexpr void String<N>::
+insert( std::size_t index, const uint8_t* str, std::size_t n ) {
+    insert( cbegin() + index, str, n );
+}
+
+template<std::size_t N>
+constexpr typename String<N>::Iterator String<N>::
+insert( ConstIterator pos, const uint8_t* str, std::size_t n ) {
+    return insert( pos, reinterpret_cast<const char*>(str), n );
 }
 
 template<std::size_t N>
 constexpr typename String<N>::Iterator String<N>::
 insert( ConstIterator pos, const char* str, std::size_t n ) {
-    EDF_ASSERTD( str != nullptr );
-    EDF_ASSERTD( pos >= cbegin() );  // position must be valid
-    EDF_ASSERTD( pos <= cend() );    // position must be valid
-    EDF_ASSERTD( (n + length()) <= maxLength() ); // must be able to fit value
-    Iterator position = begin() + (pos - begin());
-    std::move_backward(position, end(), end() + n );
-    std::copy( str, str + n, position );
-    std::size_t& mutateLen = const_cast<std::size_t&>(length()); // in this case, we need to make sure we're mutating len
-    mutateLen += n;
-    terminate();
-    return position;
+    return impl::insert( buffer, size, N, pos, str, n );
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr void String<N>::
+insert( std::size_t index, const char (&str)[S] ) {
+    insert( cbegin() + index, str );
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr void String<N>::
+insert( std::size_t index, const uint8_t (&str)[S] ) {
+    insert( cbegin() + index, str );
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr typename String<N>::Iterator String<N>::
+insert( ConstIterator pos, const uint8_t (&str)[S] ) {
+    return insert( pos, reinterpret_cast<const char (&)[S]>(str) );
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr typename String<N>::Iterator String<N>::
+insert( ConstIterator pos, const char (&str)[S] ) {
+    return insert( pos, str, S );
 }
 
 template<std::size_t N>
 constexpr void String<N>::
-copyTo( char* outputString, std::size_t maxBufferLength ) const {
-    EDF_ASSERTD( outputString != nullptr ); // output buffer can't be nullptr
-    EDF_ASSERTD( maxBufferLength >= (length() + 1) );     // output buffer is large enough
-    std::copy( begin(), end() + 1, outputString );
+insert( std::size_t index, int8_t value, int base ) {
+    insert( cbegin() + index, value, base );
+}
+
+template<std::size_t N>
+constexpr void String<N>::
+insert( std::size_t index, int16_t value, int base ) {
+    insert( cbegin() + index, value, base );
+}
+
+template<std::size_t N>
+constexpr void String<N>::
+insert( std::size_t index, int32_t value, int base ) {
+    insert( cbegin() + index, value, base );
+}
+
+template<std::size_t N>
+constexpr void String<N>::
+insert( std::size_t index, int64_t value, int base ) {
+    insert( cbegin() + index, value, base );
+}
+
+template<std::size_t N>
+constexpr void String<N>::
+insert( std::size_t index, uint8_t value, int base ) {
+    insert( cbegin() + index, value, base );
+}
+
+template<std::size_t N>
+constexpr void String<N>::
+insert( std::size_t index, uint16_t value, int base ) {
+    insert( cbegin() + index, value, base );
+}
+
+template<std::size_t N>
+constexpr void String<N>::
+insert( std::size_t index, uint32_t value, int base ) {
+    insert( cbegin() + index, value, base );
+}
+
+template<std::size_t N>
+constexpr void String<N>::
+insert( std::size_t index, uint64_t value, int base ) {
+    insert( cbegin() + index, value, base );
+}
+
+template<std::size_t N>
+constexpr typename String<N>::Iterator String<N>::
+insert( ConstIterator pos, int8_t value, int base ) {
+    return insert( pos, String<8+1>( value, base ) );
+}
+
+template<std::size_t N>
+constexpr typename String<N>::Iterator String<N>::
+insert( ConstIterator pos, int16_t value, int base ) {
+    return insert( pos, String<16+1>( value, base ) );
+}
+
+template<std::size_t N>
+constexpr typename String<N>::Iterator String<N>::
+insert( ConstIterator pos, int32_t value, int base ) {
+    return insert( pos, String<32+1>( value, base ) );
+}
+
+template<std::size_t N>
+constexpr typename String<N>::Iterator String<N>::
+insert( ConstIterator pos, int64_t value, int base ) {
+    return insert( pos, String<64+1>( value, base ) );
+}
+
+template<std::size_t N>
+constexpr typename String<N>::Iterator String<N>::
+insert( ConstIterator pos, uint8_t value, int base ) {
+    return insert( pos, String<8+1>( value, base ) );
+}
+
+template<std::size_t N>
+constexpr typename String<N>::Iterator String<N>::
+insert( ConstIterator pos, uint16_t value, int base ) {
+    return insert( pos, String<16+1>( value, base ) );
+}
+
+template<std::size_t N>
+constexpr typename String<N>::Iterator String<N>::
+insert( ConstIterator pos, uint32_t value, int base ) {
+    return insert( pos, String<32+1>( value, base ) );
+}
+
+template<std::size_t N>
+constexpr typename String<N>::Iterator String<N>::
+insert( ConstIterator pos, uint64_t value, int base ) {
+    return insert( pos, String<64+1>( value, base ) );
 }
 
 
 template<std::size_t N>
+template<std::size_t S>
+constexpr void String<N>::
+insert( std::size_t index, const String<S>& str ) {
+    insert( cbegin() + index, str );
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr typename String<N>::Iterator String<N>::
+insert( ConstIterator pos, const String<S>& str ) {
+    return insert( pos, str.asCString(), str.length() );
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getInserted( std::size_t index, char value ) const {
+    String tmp(*this);
+    tmp.insert( index, value );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getInserted( std::size_t index, std::size_t count, char value ) const {
+    String tmp(*this);
+    tmp.insert( index, count, value );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getInserted( std::size_t index, std::initializer_list<char> iList ) const {
+    String tmp(*this);
+    tmp.insert( index, iList );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getInserted( ConstIterator pos, char value ) const {
+    String tmp(*this);
+    tmp.insert( static_cast<std::size_t>(pos - begin()), value );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getInserted( ConstIterator pos, std::size_t count, char value ) const {
+    String tmp(*this);
+    tmp.insert( static_cast<std::size_t>(pos - begin()), count, value );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getInserted( ConstIterator pos, std::initializer_list<char> iList ) const {
+    String tmp(*this);
+    tmp.insert( static_cast<std::size_t>(pos - begin()), iList );
+    return tmp;
+}
+
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getInserted( std::size_t index, const char* str ) const {
+    String tmp(*this);
+    tmp.insert( index, str );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getInserted( std::size_t index, const uint8_t* str ) const {
+    String tmp(*this);
+    tmp.insert( index, str );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getInserted( ConstIterator pos, const uint8_t* str ) const {
+    String tmp(*this);
+    tmp.insert( static_cast<std::size_t>(pos - begin()), str );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getInserted( ConstIterator pos, const char* str ) const {
+    String tmp(*this);
+    tmp.insert( static_cast<std::size_t>(pos - begin()), str );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getInserted( std::size_t index, const char* str, std::size_t n ) const {
+    String tmp(*this);
+    tmp.insert( index, str, n );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getInserted( std::size_t index, const uint8_t* str, std::size_t n ) const {
+    String tmp(*this);
+    tmp.insert( index, str, n );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getInserted( ConstIterator pos, const uint8_t* str, std::size_t n ) const {
+    String tmp(*this);
+    tmp.insert( static_cast<std::size_t>(pos - begin()), str, n );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getInserted( ConstIterator pos, const char* str, std::size_t n ) const {
+    String tmp(*this);
+    tmp.insert( static_cast<std::size_t>(pos - begin()), str, n );
+    return tmp;
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N> String<N>::
+getInserted( std::size_t index, const char (&str)[S] ) const {
+    String tmp(*this);
+    tmp.insert( index, str );
+    return tmp;
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N> String<N>::
+getInserted( std::size_t index, const uint8_t (&str)[S] ) const {
+    String tmp(*this);
+    tmp.insert( index, str );
+    return tmp;
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N> String<N>::
+getInserted( ConstIterator pos, const uint8_t (&str)[S] ) const {
+    String tmp(*this);
+    tmp.insert( static_cast<std::size_t>(pos - begin()), str );
+    return tmp;
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N> String<N>::
+getInserted( ConstIterator pos, const char (&str)[S] ) const {
+    String tmp(*this);
+    tmp.insert( static_cast<std::size_t>(pos - begin()), str );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getInserted( std::size_t index, int8_t value, int base ) const {
+    String tmp(*this);
+    tmp.insert( index, value, base );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getInserted( std::size_t index, int16_t value, int base ) const {
+    String tmp(*this);
+    tmp.insert( index, value, base );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getInserted( std::size_t index, int32_t value, int base ) const {
+    String tmp(*this);
+    tmp.insert( index, value, base );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getInserted( std::size_t index, int64_t value, int base ) const {
+    String tmp(*this);
+    tmp.insert( index, value, base );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getInserted( std::size_t index, uint8_t value, int base ) const {
+    String tmp(*this);
+    tmp.insert( index, value, base );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getInserted( std::size_t index, uint16_t value, int base ) const {
+    String tmp(*this);
+    tmp.insert( index, value, base );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getInserted( std::size_t index, uint32_t value, int base ) const {
+    String tmp(*this);
+    tmp.insert( index, value, base );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getInserted( std::size_t index, uint64_t value, int base ) const {
+    String tmp(*this);
+    tmp.insert( index, value, base );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getInserted( ConstIterator pos, int8_t value, int base ) const {
+    String tmp(*this);
+    tmp.insert( static_cast<std::size_t>(pos - begin()), value, base );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getInserted( ConstIterator pos, int16_t value, int base ) const {
+    String tmp(*this);
+    tmp.insert( static_cast<std::size_t>(pos - begin()), value, base );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getInserted( ConstIterator pos, int32_t value, int base ) const {
+    String tmp(*this);
+    tmp.insert( static_cast<std::size_t>(pos - begin()), value, base );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getInserted( ConstIterator pos, int64_t value, int base ) const {
+    String tmp(*this);
+    tmp.insert( static_cast<std::size_t>(pos - begin()), value, base );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getInserted( ConstIterator pos, uint8_t value, int base ) const {
+    String tmp(*this);
+    tmp.insert( static_cast<std::size_t>(pos - begin()), value, base );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getInserted( ConstIterator pos, uint16_t value, int base ) const {
+    String tmp(*this);
+    tmp.insert( static_cast<std::size_t>(pos - begin()), value, base );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getInserted( ConstIterator pos, uint32_t value, int base ) const {
+    String tmp(*this);
+    tmp.insert( static_cast<std::size_t>(pos - begin()), value, base );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getInserted( ConstIterator pos, uint64_t value, int base ) const {
+    String tmp(*this);
+    tmp.insert( static_cast<std::size_t>(pos - begin()), value, base );
+    return tmp;
+}
+
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N> String<N>::
+getInserted( std::size_t index, const String<S>& str ) const {
+    String tmp(*this);
+    tmp.insert( index, str );
+    return tmp;
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N> String<N>::
+getInserted( ConstIterator pos, const String<S>& str ) const {
+    String tmp(*this);
+    tmp.insert( static_cast<std::size_t>(pos - begin()), str );
+    return tmp;
+}
+
+/* Operations: In/Out-of-Place - erase */
+template<std::size_t N>
+constexpr void String<N>::
+erase( std::size_t index ) {
+    impl::erase( buffer, size, N, index );
+}
+
+template<std::size_t N>
+constexpr void String<N>::
+erase( std::size_t first, std::size_t last ) {
+    impl::erase( buffer, size, N, first, last );
+}
+
+template<std::size_t N>
+constexpr typename String<N>::Iterator String<N>::
+erase( ConstIterator pos ) {
+    return impl::erase( buffer, size, N, pos );
+}
+
+template<std::size_t N>
+constexpr typename String<N>::Iterator String<N>::
+erase( ConstIterator first, ConstIterator last ) {
+    return impl::erase( buffer, size, N, first, last );
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getErased( std::size_t index ) const {
+    String tmp(*this);
+    tmp.erase( index );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getErased( std::size_t first, std::size_t last ) const {
+    String tmp(*this);
+    tmp.erase( first, last );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getErased( ConstIterator pos ) const {
+    String tmp(*this);
+    tmp.erase( static_cast<std::size_t>(pos - begin()) );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getErased( ConstIterator first, ConstIterator last ) const {
+    String tmp(*this);
+    tmp.erase( static_cast<std::size_t>(first - begin()), static_cast<std::size_t>(last - begin()) );
+    return tmp;
+}
+
+/* Operations: In-Place - clear */
+template<std::size_t N>
+constexpr void String<N>::
+clear() {
+    impl::make_string( buffer, size, N );
+}
+
+/* Operations: Out-of-Place - copyTo */
+template<std::size_t N>
+constexpr void String<N>::
+copyTo( char* outputString, std::size_t maxBufferLength ) const {
+    impl::copyTo( buffer, size, N, outputString, maxBufferLength );
+}
+
+template<std::size_t N>
+constexpr void String<N>::
+copyTo( uint8_t* outputString, std::size_t maxBufferLength ) const {
+    copyTo( reinterpret_cast<char*>(outputString), maxBufferLength );
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr void String<N>::
+copyTo( char (&outputString)[S] ) const {
+    copyTo( outputString, S );
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr void String<N>::
+copyTo( uint8_t (&outputString)[S] ) const {
+    copyTo( reinterpret_cast<char(&)[S]>(outputString) );
+}
+
+/* Operations: Out-of-Place - find and rfind */
+template<std::size_t N>
+constexpr typename String<N>::Iterator String<N>::
+find( char value ) const {
+    return find( begin(), value );
+}
+
+template<std::size_t N>
+constexpr typename String<N>::Iterator String<N>::
+find( const char* value ) const {
+    return find( begin(), value, std::strlen( value ) );
+}
+
+template<std::size_t N>
+constexpr typename String<N>::Iterator String<N>::
+find( const char* value, std::size_t n ) const {
+    return find( begin(), value, n );
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr typename String<N>::Iterator String<N>::
+find( const String<S>& value ) const {
+    return find( begin(), value.asCString(), value.length() );
+}
+
+template<std::size_t N>
 constexpr typename String<N>::Iterator String<N>::
 find( ConstIterator pos, char value ) const {
-    EDF_ASSERTD( value != '\0' );    // simply use end() or a variation instead
-    EDF_ASSERTD( pos >= cbegin() );  // position must be valid
-    EDF_ASSERTD( pos <= cend() );    // position must be valid
-    pos = std::find_if( pos, end(), [&value](char ch){
-        return ch == value;
-    });
-    return Iterator( begin() + (pos - cbegin()) );
+    return impl::find( buffer, size, N, pos, value );
+}
+
+template<std::size_t N>
+constexpr typename String<N>::Iterator String<N>::
+find( ConstIterator pos, const char* value ) const {
+    return find( pos, value, std::strlen( value ) );
 }
 
 template<std::size_t N>
 constexpr typename String<N>::Iterator String<N>::
 find( ConstIterator pos, const char* value, std::size_t n ) const {
-    EDF_ASSERTD( value != nullptr );
-    EDF_ASSERTD( n == std::strlen(value) ); // n represents string length, not buffer size
-    EDF_ASSERTD( pos >= cbegin() ); // position must be valid
-    EDF_ASSERTD( pos <= cend() );   // position must be valid
-    for(; pos != end(); ++pos ) {
-        if( *pos == value[0] ) {    // first character matches
-            bool match = true;
-            for( std::size_t k = 1; k < n; ++k ) {
-                if( *(pos + k) != value[k] ) {  // did any character not match?
-                    match = false;
-                    break;
-                }
-            }
-            if( match ) {
-                return Iterator( begin() + (pos - cbegin()) );
-            }
-        }
-    }
-    return Iterator( begin() + (pos - cbegin()) );
+    return impl::find( buffer, size, N, pos, value, n );
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr typename String<N>::Iterator String<N>::
+find( ConstIterator pos, const String<S>& value ) const {
+    return find( pos, value.asCString(), value.length() );
+}
+
+template<std::size_t N>
+constexpr typename String<N>::ReverseIterator String<N>::
+rfind( char value ) const {
+    return rfind( rbegin(), value );
+}
+
+template<std::size_t N>
+constexpr typename String<N>::ReverseIterator String<N>::
+rfind( const char* value ) const {
+    return rfind( rbegin(), value );
+}
+
+template<std::size_t N>
+constexpr typename String<N>::ReverseIterator String<N>::
+rfind( const char* value, std::size_t n ) const {
+    return rfind( rbegin(), value, n );
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr typename String<N>::ReverseIterator String<N>::
+rfind( const String<S>& value ) const {
+    return rfind( rbegin(), value.asCString(), value.length() );
 }
 
 template<std::size_t N>
 constexpr typename String<N>::ReverseIterator String<N>::
 rfind( ConstReverseIterator pos, char value ) const {
-    EDF_ASSERTD( value != '\0' );    // simply use end() or a variation instead
-    EDF_ASSERTD( pos >= crbegin() ); // position must be valid
-    EDF_ASSERTD( pos <= crend() );   // position must be valid
-    pos = std::find_if( pos, crend(), [&value](char ch){
-        return ch == value;
-    });
-    return ReverseIterator( const_cast<Iterator>(pos.base()) );
+    return impl::rfind( buffer, size, N, pos, value );
 }
 
 template<std::size_t N>
 constexpr typename String<N>::ReverseIterator String<N>::
 rfind( ConstReverseIterator pos, const char* value ) const {
-    return rfind( pos, value, std::strlen( value ) );
+    return rfind( pos, value, std::strlen(value) );
 }
 
 template<std::size_t N>
 constexpr typename String<N>::ReverseIterator String<N>::
 rfind( ConstReverseIterator pos, const char* value, std::size_t n ) const {
-    EDF_ASSERTD( value != nullptr );
-    EDF_ASSERTD( pos >= crbegin() );    // position must be valid
-    EDF_ASSERTD( pos < crend() );       // position must be valid
-    pos = std::find_if( pos, crend(), [&value, &n](const char& ch) {
-        if( ch == value[n-1] ) {        // last character matches
-            return std::memcmp( &ch - (n-1), value, n ) == 0;
-        }
-        return false;
-    });
-    return ReverseIterator( const_cast<Iterator>(pos.base()) );
+    return impl::rfind( buffer, size, N, pos, value, n );
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr typename String<N>::ReverseIterator String<N>::
+rfind( ConstReverseIterator pos, const String<S>& value ) const {
+    return rfind( pos, value.asCString(), value.length() );
+}
+
+/* Operations: Out-of-Place - contains */
+template<std::size_t N>
+constexpr bool String<N>::
+contains( char value ) const {
+    return find( begin(), value ) != end();
+}
+
+template<std::size_t N>
+constexpr bool String<N>::
+contains( const char* value ) const {
+    return find( begin(), value ) != end();
+}
+
+template<std::size_t N>
+constexpr bool String<N>::
+contains( const char* value, std::size_t n ) const {
+    return find( begin(), value, n ) != end();
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr bool String<N>::
+contains( const String<S>& value ) const {
+    return find( begin(), value ) != end();
+}
+
+/* Operations: Out-of-Place - equals */
+template<std::size_t N>
+constexpr bool String<N>::
+equals( char value ) const {
+    return (length() == 1) && (*begin() == value);
+}
+
+template<std::size_t N>
+constexpr bool String<N>::
+equals( const char* value ) const {
+    return equals( value, std::strlen( value ) );
 }
 
 template<std::size_t N>
 constexpr bool String<N>::
 equals( const char* value, std::size_t n ) const {
-    EDF_ASSERTD( value != nullptr );
-    EDF_ASSERTD( n == std::strlen(value) ); // n represents string length, not buffer size
-    if( length() != n ) return false; // lengths are not the same, so the strings are not equal
-    for( std::size_t k = 0; k < length(); ++k ) {
-        if( buffer[k] != value[k] ) return false; // character didn't match, not equal
-    }
-    return true; // strings are equal!
+    return impl::equals( buffer, size, N, value, n );
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr bool String<N>::
+equals( const String<S>& value ) const {
+    return equals( value.asCString(), value.length() );
+}
+
+/* Operations: In/Out-of-Place - strip */
+template<std::size_t N>
+constexpr String<N>& String<N>::
+strip( char value ) {
+    impl::strip( buffer, size, N, value );
+    return *this;
 }
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
-strip( char value ) {
-    constexpr auto isPrintable = []( char ch ) -> bool {
-        return ch > ' ' && ch <= '~';
-    };
-    std::size_t& mutateLen = const_cast<std::size_t&>(length()); // in this case, we need to make sure we're mutating len
-    std::size_t n = 0;
-    for( std::size_t k = 0; k < length(); ++k ) {
-        auto& ch = buffer[k];
-        if( ((value == '\0') && isPrintable( ch )) ||
-            ((value != '\0') && (value != ch))
-        ) {
-            buffer[n++] = ch; // shift left if whitespace
-        }
-    }
-    mutateLen = n;
-    terminate();
-    return *this;
+strip( const char* values ) {
+    return strip( values, std::strlen( values ) );
 }
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
 strip( const char* values, std::size_t n ) {
-    EDF_ASSERTD( values != nullptr ); // values must not be nullptr
-    for( std::size_t k = 0; k < n; ++k ) {
-        strip( values[k] );
-    }
+    impl::strip( buffer, size, N, values, n );
+    return *this;
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N>& String<N>::
+strip( const String<S>& values ) {
+    return strip( values.asCString(), values.length() );
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getStripped( char value ) const {
+    String tmp(*this);
+    tmp.strip( value );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getStripped( const char* values ) const {
+    String tmp(*this);
+    tmp.strip( values );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getStripped( const char* values, std::size_t n ) const {
+    String tmp(*this);
+    tmp.strip( values, n );
+    return tmp;
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N> String<N>::
+getStripped( const String<S>& values ) const {
+    String tmp(*this);
+    tmp.strip( values );
+    return tmp;
+}
+
+/* Operations: In/Out-of-Place - trim */
+template<std::size_t N>
+constexpr String<N>& String<N>::
+trim( char value ) {
+    return trimRight( value ).trimLeft( value );
+}
+
+template<std::size_t N>
+constexpr String<N>& String<N>::
+trim( const char* values ) {
+    return trimRight( values ).trimLeft( values );
+}
+
+template<std::size_t N>
+constexpr String<N>& String<N>::
+trim( const char* values, std::size_t n ) {
+    return trimRight( values, n ).trimLeft( values, n );
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N>& String<N>::
+trim( const String<S>& values ) {
+    return trim( values.asCString(), values.length() );
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getTrimmed( char value ) const {
+    String tmp(*this);
+    tmp.trim( value );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getTrimmed( const char* values ) const {
+    String tmp(*this);
+    tmp.trim( values );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getTrimmed( const char* values, std::size_t n ) const {
+    String tmp(*this);
+    tmp.trim( values, n );
+    return tmp;
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N> String<N>::
+getTrimmed( const String<S>& values ) const {
+    String tmp(*this);
+    tmp.trim( values );
+    return tmp;
+}
+
+/* Operations: In/Out-of-Place - trimLeft */
+template<std::size_t N>
+constexpr String<N>& String<N>::
+trimLeft( char value ) {
+    impl::trimLeft( buffer, size, N, value );
     return *this;
 }
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
-trimLeft( char value ) {
-    constexpr auto isNotMatch = [](char ch, char value) -> bool {
-        return ( ((value == '\0') && (ch > ' ' && ch <= '~')) || // if value is default '\0', check if printable
-                 ((value != '\0') && (value != ch)) // else, check if ch matches
-        );
-    };
-    auto firstNonMatch = std::find_if( begin(), end(), [&value, &isNotMatch](char ch) {
-        return isNotMatch(ch, value);
-    });
-    if( firstNonMatch != begin() ) {
-        erase( begin(), firstNonMatch );
-    }
-    return *this;
+trimLeft( const char* values ) {
+    return trimLeft( values, std::strlen( values ) );
 }
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
 trimLeft( const char* values, std::size_t n ) {
-    EDF_ASSERTD( values != nullptr ); // values must not be nullptr
-    auto pos = std::find_if( begin(), end(), [values, n](char ch) {
-        return std::none_of(values, values + n, [&](char value){
-            return ch == value;
-        });
-    });
-    if( pos != begin() ) {
-        erase( begin(), pos );
-    }
+    impl::trimLeft( buffer, size, N, values, n );
+    return *this;
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N>& String<N>::
+trimLeft( const String<S>& values ) {
+    return trimLeft( values.asCString(), values.length() );
+}
+
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getTrimmedLeft( char value ) const {
+    String tmp(*this);
+    tmp.trimLeft( value );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getTrimmedLeft( const char* values ) const {
+    String tmp(*this);
+    tmp.trimLeft( values );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getTrimmedLeft( const char* values, std::size_t n ) const {
+    String tmp(*this);
+    tmp.trimLeft( values, n );
+    return tmp;
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N> String<N>::
+getTrimmedLeft( const String<S>& values ) const {
+    String tmp(*this);
+    tmp.trimLeft( values );
+    return tmp;
+}
+
+/* Operations: In/Out-of-Place - trimRight */
+template<std::size_t N>
+constexpr String<N>& String<N>::
+trimRight( char value ) {
+    impl::trimRight( buffer, size, N, value );
     return *this;
 }
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
-trimRight( char value ) {
-    constexpr auto isNotMatch = [](char ch, char value) -> bool {
-        return ( ((value == '\0') && (ch > ' ' && ch <= '~')) || // if value is default '\0', check if printable
-                 ((value != '\0') && (value != ch)) // else, check if ch matches
-        );
-    };
-    auto firstNonMatch = std::find_if( rbegin(), rend(), [&value, &isNotMatch](char ch) {
-        return isNotMatch( ch, value );
-    });
-    if( firstNonMatch != rbegin() ) {
-        erase( firstNonMatch.base(), end() );
-    }
-    return *this;
+trimRight( const char* values ) {
+    return trimRight( values, std::strlen( values ) );
 }
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
 trimRight( const char* values, std::size_t n ) {
-    EDF_ASSERTD( values != nullptr ); // values must not be nullptr
-    auto firstNonMatch = std::find_if( rbegin(), rend(), [&values, &n](char ch) {
-        return std::none_of(values, values + n, [&](char value){
-            return ch == value;
-        });
-    });
-    if( firstNonMatch != rbegin() ) {
-        erase( firstNonMatch.base(), end() );
-    }
+    impl::trimRight( buffer, size, N, values, n );
     return *this;
 }
 
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N>& String<N>::
+trimRight( const String<S>& values ) {
+    return trimRight( values.asCString(), values.length() );
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getTrimmedRight( char value ) const {
+    String tmp(*this);
+    tmp.trimRight( value );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getTrimmedRight( const char* values ) const {
+    String tmp(*this);
+    tmp.trimRight( values );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getTrimmedRight( const char* values, std::size_t n ) const {
+    String tmp(*this);
+    tmp.trimRight( values, n );
+    return tmp;
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N> String<N>::
+getTrimmedRight( const String<S>& values ) const {
+    String tmp(*this);
+    tmp.trimRight( values );
+    return tmp;
+}
+
+/* Operations: In/Out-of-Place - reverse */
 template<std::size_t N>
 constexpr String<N>& String<N>::
 reverse() {
-    if( length() >= 2 ) { // needs at least 2 elements
-        for( auto b = begin(), e = (end() - 1); b < e; ++b, --e ){
-            std::swap( *b, *e );
-        }
-    }
+    impl::reverse( buffer, size, N );
     return *this;
 }
 
+template<std::size_t N>
+constexpr String<N> String<N>::
+getReversed() const {
+    String tmp(*this);
+    tmp.reverse();
+    return tmp;
+}
+
+/* Operations: In/Out-of-Place - toLower */
 template<std::size_t N>
 constexpr String<N>& String<N>::
 toLower() {
-    for( char& ch : buffer ) {
-        if( ch >= 'A' && ch <= 'Z' ){ // is ch uppercase?
-            ch += 'a' - 'A'; // change it to lower, by "jumping" from 'A' to 'a'
-        }
-    }
+    impl::toLower( buffer, size, N );
     return *this;
 }
 
+template<std::size_t N>
+constexpr String<N> String<N>::
+getToLower() const {
+    String tmp(*this);
+    tmp.toLower();
+    return tmp;
+}
+
+/* Operations: In/Out-of-Place - toUpper */
 template<std::size_t N>
 constexpr String<N>& String<N>::
 toUpper() {
-    for( char& ch : buffer ) {
-        if( ch >= 'a' && ch <= 'z' ){ // is ch lowercase?
-            ch -= 'a' - 'A'; // change it to upper, by "jumping" from 'a' to 'A'
-        }
-    }
+    impl::toUpper( buffer, size, N );
     return *this;
 }
 
 template<std::size_t N>
+constexpr String<N> String<N>::
+getToUpper() const {
+    String tmp(*this);
+    tmp.toUpper();
+    return tmp;
+}
+
+/* Operations: In/Out-of-Place - replace */
+template<std::size_t N>
 constexpr String<N>& String<N>::
-replace(
-    const char* lookFor, std::size_t nLF,
-    const char* replaceWith, std::size_t nRW
-) {
-    for( ReverseIterator posLookFor = rfind( crbegin(), lookFor, nLF ); posLookFor != crend(); ) {
-        auto strBegin = (posLookFor + nLF).base();
-        auto strEnd = posLookFor.base();
-        if( (strBegin >= begin()) && (strEnd <= end()) ) {
-            erase( strBegin, strEnd );
-            insert( strBegin, replaceWith, nRW );
-        }
-        if( (posLookFor + nLF) >= crend() ) {
-            break;
-        }
-        posLookFor = rfind( posLookFor + nLF, lookFor, nLF );
-    }
+replace( char lookFor, char replaceWith ) {
+    return replace( &lookFor, 1_uz, &replaceWith, 1_uz );
+}
+
+template<std::size_t N>
+constexpr String<N>& String<N>::
+replace( const char* lookFor, char replaceWith ) {
+    return replace( lookFor, std::strlen(lookFor), &replaceWith, 1_uz );
+}
+
+template<std::size_t N>
+constexpr String<N>& String<N>::
+replace( const char* lookFor, std::size_t nLF, char replaceWith ) {
+    return replace( lookFor, nLF, &replaceWith, 1_uz );
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N>& String<N>::
+replace( const String<S>& lookFor, char replaceWith ) {
+    return replace( lookFor.asCString(), lookFor.length(), &replaceWith, 1_uz );
+}
+
+template<std::size_t N>
+constexpr String<N>& String<N>::
+replace( char lookFor, const char* replaceWith ) {
+    return replace( &lookFor, 1_uz, replaceWith, std::strlen(replaceWith) );
+}
+
+template<std::size_t N>
+constexpr String<N>& String<N>::
+replace( const char* lookFor, const char* replaceWith ) {
+    return replace( lookFor, std::strlen(lookFor), replaceWith, std::strlen(replaceWith) );
+}
+
+template<std::size_t N>
+constexpr String<N>& String<N>::
+replace( const char* lookFor, std::size_t nLF, const char* replaceWith ) {
+    return replace( lookFor, nLF, replaceWith, std::strlen(replaceWith) );
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N>& String<N>::
+replace( const String<S>& lookFor, const char* replaceWith ) {
+    return replace( lookFor.asCString(), lookFor.length(), replaceWith, std::strlen(replaceWith) );
+}
+
+template<std::size_t N>
+constexpr String<N>& String<N>::
+replace( char lookFor, const char* replaceWith, std::size_t nRW ) {
+    return replace( &lookFor, 1_uz, replaceWith, nRW );
+}
+
+template<std::size_t N>
+constexpr String<N>& String<N>::
+replace( const char* lookFor, const char* replaceWith, std::size_t nRW ) {
+    return replace( lookFor, std::strlen(lookFor), replaceWith, nRW );
+}
+
+template<std::size_t N>
+constexpr String<N>& String<N>::
+replace( const char* lookFor, std::size_t nLF, const char* replaceWith, std::size_t nRW ) {
+    impl::replace( buffer, size, N, lookFor, nLF, replaceWith, nRW );
     return *this;
 }
 
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N>& String<N>::
+replace( const String<S>& lookFor, const char* replaceWith, std::size_t nRW ) {
+    return replace( lookFor.asCString(), lookFor.length(), replaceWith, nRW );
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N>& String<N>::
+replace( char lookFor, const String<S>& replaceWith ) {
+    return replace( &lookFor, 1_uz, replaceWith.asCString(), replaceWith.length() );
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N>& String<N>::
+replace( const char* lookFor, const String<S>& replaceWith ) {
+    return replace( lookFor, std::strlen(lookFor), replaceWith.asCString(), replaceWith.length() );
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N>& String<N>::
+replace( const char* lookFor, std::size_t nLF, const String<S>& replaceWith ) {
+    return replace( lookFor, nLF, replaceWith.asCString(), replaceWith.length() );
+}
+
+template<std::size_t N>
+template<std::size_t S1, std::size_t S2>
+constexpr String<N>& String<N>::
+replace( const String<S1>& lookFor, const String<S2>& replaceWith ) {
+    return replace( lookFor.asCString(), lookFor.length(), replaceWith.asCString(), replaceWith.length() );
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getReplaced( char lookFor, char replaceWith ) const {
+    String tmp(*this);
+    tmp.replace( lookFor, replaceWith );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getReplaced( const char* lookFor, char replaceWith ) const {
+    String tmp(*this);
+    tmp.replace( lookFor, replaceWith );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getReplaced( const char* lookFor, std::size_t nLF, char replaceWith ) const {
+    String tmp(*this);
+    tmp.replace( lookFor, nLF, replaceWith );
+    return tmp;
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N> String<N>::
+getReplaced( const String<S>& lookFor, char replaceWith ) const {
+    String tmp(*this);
+    tmp.replace( lookFor, replaceWith );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getReplaced( char lookFor, const char* replaceWith ) const {
+    String tmp(*this);
+    tmp.replace( lookFor, replaceWith );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getReplaced( const char* lookFor, const char* replaceWith ) const {
+    String tmp(*this);
+    tmp.replace( lookFor, replaceWith );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getReplaced( const char* lookFor, std::size_t nLF, const char* replaceWith ) const {
+    String tmp(*this);
+    tmp.replace( lookFor, nLF, replaceWith );
+    return tmp;
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N> String<N>::
+getReplaced( const String<S>& lookFor, const char* replaceWith ) const {
+    String tmp(*this);
+    tmp.replace( lookFor, replaceWith );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getReplaced( char lookFor, const char* replaceWith, std::size_t nRW ) const {
+    String tmp(*this);
+    tmp.replace( lookFor, replaceWith, nRW );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getReplaced( const char* lookFor, const char* replaceWith, std::size_t nRW ) const {
+    String tmp(*this);
+    tmp.replace( lookFor, replaceWith, nRW );
+    return tmp;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getReplaced( const char* lookFor, std::size_t nLF, const char* replaceWith, std::size_t nRW ) const {
+    String tmp(*this);
+    tmp.replace( lookFor, nLF, replaceWith, nRW );
+    return tmp;
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N> String<N>::
+getReplaced( const String<S>& lookFor, const char* replaceWith, std::size_t nRW ) const {
+    String tmp(*this);
+    tmp.replace( lookFor, replaceWith, nRW );
+    return tmp;
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N> String<N>::
+getReplaced( char lookFor, const String<S>& replaceWith ) const {
+    String tmp(*this);
+    tmp.replace( lookFor, replaceWith );
+    return tmp;
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N> String<N>::
+getReplaced( const char* lookFor, const String<S>& replaceWith ) const {
+    String tmp(*this);
+    tmp.replace( lookFor, replaceWith );
+    return tmp;
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N> String<N>::
+getReplaced( const char* lookFor, std::size_t nLF, const String<S>& replaceWith ) const {
+    String tmp(*this);
+    tmp.replace( lookFor, nLF, replaceWith );
+    return tmp;
+}
+
+template<std::size_t N>
+template<std::size_t S1, std::size_t S2>
+constexpr String<N> String<N>::
+getReplaced( const String<S1>& lookFor, const String<S2>& replaceWith ) const {
+    String tmp(*this);
+    tmp.replace( lookFor, replaceWith );
+    return tmp;
+}
+
+/* Operations: In/Out-of-Place - subString */
 template<std::size_t N>
 constexpr String<N>& String<N>::
 subString( ConstIterator start, ConstIterator end ) {
-    EDF_ASSERTD( start < end );             // start must be before end
-    EDF_ASSERTD( end < this->end() );       // end must be within string
-    EDF_ASSERTD( end >= this->begin() );    // end must be within string
-    EDF_ASSERTD( start < this->end() );     // start must be within string
-    EDF_ASSERTD( start >= this->begin() );  // end must be within string
-    erase( end, this->end() );
-    erase( begin(), start );
+    impl::subString( buffer, size, N, start, end );
     return *this;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getSubString( ConstIterator start, ConstIterator end ) const {
+    String tmp;
+    tmp.append( start, static_cast<std::size_t>(end - start) );
+    return tmp;
+}
+
+/* Operations: Operator Overload - += */
+template<std::size_t N>
+constexpr String<N>& String<N>::
+operator+=( const char* rhs ) {
+    return append( rhs );
+}
+
+template<std::size_t N>
+constexpr String<N>& String<N>::
+operator+=( const uint8_t* rhs ) {
+    return append( rhs );
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N>& String<N>::
+operator+=( const char (&rhs)[S] ) {
+    return append( rhs );
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N>& String<N>::
+operator+=( const uint8_t (&rhs)[S] ) {
+    return append( rhs );
+}
+
+template<std::size_t N>
+constexpr String<N>& String<N>::
+operator+=( char rhs ) {
+    return append( rhs );
+}
+
+template<std::size_t N>
+constexpr String<N>& String<N>::
+operator+=( int8_t rhs ) {
+    return append( rhs );
+}
+
+template<std::size_t N>
+constexpr String<N>& String<N>::
+operator+=( int16_t rhs ) {
+    return append( rhs );
+}
+
+template<std::size_t N>
+constexpr String<N>& String<N>::
+operator+=( int32_t rhs ) {
+    return append( rhs );
+}
+
+template<std::size_t N>
+constexpr String<N>& String<N>::
+operator+=( int64_t rhs ) {
+    return append( rhs );
+}
+
+template<std::size_t N>
+constexpr String<N>& String<N>::
+operator+=( uint8_t rhs ) {
+    return append( rhs );
+}
+
+template<std::size_t N>
+constexpr String<N>& String<N>::
+operator+=( uint16_t rhs ) {
+    return append( rhs );
+}
+
+template<std::size_t N>
+constexpr String<N>& String<N>::
+operator+=( uint32_t rhs ) {
+    return append( rhs );
+}
+
+template<std::size_t N>
+constexpr String<N>& String<N>::
+operator+=( uint64_t rhs ) {
+    return append( rhs );
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N>& String<N>::
+operator+=( const String<S>& rhs ) {
+    return append( rhs );
+}
+
+/* Operations: Operator Overload - +(this, rhs) */
+template<std::size_t N>
+constexpr String<N> String<N>::
+operator+( const char* rhs ) const {
+    return getAppended( rhs );
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+operator+( const uint8_t* rhs ) const {
+    return getAppended( rhs );
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N> String<N>::
+operator+( const char (&rhs)[S] ) const {
+    return getAppended( rhs );
+}
+
+template<std::size_t N>
+template<std::size_t S>
+constexpr String<N> String<N>::
+operator+( const uint8_t (&rhs)[S] ) const {
+    return getAppended( rhs );
+}
+
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+operator+( char rhs ) const {
+    return getAppended( rhs );
+}
+
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+operator+( const int8_t& rhs ) const {
+    return getAppended( rhs );
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+operator+( const int16_t& rhs ) const {
+    return getAppended( rhs );
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+operator+( const int32_t& rhs ) const {
+    return getAppended( rhs );
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+operator+( const int64_t& rhs ) const {
+    return getAppended( rhs );
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+operator+( const uint8_t& rhs ) const {
+    return getAppended( rhs );
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+operator+( const uint16_t& rhs ) const {
+    return getAppended( rhs );
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+operator+( const uint32_t& rhs ) const {
+    return getAppended( rhs );
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+operator+( const uint64_t& rhs ) const {
+    return getAppended( rhs );
+}
+
+/* Operations: Operator Overload - +(lhs, String) */
+// template<std::size_t N>
+// constexpr String<N>
+// operator+( const char* lhs, const String<N>& rhs ) { String<N> result(lhs); result.append(rhs); return result; }
+
+// template<std::size_t N>
+// constexpr String<N>
+// operator+( const uint8_t* lhs, const String<N>& rhs ) {
+//     String<N> result(lhs);
+//     result.append(rhs);
+//     return result;
+// }
+
+// template<std::size_t N, std::size_t S>
+// constexpr String<EDF::max(N, S)>
+// operator+( const char (&lhs)[S], const String<N>& rhs ) { String<EDF::max(N,S)> result(lhs); result.append(rhs); return result; }
+
+// template<std::size_t N, std::size_t S>
+// constexpr String<EDF::max(S,N)>
+// operator+( const uint8_t (&lhs)[S], const String<N>& rhs ) {
+//     String<EDF::max(S,N)> result(lhs);
+//     result.append(rhs);
+//     return result;
+// }
+
+// template<std::size_t N>
+// constexpr String<N>
+// operator+( char lhs, const String<N>& rhs ) { String<N> result(lhs); result.append(rhs); return result; }
+
+// template<std::size_t N>
+// constexpr String<N>
+// operator+( int8_t lhs, const String<N>& rhs ) {
+//     String<N> result(lhs);
+//     result.append(rhs);
+//     return result;
+// }
+
+// template<std::size_t N>
+// constexpr String<N>
+// operator+( int16_t lhs, const String<N>& rhs ) {
+//     String<N> result(lhs);
+//     result.append(rhs);
+//     return result;
+// }
+
+// template<std::size_t N>
+// constexpr String<N>
+// operator+( int32_t lhs, const String<N>& rhs ) {
+//     String<N> result(lhs);
+//     result.append(rhs);
+//     return result;
+// }
+
+// template<std::size_t N>
+// constexpr String<N>
+// operator+( int64_t lhs, const String<N>& rhs ) {
+//     String<N> result(lhs);
+//     result.append(rhs);
+//     return result;
+// }
+
+// template<std::size_t N>
+// constexpr String<N>
+// operator+( uint8_t lhs, const String<N>& rhs ) {
+//     String<N> result(lhs);
+//     result.append(rhs);
+//     return result;
+// }
+
+// template<std::size_t N>
+// constexpr String<N>
+// operator+( uint16_t lhs, const String<N>& rhs ) {
+//     String<N> result(lhs);
+//     result.append(rhs);
+//     return result;
+// }
+
+// template<std::size_t N>
+// constexpr String<N>
+// operator+( uint32_t lhs, const String<N>& rhs ) {
+//     String<N> result(lhs);
+//     result.append(rhs);
+//     return result;
+// }
+
+// template<std::size_t N>
+// constexpr String<N>
+// operator+( uint64_t lhs, const String<N>& rhs ) {
+//     String<N> result(lhs);
+//     result.append(rhs);
+//     return result;
+// }
+
+// template<std::size_t N, std::size_t S>
+// constexpr String<EDF::max(N, S)>
+// operator+( const String<S>& lhs, const String<N>& rhs ) {
+//     String<EDF::max(N, S)> result(lhs);
+//     result.append(rhs);
+//     return result;
+// }
+
+/* Iterators */
+template<std::size_t N>
+constexpr typename String<N>::Iterator String<N>::
+begin() {
+    return Iterator( buffer );
+}
+
+template<std::size_t N>
+constexpr typename String<N>::ConstIterator String<N>::
+begin() const {
+    return ConstIterator( buffer );
+}
+
+template<std::size_t N>
+constexpr typename String<N>::ConstIterator String<N>::
+cbegin() const {
+    return ConstIterator( buffer );
+}
+
+template<std::size_t N>
+constexpr typename String<N>::Iterator String<N>::
+end() {
+    return Iterator( buffer + length() );
+}
+
+template<std::size_t N>
+constexpr typename String<N>::ConstIterator String<N>::
+end() const {
+    return ConstIterator( buffer + length() );
+}
+
+template<std::size_t N>
+constexpr typename String<N>::ConstIterator String<N>::
+cend() const {
+    return ConstIterator( buffer + length() );
+}
+
+template<std::size_t N>
+constexpr typename String<N>::ReverseIterator String<N>::
+rbegin() {
+    return ReverseIterator( end() );
+}
+
+template<std::size_t N>
+constexpr typename String<N>::ConstReverseIterator String<N>::
+rbegin() const {
+    return ConstReverseIterator( end() );
+}
+
+template<std::size_t N>
+constexpr typename String<N>::ConstReverseIterator String<N>::
+crbegin() const {
+    return ConstReverseIterator( end() );
+}
+
+template<std::size_t N>
+constexpr typename String<N>::ReverseIterator String<N>::
+rend() {
+    return ReverseIterator( begin() );
+}
+
+template<std::size_t N>
+constexpr typename String<N>::ConstReverseIterator String<N>::
+rend() const {
+    return ConstReverseIterator( begin() );
+}
+
+template<std::size_t N>
+constexpr typename String<N>::ConstReverseIterator String<N>::
+crend() const {
+    return ConstReverseIterator( begin() );
 }
 
 } /* EDF */

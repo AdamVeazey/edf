@@ -26,7 +26,7 @@ private:
         if( span == (sizeof(T)*8) ) {
             return std::numeric_limits<T>::max();
         }
-        return ((T{1} << span) - 1) << startBit;
+        return static_cast<T>(((T{1} << span) - 1) << startBit);
     }
 public:
     constexpr BitField( T initialValue = 0 ) : bits( initialValue ) {}
@@ -37,7 +37,7 @@ public:
         bits = (bits & ~mask) | ((value << startBit) & mask);
     }
     constexpr T get( std::size_t startBit, std::size_t span ) const {
-        return (bits >> startBit) & createMask( 0, span );
+        return static_cast<T>((bits >> startBit) & createMask( 0, span ));
     }
 };
 

@@ -101,7 +101,7 @@ erase( ConstIterator first, ConstIterator last ) {
     std::move_backward( e, end(), s + (end() - last) );
 
     // remove number of elements from container
-    n -= (e - s);
+    n -= static_cast<std::size_t>(e - s);
     return s;
 }
 

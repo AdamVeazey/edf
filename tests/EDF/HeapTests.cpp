@@ -15,7 +15,7 @@ private:
 public:
     constexpr CustomClass( int initialValue = 0, bool ov = false ) : variable(initialValue), otherVariable(ov) {}
     ~CustomClass() = default;
-    constexpr auto getValue() const { return variable; }
+    constexpr auto getValue() const { (void)otherVariable; return variable; }
     constexpr friend bool operator>( const CustomClass& lhs, const CustomClass& rhs ) {
         return lhs.variable > rhs.variable;
     }
@@ -42,7 +42,6 @@ TEST(Heap, InitializationCustomClass) {
     EXPECT_EQ( heapCustomClass.maxLength(), 32 );
     EXPECT_EQ( heapCustomClass.length(), 0 );
 
-    // when N is a power of two, this test fails? Only occurs in gtest? This works if copy pasted to example code
     EDF::HeapMax<CustomClass, 4> heapCustomClassMax = {
         CustomClass( 1 ),
         CustomClass( 2 ),

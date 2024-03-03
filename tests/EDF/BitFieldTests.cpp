@@ -41,7 +41,7 @@ TEST(BitField, SetAndGetBits) {
 // [Enable][x][MODE1][MODE0][x][x][SPEED1][SPEED0]    <- Meaning
 //    7     6    5      4    3  2    1        0       <- bits
 struct PeripheralRegister : public EDF::BitField8 {
-    enum class Speed {
+    enum class Speed : uint8_t {
         SLOW,
         MODERATE,
         FAST,

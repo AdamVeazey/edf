@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2023, Adam Veazey
  * All rights reserved.
- * 
+ *
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
@@ -17,7 +17,7 @@ int main( void ) {
     // tag::init_list[]
     EDF::Stack<int, 4> stackInitializationList = { 10, 20 };
     // end::init_list[]
-
+    (void)stackInitializationList;
     // tag::operation_clear[]
     stack.clear();
     // end::operation_clear[]
@@ -37,9 +37,12 @@ int main( void ) {
     // tag::capacity_length[]
     auto& nElementsInStack = stack.length();
     // end::capacity_length[]
+    (void)nElementsInStack;
     // tag::capacity_max_length[]
     constexpr auto maxNumberOfElements = stack.maxLength();
     // end::capacity_max_length[]
+    (void)maxNumberOfElements;
+
     stack.push( 3 );
     stack.push( 4 );
 
@@ -59,7 +62,7 @@ int main( void ) {
         // end::operation_pop[]
         std::cout << mostRecentElement << '\n';
     }
-    
+
     // tag::init_no_default[]
     struct CustomType{
         int value;
