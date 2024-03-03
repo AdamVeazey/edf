@@ -15,6 +15,7 @@ static void tldr() {
     auto normalized = string.getToLower().strip( " ,." );
     bool isPalindrome = normalized.equals( normalized.getReversed() );
     // end::example_is_palindrome[]
+    (void)isPalindrome;
 }
 
 static void examples() {
@@ -33,16 +34,16 @@ static void examples() {
     // end::init_p_literal_uint8_t[]
 
     // tag::init_literal_int8_t[]
-    int8_t valueInt8_t = 0xA5;
+    int8_t valueInt8_t = static_cast<int8_t>(0xA5);
     // end::init_literal_int8_t[]
     // tag::init_literal_int16_t[]
-    int16_t valueInt16_t = 0xA5A5;
+    int16_t valueInt16_t = static_cast<int16_t>(0xA5A5);
     // end::init_literal_int16_t[]
     // tag::init_literal_int32_t[]
-    int32_t valueInt32_t = 0xA5A5A5A5;
+    int32_t valueInt32_t = static_cast<int32_t>(0xA5A5A5A5);
     // end::init_literal_int32_t[]
     // tag::init_literal_int64_t[]
-    int64_t valueInt64_t = 0xA5A5A5A5A5A5A5A5;
+    int64_t valueInt64_t = static_cast<int64_t>(0xA5A5A5A5A5A5A5A5);
     // end::init_literal_int64_t[]
     // tag::init_literal_uint8_t[]
     uint8_t valueUint8_t = 0xA5;
@@ -75,10 +76,12 @@ static void examples() {
     EDF::String<32> stringConstCharStar = "const char*";
     EDF::String<32> stringConstCharStar2( "const char*" );
     // end::init_const_char_star[]
+    (void)stringConstCharStar;
     // tag::init_const_uint8_t_star[]
     EDF::String<32> stringConstUint8_tStar = pLiteralUint8_t;
     EDF::String<32> stringConstUint8_tStar2( pLiteralUint8_t );
     // end::init_const_uint8_t_star[]
+    (void)stringConstUint8_tStar;
     // tag::init_const_char_star_n[]
     EDF::String<32> stringConstCharStarN( pLiteralChar, std::strlen( strLiteralChar ) );
     // end::init_const_char_star_n[]
@@ -97,7 +100,7 @@ static void examples() {
     EDF::String<32> stringChar = 'C';
     EDF::String<32> stringChar2( 'C' );
     // end::init_char[]
-
+    (void)stringChar;
     // tag::init_int8_t[]
     EDF::String<32> stringInt8_t( valueInt8_t );
     EDF::String<32> stringInt8_tHex( valueInt8_t, 16 );
@@ -142,7 +145,7 @@ static void examples() {
     EDF::String<32> stringEDFString = differentSizedString;
     EDF::String<32> stringEDFString2( differentSizedString );
     // end::init_string[]
-
+    (void)stringEDFString;
     // tag::is_question_empty[]
     if( !string.isEmpty() ) {
         /* ... */
@@ -158,10 +161,11 @@ static void examples() {
     // tag::capacity_length[]
     auto nCharactersInString = string.length();
     // end::capacity_length[]
+    (void)nCharactersInString;
     // tag::capacity_max_length[]
     constexpr auto maxNumberOfCharacters = string.maxLength();
     // end::capacity_max_length[]
-
+    (void)maxNumberOfCharacters;
     // tag::element_access_standard[]
     string[0_uz] = 'h';
     // end::element_access_standard[]
@@ -173,51 +177,59 @@ static void examples() {
     // tag::element_access_as_c_string[]
     const char* cString = string.asCString();
     // end::element_access_as_c_string[]
-
+    (void)cString;
     // tag::element_access_as_byte_data[]
     const uint8_t* byteData = string.asByteData();
     // end::element_access_as_byte_data[]
-
+    (void)byteData;
     // tag::conversion_to_int8_t[]
     int8_t valueInt8_tBase10 = stringInt8_t.toInt8_t();
     int8_t valueInt8_tBase16 = stringInt8_tHex.toInt8_t( 16 );
     // end::conversion_to_int8_t[]
-
+    (void)valueInt8_tBase10;
+    (void)valueInt8_tBase16;
     // tag::conversion_to_int16_t[]
     int16_t valueInt16_tBase10 = stringInt16_t.toInt16_t();
     int16_t valueInt16_tBase16 = stringInt16_tHex.toInt16_t( 16 );
     // end::conversion_to_int16_t[]
-
+    (void)valueInt16_tBase10;
+    (void)valueInt16_tBase16;
     // tag::conversion_to_int32_t[]
     int32_t valueInt32_tBase10 = stringInt32_t.toInt32_t();
     int32_t valueInt32_tBase16 = stringInt32_tHex.toInt32_t( 16 );
     // end::conversion_to_int32_t[]
-
+    (void)valueInt32_tBase10;
+    (void)valueInt32_tBase16;
     // tag::conversion_to_int64_t[]
     int64_t valueInt64_tBase10 = stringInt64_t.toInt64_t();
     int64_t valueInt64_tBase16 = stringInt64_tHex.toInt64_t( 16 );
     // end::conversion_to_int64_t[]
-
+    (void)valueInt64_tBase10;
+    (void)valueInt64_tBase16;
     // tag::conversion_to_uint8_t[]
     uint8_t valueUint8_tBase10 = stringUint8_t.toUint8_t();
     uint8_t valueUint8_tBase16 = stringUint8_tHex.toUint8_t( 16 );
     // end::conversion_to_uint8_t[]
-
+    (void)valueUint8_tBase10;
+    (void)valueUint8_tBase16;
     // tag::conversion_to_uint16_t[]
     uint16_t valueUint16_tBase10 = stringUint16_t.toUint16_t();
     uint16_t valueUint16_tBase16 = stringUint16_tHex.toUint16_t( 16 );
     // end::conversion_to_uint16_t[]
-
+    (void)valueUint16_tBase10;
+    (void)valueUint16_tBase16;
     // tag::conversion_to_uint32_t[]
     uint32_t valueUint32_tBase10 = stringUint32_t.toUint32_t();
     uint32_t valueUint32_tBase16 = stringUint32_tHex.toUint32_t( 16 );
     // end::conversion_to_uint32_t[]
-
+    (void)valueUint32_tBase10;
+    (void)valueUint32_tBase16;
     // tag::conversion_to_uint64_t[]
     uint64_t valueUint64_tBase10 = stringUint64_t.toUint64_t();
     uint64_t valueUint64_tBase16 = stringUint64_tHex.toUint64_t( 16 );
     // end::conversion_to_uint64_t[]
-
+    (void)valueUint64_tBase10;
+    (void)valueUint64_tBase16;
     // tag::operation_append[]
     string.append( "Hello, world!" );
     string.append( 1234 );
@@ -568,59 +580,61 @@ static void examples() {
 }
 
 int main() {
-    EDF::String<128> test( 1234 );
-    test += 567890;
-    std::cout << "1:" << test.asCString() << '\n';
-    test.insert( 4, " Inserted Value" );
-    std::cout << (4 + (EDF::String<10>(" Okay") + test)).strip().asCString() << '\n';
+    // EDF::String<128> test( 1234 );
+    // test += 567890;
+    // std::cout << "1:" << test.asCString() << '\n';
+    // test.insert( 4, " Inserted Value" );
+    // std::cout << (4 + (EDF::String<10>(" Okay") + test)).strip().asCString() << '\n';
 
-    std::cout << "2:" << test.asCString() << '\n';
-    test.insert( 0_uz, " \n Test \n" );
-    std::cout << "3:" << test.asCString() << '\n';
-    std::cout << "4:" << test.getStripped( "ea" ).asCString() << '\n';
+    // std::cout << "2:" << test.asCString() << '\n';
+    // test.insert( 0_uz, " \n Test \n" );
+    // std::cout << "3:" << test.asCString() << '\n';
+    // std::cout << "4:" << test.getStripped( "ea" ).asCString() << '\n';
 
-    EDF::String<64> smallerTest = "  ! !Hello, world!  !   ";
-    smallerTest.trim( " !" );
-    std::cout << "5:>" << smallerTest.asCString() << "<" << '\n';
+    // EDF::String<64> smallerTest = "  ! !Hello, world!  !   ";
+    // smallerTest.trim( " !" );
+    // std::cout << "5:>" << smallerTest.asCString() << "<" << '\n';
 
-    std::cout << "6:" << smallerTest.contains("Hello") << '\n';
+    // std::cout << "6:" << smallerTest.contains("Hello") << '\n';
 
-    std::cout << "7:" << smallerTest.getReversed().asCString() << '\n';
+    // std::cout << "7:" << smallerTest.getReversed().asCString() << '\n';
 
-    std::cout << "8:" << smallerTest.equals( "Hello, world" ) << '\n';
+    // std::cout << "8:" << smallerTest.equals( "Hello, world" ) << '\n';
 
-    std::cout << "9:" << smallerTest.getToUpper().asCString() << '\n';
+    // std::cout << "9:" << smallerTest.getToUpper().asCString() << '\n';
 
-    std::cout << "10:" << smallerTest.getToLower().asCString() << '\n';
+    // std::cout << "10:" << smallerTest.getToLower().asCString() << '\n';
 
-    std::cout << "11:"
-              << smallerTest
-                    .getAppended( " world something" )
-                    .getReplaced( "world", "solar system!" )
-                    .asCString()
-              << '\n';
+    // std::cout << "11:"
+    //           << smallerTest
+    //                 .getAppended( " world something" )
+    //                 .getReplaced( "world", "solar system!" )
+    //                 .asCString()
+    //           << '\n';
 
-    auto comma = smallerTest.find( smallerTest.begin(), ',' );
-    auto firstWord = smallerTest.find( comma + 2, ' ' );
-    std::cout << "12:"
-              << smallerTest.getSubString( comma + 2, firstWord ).asCString()
-              << '\n';
+    // auto comma = smallerTest.find( smallerTest.begin(), ',' );
+    // auto firstWord = smallerTest.find( comma + 2, ' ' );
+    // std::cout << "12:"
+    //           << smallerTest.getSubString( comma + 2, firstWord ).asCString()
+    //           << '\n';
 
-    std::cout << "13:" << smallerTest.asCString() << '\n';
+    // std::cout << "13:" << smallerTest.asCString() << '\n';
 
-    EDF::String<32> stringNumber = 1'000'000;
-    int counter = 0;
-    for( EDF::String<32>::ReverseIterator it = stringNumber.rbegin(); it != stringNumber.rend(); ++it ) {
-        if( ++counter == 3 ) {
-            // it will point to the "right" of the element, similar to end() being +1 to the "right"
-            stringNumber.insert( (it+1).base(), ',' );
-            counter = 0;
-        }
-    }
+    // EDF::String<32> stringNumber = 1'000'000;
+    // int counter = 0;
+    // for( EDF::String<32>::ReverseIterator it = stringNumber.rbegin(); it != stringNumber.rend(); ++it ) {
+    //     if( ++counter == 3 ) {
+    //         // it will point to the "right" of the element, similar to end() being +1 to the "right"
+    //         stringNumber.insert( (it+1).base(), ',' );
+    //         counter = 0;
+    //     }
+    // }
 
-    std::cout << "14:" << stringNumber.asCString() << '\n';
+    // std::cout << "14:" << stringNumber.asCString() << '\n';
 
-    examples();
+    // examples();
+
+    tldr();
 
     return 0;
 }

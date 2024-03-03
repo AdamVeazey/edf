@@ -13,6 +13,9 @@ add_executable(
     VersionTests.cpp
 )
 
+target_compile_options( edf_unit_tests PRIVATE ${CMAKE_CXX_FLAGS_COMMON} )
+target_link_options( edf_unit_tests PRIVATE ${CMAKE_LINKER_FLAGS_COMMON} )
+
 target_link_libraries(edf_unit_tests
     PRIVATE
         EDF

@@ -6,6 +6,7 @@
  */
 #include <EDF/String.hpp>
 
+#include <cstdint>
 #include <gtest/gtest.h>
 
 TEST(String, InitializationDefault) {
@@ -54,11 +55,11 @@ TEST(String, InitializationFromChar) {
 }
 
 TEST(String, InitializationFromIntegerBase10) {
-    int8_t valueInt8_t = 0xAA;
+    int8_t valueInt8_t = static_cast<int8_t>(0xAA);
     EDF::String<32> stringInt8_t( valueInt8_t );
     EXPECT_STREQ( stringInt8_t.asCString(), "-86" );
 
-    int16_t valueInt16_t = 0xAA55;
+    int16_t valueInt16_t = static_cast<int16_t>(0xAA55);
     EDF::String<32> stringInt16_t( valueInt16_t );
     EXPECT_STREQ( stringInt16_t.asCString(), "-21931" );
 
@@ -88,11 +89,11 @@ TEST(String, InitializationFromIntegerBase10) {
 }
 
 TEST(String, InitializationFromIntegerBase2) {
-    int8_t valueInt8_t = 0xAA;
+    int8_t valueInt8_t = static_cast<int8_t>(0xAA);;
     EDF::String<32> stringInt8_t( valueInt8_t, 2 );
     EXPECT_STREQ( stringInt8_t.asCString(), "10101010" );
 
-    int16_t valueInt16_t = 0xAA55;
+    int16_t valueInt16_t = static_cast<int16_t>(0xAA55);
     EDF::String<32> stringInt16_t( valueInt16_t, 2 );
     EXPECT_STREQ( stringInt16_t.asCString(), "1010101001010101" );
 
@@ -122,11 +123,11 @@ TEST(String, InitializationFromIntegerBase2) {
 }
 
 TEST(String, InitializationFromIntegerBase8) {
-    int8_t valueInt8_t = 0xAA;
+    int8_t valueInt8_t = static_cast<int8_t>(0xAA);;
     EDF::String<32> stringInt8_t( valueInt8_t, 8 );
     EXPECT_STREQ( stringInt8_t.asCString(), "252" );
 
-    int16_t valueInt16_t = 0xAA55;
+    int16_t valueInt16_t = static_cast<int16_t>(0xAA55);
     EDF::String<32> stringInt16_t( valueInt16_t, 8 );
     EXPECT_STREQ( stringInt16_t.asCString(), "125125" );
 
@@ -156,11 +157,11 @@ TEST(String, InitializationFromIntegerBase8) {
 }
 
 TEST(String, InitializationFromIntegerBase16) {
-    int8_t valueInt8_t = 0xAA;
+    int8_t valueInt8_t = static_cast<int8_t>(0xAA);;
     EDF::String<32> stringInt8_t( valueInt8_t, 16 );
     EXPECT_STREQ( stringInt8_t.asCString(), "AA" );
 
-    int16_t valueInt16_t = 0xAA55;
+    int16_t valueInt16_t = static_cast<int16_t>(0xAA55);
     EDF::String<32> stringInt16_t( valueInt16_t, 16 );
     EXPECT_STREQ( stringInt16_t.asCString(), "AA55" );
 
@@ -190,11 +191,11 @@ TEST(String, InitializationFromIntegerBase16) {
 }
 
 TEST(String, InitializationFromIntegerBase36) {
-    int8_t valueInt8_t = 0xAA;
+    int8_t valueInt8_t = static_cast<int8_t>(0xAA);
     EDF::String<32> stringInt8_t( valueInt8_t, 36 );
     EXPECT_STREQ( stringInt8_t.asCString(), "4Q" );
 
-    int16_t valueInt16_t = 0xAA55;
+    int16_t valueInt16_t = static_cast<int16_t>(0xAA55);;
     EDF::String<32> stringInt16_t( valueInt16_t, 36 );
     EXPECT_STREQ( stringInt16_t.asCString(), "XN9" );
 
