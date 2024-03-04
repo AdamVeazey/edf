@@ -73,12 +73,14 @@ str, len, and N are the pieces needed for a EDF::Vector, which is exactly what t
 template<typename T>
 static constexpr void string_from( char* str, std::size_t& len, std::size_t N, T value, int base ) {
     static_assert(std::is_integral_v<T>, "This only works for integer types!");
+    EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
+    EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
 
     // handle edge case of 0
     if( value == 0 ){
         str[0] = '0';
-        str[1] = '\0';
         len = 1;
+        terminate( str, len );
         return;
     }
 
@@ -91,6 +93,7 @@ static constexpr void string_from( char* str, std::size_t& len, std::size_t N, T
                 if( base == 10 ){
                     std::memmove( str + 1, str, ++len );
                     str[0] = '-';
+                    terminate( str, len );
                 }
                 return;
             }
@@ -124,6 +127,7 @@ static constexpr void string_from( char* str, std::size_t& len, std::size_t N, T
     std::size_t sizeUsed = N - (++k);   // find how the number of digits read in backwards
     len = sizeUsed - 1;                 // calculate the new length, -1 for null
     std::memmove( str, str + k, sizeUsed ); // shift over the whole thing so it starts at index 0
+    terminate( str, len );
 }
 
 static Iterator begin( const char* buffer, const std::size_t& size, std::size_t N ) {
@@ -183,14 +187,6 @@ void make_string( char* buffer, std::size_t& size, std::size_t N ) {
     terminate( buffer, size );
 }
 
-void make_string( char* buffer, std::size_t& size, std::size_t N, const char* str ) {
-    make_string( buffer, size, N, str, std::strlen(str) );
-}
-
-void make_string( char* buffer, std::size_t& size, std::size_t N, const uint8_t* str ) {
-    make_string( buffer, size, N, reinterpret_cast<const char*>(str) );
-}
-
 void make_string( char* buffer, std::size_t& size, std::size_t N, const char* str, std::size_t n ) {
     EDF_ASSERTD( n == std::strlen(str) ); // n represents string length, not buffer size
     EDF_ASSERTD( ((str != nullptr) && (n > 0)) );   // if n is not 0, str can't be nullptr
@@ -202,10 +198,6 @@ void make_string( char* buffer, std::size_t& size, std::size_t N, const char* st
     terminate( buffer, size );
 }
 
-void make_string( char* buffer, std::size_t& size, std::size_t N, const uint8_t* str, std::size_t n ) {
-    make_string( buffer, size, N, reinterpret_cast<const char*>(str), n );
-}
-
 void make_string( char* buffer, std::size_t& size, std::size_t N, char ch ) {
     size = 0;
     EDF_ASSERTD( size < (N-1) );   // character can fit
@@ -214,107 +206,27 @@ void make_string( char* buffer, std::size_t& size, std::size_t N, char ch ) {
 }
 
 void make_string( char* buffer, std::size_t& size, std::size_t N, int8_t value, int base ) {
-    EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
-    EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
-    string_from(
-        buffer,
-        size,
-        N,
-        value,
-        base
-    );
-    terminate( buffer, size );
+    string_from( buffer, size, N, value, base );
 }
 
 void make_string( char* buffer, std::size_t& size, std::size_t N, int16_t value, int base ) {
-    EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
-    EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
-    string_from(
-        buffer,
-        size,
-        N,
-        value,
-        base
-    );
-    terminate( buffer, size );
+    string_from( buffer, size, N, value, base );
 }
 
 void make_string( char* buffer, std::size_t& size, std::size_t N, int32_t value, int base ) {
-    EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
-    EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
-    string_from(
-        buffer,
-        size,
-        N,
-        value,
-        base
-    );
-    terminate( buffer, size );
+    string_from( buffer, size, N, value, base );
 }
 
 void make_string( char* buffer, std::size_t& size, std::size_t N, int64_t value, int base ) {
-    EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
-    EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
-    string_from(
-        buffer,
-        size,
-        N,
-        value,
-        base
-    );
-    terminate( buffer, size );
-}
-
-void make_string( char* buffer, std::size_t& size, std::size_t N, uint8_t value, int base ) {
-    EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
-    EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
-    string_from(
-        buffer,
-        size,
-        N,
-        value,
-        base
-    );
-    terminate( buffer, size );
-}
-
-void make_string( char* buffer, std::size_t& size, std::size_t N, uint16_t value, int base ) {
-    EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
-    EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
-    string_from(
-        buffer,
-        size,
-        N,
-        value,
-        base
-    );
-    terminate( buffer, size );
+    string_from( buffer, size, N, value, base );
 }
 
 void make_string( char* buffer, std::size_t& size, std::size_t N, uint32_t value, int base ) {
-    EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
-    EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
-    string_from(
-        buffer,
-        size,
-        N,
-        value,
-        base
-    );
-    terminate( buffer, size );
+    string_from( buffer, size, N, value, base );
 }
 
 void make_string( char* buffer, std::size_t& size, std::size_t N, uint64_t value, int base ) {
-    EDF_ASSERTD( base >= 2 );   // base has to be within the range [2,36]
-    EDF_ASSERTD( base <= 36 );  // base has to be within the range [2,36]
-    string_from(
-        buffer,
-        size,
-        N,
-        value,
-        base
-    );
-    terminate( buffer, size );
+    string_from( buffer, size, N, value, base );
 }
 
 int32_t toInt32_t( const char* buffer, const std::size_t& size, int base ) {
@@ -388,25 +300,6 @@ Iterator insert( char* buffer, std::size_t& size, std::size_t N, ConstIterator p
     std::move_backward(position, end(buffer, size, N), end(buffer, size, N) + n );
     std::copy( str, str + n, position );
     size += n;
-    terminate( buffer, size );
-    return position;
-}
-
-void erase( char* buffer, std::size_t& size, std::size_t N, std::size_t index ) {
-    erase( buffer, size, N, ConstIterator(buffer + index) );
-}
-
-void erase( char* buffer, std::size_t& size, std::size_t N, std::size_t first, std::size_t last ) {
-    erase( buffer, size, N, ConstIterator(buffer + first), ConstIterator(buffer + last) );
-}
-
-Iterator erase( char* buffer, std::size_t& size, std::size_t N, ConstIterator pos ) {
-    EDF_ASSERTD(pos >= cbegin(buffer, size, N));    // position must be valid
-    EDF_ASSERTD(pos < cend(buffer, size, N));       // position must be valid
-
-    Iterator position = begin(buffer, size, N) + (pos - begin(buffer, size, N));
-    std::move_backward( position + 1, end(buffer, size, N), end(buffer, size, N) - 1 );
-    --size;            // decrement length by 1
     terminate( buffer, size );
     return position;
 }
