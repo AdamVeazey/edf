@@ -36,11 +36,6 @@ public:
     constexpr String( const char* str, std::size_t n );
     constexpr String( const uint8_t* str, std::size_t n );
 
-    template<std::size_t S>
-    constexpr String( const char (&str)[S] );
-    template<std::size_t S>
-    constexpr String( const uint8_t (&str)[S] );
-
     constexpr String( char ch );
 
     constexpr String( int8_t value, int base = 10 );
@@ -124,11 +119,6 @@ public:
     constexpr String getAppended( const char* str, std::size_t n ) const;
     constexpr String getAppended( const uint8_t* str, std::size_t n ) const;
 
-    template<std::size_t S>
-    constexpr String getAppended( const char (&str)[S] ) const;
-    template<std::size_t S>
-    constexpr String getAppended( const uint8_t (&str)[S] ) const;
-
     constexpr String getAppended( char ch ) const;
 
     constexpr String getAppended( int8_t value, int base = 10 ) const;
@@ -160,15 +150,6 @@ public:
     constexpr void insert( std::size_t index, const uint8_t* str, std::size_t n );
     constexpr Iterator insert( ConstIterator pos, const uint8_t* str, std::size_t n );
     constexpr Iterator insert( ConstIterator pos, const char* str, std::size_t n );
-
-    template<std::size_t S>
-    constexpr void insert( std::size_t index, const char (&str)[S] );
-    template<std::size_t S>
-    constexpr void insert( std::size_t index, const uint8_t (&str)[S] );
-    template<std::size_t S>
-    constexpr Iterator insert( ConstIterator pos, const uint8_t (&str)[S] );
-    template<std::size_t S>
-    constexpr Iterator insert( ConstIterator pos, const char (&str)[S] );
 
     constexpr void insert( std::size_t index, int8_t value, int base = 10 );
     constexpr void insert( std::size_t index, int16_t value, int base = 10 );
@@ -209,15 +190,6 @@ public:
     constexpr String getInserted( std::size_t index, const uint8_t* str, std::size_t n ) const;
     constexpr String getInserted( ConstIterator pos, const uint8_t* str, std::size_t n ) const;
     constexpr String getInserted( ConstIterator pos, const char* str, std::size_t n ) const;
-
-    template<std::size_t S>
-    constexpr String getInserted( std::size_t index, const char (&str)[S] ) const;
-    template<std::size_t S>
-    constexpr String getInserted( std::size_t index, const uint8_t (&str)[S] ) const;
-    template<std::size_t S>
-    constexpr String getInserted( ConstIterator pos, const uint8_t (&str)[S] ) const;
-    template<std::size_t S>
-    constexpr String getInserted( ConstIterator pos, const char (&str)[S] ) const;
 
     constexpr String getInserted( std::size_t index, int8_t value, int base = 10 ) const;
     constexpr String getInserted( std::size_t index, int16_t value, int base = 10 ) const;
@@ -440,11 +412,6 @@ public:
     constexpr String& operator+=( const char* rhs );
     constexpr String& operator+=( const uint8_t* rhs );
 
-    template<std::size_t S>
-    constexpr String& operator+=( const char (&rhs)[S] );
-    template<std::size_t S>
-    constexpr String& operator+=( const uint8_t (&rhs)[S] );
-
     constexpr String& operator+=( char rhs );
 
     constexpr String& operator+=( int8_t rhs );
@@ -462,11 +429,6 @@ public:
     /* Operations: Operator Overload - +(this, rhs) */
     constexpr String operator+( const char* rhs ) const;
     constexpr String operator+( const uint8_t* rhs ) const;
-
-    template<std::size_t S>
-    constexpr String operator+( const char (&rhs)[S] ) const;
-    template<std::size_t S>
-    constexpr String operator+( const uint8_t (&rhs)[S] ) const;
 
     constexpr String operator+( char rhs ) const;
 
