@@ -41,17 +41,17 @@ constexpr T voltageDividerCalcVout( const T& Vin ){
 
 template<std::size_t R1, std::size_t R2, typename T>
 constexpr T voltageDividerCalcVin( const T& Vout ){
-    return (Vout * (R1 + R2)) / R2;
+    return (Vout * static_cast<T>(R1 + R2)) / static_cast<T>(R2);
 }
 
 template<typename T>
 constexpr T temperatureCtoF( const T& temp_C ) {
-    return ((temp_C * 9) / (5)) + 32;
+    return ((temp_C * static_cast<T>(9)) / static_cast<T>(5)) + static_cast<T>(32);
 }
 
 template<typename T>
 constexpr T temperatureFtoC( const T& temp_F ) {
-    return ((temp_F - 32) * 5) / 9;
+    return ((temp_F - static_cast<T>(32)) * static_cast<T>(5)) / static_cast<T>(9);
 }
 
 } /* EDF */
