@@ -3,9 +3,131 @@
 include::partial$refs.adoc[]
 
 == Overview
-Assert is used to declare that a specific condition is true. There are two versions of assert, EDF_ASSERT and EDF_ASSERTD.
+Assert is used to declare that a specific condition is true. There are two versions of assert, <<EDF_ASSERT>> and <<EDF_ASSERTD>>.
 
 EDF in general doesn't use macros. However, `EDF_ASSERT` uses `\\__FILE__`, `\\__PRETTY_FUNCTION__`, and `\\__LINE__`. Therefore, EDF_ASSERT also _needs_ to be a macro.
+
+== Configuration
+
+There are a few macros intended to be defined by compiler flags in order to disable features.
+. `NDEBUG`
+. `NEDF_ASSERT_PRINT_ASSUMPTION`
+. `NEDF_ASSERT_PRINT_FUNCTION_NAME`
+. `NEDF_ASSERT_PRINT_FILE_NAME_LINE_NUM`
+. `NEDF_ASSERT_PRINT`
+
+.Example
+[source,c++]
+----
+void function( int x, int y ) {
+    EDF_ASSERT( x > y, "x is greater than y");
+    /* ... */
+}
+/* ... */
+function( 5, 10 );
+
+/* Output to stderr would be
+Assert failed!
+condition:  !(x > y)
+assumption: x is greater than y
+function:   'void function(int, int)'
+/home/<user>/Path/to/your/project/file.cpp:123
+*/
+
+/* Defining the following macros would prevent the following line from being output
+Assert failed!
+condition:  !(x > y)
+assumption: x is greater than y                 NEDF_ASSERT_PRINT_ASSUMPTION
+function:   'void function(int, int)'           NEDF_ASSERT_PRINT_FUNCTION_NAME
+/home/<user>/Path/to/your/project/file.cpp:123  NEDF_ASSERT_PRINT_FILE_NAME_LINE_NUM
+*/
+
+/* If NEDF_ASSERT_PRINT is defined, nothing is output to stderr. Only std::abort() is called */
+----
+
+=== NDEBUG
+
+This is a typical macro that when defined disables debug related features. In this case, it will completely remove all instances of <<EDF_ASSERTD>>.
+
+NOTE: The other macros <<NEDF_ASSERT_PRINT_ASSUMPTION>>, <<NEDF_ASSERT_PRINT_FUNCTION_NAME>>, <<NEDF_ASSERT_PRINT_FILE_NAME_LINE_NUM>>, and <<NEDF_ASSERT_PRINT>> still effect <<EDF_ASSERT>>
+
+=== NEDF_ASSERT_PRINT_ASSUMPTION
+
+If this macro is defined, then the `assumption` string is not used in the assert output to `stderr`.
+
+Adding every single string literal used for <<EDF_ASSERT>> and <<EDF_ASSERTD>> to the final binary can waste a lot of precious code space. This is one way to reduce the amount of code space <<EDF_ASSERT>> uses.
+
+.Example
+[source,c++]
+----
+void function( int x, int y ) {
+    EDF_ASSERT( x > y, "x is greater than y");
+    /* ... */
+}
+/* ... */
+function( 5, 10 );
+
+/* Output to stderr would be
+Assert failed!
+condition:  !(x > y)
+function:   'void function(int, int)'
+/home/<user>/Path/to/your/project/file.cpp:123
+*/
+----
+
+=== NEDF_ASSERT_PRINT_FUNCTION_NAME
+
+If this macro is defined, then the function name string is not used in the assert output to `stderr`.
+
+Adding every single string literal used for <<EDF_ASSERT>> and <<EDF_ASSERTD>> to the final binary can waste a lot of precious code space. This is one way to reduce the amount of code space <<EDF_ASSERT>> uses.
+
+.Example
+[source,c++]
+----
+void function( int x, int y ) {
+    EDF_ASSERT( x > y, "x is greater than y");
+    /* ... */
+}
+/* ... */
+function( 5, 10 );
+
+/* Output to stderr would be
+Assert failed!
+condition:  !(x > y)
+assumption: x is greater than y
+/home/<user>/Path/to/your/project/file.cpp:123
+*/
+----
+
+=== NEDF_ASSERT_PRINT_FILE_NAME_LINE_NUM
+
+If this macro is defined, then the file name (including path) and line number string is not used in the assert output to `stderr`.
+
+Adding every single string literal used for <<EDF_ASSERT>> and <<EDF_ASSERTD>> to the final binary can waste a lot of precious code space. This is one way to reduce the amount of code space <<EDF_ASSERT>> uses.
+
+.Example
+[source,c++]
+----
+void function( int x, int y ) {
+    EDF_ASSERT( x > y, "x is greater than y");
+    /* ... */
+}
+/* ... */
+function( 5, 10 );
+
+/* Output to stderr would be
+Assert failed!
+condition:  !(x > y)
+assumption: x is greater than y
+function:   'void function(int, int)'
+*/
+----
+
+=== NEDF_ASSERT_PRINT
+
+If this macro is defined, then nothing is output to `stderr`. `std::abort()` is still called.
+
+Adding every single string literal used for <<EDF_ASSERT>> and <<EDF_ASSERTD>> to the final binary can waste a lot of precious code space. This is one way to reduce the amount of code space <<EDF_ASSERT>> uses.
 
 == EDF_ASSERT
 
@@ -17,11 +139,11 @@ include::{path_src_edf_assert_hpp}[tag=EDF_ASSERT]
 
 EDF_ASSERT will call abort() if the `condition` is false.
 
-EDF_ASSERT is used when you want the assert to exist in both Debug and Release mode. This means that the definition of the macro is always present no matter what cmake build type is active. 
+EDF_ASSERT is used when you want the assert to exist in both Debug and Release mode. This means that the definition of the macro is always present no matter what cmake build type is active.
 
-If the condition is false, info about what condition caused the failure is output to stderr. The name of the function, file, and line number are also output. 
+NOTE: The other macros <<NEDF_ASSERT_PRINT_ASSUMPTION>>, <<NEDF_ASSERT_PRINT_FUNCTION_NAME>>, <<NEDF_ASSERT_PRINT_FILE_NAME_LINE_NUM>>, and <<NEDF_ASSERT_PRINT>> effect <<EDF_ASSERT>>
 
-NOTE: `\\__PRETTY_FUNCTION__` is used to get function signature info. This is non-standard and may need to change depending on what compiler and version you use. 
+NOTE: `\\__PRETTY_FUNCTION__` is used to get function signature info. This is non-standard and may need to change depending on what compiler and version you use.
 
 NOTE: This does not try to output call stack information, however printing out the condition itself as a string should help in determining what happened. Possibly without needing to navigate to the file and line number <<EDF_ASSERT>> is written.
 
@@ -49,12 +171,10 @@ include::{path_src_edf_assert_hpp}[tag=EDF_ASSERTD]
 
 The 'D' in `EDF_ASSERTD` stands for Debug.
 
-`EDF_ASSERTD` is used when you want the assert to only exist in Debug mode. 
+`EDF_ASSERTD` is used when you want the assert to only exist in Debug mode.
 If debug mode is enabled, `EDF_ASSERTD` simply expands to `EDF_ASSERT( condition )` else `EDF_ASSERTD` is expanded to nothing.
 
-NOTE: The code is considered in debug mode if NDEBUG is NOT defined. Mind the double negative. 
-
-
+NOTE: The code is considered in debug mode if NDEBUG is NOT defined. Mind the double negative.
 
 ---
 
@@ -85,6 +205,6 @@ int main(void){
     return 0;
 }
 ----
-<1> This line is expanded to ';' which is an link:https://stackoverflow.com/a/824571/19291638[empty statement] 
+<1> This line is expanded to ';' which is an link:https://stackoverflow.com/a/824571/19291638[empty statement]
 
 ---

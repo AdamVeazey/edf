@@ -216,16 +216,16 @@ maxLength() const {
 template<std::size_t N>
 constexpr char& String<N>::
 at( std::size_t index ) {
-    EDF_ASSERTD(index < length());
-    EDF_ASSERTD(index < N);
+    EDF_ASSERTD(index < length(), "index must be for a valid character within String");
+    EDF_ASSERTD(index < N, "index must be within bounds of String");
     return buffer[index];
 }
 
 template<std::size_t N>
 constexpr const char& String<N>::
 at( std::size_t index ) const {
-    EDF_ASSERTD(index < length());
-    EDF_ASSERTD(index < N);
+    EDF_ASSERTD(index < length(), "index must be for a valid character within String");
+    EDF_ASSERTD(index < N, "index must be within bounds of String");
     return buffer[index];
 }
 
