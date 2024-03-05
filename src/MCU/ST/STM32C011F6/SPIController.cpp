@@ -47,5 +47,5 @@ transfer( uint8_t* dataInOut, std::size_t n ) {
         n,
         HAL_MAX_DELAY
     );
-    EDF_ASSERTD( ret == HAL_StatusTypeDef::HAL_OK );
+    EDF_ASSERTD( ret == HAL_StatusTypeDef::HAL_OK, "Return value from HAL_SPI_TransmitReceive is HAL_OK" );
 }
