@@ -49,9 +49,9 @@ static constexpr T string_to( const char* str, const std::size_t& len, int base 
             }
         }
     }
-    const char limitNum = (base < 10) ? ('0' + static_cast<const char>(base) - 1) : '9';             // 0x30 - 0x39
-    const char limitUpp = (base < 36) ? ('A' + static_cast<const char>(base) - 1 - 10) : 'Z';        // 0x41 - 0x5A
-    const char limitLow = (base < 62) ? ('a' + static_cast<const char>(base) - 1 - 10 - 26) : 'z';   // 0x61 - 0x7A
+    const char limitNum = (base < 10) ? ('0' + static_cast<char>(base) - 1) : '9';             // 0x30 - 0x39
+    const char limitUpp = (base < 36) ? ('A' + static_cast<char>(base) - 1 - 10) : 'Z';        // 0x41 - 0x5A
+    const char limitLow = (base < 62) ? ('a' + static_cast<char>(base) - 1 - 10 - 26) : 'z';   // 0x61 - 0x7A
     for( ; k < len; ++k ) {
         if( str[k] >= '0' && str[k] <= limitNum )
             result = result*static_cast<T>(base) + static_cast<T>(str[k]) - '0';
