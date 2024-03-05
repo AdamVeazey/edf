@@ -39,6 +39,8 @@ public:
     constexpr T get( std::size_t startBit, std::size_t span ) const {
         return static_cast<T>((bits >> startBit) & createMask( 0, span ));
     }
+    /* Implicit conversion operator */
+    constexpr operator const T&() const { return bits; }
 };
 
 // tag::uint8_t[]

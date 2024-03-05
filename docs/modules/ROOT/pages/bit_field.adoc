@@ -79,6 +79,13 @@ Reads the value from the BitField at `startBit` for `span` number of bits.
 include::{path_example_edf_bit_field_main_cpp}[tag=operation_get]
 ----
 
+=== operator const T&()
+
+[source,c++,indent=0]
+----
+include::{path_example_edf_bit_field_main_cpp}[tag=operation_operatorT]
+----
+
 [#PSR]
 == https://developer.arm.com/documentation/dui0497/a/the-cortex-m0-processor/programmers-model/core-registers?lang=en[ARM Cortex-M0 PSR Registers]
 [source,c++,indent=0]
