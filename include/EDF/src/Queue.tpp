@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Adam Veazey
+ * Copyright (c) 2024, Adam Veazey
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -33,7 +33,7 @@ length() const {
 template<typename T, std::size_t N>
 constexpr void Queue<T, N>::
 push( const T& value ) {
-    EDF_ASSERTD( !isFull() );
+    EDF_ASSERTD( !isFull(), "Queue must not be full in order to use push()" );
     buffer[tail] = value;
     if constexpr( isPow2( N ) ) {
         tail = (tail+1) & WRAP;
@@ -46,7 +46,7 @@ push( const T& value ) {
 template<typename T, std::size_t N>
 constexpr void Queue<T, N>::
 push( const T&& value ) {
-    EDF_ASSERTD( !isFull() );
+    EDF_ASSERTD( !isFull(), "Queue must not be full in order to use push()" );
     buffer[tail] = std::move(value);
     if constexpr( isPow2( N ) ) {
         tail = (tail+1) & WRAP;
@@ -60,7 +60,7 @@ template<typename T, std::size_t N>
 template<typename... Args>
 constexpr T& Queue<T, N>::
 emplace( Args&&... args ) {
-    EDF_ASSERTD( !isFull() );
+    EDF_ASSERTD( !isFull(), "Queue must not be full in order to use emplace()" );
     new (&buffer[tail]) T(std::forward<Args>(args)...);
     if constexpr( isPow2( N ) ) {
         tail = (tail+1) & WRAP;
@@ -74,7 +74,7 @@ emplace( Args&&... args ) {
 template<typename T, std::size_t N>
 constexpr T Queue<T, N>::
 pop() {
-    EDF_ASSERTD( !isEmpty() );
+    EDF_ASSERTD( !isEmpty(), "Queue must not be empty in order to use pop()" );
     T tmp = buffer[head];
     if constexpr( isPow2( N ) ) {
         head = (head+1) & WRAP;
@@ -97,7 +97,7 @@ template<typename T, std::size_t N>
 constexpr std::uint16_t Queue<T, N>::
 pop16be() {
     static_assert( std::is_same_v<T, std::uint8_t>, "pop16be() is only available if T is a 'std::uint8_t'");
-    uint16_t result = pop8be() << 8;
+    uint16_t result = static_cast<uint16_t>(static_cast<uint16_t>(pop8be()) << 8);
     result |= pop8be();
     return result;
 }
@@ -106,7 +106,7 @@ template<typename T, std::size_t N>
 constexpr std::uint32_t Queue<T,N>::
 pop32be() {
     static_assert( std::is_same_v<T, std::uint8_t>, "pop32be() is only available if T is a 'std::uint8_t'");
-    uint32_t result = pop16be() << 16;
+    uint32_t result = static_cast<uint32_t>(pop16be()) << 16;
     result |= pop16be();
     return result;
 }
@@ -141,7 +141,7 @@ constexpr std::uint32_t Queue<T,N>::
 pop32le() {
     static_assert( std::is_same_v<T, std::uint8_t>, "pop32le() is only available if T is a 'std::uint8_t'");
     uint32_t result = pop16le();
-    result |= pop16le() << 16;
+    result |= static_cast<uint32_t>(pop16le()) << 16;
     return result;
 }
 

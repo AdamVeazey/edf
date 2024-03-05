@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Adam Veazey
+ * Copyright (c) 2024, Adam Veazey
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -15,17 +15,12 @@ namespace impl {
 
 /* Constructors */
 void make_string( char* buffer, std::size_t& size, std::size_t N );
-void make_string( char* buffer, std::size_t& size, std::size_t N, const char* str );
-void make_string( char* buffer, std::size_t& size, std::size_t N, const uint8_t* str );
 void make_string( char* buffer, std::size_t& size, std::size_t N, const char* str, std::size_t n );
-void make_string( char* buffer, std::size_t& size, std::size_t N, const uint8_t* str, std::size_t n );
 void make_string( char* buffer, std::size_t& size, std::size_t N, char ch );
 void make_string( char* buffer, std::size_t& size, std::size_t N, int8_t value, int base );
 void make_string( char* buffer, std::size_t& size, std::size_t N, int16_t value, int base );
 void make_string( char* buffer, std::size_t& size, std::size_t N, int32_t value, int base );
 void make_string( char* buffer, std::size_t& size, std::size_t N, int64_t value, int base );
-void make_string( char* buffer, std::size_t& size, std::size_t N, uint8_t value, int base );
-void make_string( char* buffer, std::size_t& size, std::size_t N, uint16_t value, int base );
 void make_string( char* buffer, std::size_t& size, std::size_t N, uint32_t value, int base );
 void make_string( char* buffer, std::size_t& size, std::size_t N, uint64_t value, int base );
 
@@ -35,45 +30,56 @@ int64_t toInt64_t( const char* buffer, const std::size_t& size, int base );
 uint32_t toUint32_t( const char* buffer, const std::size_t& size, int base );
 uint64_t toUint64_t( const char* buffer, const std::size_t& size, int base );
 
+/* Operations: In/Out-of-Place - insert */
 Iterator insert( char* buffer, std::size_t& size, std::size_t N, ConstIterator pos, char value );
 Iterator insert( char* buffer, std::size_t& size, std::size_t N, ConstIterator pos, std::size_t count, char value );
 Iterator insert( char* buffer, std::size_t& size, std::size_t N, ConstIterator pos, std::initializer_list<char> iList );
 Iterator insert( char* buffer, std::size_t& size, std::size_t N, ConstIterator pos, const char* str, std::size_t n );
 
-void erase( char* buffer, std::size_t& size, std::size_t N, std::size_t index );
-void erase( char* buffer, std::size_t& size, std::size_t N, std::size_t first, std::size_t last );
-Iterator erase( char* buffer, std::size_t& size, std::size_t N, ConstIterator pos );
+/* Operations: In/Out-of-Place - erase */
 Iterator erase( char* buffer, std::size_t& size, std::size_t N, ConstIterator first, ConstIterator last );
 
+/* Operations: Out-of-Place - copyTo */
 void copyTo( const char* buffer, const std::size_t& size, std::size_t N, char* outputString, std::size_t maxBufferLength );
 
+/* Operations: Out-of-Place - find and rfind */
 Iterator find( const char* buffer, const std::size_t& size, std::size_t N, ConstIterator pos, char value );
 Iterator find( const char* buffer, const std::size_t& size, std::size_t N, ConstIterator pos, const char* value, std::size_t n );
-
 ReverseIterator rfind( const char* buffer, const std::size_t& size, std::size_t N, ConstReverseIterator pos, char value );
 ReverseIterator rfind( const char* buffer, const std::size_t& size, std::size_t N, ConstReverseIterator pos, const char* value, std::size_t n );
 
+/* Operations: Out-of-Place - equals */
 bool equals( const char* buffer, const std::size_t& size, std::size_t N, const char* value, std::size_t n );
 
+/* Operations: In/Out-of-Place - strip */
 void strip( char* buffer, std::size_t& size, std::size_t N, char value );
 void strip( char* buffer, std::size_t& size, std::size_t N, const char* values, std::size_t n );
 
+/* Operations: In/Out-of-Place - trimLeft */
 void trimLeft( char* buffer, std::size_t& size, std::size_t N, char value );
 void trimLeft( char* buffer, std::size_t& size, std::size_t N, const char* values, std::size_t n );
 
+/* Operations: In/Out-of-Place - trimRight */
 void trimRight( char* buffer, std::size_t& size, std::size_t N, char value );
 void trimRight( char* buffer, std::size_t& size, std::size_t N, const char* values, std::size_t n );
 
+/* Operations: In/Out-of-Place - reverse */
 void reverse( char* buffer, std::size_t& size, std::size_t N );
+
+/* Operations: In/Out-of-Place - toLower */
 void toLower( char* buffer, std::size_t& size, std::size_t N );
+
+/* Operations: In/Out-of-Place - toUpper */
 void toUpper( char* buffer, std::size_t& size, std::size_t N );
 
+/* Operations: In/Out-of-Place - replace */
 void replace(
     char* buffer, std::size_t& size, std::size_t N,
     const char* lookFor, std::size_t nLF,
     const char* replaceWith, std::size_t nRW
 );
 
+/* Operations: In/Out-of-Place - subString */
 void subString( char* buffer, std::size_t& size, std::size_t N, ConstIterator start, ConstIterator end );
 
 } /* impl */
@@ -88,13 +94,17 @@ String() {
 template<std::size_t N>
 constexpr String<N>::
 String( const char* str ) {
-    impl::make_string( buffer, size, N, str );
+    impl::make_string( buffer, size, N, str, std::strlen(str) );
 }
 
 template<std::size_t N>
 constexpr String<N>::
 String( const uint8_t* str ) {
-    impl::make_string( buffer, size, N, str );
+    impl::make_string(
+        buffer, size, N,
+        reinterpret_cast<const char*>(str),
+        std::strlen(reinterpret_cast<const char*>(str))
+    );
 }
 
 template<std::size_t N>
@@ -102,24 +112,11 @@ constexpr String<N>::
 String( const char* str, std::size_t n ) {
     impl::make_string( buffer, size, N, str, n );
 }
+
 template<std::size_t N>
 constexpr String<N>::
 String( const uint8_t* str, std::size_t n ) {
-    impl::make_string( buffer, size, N, str, n );
-}
-
-template<std::size_t N>
-template<std::size_t S>
-constexpr String<N>::
-String( const char (&str)[S] ) {
-    impl::make_string( buffer, size, N, str );
-}
-
-template<std::size_t N>
-template<std::size_t S>
-constexpr String<N>::
-String( const uint8_t (&str)[S] ) {
-    impl::make_string( buffer, size, N, str );
+    impl::make_string( buffer, size, N, reinterpret_cast<const char*>(str), n );
 }
 
 template<std::size_t N>
@@ -131,12 +128,16 @@ String( char ch ) {
 template<std::size_t N>
 constexpr String<N>::
 String( int8_t value, int base ) {
+    // Attempting to cast this to an int32_t causes problems when base is not 10
+    // Attempting to cast this to an int32_t & 0xFF causes problems when base is 10
     impl::make_string( buffer, size, N, value, base );
 }
 
 template<std::size_t N>
 constexpr String<N>::
 String( int16_t value, int base ) {
+    // Attempting to cast this to an int32_t causes problems when base is not 10
+    // Attempting to cast this to an int32_t & 0xFF causes problems when base is 10
     impl::make_string( buffer, size, N, value, base );
 }
 
@@ -155,13 +156,15 @@ String( int64_t value, int base ) {
 template<std::size_t N>
 constexpr String<N>::
 String( uint8_t value, int base ) {
-    impl::make_string( buffer, size, N, value, base );
+    // to reduce the amount of template instantiations, cast the value to a uint32_t
+    impl::make_string( buffer, size, N, static_cast<uint32_t>(value), base );
 }
 
 template<std::size_t N>
 constexpr String<N>::
 String( uint16_t value, int base ) {
-    impl::make_string( buffer, size, N, value, base );
+    // to reduce the amount of template instantiations, cast the value to a uint32_t
+    impl::make_string( buffer, size, N, static_cast<uint32_t>(value), base );
 }
 
 template<std::size_t N>
@@ -213,16 +216,16 @@ maxLength() const {
 template<std::size_t N>
 constexpr char& String<N>::
 at( std::size_t index ) {
-    EDF_ASSERTD(index < length());
-    EDF_ASSERTD(index < N);
+    EDF_ASSERTD(index < length(), "index must be for a valid character within String");
+    EDF_ASSERTD(index < N, "index must be within bounds of String");
     return buffer[index];
 }
 
 template<std::size_t N>
 constexpr const char& String<N>::
 at( std::size_t index ) const {
-    EDF_ASSERTD(index < length());
-    EDF_ASSERTD(index < N);
+    EDF_ASSERTD(index < length(), "index must be for a valid character within String");
+    EDF_ASSERTD(index < N, "index must be within bounds of String");
     return buffer[index];
 }
 
@@ -456,20 +459,6 @@ getAppended( const uint8_t* str, std::size_t n ) const {
 }
 
 template<std::size_t N>
-template<std::size_t S>
-constexpr String<N> String<N>::
-getAppended( const char (&str)[S] ) const {
-    return getInserted( end(), str );
-}
-
-template<std::size_t N>
-template<std::size_t S>
-constexpr String<N> String<N>::
-getAppended( const uint8_t (&str)[S] ) const {
-    return getInserted( end(), str );
-}
-
-template<std::size_t N>
 constexpr String<N> String<N>::
 getAppended( char ch ) const {
     return getInserted( end(), ch );
@@ -614,34 +603,6 @@ template<std::size_t N>
 constexpr typename String<N>::Iterator String<N>::
 insert( ConstIterator pos, const char* str, std::size_t n ) {
     return impl::insert( buffer, size, N, pos, str, n );
-}
-
-template<std::size_t N>
-template<std::size_t S>
-constexpr void String<N>::
-insert( std::size_t index, const char (&str)[S] ) {
-    insert( cbegin() + index, str );
-}
-
-template<std::size_t N>
-template<std::size_t S>
-constexpr void String<N>::
-insert( std::size_t index, const uint8_t (&str)[S] ) {
-    insert( cbegin() + index, str );
-}
-
-template<std::size_t N>
-template<std::size_t S>
-constexpr typename String<N>::Iterator String<N>::
-insert( ConstIterator pos, const uint8_t (&str)[S] ) {
-    return insert( pos, reinterpret_cast<const char (&)[S]>(str) );
-}
-
-template<std::size_t N>
-template<std::size_t S>
-constexpr typename String<N>::Iterator String<N>::
-insert( ConstIterator pos, const char (&str)[S] ) {
-    return insert( pos, str, S );
 }
 
 template<std::size_t N>
@@ -869,42 +830,6 @@ getInserted( ConstIterator pos, const char* str, std::size_t n ) const {
 }
 
 template<std::size_t N>
-template<std::size_t S>
-constexpr String<N> String<N>::
-getInserted( std::size_t index, const char (&str)[S] ) const {
-    String tmp(*this);
-    tmp.insert( index, str );
-    return tmp;
-}
-
-template<std::size_t N>
-template<std::size_t S>
-constexpr String<N> String<N>::
-getInserted( std::size_t index, const uint8_t (&str)[S] ) const {
-    String tmp(*this);
-    tmp.insert( index, str );
-    return tmp;
-}
-
-template<std::size_t N>
-template<std::size_t S>
-constexpr String<N> String<N>::
-getInserted( ConstIterator pos, const uint8_t (&str)[S] ) const {
-    String tmp(*this);
-    tmp.insert( static_cast<std::size_t>(pos - begin()), str );
-    return tmp;
-}
-
-template<std::size_t N>
-template<std::size_t S>
-constexpr String<N> String<N>::
-getInserted( ConstIterator pos, const char (&str)[S] ) const {
-    String tmp(*this);
-    tmp.insert( static_cast<std::size_t>(pos - begin()), str );
-    return tmp;
-}
-
-template<std::size_t N>
 constexpr String<N> String<N>::
 getInserted( std::size_t index, int8_t value, int base ) const {
     String tmp(*this);
@@ -1055,19 +980,19 @@ getInserted( ConstIterator pos, const String<S>& str ) const {
 template<std::size_t N>
 constexpr void String<N>::
 erase( std::size_t index ) {
-    impl::erase( buffer, size, N, index );
+    erase( ConstIterator(buffer + index) );
 }
 
 template<std::size_t N>
 constexpr void String<N>::
 erase( std::size_t first, std::size_t last ) {
-    impl::erase( buffer, size, N, first, last );
+    erase( ConstIterator(buffer + first), ConstIterator(buffer + last) );
 }
 
 template<std::size_t N>
 constexpr typename String<N>::Iterator String<N>::
 erase( ConstIterator pos ) {
-    return impl::erase( buffer, size, N, pos );
+    return erase( pos, pos + 1 );
 }
 
 template<std::size_t N>
@@ -1856,20 +1781,6 @@ operator+=( const uint8_t* rhs ) {
 }
 
 template<std::size_t N>
-template<std::size_t S>
-constexpr String<N>& String<N>::
-operator+=( const char (&rhs)[S] ) {
-    return append( rhs );
-}
-
-template<std::size_t N>
-template<std::size_t S>
-constexpr String<N>& String<N>::
-operator+=( const uint8_t (&rhs)[S] ) {
-    return append( rhs );
-}
-
-template<std::size_t N>
 constexpr String<N>& String<N>::
 operator+=( char rhs ) {
     return append( rhs );
@@ -1942,21 +1853,6 @@ constexpr String<N> String<N>::
 operator+( const uint8_t* rhs ) const {
     return getAppended( rhs );
 }
-
-template<std::size_t N>
-template<std::size_t S>
-constexpr String<N> String<N>::
-operator+( const char (&rhs)[S] ) const {
-    return getAppended( rhs );
-}
-
-template<std::size_t N>
-template<std::size_t S>
-constexpr String<N> String<N>::
-operator+( const uint8_t (&rhs)[S] ) const {
-    return getAppended( rhs );
-}
-
 
 template<std::size_t N>
 constexpr String<N> String<N>::

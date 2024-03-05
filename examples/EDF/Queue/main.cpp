@@ -1,7 +1,7 @@
 /*
- * Copyright (c) 2023, Adam Veazey
+ * Copyright (c) 2024, Adam Veazey
  * All rights reserved.
- * 
+ *
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
@@ -17,6 +17,7 @@ int main( void ) {
     // tag::init_list[]
     EDF::Queue<int, 8> queueInitializationList = { 10, 20 };
     // end::init_list[]
+    (void)queueInitializationList;
 
     // tag::operation_clear[]
     queue.clear();
@@ -34,20 +35,24 @@ int main( void ) {
     // tag::operation_emplace[]
     auto& valueConstructed = queue.emplace( 2 );
     // end::operation_emplace[]
+    (void)valueConstructed;
     // tag::capacity_length[]
     auto nElementsInQueue = queue.length();
     // end::capacity_length[]
+    (void)nElementsInQueue;
     // tag::capacity_max_length[]
     constexpr auto maxNumberOfElements = queue.maxLength();
     // end::capacity_max_length[]
+    (void)maxNumberOfElements;
+
     queue.push( 3 );
     queue.push( 4 );
 
     // tag::operation_peek[]
-    auto& firstElement = queue.peek();
+    auto& firstElementPeek = queue.peek();
     // end::operation_peek[]
 
-    std::cout << "first element: " << firstElement << '\n';
+    std::cout << "first element: " << firstElementPeek << '\n';
 
     // tag::is_question_empty[]
     while( !queue.isEmpty() ){
@@ -59,7 +64,7 @@ int main( void ) {
         // end::operation_pop[]
         std::cout << firstElement << '\n';
     }
-    
+
     // tag::init_no_default[]
     struct CustomType{
         int value;
@@ -180,8 +185,8 @@ int main( void ) {
     q.push( 0x12 );
     uint32_t le = q.pop32le();
 
-    std::cout << "be == le: " << (be == le) 
-              << " value: 0x" << std::hex << be 
+    std::cout << "be == le: " << (be == le)
+              << " value: 0x" << std::hex << be
               << std::endl;
 
     return 0;

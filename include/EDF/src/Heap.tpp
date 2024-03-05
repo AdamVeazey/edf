@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Adam Veazey
+ * Copyright (c) 2024, Adam Veazey
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -61,7 +61,7 @@ Heap( I... iList ) : heap{iList...} {
 template<typename T, std::size_t N, typename Compare>
 constexpr void Heap<T, N, Compare>::
 push( const T& value ) {
-    EDF_ASSERTD( !isFull() );
+    EDF_ASSERTD( !isFull(), "Heap must not be full in order to use push()" );
     heap.pushBack( value );
     bubbleUp( heap.length() - 1 );
 }
@@ -69,7 +69,7 @@ push( const T& value ) {
 template<typename T, std::size_t N, typename Compare>
 constexpr void Heap<T, N, Compare>::
 push( const T&& value ) {
-    EDF_ASSERTD( !isFull() );
+    EDF_ASSERTD( !isFull(), "Heap must not be full in order to use push()" );
     heap.pushBack( std::move(value) );
     bubbleUp( heap.length() - 1 );
 }
@@ -78,7 +78,7 @@ template<typename T, std::size_t N, typename Compare>
 template<typename... Args>
 constexpr T& Heap<T, N, Compare>::
 emplace( Args&&... args ) {
-    EDF_ASSERTD( !isFull() );
+    EDF_ASSERTD( !isFull(), "Heap must not be full in order to use emplace()" );
     auto& value = heap.emplaceBack( std::forward<Args>(args)... );
     bubbleUp( heap.length() - 1 );
     return value;
@@ -87,7 +87,7 @@ emplace( Args&&... args ) {
 template<typename T, std::size_t N, typename Compare>
 constexpr T Heap<T, N, Compare>::
 pop() {
-    EDF_ASSERTD( !isEmpty() );
+    EDF_ASSERTD( !isEmpty(), "Heap must not be empty in order to use pop()" );
     T topValue = std::move(heap.front());
     heap.front() = std::move(heap.back());
     heap.popBack();

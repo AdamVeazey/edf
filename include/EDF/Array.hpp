@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Adam Veazey
+ * Copyright (c) 2024, Adam Veazey
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -24,8 +24,8 @@ public:
     ~Array() = default;
 
     /* Element access */
-    constexpr T& at( std::size_t index )                      { EDF_ASSERTD(index < N); return buff[index]; }
-    constexpr const T& at( std::size_t index )          const { EDF_ASSERTD(index < N); return buff[index]; }
+    constexpr T& at( std::size_t index )                      { EDF_ASSERTD(index < N, "index needs to be within bounds of array"); return buff[index]; }
+    constexpr const T& at( std::size_t index )          const { EDF_ASSERTD(index < N, "index needs to be within bounds of array"); return buff[index]; }
 
     constexpr T& operator[]( std::size_t index )              { return buff[index]; }
     constexpr const T& operator[]( std::size_t index )  const { return buff[index]; }
@@ -43,15 +43,12 @@ public:
     constexpr std::size_t maxLength()                   const { return N; }
 
     /* Operations */
-    // template<typename t = std::enable_if_t<std::is_default_constructible<T>::value>>
-    constexpr void clear() {
-        static_assert(std::is_default_constructible<T>::value, "T needs to be default constructable in order to use clear(). Use fill() instead");
-        fill( T() );
-    }
+    // T needs to be default constructable in order to use clear(). Use fill() instead
+    template <typename U = T, std::enable_if_t<std::is_default_constructible<U>::value, int> = 0>
+    constexpr void clear()                                    { fill( T() ); }
 
     constexpr void fill( const T& value )                     { std::fill( begin(), end(), value ); }
     constexpr void fill( const T&& value )                    { std::fill( begin(), end(), value ); }
-
 
     /* Iterators */
     using Iterator = T*;

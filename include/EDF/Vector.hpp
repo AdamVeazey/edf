@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Adam Veazey
+ * Copyright (c) 2024, Adam Veazey
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -39,8 +39,8 @@ public:
     constexpr std::size_t maxLength()                                               const { return N; }
 
     /* Element access */
-    constexpr T& at( std::size_t index )                                                  { EDF_ASSERTD(index < length()); return buffer.at( index ); }
-    constexpr const T& at( std::size_t index )                                      const { EDF_ASSERTD(index < length()); return buffer.at( index ); }
+    constexpr T& at( std::size_t index )                                                  { EDF_ASSERTD(index < length(), "index needs to be within bounds of valid entries"); return buffer.at( index ); }
+    constexpr const T& at( std::size_t index )                                      const { EDF_ASSERTD(index < length(), "index needs to be within bounds of valid entries"); return buffer.at( index ); }
 
     constexpr T& operator[]( std::size_t index )                                          { return buffer[index]; }
     constexpr const T& operator[]( std::size_t index )                              const { return buffer[index]; }
@@ -82,7 +82,7 @@ public:
     template<typename... Args>
     constexpr T& emplaceBack(Args&&... args)                                              { return *emplace(end(), args...); }
 
-    constexpr T popBack()                                                                 { EDF_ASSERTD(!isEmpty()); T v(std::move(back())); --n; return v; }
+    constexpr T popBack()                                                                 { EDF_ASSERTD(!isEmpty(), "Vector must not be empty in order to use popBack()"); T v(std::move(back())); --n; return v; }
 
     /* Iterators */
     constexpr Iterator begin()                                                            { return Iterator( data() ); }

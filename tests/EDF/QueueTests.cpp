@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Adam Veazey
+ * Copyright (c) 2024, Adam Veazey
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -15,7 +15,7 @@ private:
 public:
     constexpr CustomClass( int initialValue = 0, bool ov = false ) : variable(initialValue), otherVariable(ov) {}
     ~CustomClass() = default;
-    constexpr auto getValue() const { return variable; }
+    constexpr auto getValue() const { (void)otherVariable; return variable; }
 };
 
 TEST(Queue, InitializationInt) {
@@ -68,7 +68,7 @@ TEST(Queue, LengthInt) {
     EXPECT_EQ( queue.length(), 1 );
 
     while( !queue.isFull() ) {
-        queue.push( queue.length() );
+        queue.push( static_cast<int>(queue.length()) );
     }
     EXPECT_EQ( queue.length(), 3 );
     EXPECT_EQ( queue.length(), queue.maxLength() );
@@ -82,7 +82,7 @@ TEST(Queue, LengthCustomClass) {
     EXPECT_EQ( queue.length(), 1 );
 
     while( !queue.isFull() ) {
-        queue.push( CustomClass( queue.length(), true ) );
+        queue.push( CustomClass( static_cast<int>(queue.length()), true ) );
     }
     EXPECT_EQ( queue.length(), 3 );
     EXPECT_EQ( queue.length(), queue.maxLength() );

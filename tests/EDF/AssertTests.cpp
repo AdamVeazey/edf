@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Adam Veazey
+ * Copyright (c) 2024, Adam Veazey
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -10,17 +10,17 @@
 
 
 TEST(Assert, AssertionPasses) {
-    EDF_ASSERT(true);
+    EDF_ASSERT(true, "This shouldn't be output because the condition is true");
 }
 
 TEST(Assert, AssertionFails) {
-    ASSERT_DEATH(EDF_ASSERT(false), "");
+    ASSERT_DEATH(EDF_ASSERT(false, "This should be output because the condition is false"), "");
 }
 
 TEST(Assert, DebugAssertionPasses) {
 #ifndef NDEBUG
     // Expecting that this condition should pass, so the program should not terminate.
-    EDF_ASSERTD(true);
+    EDF_ASSERTD(true, "This shouldn't be output because the condition is true");
 #else
     // When NDEBUG is not defined, EDF_ASSERTD is a no-op, so this test will pass regardless of the condition.
     SUCCEED();
@@ -29,7 +29,7 @@ TEST(Assert, DebugAssertionPasses) {
 
 TEST(Assert, DebugAssertionFails) {
 #ifndef NDEBUG
-    ASSERT_DEATH(EDF_ASSERTD(false), "");
+    ASSERT_DEATH(EDF_ASSERTD(false, "This should be output because the condition is false"), "");
 #else
     // When NDEBUG is not defined, EDF_ASSERTD is a no-op, so this test will pass regardless of the condition.
     SUCCEED();
