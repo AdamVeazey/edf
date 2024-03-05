@@ -158,8 +158,13 @@ int main( void ) {
     // end::operation_set[]
 
     // tag::operation_get[]
-    bitfield.get( 10, 4 ); // 0x000000A5
+    bitfield.get( 12, 8 ); // 0x000000A5
     // end::operation_get[]
+
+    // tag::operation_operatorT[]
+    uint32_t value = bitfield & 0xFFFF;
+    // end::operation_operatorT[]
+    (void)value;
 
     return 0;
 }
