@@ -24,8 +24,8 @@ public:
     ~Array() = default;
 
     /* Element access */
-    constexpr T& at( std::size_t index )                      { EDF_ASSERTD(index < N); return buff[index]; }
-    constexpr const T& at( std::size_t index )          const { EDF_ASSERTD(index < N); return buff[index]; }
+    constexpr T& at( std::size_t index )                      { EDF_ASSERTD(index < N, "index needs to be within bounds of array"); return buff[index]; }
+    constexpr const T& at( std::size_t index )          const { EDF_ASSERTD(index < N, "index needs to be within bounds of array"); return buff[index]; }
 
     constexpr T& operator[]( std::size_t index )              { return buff[index]; }
     constexpr const T& operator[]( std::size_t index )  const { return buff[index]; }

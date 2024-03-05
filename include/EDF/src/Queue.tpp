@@ -33,7 +33,7 @@ length() const {
 template<typename T, std::size_t N>
 constexpr void Queue<T, N>::
 push( const T& value ) {
-    EDF_ASSERTD( !isFull() );
+    EDF_ASSERTD( !isFull(), "Queue must not be full in order to use push()" );
     buffer[tail] = value;
     if constexpr( isPow2( N ) ) {
         tail = (tail+1) & WRAP;
@@ -46,7 +46,7 @@ push( const T& value ) {
 template<typename T, std::size_t N>
 constexpr void Queue<T, N>::
 push( const T&& value ) {
-    EDF_ASSERTD( !isFull() );
+    EDF_ASSERTD( !isFull(), "Queue must not be full in order to use push()" );
     buffer[tail] = std::move(value);
     if constexpr( isPow2( N ) ) {
         tail = (tail+1) & WRAP;
@@ -60,7 +60,7 @@ template<typename T, std::size_t N>
 template<typename... Args>
 constexpr T& Queue<T, N>::
 emplace( Args&&... args ) {
-    EDF_ASSERTD( !isFull() );
+    EDF_ASSERTD( !isFull(), "Queue must not be full in order to use emplace()" );
     new (&buffer[tail]) T(std::forward<Args>(args)...);
     if constexpr( isPow2( N ) ) {
         tail = (tail+1) & WRAP;
@@ -74,7 +74,7 @@ emplace( Args&&... args ) {
 template<typename T, std::size_t N>
 constexpr T Queue<T, N>::
 pop() {
-    EDF_ASSERTD( !isEmpty() );
+    EDF_ASSERTD( !isEmpty(), "Queue must not be empty in order to use pop()" );
     T tmp = buffer[head];
     if constexpr( isPow2( N ) ) {
         head = (head+1) & WRAP;

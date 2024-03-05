@@ -88,24 +88,24 @@ private:
         // this->string is not initialized yet as it declared AFTER 'number' in the class definition
         auto firstDot = str.find( '.' );
         auto secondDot = str.rfind( '.' ).base() - 1; // -1 since it was a reverse iterator
-        EDF_ASSERTD( (*str.begin()     != '0') || (firstDot  -  str.begin()    == 1) ); // MUST NOT contain leading zeros https://semver.org/#spec-item-2
-        EDF_ASSERTD( (*(firstDot + 1)  != '0') || (secondDot - (firstDot + 1)  == 1) ); // MUST NOT contain leading zeros https://semver.org/#spec-item-2
-        EDF_ASSERTD( (*(secondDot + 1) != '0') || (str.end() - (secondDot + 1) == 1) ); // MUST NOT contain leading zeros https://semver.org/#spec-item-2
-        EDF_ASSERTD( !str.contains( '-' ) );                                            // MUST NOT contain negative numbers https://semver.org/#spec-item-2
+        EDF_ASSERTD( (*str.begin()     != '0') || (firstDot  -  str.begin()    == 1), "Major MUST NOT contain leading zeros https://semver.org/#spec-item-2" );
+        EDF_ASSERTD( (*(firstDot + 1)  != '0') || (secondDot - (firstDot + 1)  == 1), "Minor MUST NOT contain leading zeros https://semver.org/#spec-item-2" );
+        EDF_ASSERTD( (*(secondDot + 1) != '0') || (str.end() - (secondDot + 1) == 1), "Patch MUST NOT contain leading zeros https://semver.org/#spec-item-2" );
+        EDF_ASSERTD( !str.contains( '-' ), "MUST NOT contain negative numbers https://semver.org/#spec-item-2" );
         const uint32_t major = str.getSubString( str.begin(), firstDot ).toUint32_t();
-        EDF_ASSERTD( major < MULT ); // major must be less than multiplier
+        EDF_ASSERTD( major < MULT, "Major must be less than multiplier" );
         const uint32_t minor = str.getSubString( firstDot + 1, secondDot ).toUint32_t();
-        EDF_ASSERTD( minor < MULT ); // minor must be less than multiplier
+        EDF_ASSERTD( minor < MULT, "Minor must be less than multiplier" );
         const uint32_t patch = str.getSubString( secondDot + 1, str.end() ).toUint32_t();
-        EDF_ASSERTD( patch < MULT ); // patch must be less than multiplier
+        EDF_ASSERTD( patch < MULT, "Patch must be less than multiplier" );
         return (major * (MULT*MULT)) + (minor * MULT) + patch;
     }
     constexpr String fromNumber() {
         // number is initialized as it is declared BEFORE 'string' in the class definition
-        EDF_ASSERTD( getMajor() < MULT ); // major must be less than multiplier
-        EDF_ASSERTD( getMinor() < MULT ); // minor must be less than multiplier
-        EDF_ASSERTD( getPatch() < MULT ); // patch must be less than multiplier
-        return String( getMajor() ).append( '.' ).append( getMinor() ).append( '.' ).append( getPatch() );
+        EDF_ASSERTD( getMajor() < MULT, "Major must be less than multiplier" );
+        EDF_ASSERTD( getMinor() < MULT, "Minor must be less than multiplier" );
+        EDF_ASSERTD( getPatch() < MULT, "Patch must be less than multiplier" );
+        return String( getMajor() ) + '.' + getMinor() + '.' + getPatch();
     }
 };
 
