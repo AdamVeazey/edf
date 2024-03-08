@@ -1,3 +1,5 @@
-= I2C
+= I2C Controller
 
 include::ROOT:partial$refs.adoc[]
+
+== Overview

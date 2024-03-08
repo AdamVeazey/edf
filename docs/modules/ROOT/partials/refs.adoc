@@ -52,26 +52,71 @@
 :ref_peripherals_adc: {ref_module_peripherals}:adc.adoc[ADC]
 :ref_peripherals_dac: {ref_module_peripherals}:dac.adoc[DAC]
 :ref_peripherals_gpio: {ref_module_peripherals}:gpio.adoc[GPIO]
-:ref_peripherals_i2c: {ref_module_peripherals}:i2c.adoc[I2C]
+:ref_peripherals_i2c_controller: {ref_module_peripherals}:i2c_controller.adoc[I2C]
 :ref_peripherals_pwm: {ref_module_peripherals}:pwm.adoc[PWM]
 :ref_peripherals_rtc: {ref_module_peripherals}:rtc.adoc[RTC]
-:ref_peripherals_spi: {ref_module_peripherals}:spi.adoc[SPI]
+:ref_peripherals_spi_controller: {ref_module_peripherals}:spi_controller.adoc[SPI]
 :ref_peripherals_timer: {ref_module_peripherals}:timer.adoc[Timer]
 :ref_peripherals_uart: {ref_module_peripherals}:uart.adoc[UART]
 :ref_peripherals_wdt: {ref_module_peripherals}:wdt.adoc[WDT]
 
 :path_include_edf_peripherals: ROOT:example$include/EDF/Peripherals
 :path_include_edf_peripherals_gpio_hpp: {path_include_edf_peripherals}/GPIO.hpp
+:path_include_edf_peripherals_i2c_controller_hpp: {path_include_edf_peripherals}/I2CController.hpp
+:path_include_edf_peripherals_pwm_hpp: {path_include_edf_peripherals}/PWM.hpp
+:path_include_edf_peripherals_spi_controller_hpp: {path_include_edf_peripherals}/SPIController.hpp
 
 :path_example_peripherals: ROOT:example$examples/Peripherals
 :path_example_peripherals_gpio_main_cpp: {path_example_peripherals}/GPIO/main.cpp
+:path_example_peripherals_i2c_controller_main_cpp: {path_example_peripherals}/I2CController/main.cpp
+:path_example_peripherals_pwm_main_cpp: {path_example_peripherals}/PWM/main.cpp
+:path_example_peripherals_spi_controller_main_cpp: {path_example_peripherals}/SPIController/main.cpp
 
 // Drivers
 :ref_module_drivers: xref:drivers
 :ref_drivers: {ref_module_drivers}:drivers.adoc[Drivers]
-:ref_drivers_rgb_led: {ref_module_drivers}:rgb_led.adoc[RGB LED]
+:ref_drivers_led_rgb: {ref_module_drivers}:led_rgb.adoc[LED RGB]
 :ref_drivers_soft_timer: {ref_module_drivers}:soft_timer.adoc[SoftTimer]
 
 // MCU
 :ref_module_mcu: xref:mcu
 :ref_mcu: {ref_module_mcu}:mcu.adoc[MCU]
+
+// AVR
+// Espressif
+// Microchip
+// Nordic
+// NXP
+
+// ST
+:ref_mcu_st: {ref_module_mcu}/ST
+:ref_st_stm32c011f6: {ref_mcu_st}/STM32C011F6
+:ref_st_stm32c011f6_gpio: {ref_st_stm32c011f6}:gpio.adoc[GPIO]
+:ref_st_stm32c011f6_i2c_controller: {ref_st_stm32c011f6}:i2c_controller.adoc[I2CController]
+:ref_st_stm32c011f6_pwm: {ref_st_stm32c011f6}:pwm.adoc[PWM]
+:ref_st_stm32c011f6_spi_controller: {ref_st_stm32c011f6}:spi_controller.adoc[SPIController]
+
+// TI
+
+// MCU hpp paths
+:path_include_edf_mcu: ROOT:example$include/EDF/MCU
+// AVR
+// Espressif
+// Microchip
+// Nordic
+// NXP
+
+// ST
+:path_include_edf_mcu_st: {path_include_edf_mcu}/ST
+:path_include_edf_mcu_st_stm32c011f6: {path_include_edf_mcu_st}/STM32C011F6
+:path_include_edf_mcu_st_stm32c011f6_gpio_hpp: {path_include_edf_mcu_st_stm32c011f6}/GPIO.hpp
+:path_include_edf_mcu_st_stm32c011f6_i2c_controller_hpp: {path_include_edf_mcu_st_stm32c011f6}/I2CController.hpp
+:path_include_edf_mcu_st_stm32c011f6_pwm_hpp: {path_include_edf_mcu_st_stm32c011f6}/PWM.hpp
+:path_include_edf_mcu_st_stm32c011f6_spi_controller_hpp: {path_include_edf_mcu_st_stm32c011f6}/SPIController.hpp
+
+:path_example_mcu: ROOT:example$examples/MCU
+// :path_example_mcu_st: {path_example_mcu}/ST
+// :path_example_mcu_st_stm32c011f6: {path_example_mcu_st}/STM32C011F6
+// :path_example_mcu_st_stm32c011f6_gpio_main_cpp: {path_example_peripherals}/GPIO/main.cpp
+
+// TI

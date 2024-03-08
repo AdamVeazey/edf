@@ -1,5 +1,5 @@
 * xref:drivers.adoc[Drivers]
-** xref:rgb_led.adoc[RGB LED]
+** xref:led_rgb.adoc[RGB LED]
 ** xref:soft_timer.adoc[SoftTimer]
 ** Memory
 *** EEPROM
