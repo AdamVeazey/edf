@@ -66,7 +66,7 @@ public:
     inline void setTimeout( uint32_t ticks ) { timeout_ticks = ticks; }
     virtual Response transfer(
         uint8_t address_7bit,
-        const uint8_t* txData, std::size_t txLen,
+        const uint8_t* txData = 0, std::size_t txLen = 0,
         uint8_t* rxData = nullptr, std::size_t rxLen = 0
     ) override {
         /* If HAL is provided by vendor you may choose to use that here. */
@@ -87,6 +87,9 @@ public:
             // do error handling again
         }
         return Response::ACK; // or NACK, or other error based on error handling
+    }
+    bool probe( uint8_t address_7bit ) {
+        return transfer( address_7bit ) == Response::ACK;
     }
     Response write8BitRegister( uint8_t address_7bit, uint8_t reg, uint8_t value ){
         uint8_t txData[2] = { reg, value };
