@@ -13,11 +13,22 @@ namespace EDF {
 
 class I2CController {
 public:
+    enum class Response{
+        ACK,
+        NACK,
+        ErrorBusy,
+        ErrorBus, /* Misplaced start/stop detected */
+        ErrorArbLost, /* Arbitration lost. Another master took bus */
+        ErrorOverrun, /* Data lost */
+        Error, /* Any other error */
+        ErrorTimeout,
+    };
+public:
     virtual ~I2CController() = default;
-    virtual void setAddress( uint8_t address_7bit ) = 0;
-    virtual void transfer(
-        const uint8_t* txData, std::size_t txLen,
-        uint8_t* rxData, std::size_t rxLen
+    virtual Response transfer(
+        uint8_t address_7bit,
+        const uint8_t* txData = nullptr, std::size_t txLen = 0,
+        uint8_t* rxData = nullptr, std::size_t rxLen = 0
     ) = 0;
 };
 
