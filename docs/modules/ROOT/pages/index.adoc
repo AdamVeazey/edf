@@ -15,11 +15,11 @@ The objective of this project is to provide a comprehensive set of reusable buil
 h|Group ^h|Description ^h|Goal
 
 |{ref_EDF}
-|Essential platform independent building blocks that can be used in virtually any project. 
+|Essential platform independent building blocks that can be used in virtually any project.
 |To be truly cross platform without depending any of the other groups.
 
 |{ref_peripherals}
-a|Platform independent interfaces that represent common MCU peripherals. These are the building blocks that are used in {ref_drivers}. 
+a|Platform independent interfaces that represent common MCU peripherals. These are the building blocks that are used in {ref_drivers}.
 
 IMPORTANT: These interfaces do *_NOT_* attempt to provide one-size-fits-all initialization code.
 
@@ -27,11 +27,11 @@ IMPORTANT: These interfaces do *_NOT_* attempt to provide one-size-fits-all init
 
 
 |{ref_drivers}
-|A collection of platform independent IC drivers, or other 'higher level' uses of {ref_peripherals} such as {ref_drivers_rgb_led}
-|To write a driver *once* instead of slightly different versions in every project that uses the same exact external component. 
+|A collection of platform independent IC drivers, or other 'higher level' uses of {ref_peripherals} such as {ref_drivers_led_rgb}
+|To write a driver *once* instead of slightly different versions in every project that uses the same exact external component.
 
 |{ref_mcu}
-|Implementations of {ref_peripherals} for a specific MCU or MCU family. 
+|Implementations of {ref_peripherals} for a specific MCU or MCU family.
 |To write a Peripheral implementation *once* so that it can be reused in projects using the same MCU.
 
 |===

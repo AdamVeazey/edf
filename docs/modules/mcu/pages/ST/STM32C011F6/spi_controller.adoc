@@ -1,0 +1,3 @@
+= SPI Controller
+
+include::ROOT:partial$refs.adoc[]
