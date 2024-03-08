@@ -1,1 +1,2 @@
 add_subdirectory(GPIO)
+add_subdirectory(I2CController)
