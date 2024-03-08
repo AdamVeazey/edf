@@ -11,7 +11,7 @@
 #include <iostream>
 
 // tag::mock_i2c_controller[]
-/* Simulate a GPIO memory mapped peripheral, here is just a single "register" */
+/* Simulate a I2C memory mapped peripheral, here is just a single "register" */
 struct MCU_I2C_T {
 
 };
