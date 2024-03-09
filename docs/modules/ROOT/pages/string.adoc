@@ -1100,6 +1100,7 @@ include::{path_example_edf_string_main_cpp}[tag=init_literal_uint8_t]
 include::{path_example_edf_string_main_cpp}[tag=init_literal_uint16_t]
 include::{path_example_edf_string_main_cpp}[tag=init_literal_uint32_t]
 include::{path_example_edf_string_main_cpp}[tag=init_literal_uint64_t]
+include::{path_example_edf_string_main_cpp}[tag=init_literal_different_sized_string]
 
 include::{path_example_edf_string_main_cpp}[tag=operation_plus_equals1]
 include::{path_example_edf_string_main_cpp}[tag=operation_plus_equals2]
