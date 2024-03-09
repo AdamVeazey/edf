@@ -32,9 +32,9 @@ deselect() {
     }
 }
 
-SPIControllerFast::Response SPIControllerFast::
-transfer( uint8_t& dataInOut ) {
-    return transfer( &dataInOut, 1 );
+SPIControllerFast::ResponseData SPIControllerFast::
+transfer( uint8_t data ) {
+    return ResponseData( transfer( &data, 1 ), data );
 }
 
 SPIControllerFast::Response SPIControllerFast::
@@ -44,7 +44,7 @@ transfer( uint8_t* dataInOut, std::size_t n ) {
         dataInOut,
         dataInOut,
         n,
-        HAL_MAX_DELAY
+        timeout_ticks
     );
     switch( ret ) {
     case HAL_OK:        break;
