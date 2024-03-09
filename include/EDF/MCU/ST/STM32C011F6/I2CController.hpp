@@ -33,7 +33,7 @@ public:
 
 class I2CController : public I2CControllerFast, public EDF::I2CController {
 public:
-    using Response = I2CControllerFast::Response;
+    using Response = EDF::I2CController::Response;
 public:
     I2CController( I2C_HandleTypeDef* i2c ) :
         I2CControllerFast(i2c)
