@@ -27,7 +27,7 @@ public:
     inline void setTimeout( uint32_t ticks ) { timeout_ticks = ticks; }
     void select();
     void deselect();
-    ResponseData transfer( uint8_t dataInOut );
+    ResponseData transfer( uint8_t data );
     Response transfer( uint8_t* dataInOut, std::size_t n );
 };
 
@@ -44,6 +44,6 @@ public:
 
     virtual void select()                                           override { SPIControllerFast::select(); }
     virtual void deselect()                                         override { SPIControllerFast::deselect(); }
-    virtual ResponseData transfer( uint8_t dataInOut )              override { return SPIControllerFast::transfer( dataInOut ); }
+    virtual ResponseData transfer( uint8_t data )                   override { return SPIControllerFast::transfer( data ); }
     virtual Response transfer( uint8_t* dataInOut, std::size_t n )  override { return SPIControllerFast::transfer( dataInOut, n ); }
 };
