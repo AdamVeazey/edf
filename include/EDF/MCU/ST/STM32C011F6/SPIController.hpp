@@ -11,22 +11,28 @@
 #include "EDF/MCU/ST/STM32C011F6/GPIO.hpp"
 
 class SPIControllerFast {
+public:
+    using Response = EDF::SPIController::Response;
 private:
     SPI_HandleTypeDef* spi;
     GPIOFast* cs;
+    uint32_t timeout_ticks;
 public:
     SPIControllerFast(
         SPI_HandleTypeDef* spi,
         GPIOFast* chipSelect = nullptr
     ) : spi(spi), cs(chipSelect) {}
     ~SPIControllerFast() = default;
+    inline void setTimeout( uint32_t ticks ) { timeout_ticks = ticks; }
     void select();
     void deselect();
-    uint8_t transfer( uint8_t data );
-    void transfer( uint8_t* dataInOut, std::size_t n );
+    Response transfer( uint8_t& dataInOut );
+    Response transfer( uint8_t* dataInOut, std::size_t n );
 };
 
 class SPIController : public SPIControllerFast, public EDF::SPIController {
+public:
+    using Response = EDF::SPIController::Response;
 public:
     SPIController(
         SPI_HandleTypeDef* spi,
@@ -34,8 +40,8 @@ public:
     ) : SPIControllerFast(spi, chipSelect) {}
     virtual ~SPIController() = default;
 
-    virtual void select()                                       override { SPIControllerFast::select(); }
-    virtual void deselect()                                     override { SPIControllerFast::deselect(); }
-    virtual uint8_t transfer( uint8_t data )                    override { return SPIControllerFast::transfer( data ); }
-    virtual void transfer( uint8_t* dataInOut, std::size_t n )  override { SPIControllerFast::transfer( dataInOut, n ); }
+    virtual void select()                                           override { SPIControllerFast::select(); }
+    virtual void deselect()                                         override { SPIControllerFast::deselect(); }
+    virtual Response transfer( uint8_t& dataInOut )                 override { return SPIControllerFast::transfer( dataInOut ); }
+    virtual Response transfer( uint8_t* dataInOut, std::size_t n )  override { return SPIControllerFast::transfer( dataInOut, n ); }
 };
