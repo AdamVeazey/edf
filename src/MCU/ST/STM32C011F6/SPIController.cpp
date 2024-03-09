@@ -32,13 +32,12 @@ deselect() {
     }
 }
 
-uint8_t SPIControllerFast::
-transfer( uint8_t data ) {
-    transfer( &data, 1 );
-    return data;
+SPIControllerFast::Response SPIControllerFast::
+transfer( uint8_t& dataInOut ) {
+    return transfer( &dataInOut, 1 );
 }
 
-void SPIControllerFast::
+SPIControllerFast::Response SPIControllerFast::
 transfer( uint8_t* dataInOut, std::size_t n ) {
     auto ret = HAL_SPI_TransmitReceive(
         spi,
@@ -47,5 +46,16 @@ transfer( uint8_t* dataInOut, std::size_t n ) {
         n,
         HAL_MAX_DELAY
     );
-    EDF_ASSERTD( ret == HAL_StatusTypeDef::HAL_OK, "Return value from HAL_SPI_TransmitReceive is HAL_OK" );
+    switch( ret ) {
+    case HAL_OK:        break;
+    case HAL_BUSY:      return Response::ErrorBusy;
+    case HAL_TIMEOUT:   return Response::ErrorTimeout;
+    default:            break;
+    }
+    switch( spi->ErrorCode ) {
+    case HAL_SPI_ERROR_NONE:    return Response::Ok;
+    case HAL_SPI_ERROR_OVR:     return Response::ErrorOverrun;
+    default:                    break;
+    }
+    return Response::Error;
 }
