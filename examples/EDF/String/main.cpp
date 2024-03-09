@@ -143,7 +143,7 @@ static void examples() {
 
     // tag::init_string[]
     EDF::String<32> stringEDFString = differentSizedString;
-    EDF::String<32> stringEDFString2( differentSizedString );
+    EDF::String<24> stringEDFString2( differentSizedString );
     // end::init_string[]
     (void)stringEDFString;
     // tag::is_question_empty[]
@@ -167,11 +167,11 @@ static void examples() {
     // end::capacity_max_length[]
     (void)maxNumberOfCharacters;
     // tag::element_access_standard[]
-    string[0_uz] = 'h';
+    string[0] = 'h';
     // end::element_access_standard[]
 
     // tag::element_access_at[]
-    string.at( 0_uz ) = 'h';
+    string.at( 0 ) = 'h';
     // end::element_access_at[]
 
     // tag::element_access_as_c_string[]
