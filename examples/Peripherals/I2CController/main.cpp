@@ -8,7 +8,6 @@
 #include <EDF/Peripherals/I2CController.hpp>
 #include <EDF/Assert.hpp>
 #include <EDF/Math.hpp>
-#include <iostream>
 
 // tag::mock_i2c_controller[]
 /* Simulate a I2C memory mapped peripheral, here is just a single "register" */
