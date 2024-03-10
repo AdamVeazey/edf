@@ -259,7 +259,30 @@
 </aside>
 <article class="doc">
 <h1 class="page">PWM</h1>
-
+<div class="sect1">
+<h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>PWM is the interface for pulse-width modulation for all MCUs. Drivers like <a href="../drivers/led_rgb.html" class="xref page">LED RGB</a> can use this interface to be portable between different MCUs.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_initialization"><a class="anchor" href="#_initialization"></a>Initialization</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Initialization is not done using this interface. Instead, the specific PWM driver for a given MCU should be used for configuration. However, there are the <code>setPeriod</code> member functions that might only be called during initialization in some applications.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_example_derived_class"><a class="anchor" href="#_example_derived_class"></a>Example Derived Class</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This example showcases a simplified representation of a memory-mapped timer peripheral in a microcontroller. The PWM interface presented here offers an illustration of its usage.</p>
+</div>
+</div>
+</div>
 </article>
   </div>
 </main>

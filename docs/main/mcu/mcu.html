@@ -291,7 +291,7 @@
 <p>PWM implementation (PWMFast + PWM)</p>
 </li>
 <li>
-<p>I2C implementation (I2CFast + I2C)</p>
+<p>I2C implementation (I2CController Fast + I2CController)</p>
 </li>
 <li>
 <p>BLE central</p>
@@ -319,10 +319,10 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Peripherals::I2C           EDF::MCU::LPC845::I2CFast
-         |_________________________________|
-                          |
-                 EDF::MCU::LPC845::I2C</code></pre>
+<pre class="highlightjs highlight"><code class="language-none hljs">EDF::Peripherals::I2CController     EDF::MCU::LPC845::I2CControllerFast
+         |_______________________________________|
+                              |
+                    EDF::MCU::LPC845::I2CController</code></pre>
 </div>
 </div>
 <hr>
