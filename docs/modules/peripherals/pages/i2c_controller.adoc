@@ -44,6 +44,15 @@ This is the I2C write data you want to transmit on the I2C bus. `txData` is a po
 
 This is where data from an I2C read will be stored. The amount of data read from the peripheral device is based on the value provided for `rxLen`. For usage examples see <<read_8_bit_register>> and <<read_16_bit_register>>
 
+=== Response
+`Response` is an enumeration that indicates if the response from the transfer was an ACK or a NACK in the case of a successful transfer. Otherwise, one of the error values will be returned.
+
+.Transfer Signature
+[source,c++,indent=0]
+----
+include::{path_include_edf_peripherals_i2c_controller_hpp}[tag=i2c_controller_response]
+----
+
 == Example Derived Class
 This example showcases a simplified representation of a memory-mapped I2C peripheral in a microcontroller. The I2C interface presented here offers an illustration of its usage.
 
