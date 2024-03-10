@@ -10,3 +10,190 @@ Initialization is not done using this interface. Instead, the specific PWM drive
 
 == Example Derived Class
 This example showcases a simplified representation of a memory-mapped timer peripheral in a microcontroller. The PWM interface presented here offers an illustration of its usage.
+
+In the code, a pseudo-memory-mapped timer peripheral is simulated through a structure named `MCU_TIMER_T`, which contains an auto-reload and match register for timer output channel 0. Of course, a real peripheral will have many other registers, or may work differently than this common scenario. For the purpose of this example, an actual instance of this simulated peripheral, `MCU_TIMER0`, is created. Typically, in real microcontrollers, the address for such a peripheral would be obtained from the datasheet and hardcoded into the #define.
+
+The `PWM` class, derived from the `EDF::PWM` base class, provides an abstraction for interacting with a PWM output.
+
+.Example
+[source,c++,indent=0]
+----
+include::{path_example_peripherals_pwm_main_cpp}[tag=mock_pwm]
+----
+
+---
+
+[#set_period_mhz]
+=== setPeriod_MHz()
+
+Set the period in terms of Megahertz. The implementation for a specific microcontroller should consider using {ref_edf_assert} to ensure the provided value can be achieved.
+
+NOTE: This typically will affect more than a single timer output channel. So be aware when configuring multiple PWM outputs which hardware timers should be used if outputs do not share the same period.
+
+.Example
+[source,c++,indent=0]
+----
+include::{path_example_peripherals_pwm_main_cpp}[tag=init]
+include::{path_example_peripherals_pwm_main_cpp}[tag=pwm_set_period_mhz]
+----
+
+---
+
+[#get_period_mhz]
+=== getPeriod_MHz()
+Get the current period value set in terms of Megahertz.
+
+NOTE: This value might be 0 if the period is less than 1 MHz
+
+.Example
+[source,c++,indent=0]
+----
+include::{path_example_peripherals_pwm_main_cpp}[tag=init]
+include::{path_example_peripherals_pwm_main_cpp}[tag=pwm_get_period_mhz]
+----
+
+---
+
+[#set_period_khz]
+=== setPeriod_kHz()
+Set the period in terms of kilohertz. The implementation for a specific microcontroller should consider using {ref_edf_assert} to ensure the provided value can be achieved.
+
+NOTE: This typically will affect more than a single timer output channel. So be aware when configuring multiple PWM outputs which hardware timers should be used if outputs do not share the same period.
+
+.Example
+[source,c++,indent=0]
+----
+include::{path_example_peripherals_pwm_main_cpp}[tag=init]
+include::{path_example_peripherals_pwm_main_cpp}[tag=pwm_set_period_khz]
+----
+
+---
+
+[#get_period_khz]
+=== getPeriod_kHz()
+Get the current period value set in terms of kilohertz.
+
+NOTE: This value might be 0 if the period is less than 1 kHz
+
+.Example
+[source,c++,indent=0]
+----
+include::{path_example_peripherals_pwm_main_cpp}[tag=init]
+include::{path_example_peripherals_pwm_main_cpp}[tag=pwm_get_period_khz]
+----
+
+---
+
+[#set_period_hz]
+=== setPeriod_Hz()
+Set the period in terms of hertz. The implementation for a specific microcontroller should consider using {ref_edf_assert} to ensure the provided value can be achieved.
+
+NOTE: This typically will affect more than a single timer output channel. So be aware when configuring multiple PWM outputs which hardware timers should be used if outputs do not share the same period.
+
+.Example
+[source,c++,indent=0]
+----
+include::{path_example_peripherals_pwm_main_cpp}[tag=init]
+include::{path_example_peripherals_pwm_main_cpp}[tag=pwm_set_period_hz]
+----
+
+---
+
+[#get_period_hz]
+=== getPeriod_Hz()
+Get the current period value set in terms of hertz.
+
+.Example
+[source,c++,indent=0]
+----
+include::{path_example_peripherals_pwm_main_cpp}[tag=init]
+include::{path_example_peripherals_pwm_main_cpp}[tag=pwm_get_period_hz]
+----
+
+---
+
+[#set_period_ticks]
+=== setPeriod_ticks()
+Set the period in terms of ticks. The implementation for a specific microcontroller should consider using {ref_edf_assert} to ensure the provided value can be achieved.
+
+NOTE: This typically will affect more than a single timer output channel. So be aware when configuring multiple PWM outputs which hardware timers should be used if outputs do not share the same period.
+
+.Example
+[source,c++,indent=0]
+----
+include::{path_example_peripherals_pwm_main_cpp}[tag=init]
+include::{path_example_peripherals_pwm_main_cpp}[tag=pwm_set_period_ticks]
+----
+
+---
+
+[#get_period_ticks]
+=== getPeriod_ticks()
+Get the current period value set in terms of ticks.
+
+.Example
+[source,c++,indent=0]
+----
+include::{path_example_peripherals_pwm_main_cpp}[tag=init]
+include::{path_example_peripherals_pwm_main_cpp}[tag=pwm_get_period_ticks]
+----
+
+---
+
+[#set_duty_cycle_percent]
+=== setDutyCyclePercent()
+Set the duty cycle in terms of a percentage.
+
+NOTE: Expected values are 0-100
+
+.Example
+[source,c++,indent=0]
+----
+include::{path_example_peripherals_pwm_main_cpp}[tag=init]
+include::{path_example_peripherals_pwm_main_cpp}[tag=pwm_set_duty_cycle_percent]
+----
+
+---
+
+[#get_duty_cycle_percent]
+=== getDutyCyclePercent()
+Get the duty cycle in terms of a percentage.
+
+.Example
+[source,c++,indent=0]
+----
+include::{path_example_peripherals_pwm_main_cpp}[tag=init]
+include::{path_example_peripherals_pwm_main_cpp}[tag=pwm_get_duty_cycle_percent]
+----
+
+---
+
+[#set_duty_cycle_ticks]
+=== setDutyCycleTicks()
+Set the duty cycle in terms of timer ticks.
+
+TIP: Can use this in combination with <<get_period_ticks>> for a percentage with more resolution than with <<set_duty_cycle_percent>>. EX: 50.5% duty cycle could be set using `setDutyCycleTicks( (505 * 1000) / getPeriod_ticks() )`
+
+.Example
+[source,c++,indent=0]
+----
+include::{path_example_peripherals_pwm_main_cpp}[tag=init]
+include::{path_example_peripherals_pwm_main_cpp}[tag=pwm_set_duty_cycle_ticks]
+----
+
+---
+
+[#get_duty_cycle_ticks]
+=== getDutyCycleTicks()
+Get the current duty cycle in terms of timer ticks.
+
+TIP: Can use this in combination with <<get_period_ticks>> for a percentage with more resolution than with <<get_duty_cycle_percent>>. EX: if at 50.5 percent `uint32_t percentTimes10 = (getDutyCycleTicks() * 1000) / getPeriod_ticks()`
+
+.Example
+[source,c++,indent=0]
+----
+include::{path_example_peripherals_pwm_main_cpp}[tag=init]
+include::{path_example_peripherals_pwm_main_cpp}[tag=pwm_get_duty_cycle_ticks]
+----
+
+---
