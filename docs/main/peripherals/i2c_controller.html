@@ -261,7 +261,366 @@
 <div class="sect1">
 <h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>I2C Controller is the interface for an I2C bus controller (master) interface for all MCUs. Drivers can use this interface to be written for use with any microcontroller.</p>
+</div>
+<div class="paragraph">
+<p>There is only a single member function specific microcontroller I2C Controllers need to implement which is <a href="#transfer">transfer()</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_initialization"><a class="anchor" href="#_initialization"></a>Initialization</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Initialization is not done using this interface. Instead the specific I2C Controller driver for a given MCU should be used for configuration.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_transfer"><a class="anchor" href="#_transfer"></a>transfer()</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The function signature for <a href="#transfer">transfer()</a> is the following.</p>
+</div>
+<div class="listingblock">
+<div class="title">Transfer Signature</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">virtual Response transfer(
+    uint8_t address_7bit,
+    const uint8_t* txData = nullptr, std::size_t txLen = 0,
+    uint8_t* rxData = nullptr, std::size_t rxLen = 0
+) = 0;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>An I2C write will always be generated.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If only <code>address_7bit</code> is provided (see <a href="#probe">probe()</a>) then after receiving an ACK/NACK from the peripheral device the controller will send the stop bit.</p>
+</li>
+<li>
+<p>If <code>txData</code> and <code>txLen</code> are also provided, then additional data frames will be sent depending on the value of <code>txLen</code>.</p>
+</li>
+<li>
+<p>If <code>rxData</code> and <code>rxLen</code> are also provided, then after the stop bit for the I2C write is sent, an I2C read will then occur and the data sent from the peripheral will be stored in <code>rxData</code></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The corresponding parts are labeled in orange boxes as 1, 2, and 3.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/I2C_Controller_Concept.png" alt="I2C Controller Concept">
+</div>
+</div>
+<div class="sect2">
+<h3 id="_1_address_7bit"><a class="anchor" href="#_1_address_7bit"></a>1. address_7bit</h3>
+<div class="paragraph">
+<p>This is the peripheral (slave) address as a 7-bit value that is NOT left shifted. To communicate with a device with an address of 0x36, the value of <code>address_7bit</code> should be 0x36, not 0x6C or 0x6D.</p>
+</div>
+<div class="paragraph">
+<p>This parameter is the only required parameter. For a usage example see <a href="#probe">probe()</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2_txdata_and_txlen"><a class="anchor" href="#_2_txdata_and_txlen"></a>2. txData and txLen</h3>
+<div class="paragraph">
+<p>This is the I2C write data you want to transmit on the I2C bus. <code>txData</code> is a pointer to an array of bytes to be sent. <code>txLen</code> is the number of bytes in that array that you want to be sent. For usage examples see <a href="#write_8_bit_register">write8BitRegister()</a> and <a href="#write_16_bit_register">write16BitRegister()</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_3_rxdata_and_rxlen"><a class="anchor" href="#_3_rxdata_and_rxlen"></a>3. rxData and rxLen</h3>
+<div class="paragraph">
+<p>This is where data from an I2C read will be stored. The amount of data read from the peripheral device is based on the value provided for <code>rxLen</code>. For usage examples see <a href="#read_8_bit_register">read8BitRegister()</a> and <a href="#read_16_bit_register">read16BitRegister()</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_example_derived_class"><a class="anchor" href="#_example_derived_class"></a>Example Derived Class</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This example showcases a simplified representation of a memory-mapped I2C peripheral in a microcontroller. The I2C interface presented here offers an illustration of its usage.</p>
+</div>
+<div class="paragraph">
+<p>In the code, a pseudo-memory-mapped I2C peripheral is simulated through a structure named <code>MCU_I2C_T</code>, which contains nothing, as each microcontroller will likely have a different set of registers to achieve the same goal. For the purpose of this example, an actual instance of this simulated peripheral, <code>MCU_I2C0</code>, is created. Typically, in real microcontrollers, the address for such a peripheral would be obtained from the datasheet and hardcoded into the #define.</p>
+</div>
+<div class="paragraph">
+<p>The <code>I2CController</code> class, derived from the <code>EDF::I2CController</code> base class, provides an abstraction for interacting with an I2C bus as a controller. This class overrides the required <a href="#transfer">transfer()</a> function as well as implement some methods to demonstrate how you might use <a href="#transfer">transfer()</a> for common use cases.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">/* Simulate a I2C memory mapped peripheral, here is just a single "register" */
+struct MCU_I2C_T {
 
+};
+
+/* For this example, we need a real instance of the fake memory mapped peripheral */
+static MCU_I2C_T MCU_I2C0;
+
+/* Normally the definition is a hardcoded address that comes from the datasheet */
+#define I2C0 (&amp;MCU_I2C0)
+
+extern "C"{
+int HAL_I2C_Master_Transmit( MCU_I2C_T* hi2c, uint8_t address, uint8_t* txData, size_t txLen, uint32_t timeout ) {
+    /* Vendor provided code here ... */
+    (void)hi2c;
+    (void)address;
+    (void)txData;
+    (void)txLen;
+    (void)timeout;
+    return 0; // OK, possibly HAL_OK
+}
+int HAL_I2C_Master_Receive( MCU_I2C_T* hi2c, uint8_t address, uint8_t* rxData, size_t rxLen, uint32_t timeout ) {
+    /* Vendor provided code here ... */
+    (void)hi2c;
+    (void)address;
+    (void)rxData;
+    (void)rxLen;
+    (void)timeout;
+    return 0; // OK, possibly HAL_OK
+}
+} /* extern "C" */
+
+class I2CController final : public EDF::I2CController {
+public:
+    using Response = EDF::I2CController::Response;
+    enum class Mode {
+        Standard,
+        Fast,
+        FastPlus,
+    };
+private:
+    MCU_I2C_T* i2c;
+    uint32_t timeout_ticks;
+public:
+    I2CController( MCU_I2C_T* i2c ) :
+        i2c(i2c),
+        timeout_ticks(0)
+    {}
+    virtual ~I2CController() = default;
+
+    /* Initialization functions for the specific I2C device */
+    void init( Mode mode ) { (void)mode; /* ... */ }
+    inline void setTimeout( uint32_t ticks ) { timeout_ticks = ticks; }
+    virtual Response transfer(
+        uint8_t address_7bit,
+        const uint8_t* txData = 0, std::size_t txLen = 0,
+        uint8_t* rxData = nullptr, std::size_t rxLen = 0
+    ) override {
+        /* If HAL is provided by vendor you may choose to use that here. */
+        auto ret = HAL_I2C_Master_Transmit(
+            i2c,
+            static_cast&lt;uint8_t&gt;(address_7bit &lt;&lt; 1),
+            const_cast&lt;uint8_t*&gt;(txData), txLen,
+            timeout_ticks
+        );
+        (void)ret; // do error handling
+        if( (rxData != nullptr) &amp;&amp; (rxLen != 0) ) {
+            ret = HAL_I2C_Master_Receive(
+                i2c,
+                static_cast&lt;uint8_t&gt;(address_7bit &lt;&lt; 1),
+                rxData, rxLen,
+                timeout_ticks
+            );
+            // do error handling again
+        }
+        return Response::ACK; // or NACK, or other error based on error handling
+    }
+    bool probe( uint8_t address_7bit ) {
+        return transfer( address_7bit ) == Response::ACK;
+    }
+    Response write8BitRegister( uint8_t address_7bit, uint8_t reg, uint8_t value ){
+        uint8_t txData[2] = { reg, value };
+        return transfer( address_7bit, txData, EDF::nElements(txData) );
+    }
+    Response read8BitRegister( uint8_t address_7bit, uint8_t&amp; regInOut ) {
+        return transfer(
+            address_7bit,
+            &amp;regInOut,
+            1,
+            &amp;regInOut, 1
+        );
+    }
+    Response write16BitRegister( uint8_t address_7bit, uint16_t reg, uint16_t value ) {
+        uint8_t txData[4];
+        txData[0] = static_cast&lt;uint8_t&gt;(reg &gt;&gt; 8);
+        txData[1] = static_cast&lt;uint8_t&gt;(reg &gt;&gt; 0);
+        txData[2] = static_cast&lt;uint8_t&gt;(value &gt;&gt; 8);
+        txData[3] = static_cast&lt;uint8_t&gt;(value &gt;&gt; 0);
+        return transfer( address_7bit, txData, EDF::nElements(txData) );
+    }
+    Response read16BitRegister( uint8_t address_7bit, uint16_t&amp; regInOut ) {
+        uint8_t data[2];
+        data[0] = static_cast&lt;uint8_t&gt;(regInOut &gt;&gt; 8);
+        data[1] = static_cast&lt;uint8_t&gt;(regInOut &gt;&gt; 0);
+        auto response = transfer(
+            address_7bit,
+            data, EDF::nElements(data),
+            data, EDF::nElements(data)
+        );
+        regInOut = static_cast&lt;uint16_t&gt;(data[0] &lt;&lt; 8);
+        regInOut |= data[1];
+        return response;
+    }
+};</code></pre>
+</div>
+</div>
+<hr>
+<div class="sect2">
+<h3 id="init"><a class="anchor" href="#init"></a>init()</h3>
+<div class="paragraph">
+<p>This shows an example of how you might want to initialize a I2C Controller with a bus speed. In a real implementation for a specific microcontroller, this likely has many more options for you to choose what can be configured.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">I2CController i2c0( I2C0 );
+i2c0.init( I2CController::Mode::Standard );</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="set_timeout"><a class="anchor" href="#set_timeout"></a>setTimeout()</h3>
+<div class="paragraph">
+<p>This is an example of how you might want to adapt a vendor supplied HAL to work with this interface. For example, STM32 HAL I2C functions also take in a timeout parameter. In order to adapt this to our needs, we might store a class member, <code>timeout_ticks</code> to be used in the call to <code>HAL_I2C_Master_Transmit</code> or <code>HAL_I2C_Master_Receive</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">I2CController i2c0( I2C0 );
+i2c0.setTimeout( 0xFFFFFFFFu );</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="transfer"><a class="anchor" href="#transfer"></a>transfer()</h3>
+<div class="paragraph">
+<p>This shows how you might use the interface only using the single interface method <code>transfer</code>. This specific use is equivalent to the example <a href="#read_8_bit_register">read8BitRegister()</a></p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">I2CController i2c0( I2C0 );
+uint8_t value = 0x12;
+I2CController::Response res = i2c0.transfer( 0x30, &amp;value, 1, &amp;value, 1 ); // same as read8BitRegister</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/I2C_Controller_Transfer.png" alt="I2C Controller Transfer">
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="probe"><a class="anchor" href="#probe"></a>probe()</h3>
+<div class="paragraph">
+<p>This shows how you might get information on what peripheral devices are present on this I2C bus.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">I2CController i2c0( I2C0 );
+for( uint8_t address = 0x00; address &lt; 128; ++address ){
+    if( i2c0.probe( address ) ) {
+        // device with `address` is connected to this I2C bus
+    }
+}</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/I2C_Controller_Probe.png" alt="I2C Controller Probe">
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="write_8_bit_register"><a class="anchor" href="#write_8_bit_register"></a>write8BitRegister()</h3>
+<div class="paragraph">
+<p>This shows the use of a helper member function to make it more clear what your intention is instead of calling <a href="#transfer">transfer()</a> directly.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">I2CController i2c0( I2C0 );
+I2CController::Response resW8 = i2c0.write8BitRegister( 0x30, 0x40, 0xAA );</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/I2C_Controller_Write_8_Bit_Register.png" alt="I2C Controller Write 8 Bit Register">
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="read_8_bit_register"><a class="anchor" href="#read_8_bit_register"></a>read8BitRegister()</h3>
+<div class="paragraph">
+<p>This shows the use of a helper member function to make it more clear what your intention is instead of calling <a href="#transfer">transfer()</a> directly.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">I2CController i2c0( I2C0 );
+uint8_t value8Bit = 0x12;
+I2CController::Response resR8 = i2c0.read8BitRegister( 0x30, value8Bit );</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/I2C_Controller_Transfer.png" alt="I2C Controller Transfer">
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="write_16_bit_register"><a class="anchor" href="#write_16_bit_register"></a>write16BitRegister()</h3>
+<div class="paragraph">
+<p>This shows the use of a helper member function to make it more clear what your intention is instead of calling <a href="#transfer">transfer()</a> directly.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">I2CController i2c0( I2C0 );
+I2CController::Response resW16 = i2c0.write16BitRegister( 0x30, 0x1234, 0x55AA );</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/I2C_Controller_Write_16_Bit_Register.png" alt="I2C Controller Write 16 Bit Register">
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="read_16_bit_register"><a class="anchor" href="#read_16_bit_register"></a>read16BitRegister()</h3>
+<div class="paragraph">
+<p>This shows the use of a helper member function to make it more clear what your intention is instead of calling <a href="#transfer">transfer()</a> directly.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">I2CController i2c0( I2C0 );
+uint16_t value16Bit = 0x3456;
+I2CController::Response resR16 = i2c0.read16BitRegister( 0x30, value16Bit );</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/I2C_Controller_Read_16_Bit_Register.png" alt="I2C Controller Read 16 Bit Register">
+</div>
+</div>
+<hr>
+</div>
 </div>
 </div>
 </article>
