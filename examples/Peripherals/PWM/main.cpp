@@ -7,8 +7,6 @@
 
 #include <EDF/Peripherals/PWM.hpp>
 
-#include <iostream>
-
 // tag::mock_pwm[]
 /* Simulate a Timer memory mapped peripheral, here is just a couple "registers" */
 struct MCU_TIMER_T {
