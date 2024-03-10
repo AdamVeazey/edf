@@ -1,3 +1,12 @@
 = PWM
 
 include::ROOT:partial$refs.adoc[]
+
+== Overview
+PWM is the interface for pulse-width modulation for all MCUs. Drivers like {ref_drivers_led_rgb} can use this interface to be portable between different MCUs.
+
+== Initialization
+Initialization is not done using this interface. Instead, the specific PWM driver for a given MCU should be used for configuration. However, there are the `setPeriod` member functions that might only be called during initialization in some applications.
+
+== Example Derived Class
+This example showcases a simplified representation of a memory-mapped timer peripheral in a microcontroller. The PWM interface presented here offers an illustration of its usage.

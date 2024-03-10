@@ -7,14 +7,14 @@ include::ROOT:partial$refs.adoc[]
 - {ref_peripherals}
 
 == Overview
-This contains peripheral implementations for specific MCUs. Also may provide more MCU specific code that is project independent. EX: BLE central/peripheral related code, MQTT, WiFi, etc... Things that can be reused if another project uses the same MCU, but stuff that's too different between MCUs to really be turned into something completely generic that's still useful. 
+This contains peripheral implementations for specific MCUs. Also may provide more MCU specific code that is project independent. EX: BLE central/peripheral related code, MQTT, WiFi, etc... Things that can be reused if another project uses the same MCU, but stuff that's too different between MCUs to really be turned into something completely generic that's still useful.
 
 The following is a list of files that might be provided under a specific MCU.
 
 - GPIO implementation (GPIOFast + GPIO)
 - PWM implementation (PWMFast + PWM)
-- I2C implementation (I2CFast + I2C)
-- BLE central 
+- I2C implementation (I2CController Fast + I2CController)
+- BLE central
 - BLE peripheral
 - MQTT client
 - WiFi STA
@@ -25,10 +25,10 @@ The following is a list of files that might be provided under a specific MCU.
 
 "Fast" versions are the real implementation, but without directly deriving from the generic peripheral type. This is to allow you to avoid the vtable penalty if the difference legitimately matters.
 ```
-EDF::Peripherals::I2C           EDF::MCU::LPC845::I2CFast
-         |_________________________________|
-                          |
-                 EDF::MCU::LPC845::I2C
+EDF::Peripherals::I2CController     EDF::MCU::LPC845::I2CControllerFast
+         |_______________________________________|
+                              |
+                    EDF::MCU::LPC845::I2CController
 ```
 ---
 
@@ -75,14 +75,14 @@ public:
     // ... <1>
 }
 ----
-<1> Add other definitions of pure virtual functions from Peripherals::GPIO. 
+<1> Add other definitions of pure virtual functions from Peripherals::GPIO.
 
 .Example Usage
 [source,c++]
 ----
 #include <EDF/MCU/ST/STM32xxx/GPIO.hpp>
 
-class LED { 
+class LED {
 private:
     EDF::MCU::GPIO pin;             // <1>
     // EDF::MCU::GPIOFast pin;      // <2>
