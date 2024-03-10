@@ -3,3 +3,182 @@
 include::ROOT:partial$refs.adoc[]
 
 == Overview
+I2C Controller is the interface for an I2C bus controller (master) interface for all MCUs. Drivers can use this interface to be written for use with any microcontroller.
+
+There is only a single member function specific microcontroller I2C Controllers need to implement which is <<transfer>>.
+
+== Initialization
+Initialization is not done using this interface. Instead the specific I2C Controller driver for a given MCU should be used for configuration.
+
+== transfer()
+
+The function signature for <<transfer>> is the following.
+
+.Transfer Signature
+[source,c++,indent=0]
+----
+include::{path_include_edf_peripherals_i2c_controller_hpp}[tag=i2c_controller_transfer]
+----
+
+An I2C write will always be generated.
+
+. If only `address_7bit` is provided (see <<probe>>) then after receiving an ACK/NACK from the peripheral device the controller will send the stop bit.
+. If `txData` and `txLen` are also provided, then additional data frames will be sent depending on the value of `txLen`.
+. If `rxData` and `rxLen` are also provided, then after the stop bit for the I2C write is sent, an I2C read will then occur and the data sent from the peripheral will be stored in `rxData`
+
+The corresponding parts are labeled in orange boxes as 1, 2, and 3.
+
+image::I2C_Controller_Concept.png[]
+
+=== 1. address_7bit
+
+This is the peripheral (slave) address as a 7-bit value that is NOT left shifted. To communicate with a device with an address of 0x36, the value of `address_7bit` should be 0x36, not 0x6C or 0x6D.
+
+This parameter is the only required parameter. For a usage example see <<probe>>.
+
+=== 2. txData and txLen
+
+This is the I2C write data you want to transmit on the I2C bus. `txData` is a pointer to an array of bytes to be sent. `txLen` is the number of bytes in that array that you want to be sent. For usage examples see <<write_8_bit_register>> and <<write_16_bit_register>>
+
+=== 3. rxData and rxLen
+
+This is where data from an I2C read will be stored. The amount of data read from the peripheral device is based on the value provided for `rxLen`. For usage examples see <<read_8_bit_register>> and <<read_16_bit_register>>
+
+== Example Derived Class
+This example showcases a simplified representation of a memory-mapped I2C peripheral in a microcontroller. The I2C interface presented here offers an illustration of its usage.
+
+In the code, a pseudo-memory-mapped I2C peripheral is simulated through a structure named `MCU_I2C_T`, which contains nothing, as each microcontroller will likely have a different set of registers to achieve the same goal. For the purpose of this example, an actual instance of this simulated peripheral, `MCU_I2C0`, is created. Typically, in real microcontrollers, the address for such a peripheral would be obtained from the datasheet and hardcoded into the #define.
+
+The `I2CController` class, derived from the `EDF::I2CController` base class, provides an abstraction for interacting with an I2C bus as a controller. This class overrides the required <<transfer>> function as well as implement some methods to demonstrate how you might use <<transfer>> for common use cases.
+
+.Example
+[source,c++,indent=0]
+----
+include::{path_example_peripherals_i2c_controller_main_cpp}[tag=mock_i2c_controller]
+----
+
+---
+
+[#init]
+=== init()
+
+This shows an example of how you might want to initialize a I2C Controller with a bus speed. In a real implementation for a specific microcontroller, this likely has many more options for you to choose what can be configured.
+
+.Example
+[source,c++,indent=0]
+----
+include::{path_example_peripherals_i2c_controller_main_cpp}[tag=init]
+include::{path_example_peripherals_i2c_controller_main_cpp}[tag=i2c_init]
+----
+
+---
+
+[#set_timeout]
+=== setTimeout()
+
+This is an example of how you might want to adapt a vendor supplied HAL to work with this interface. For example, STM32 HAL I2C functions also take in a timeout parameter. In order to adapt this to our needs, we might store a class member, `timeout_ticks` to be used in the call to `HAL_I2C_Master_Transmit` or `HAL_I2C_Master_Receive`.
+
+.Example
+[source,c++,indent=0]
+----
+include::{path_example_peripherals_i2c_controller_main_cpp}[tag=init]
+include::{path_example_peripherals_i2c_controller_main_cpp}[tag=i2c_set_timeout]
+----
+
+---
+
+[#transfer]
+=== transfer()
+
+This shows how you might use the interface only using the single interface method `transfer`. This specific use is equivalent to the example <<read_8_bit_register>>
+
+.Example
+[source,c++,indent=0]
+----
+include::{path_example_peripherals_i2c_controller_main_cpp}[tag=init]
+include::{path_example_peripherals_i2c_controller_main_cpp}[tag=i2c_transfer]
+----
+
+image::I2C_Controller_Transfer.png[]
+
+---
+
+[#probe]
+=== probe()
+
+This shows how you might get information on what peripheral devices are present on this I2C bus.
+
+.Example
+[source,c++,indent=0]
+----
+include::{path_example_peripherals_i2c_controller_main_cpp}[tag=init]
+include::{path_example_peripherals_i2c_controller_main_cpp}[tag=i2c_probe]
+----
+
+image::I2C_Controller_Probe.png[]
+
+---
+
+[#write_8_bit_register]
+=== write8BitRegister()
+
+This shows the use of a helper member function to make it more clear what your intention is instead of calling <<transfer>> directly.
+
+.Example
+[source,c++,indent=0]
+----
+include::{path_example_peripherals_i2c_controller_main_cpp}[tag=init]
+include::{path_example_peripherals_i2c_controller_main_cpp}[tag=i2c_write_8_bit_register]
+----
+
+image::I2C_Controller_Write_8_Bit_Register.png[]
+
+---
+
+[#read_8_bit_register]
+=== read8BitRegister()
+
+This shows the use of a helper member function to make it more clear what your intention is instead of calling <<transfer>> directly.
+
+.Example
+[source,c++,indent=0]
+----
+include::{path_example_peripherals_i2c_controller_main_cpp}[tag=init]
+include::{path_example_peripherals_i2c_controller_main_cpp}[tag=i2c_read_8_bit_register]
+----
+
+image::I2C_Controller_Transfer.png[]
+
+---
+
+[#write_16_bit_register]
+=== write16BitRegister()
+
+This shows the use of a helper member function to make it more clear what your intention is instead of calling <<transfer>> directly.
+
+.Example
+[source,c++,indent=0]
+----
+include::{path_example_peripherals_i2c_controller_main_cpp}[tag=init]
+include::{path_example_peripherals_i2c_controller_main_cpp}[tag=i2c_write_16_bit_register]
+----
+
+image::I2C_Controller_Write_16_Bit_Register.png[]
+
+---
+
+[#read_16_bit_register]
+=== read16BitRegister()
+
+This shows the use of a helper member function to make it more clear what your intention is instead of calling <<transfer>> directly.
+
+.Example
+[source,c++,indent=0]
+----
+include::{path_example_peripherals_i2c_controller_main_cpp}[tag=init]
+include::{path_example_peripherals_i2c_controller_main_cpp}[tag=i2c_read_16_bit_register]
+----
+
+image::I2C_Controller_Read_16_Bit_Register.png[]
+
+---
