@@ -281,6 +281,332 @@
 <div class="paragraph">
 <p>This example showcases a simplified representation of a memory-mapped timer peripheral in a microcontroller. The PWM interface presented here offers an illustration of its usage.</p>
 </div>
+<div class="paragraph">
+<p>In the code, a pseudo-memory-mapped timer peripheral is simulated through a structure named <code>MCU_TIMER_T</code>, which contains an auto-reload and match register for timer output channel 0. Of course, a real peripheral will have many other registers, or may work differently than this common scenario. For the purpose of this example, an actual instance of this simulated peripheral, <code>MCU_TIMER0</code>, is created. Typically, in real microcontrollers, the address for such a peripheral would be obtained from the datasheet and hardcoded into the #define.</p>
+</div>
+<div class="paragraph">
+<p>The <code>PWM</code> class, derived from the <code>EDF::PWM</code> base class, provides an abstraction for interacting with a PWM output.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">/* Simulate a Timer memory mapped peripheral, here is just a couple "registers" */
+struct MCU_TIMER_T {
+    volatile uint32_t AUTO_RELOAD;
+    volatile uint32_t MATCH_CH0;
+};
+
+/* For this example, we need a real instance of the fake memory mapped peripheral */
+static MCU_TIMER_T MCU_TIMER0;
+
+/* Normally the definition is a hardcoded address that comes from the datasheet */
+#define TIMER0 (&amp;MCU_TIMER0)
+
+class PWM final : public EDF::PWM {
+private:
+    MCU_TIMER_T* timer;
+    uint32_t channel;
+public:
+    PWM( MCU_TIMER_T* timer, uint32_t channel ) : timer(timer), channel(channel) {}
+    virtual ~PWM() = default;
+
+    virtual void setPeriod_MHz( uint32_t MHz )                { setPeriod_kHz( MHz * 1000 ); }
+    virtual uint32_t getPeriod_MHz()                    const { return getPeriod_kHz() / 1000; }
+
+    virtual void setPeriod_kHz( uint32_t kHz )                { setPeriod_Hz( kHz * 1000 ); }
+    virtual uint32_t getPeriod_kHz()                    const { return getPeriod_Hz() / 1000; }
+
+    virtual void setPeriod_Hz( uint32_t Hz )                  { timer-&gt;AUTO_RELOAD = Hz; /* actually do math */  }
+    virtual uint32_t getPeriod_Hz()                     const { return /* sysclk */48000000; }
+
+    virtual void setPeriod_ticks( uint32_t ticks )            { timer-&gt;AUTO_RELOAD = ticks; }
+    virtual uint32_t getPeriod_ticks()                  const { return timer-&gt;AUTO_RELOAD; }
+
+    virtual void setDutyCyclePercent( uint8_t percent )       { setDutyCycleTicks( (getPeriod_ticks() * percent) / 100 ); }
+    virtual uint8_t getDutyCyclePercent()               const { return static_cast&lt;uint8_t&gt;((getDutyCycleTicks() * 100) / getPeriod_ticks()); }
+
+    virtual void setDutyCycleTicks( uint32_t ticks )          { if( channel == 0 ) timer-&gt;MATCH_CH0 = ticks; /* etc..*/ }
+    virtual uint32_t getDutyCycleTicks()                const { return (channel == 0) ? timer-&gt;MATCH_CH0 : 0; /* etc..*/ }
+};</code></pre>
+</div>
+</div>
+<hr>
+<div class="sect2">
+<h3 id="set_period_mhz"><a class="anchor" href="#set_period_mhz"></a>setPeriod_MHz()</h3>
+<div class="paragraph">
+<p>Set the period in terms of Megahertz. The implementation for a specific microcontroller should consider using <a href="../assert.html" class="xref page">Assert</a> to ensure the provided value can be achieved.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This typically will affect more than a single timer output channel. So be aware when configuring multiple PWM outputs which hardware timers should be used if outputs do not share the same period.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">PWM pwm( TIMER0, 0 );
+pwm.setPeriod_MHz( 5 );</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="get_period_mhz"><a class="anchor" href="#get_period_mhz"></a>getPeriod_MHz()</h3>
+<div class="paragraph">
+<p>Get the current period value set in terms of Megahertz.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This value might be 0 if the period is less than 1 MHz
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">PWM pwm( TIMER0, 0 );
+uint32_t MHz = pwm.getPeriod_MHz();</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="set_period_khz"><a class="anchor" href="#set_period_khz"></a>setPeriod_kHz()</h3>
+<div class="paragraph">
+<p>Set the period in terms of kilohertz. The implementation for a specific microcontroller should consider using <a href="../assert.html" class="xref page">Assert</a> to ensure the provided value can be achieved.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This typically will affect more than a single timer output channel. So be aware when configuring multiple PWM outputs which hardware timers should be used if outputs do not share the same period.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">PWM pwm( TIMER0, 0 );
+pwm.setPeriod_kHz( 100 );</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="get_period_khz"><a class="anchor" href="#get_period_khz"></a>getPeriod_kHz()</h3>
+<div class="paragraph">
+<p>Get the current period value set in terms of kilohertz.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This value might be 0 if the period is less than 1 kHz
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">PWM pwm( TIMER0, 0 );
+uint32_t kHz = pwm.getPeriod_kHz();</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="set_period_hz"><a class="anchor" href="#set_period_hz"></a>setPeriod_Hz()</h3>
+<div class="paragraph">
+<p>Set the period in terms of hertz. The implementation for a specific microcontroller should consider using <a href="../assert.html" class="xref page">Assert</a> to ensure the provided value can be achieved.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This typically will affect more than a single timer output channel. So be aware when configuring multiple PWM outputs which hardware timers should be used if outputs do not share the same period.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">PWM pwm( TIMER0, 0 );
+pwm.setPeriod_Hz( 960 );</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="get_period_hz"><a class="anchor" href="#get_period_hz"></a>getPeriod_Hz()</h3>
+<div class="paragraph">
+<p>Get the current period value set in terms of hertz.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">PWM pwm( TIMER0, 0 );
+uint32_t hz = pwm.getPeriod_Hz();</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="set_period_ticks"><a class="anchor" href="#set_period_ticks"></a>setPeriod_ticks()</h3>
+<div class="paragraph">
+<p>Set the period in terms of ticks. The implementation for a specific microcontroller should consider using <a href="../assert.html" class="xref page">Assert</a> to ensure the provided value can be achieved.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This typically will affect more than a single timer output channel. So be aware when configuring multiple PWM outputs which hardware timers should be used if outputs do not share the same period.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">PWM pwm( TIMER0, 0 );
+pwm.setPeriod_ticks( 1000 );</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="get_period_ticks"><a class="anchor" href="#get_period_ticks"></a>getPeriod_ticks()</h3>
+<div class="paragraph">
+<p>Get the current period value set in terms of ticks.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">PWM pwm( TIMER0, 0 );
+uint32_t ticks = pwm.getPeriod_ticks();</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="set_duty_cycle_percent"><a class="anchor" href="#set_duty_cycle_percent"></a>setDutyCyclePercent()</h3>
+<div class="paragraph">
+<p>Set the duty cycle in terms of a percentage.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Expected values are 0-100
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">PWM pwm( TIMER0, 0 );
+pwm.setDutyCyclePercent( 50 );</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="get_duty_cycle_percent"><a class="anchor" href="#get_duty_cycle_percent"></a>getDutyCyclePercent()</h3>
+<div class="paragraph">
+<p>Get the duty cycle in terms of a percentage.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">PWM pwm( TIMER0, 0 );
+uint8_t dutyCyclePercent = pwm.getDutyCyclePercent();</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="set_duty_cycle_ticks"><a class="anchor" href="#set_duty_cycle_ticks"></a>setDutyCycleTicks()</h3>
+<div class="paragraph">
+<p>Set the duty cycle in terms of timer ticks.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Can use this in combination with <a href="#get_period_ticks">getPeriod_ticks()</a> for a percentage with more resolution than with <a href="#set_duty_cycle_percent">setDutyCyclePercent()</a>. EX: 50.5% duty cycle could be set using <code>setDutyCycleTicks( (505 * 1000) / getPeriod_ticks() )</code>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">PWM pwm( TIMER0, 0 );
+pwm.setDutyCycleTicks( 960 / 2 );</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="get_duty_cycle_ticks"><a class="anchor" href="#get_duty_cycle_ticks"></a>getDutyCycleTicks()</h3>
+<div class="paragraph">
+<p>Get the current duty cycle in terms of timer ticks.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Can use this in combination with <a href="#get_period_ticks">getPeriod_ticks()</a> for a percentage with more resolution than with <a href="#get_duty_cycle_percent">getDutyCyclePercent()</a>. EX: if at 50.5 percent <code>uint32_t percentTimes10 = (getDutyCycleTicks() * 1000) / getPeriod_ticks()</code>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">PWM pwm( TIMER0, 0 );
+uint32_t dutyCycleTicks = pwm.getDutyCycleTicks();</code></pre>
+</div>
+</div>
+<hr>
+</div>
 </div>
 </div>
 </article>
