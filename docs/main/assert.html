@@ -426,7 +426,7 @@ function:   'void function(int, int)'
 <div class="listingblock">
 <div class="title">Signature</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved directive in assert.adoc - include::{path_src_edf_assert_hpp}[tag=EDF_ASSERT]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">#define EDF_ASSERT( condition, assumption )             \</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -492,7 +492,11 @@ This does not try to output call stack information, however printing out the con
 <div class="listingblock">
 <div class="title">Signature</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved directive in assert.adoc - include::{path_src_edf_assert_hpp}[tag=EDF_ASSERTD]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">#ifndef NDEBUG
+#define EDF_ASSERTD( condition, assumption )    EDF_ASSERT( condition, assumption )
+#else
+#define EDF_ASSERTD( condition, assumption )    ((void)(condition))
+#endif /* NDEBUG */</code></pre>
 </div>
 </div>
 <div class="paragraph">
