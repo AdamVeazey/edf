@@ -8,7 +8,6 @@
 #pragma once
 
 #include <cstddef>
-#include <cmath>
 
 // NOTE: This needs to be in the global namespace. EX: 0_uz == std::size_t literal
 // tag::literal_size_t[]
