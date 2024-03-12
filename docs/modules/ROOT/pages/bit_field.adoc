@@ -12,7 +12,7 @@ BitField is designed as a building block for naming bits within a register. BitF
 This is an alias for a BitField of 8 bits
 [source,c++,indent=0]
 ----
-include::{path_src_edf_bit_field_hpp}[tag=uint8_t]
+include::{path_include_edf_bit_field_hpp}[tag=uint8_t]
 ----
 
 ---
@@ -21,7 +21,7 @@ include::{path_src_edf_bit_field_hpp}[tag=uint8_t]
 This is an alias for a BitField of 16 bits
 [source,c++,indent=0]
 ----
-include::{path_src_edf_bit_field_hpp}[tag=uint16_t]
+include::{path_include_edf_bit_field_hpp}[tag=uint16_t]
 ----
 
 ---
@@ -30,7 +30,7 @@ include::{path_src_edf_bit_field_hpp}[tag=uint16_t]
 This is an alias for a BitField of 32 bits
 [source,c++,indent=0]
 ----
-include::{path_src_edf_bit_field_hpp}[tag=uint32_t]
+include::{path_include_edf_bit_field_hpp}[tag=uint32_t]
 ----
 
 ---
@@ -39,7 +39,7 @@ include::{path_src_edf_bit_field_hpp}[tag=uint32_t]
 This is an alias for a BitField of 64 bits
 [source,c++,indent=0]
 ----
-include::{path_src_edf_bit_field_hpp}[tag=uint64_t]
+include::{path_include_edf_bit_field_hpp}[tag=uint64_t]
 ----
 
 == Initialization

@@ -134,7 +134,7 @@ Adding every single string literal used for <<EDF_ASSERT>> and <<EDF_ASSERTD>> t
 .Signature
 [source,c++]
 ----
-include::{path_src_edf_assert_hpp}[tag=EDF_ASSERT]
+include::{path_include_edf_assert_hpp}[tag=EDF_ASSERT]
 ----
 
 EDF_ASSERT will call abort() if the `condition` is false.
@@ -166,7 +166,7 @@ int main(void){
 .Signature
 [source,c++]
 ----
-include::{path_src_edf_assert_hpp}[tag=EDF_ASSERTD]
+include::{path_include_edf_assert_hpp}[tag=EDF_ASSERTD]
 ----
 
 The 'D' in `EDF_ASSERTD` stands for Debug.

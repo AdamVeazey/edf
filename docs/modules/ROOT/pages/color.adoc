@@ -102,7 +102,7 @@ There are a few named colors predefined in `Color`.
 .Predefined Colors
 [source,c++,indent=0]
 ----
-include::{path_src_edf_color_hpp}[tag=named_colors]
+include::{path_include_edf_color_hpp}[tag=named_colors]
 ----
 
 ---
