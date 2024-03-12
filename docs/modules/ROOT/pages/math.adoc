@@ -3,7 +3,7 @@
 include::ROOT:partial$refs.adoc[]
 
 == Overview
-Math is a collection of common math performed in embedded applications. 
+Math is a collection of common math performed in embedded applications.
 
 // tag::function_list[]
 * {ref_edf_math_uz}
@@ -19,16 +19,16 @@ Math is a collection of common math performed in embedded applications.
 
 NOTE: {ref_edf_math_uz} and {ref_edf_math_n_elements} loosely fit within this file. One could argue that {ref_edf_math_uz} is related to math. One could also argue that {ref_edf_math_n_elements} is a _calculation_ to find the number of elements within an array.
 
-NOTE: Decided that a dedicated file for {ref_edf_math_uz} would create a temptation to make more user-defined literals. 
+NOTE: Decided that a dedicated file for {ref_edf_math_uz} would create a temptation to make more user-defined literals.
 
 [#uz]
 == _uz
-This is a https://en.cppreference.com/w/cpp/language/user_literal[user-defined literal]. The intended purpose of this is to be able to create an integer literal of type `std::size_t`. 
+This is a https://en.cppreference.com/w/cpp/language/user_literal[user-defined literal]. The intended purpose of this is to be able to create an integer literal of type `std::size_t`.
 
 .Signature
 [source,c++]
 ----
-include::{path_src_edf_math_hpp}[tag=literal_size_t]
+include::{path_include_edf_math_hpp}[tag=literal_size_t]
 ----
 
 .Examples
@@ -76,17 +76,17 @@ ARRAY_SIZE( decayedArray ); // <5>
 
 [#is_pow_2]
 == isPow2
-Returns `true` if a number is a power of 2. Result can be a compile time constant if argument is known at compile time. 
+Returns `true` if a number is a power of 2. Result can be a compile time constant if argument is known at compile time.
 
 .Implementation Explanation
 [source,c++]
 ----
-include::{path_src_edf_math_hpp}[tag=is_pow_2]
+include::{path_include_edf_math_hpp}[tag=is_pow_2]
 ----
 
 The concept to understand is that in any given integer, a power of 2 will always have a single bit as a '1' with the rest of the bits being `0`. So how can we use math to find out if a value has only a single bit set to `1`?
 
-Let's first make an assumption that the value is a power of 2, and we'll try to disprove that as we go along. If you are given a power of 2 and subtract 1 from it, you end up with the bit that was originally the only `1` is now set to a `0` and all of the bits to the "right" of the original `1` that used to be all ``0``'s are now all ``1``'s. 
+Let's first make an assumption that the value is a power of 2, and we'll try to disprove that as we go along. If you are given a power of 2 and subtract 1 from it, you end up with the bit that was originally the only `1` is now set to a `0` and all of the bits to the "right" of the original `1` that used to be all ``0``'s are now all ``1``'s.
 
 . `v-1`
 
@@ -102,7 +102,7 @@ If the result is a 0, we know it _is_ a power of 2. Simply `!` the result to tur
 
 .`isPow2( 4 )` (returns `true`)
 [cols="1,1,1"]
-|=== 
+|===
 ^|Expression
 ^|Base 10 (decimal)
 ^|Base 2 (binary)
@@ -127,7 +127,7 @@ If the result is a 0, we know it _is_ a power of 2. Simply `!` the result to tur
 
 .`isPow2( 5 )` (returns `false`)
 [cols="1,1,1"]
-|=== 
+|===
 ^|Expression
 ^|Base 10 (decimal)
 ^|Base 2 (binary)
@@ -190,7 +190,7 @@ Provide resistor values `R1` and `R2` as template arguments. Pass in `Vin` as fu
 [source,c++]
 ----
 voltageDividerCalcVout<10000,10000>( 12.0f );   // returns 6.0f
-voltageDividerCalcVout<10000,5000>( 12 );       // returns 4     
+voltageDividerCalcVout<10000,5000>( 12 );       // returns 4
 voltageDividerCalcVout<5000,10000>( 12000 );    // returns 8000
 ----
 
@@ -224,7 +224,7 @@ voltageDividerCalcVin<5000,10000>( 8000 );    // returns 12000
 .Description
 `Fahrenheit = ((Celsius * 9) / 5) + 32`
 
-Convert a temperature value from Celsius to Fahrenheit. 
+Convert a temperature value from Celsius to Fahrenheit.
 
 .Examples
 [source,c++]
