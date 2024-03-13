@@ -563,25 +563,12 @@ spi0.deselect();</code></pre>
 </table>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">class ResponseData {
-private:
-    uint16_t value;
-public:
-    constexpr ResponseData( Response r, uint8_t data ) :
-        value(
-            static_cast&lt;uint16_t&gt;((static_cast&lt;uint16_t&gt;(r) &lt;&lt; 8)) |
-            data
-        )
-    {}
-    constexpr Response response() const {
-        return static_cast&lt;Response&gt;(value &gt;&gt; 8);
-    }
-    constexpr uint8_t data() const {
-        EDF_ASSERTD( response() == Response::Ok, "Response must be Ok to extract value");
-        return static_cast&lt;uint8_t&gt;(value);
-    }
-    /* implicitly convert to a Response. Need to call data() explicitly to obtain value */
-    constexpr operator Response () const { return response(); }
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">enum class Response : uint8_t{
+    Ok,
+    ErrorBusy,
+    ErrorOverrun,
+    Error,
+    ErrorTimeout,
 };</code></pre>
 </div>
 </div>
