@@ -9,34 +9,11 @@
 #include <EDF/Peripherals/GPIO.hpp>
 #include <EDF/Math.hpp>
 
-// tag::mock_spi_controller[]
-/* Simulate a SPI memory mapped peripheral, here is just a single "register" */
-struct MCU_SPI_T {
-    volatile uint32_t DATA_REGISTER;
-};
-/* Simulate a GPIO memory mapped peripheral, here is just a single "register" */
 struct MCU_GPIO_T {
     volatile uint32_t DATA_REGISTER;
 };
-
-/* For this example, we need a real instance of the fake memory mapped peripheral */
-static MCU_SPI_T MCU_SPI0;
 static MCU_GPIO_T MCU_GPIO_PORTA;
-
-/* Normally the definition is a hardcoded address that comes from the datasheet */
-#define SPI0        (&MCU_SPI0)
 #define GPIO_PORTA  (&MCU_GPIO_PORTA)
-
-extern "C"{
-int HAL_SPI_TransmitReceive( MCU_SPI_T* hspi, uint8_t* txData, uint8_t* rxData, uint16_t size, uint32_t timeout ) {
-    (void)hspi;
-    (void)txData;
-    (void)rxData;
-    (void)size;
-    (void)timeout;
-    return 0; // OK
-}
-}
 
 // in this example were going to manually control CS via GPIO
 class GPIO final : public EDF::GPIO {
@@ -62,6 +39,29 @@ public:
         }
     }
 };
+
+// tag::mock_spi_controller[]
+/* Simulate a SPI memory mapped peripheral, here is just a single "register" */
+struct MCU_SPI_T {
+    volatile uint32_t DATA_REGISTER;
+};
+
+/* For this example, we need a real instance of the fake memory mapped peripheral */
+static MCU_SPI_T MCU_SPI0;
+
+/* Normally the definition is a hardcoded address that comes from the datasheet */
+#define SPI0        (&MCU_SPI0)
+
+extern "C"{
+int HAL_SPI_TransmitReceive( MCU_SPI_T* hspi, uint8_t* txData, uint8_t* rxData, uint16_t size, uint32_t timeout ) {
+    (void)hspi;
+    (void)txData;
+    (void)rxData;
+    (void)size;
+    (void)timeout;
+    return 0; // OK
+}
+}
 
 class SPIController final : public EDF::SPIController {
 private:
@@ -103,6 +103,11 @@ int main() {
     SPIController spi0( SPI0, chipSelect );
     // end::init[]
 
+    // tag::init_chip_2[]
+    GPIO chipSelect_chip2( GPIO_PORTA, 8 );
+    SPIController spi0_chip2( SPI0, chipSelect_chip2 );
+    // end::init_chip_2[]
+
     // tag::spi_select[]
     spi0.select();
     // end::spi_select[]
@@ -142,7 +147,7 @@ int main() {
     // end::spi_transfer_byte_3[]
 
     // tag::spi_transfer_byte_array[]
-    uint8_t data[] = { 1, 2, 3, 4, 5 };
+    uint8_t data[] = { 1, 2, 3, 4 };
     Response response = spi0.transfer( data, EDF::nElements(data) );
     // end::spi_transfer_byte_array[]
     (void)response;
