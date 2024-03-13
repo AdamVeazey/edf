@@ -151,7 +151,7 @@ This enumeration contains an `Ok` if the transfer was completed successfully, ot
 
 [source,c++,indent=0]
 ----
-include::{path_include_edf_peripherals_spi_controller_hpp}[tag=spi_controller_response_data]
+include::{path_include_edf_peripherals_spi_controller_hpp}[tag=spi_controller_response]
 ----
 
 ---
