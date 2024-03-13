@@ -15,6 +15,7 @@ namespace EDF {
 
 class SPIController {
 public:
+    // tag::spi_controller_response[]
     enum class Response : uint8_t{
         Ok,
         ErrorBusy,
@@ -22,11 +23,13 @@ public:
         Error,
         ErrorTimeout,
     };
+    // end::spi_controller_response[]
+    // tag::spi_controller_response_data[]
     class ResponseData {
     private:
         uint16_t value;
     public:
-        constexpr ResponseData( Response r, uint8_t data = 0 ) :
+        constexpr ResponseData( Response r, uint8_t data ) :
             value(
                 static_cast<uint16_t>((static_cast<uint16_t>(r) << 8)) |
                 data
@@ -42,6 +45,7 @@ public:
         /* implicitly convert to a Response. Need to call data() explicitly to obtain value */
         constexpr operator Response () const { return response(); }
     };
+    // end::spi_controller_response_data[]
 public:
     virtual ~SPIController() = default;
     virtual void select() = 0;
