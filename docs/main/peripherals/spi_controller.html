@@ -259,7 +259,337 @@
 </aside>
 <article class="doc">
 <h1 class="page">SPI Controller</h1>
+<div class="sect1">
+<h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>SPI Controller is the interface for a SPI bus controller (master) for all MCUs. Drivers can use this interface to be written for use with any microcontroller.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_initialization"><a class="anchor" href="#_initialization"></a>Initialization</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Initialization is not done using this interface. Instead the specific SPI Controller driver for a given MCU should be used for configuration.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_example_derived_class"><a class="anchor" href="#_example_derived_class"></a>Example Derived Class</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This example showcases a simplified representation of a memory-mapped SPI peripheral in a microcontroller. The SPI Controller interface presented here offers an illustration of its usage. However, it is important to note that this interface is primarily focused on toggling chip select, and an 8-bit transfer of data between the controller and peripheral, without delving into the actual configuration of the SPI controller. This will be specific for each microcontroller. See <a href="#mcu/ST/STM32C011F6:spi_controller.adoc" class="xref unresolved">SPIController</a> for an example implementation on a real microcontroller.</p>
+</div>
+<div class="paragraph">
+<p>The <a href="gpio.html" class="xref page">GPIO</a> example is duplicated here for usage as chip select.</p>
+</div>
+<div class="paragraph">
+<p>In the code, a pseudo-memory-mapped SPI peripheral is simulated through a structure named <code>MCU_SPI_T</code>, which contains a single "register" called <code>DATA_REGISTER</code>. For the purpose of this example, an actual instance of this simulated peripheral <code>MCU_SPI0</code>, is created. Typically, in real microcontrollers, the address for such a peripheral would be obtained from the datasheet and hardcoded into the #define.</p>
+</div>
+<div class="paragraph">
+<p>The <code>SPIController</code> class, derived from the <code>EDF::SPIController</code> base class, provides an abstraction for interacting with a SPI bus as a controller. This class overrides the required member functions <a href="#select">select()</a>, <a href="#deselect">deselect()</a>, <a href="#transfer_byte">transfer( uint8_t )</a>, and <a href="#transfer_data">transfer( uint8_t[] )</a>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">/* Simulate a SPI memory mapped peripheral, here is just a single "register" */
+struct MCU_SPI_T {
+    volatile uint32_t DATA_REGISTER;
+};
 
+/* For this example, we need a real instance of the fake memory mapped peripheral */
+static MCU_SPI_T MCU_SPI0;
+
+/* Normally the definition is a hardcoded address that comes from the datasheet */
+#define SPI0        (&amp;MCU_SPI0)
+
+extern "C"{
+int HAL_SPI_TransmitReceive( MCU_SPI_T* hspi, uint8_t* txData, uint8_t* rxData, uint16_t size, uint32_t timeout ) {
+    (void)hspi;
+    (void)txData;
+    (void)rxData;
+    (void)size;
+    (void)timeout;
+    return 0; // OK
+}
+}
+
+class SPIController final : public EDF::SPIController {
+private:
+    MCU_SPI_T* spi;
+    GPIO&amp; cs;
+public:
+    SPIController( MCU_SPI_T* spi, GPIO&amp; cs ) : spi(spi), cs(cs) {}
+    virtual ~SPIController() = default;
+
+    virtual void select() override {
+        cs.setLow();
+    }
+    virtual void deselect() override {
+        cs.setHigh();
+    }
+    virtual ResponseData transfer( uint8_t data ) override {
+        return ResponseData( transfer( &amp;data, 1 ), data );
+    }
+    virtual Response transfer( uint8_t* dataInOut, std::size_t n ) override {
+        auto ret = HAL_SPI_TransmitReceive(
+            spi,
+            dataInOut,
+            dataInOut,
+            static_cast&lt;uint16_t&gt;(n),
+            0
+        );
+        (void)ret;
+        /* Do error handling */
+        return Response::Ok;
+    }
+};</code></pre>
+</div>
+</div>
+<hr>
+<div class="sect2">
+<h3 id="select"><a class="anchor" href="#select"></a>select()</h3>
+<div class="paragraph">
+<p>Enable chip select. For most peripheral devices this means setting chip select low. This example uses GPIO::setLow() to achieve this.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">GPIO chipSelect( GPIO_PORTA, 5 );
+SPIController spi0( SPI0, chipSelect );
+spi0.select();</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/select.png" alt="select">
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="deselect"><a class="anchor" href="#deselect"></a>deselect()</h3>
+<div class="paragraph">
+<p>Disable chip select. For most peripheral devices this means setting chip select high. This example uses GPIO::setHigh() to achieve this.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">GPIO chipSelect( GPIO_PORTA, 5 );
+SPIController spi0( SPI0, chipSelect );
+spi0.deselect();</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/deselect.png" alt="deselect">
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="transfer_byte"><a class="anchor" href="#transfer_byte"></a>transfer( uint8_t )</h3>
+<div class="paragraph">
+<p>Send and receive a byte using 8 SCLK cycles. This member function returns a <a href="#response_data">ResponseData</a>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example ResponseData</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">GPIO chipSelect( GPIO_PORTA, 5 );
+SPIController spi0( SPI0, chipSelect );
+using Response = EDF::SPIController::Response;
+using ResponseData = EDF::SPIController::ResponseData;
+spi0.select();
+ResponseData rd = spi0.transfer( 0x55 );
+if( rd == Response::Ok ) {
+    uint8_t value = rd.data();
+    (void)value; // do something with valid data
+}
+spi0.deselect();</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/transfer_byte.png" alt="transfer byte">
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Example Response</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">GPIO chipSelect( GPIO_PORTA, 5 );
+SPIController spi0( SPI0, chipSelect );
+using Response = EDF::SPIController::Response;
+using ResponseData = EDF::SPIController::ResponseData;
+spi0.select();
+Response resp = spi0.transfer( 0x5A );
+spi0.deselect();</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Example ResponseData All Response Options</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">GPIO chipSelect( GPIO_PORTA, 5 );
+SPIController spi0( SPI0, chipSelect );
+using Response = EDF::SPIController::Response;
+using ResponseData = EDF::SPIController::ResponseData;
+spi0.select();
+ResponseData r = spi0.transfer( 0xAA );
+switch( r ) {
+case Response::Ok:           r.data();  break;
+case Response::ErrorBusy:               break;
+case Response::ErrorOverrun:            break;
+case Response::Error:                   break;
+case Response::ErrorTimeout:            break;
+default:                                break;
+}
+spi0.deselect();</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="response_data"><a class="anchor" href="#response_data"></a>ResponseData</h4>
+<div class="paragraph">
+<p>This is the response of a <a href="#transfer_byte">transfer( uint8_t )</a>. It contains a <a href="#response">Response</a> and the data read from the peripheral. This value can implicitly convert to a <a href="#response">Response</a>. In order to get the data, you need to call <code>data()</code> on this object.</p>
+</div>
+<div class="listingblock">
+<div class="title">ResponseData Definition</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">class ResponseData {
+private:
+    uint16_t value;
+public:
+    constexpr ResponseData( Response r, uint8_t data ) :
+        value(
+            static_cast&lt;uint16_t&gt;((static_cast&lt;uint16_t&gt;(r) &lt;&lt; 8)) |
+            data
+        )
+    {}
+    constexpr Response response() const {
+        return static_cast&lt;Response&gt;(value &gt;&gt; 8);
+    }
+    constexpr uint8_t data() const {
+        EDF_ASSERTD( response() == Response::Ok, "Response must be Ok to extract value");
+        return static_cast&lt;uint8_t&gt;(value);
+    }
+    /* implicitly convert to a Response. Need to call data() explicitly to obtain value */
+    constexpr operator Response () const { return response(); }
+};</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This class is 2 bytes in size, where the response is stored in the MSB and the data is stored in the LSB.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ResponseData.png" alt="ResponseData">
+</div>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="transfer_data"><a class="anchor" href="#transfer_data"></a>transfer( uint8_t[] )</h3>
+<div class="paragraph">
+<p>Send and receive an array of bytes. This member function returns a <a href="#response">Response</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The data array passed to this function is where the data from the peripheral device is stored. In other words, the data array is an input parameter, as well as an output parameter.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">GPIO chipSelect( GPIO_PORTA, 5 );
+SPIController spi0( SPI0, chipSelect );
+using Response = EDF::SPIController::Response;
+using ResponseData = EDF::SPIController::ResponseData;
+spi0.select();
+uint8_t data[] = { 1, 2, 3, 4 };
+Response response = spi0.transfer( data, EDF::nElements(data) );
+spi0.deselect();</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/transfer_data.png" alt="transfer data">
+</div>
+</div>
+<div class="sect3">
+<h4 id="response"><a class="anchor" href="#response"></a>Response</h4>
+<div class="paragraph">
+<p>This enumeration contains an <code>Ok</code> if the transfer was completed successfully, otherwise it will contain a specific error, or if none of those fit a general purpose error code. Depending on the specific implementation it&#8217;s possible that only some of these error codes are actually ever returned. If <code>Error</code> is returned, it means that one of these errors didn&#8217;t cover a case for the specific MCU and the SPI Controller implementation for that MCU should provide other methods for more information on what exactly went wrong.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 1.2345%;">
+<col style="width: 98.7655%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-middle">Value</th>
+<th class="tableblock halign-center valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>Ok</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that the SPI controller operation was successful without any errors.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>ErrorBusy</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that the SPI controller was busy and unable to perform the requested operation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>ErrorOverrun</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that data overrun occurred during SPI communication, where new data overwrote existing data.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>Error</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates a generic error condition that occurred during SPI communication not covered by the other error messages</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><code>ErrorTimeout</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that a timeout occurred while waiting performing a transfer.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">class ResponseData {
+private:
+    uint16_t value;
+public:
+    constexpr ResponseData( Response r, uint8_t data ) :
+        value(
+            static_cast&lt;uint16_t&gt;((static_cast&lt;uint16_t&gt;(r) &lt;&lt; 8)) |
+            data
+        )
+    {}
+    constexpr Response response() const {
+        return static_cast&lt;Response&gt;(value &gt;&gt; 8);
+    }
+    constexpr uint8_t data() const {
+        EDF_ASSERTD( response() == Response::Ok, "Response must be Ok to extract value");
+        return static_cast&lt;uint8_t&gt;(value);
+    }
+    /* implicitly convert to a Response. Need to call data() explicitly to obtain value */
+    constexpr operator Response () const { return response(); }
+};</code></pre>
+</div>
+</div>
+<hr>
+</div>
+</div>
+</div>
+</div>
 </article>
   </div>
 </main>
