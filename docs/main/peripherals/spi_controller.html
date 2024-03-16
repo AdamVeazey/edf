@@ -451,6 +451,14 @@ spi0.deselect();</code></pre>
 <div class="paragraph">
 <p>This is the response of a <a href="#transfer_byte">transfer( uint8_t )</a>. It contains a <a href="#response">Response</a> and the data read from the peripheral. This value can implicitly convert to a <a href="#response">Response</a>. In order to get the data, you need to call <code>data()</code> on this object.</p>
 </div>
+<div class="paragraph">
+<p>This class is 2 bytes in size, where the response is stored in the MSB and the data is stored in the LSB.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ResponseData.png" alt="ResponseData">
+</div>
+</div>
 <div class="listingblock">
 <div class="title">ResponseData Definition</div>
 <div class="content">
@@ -474,14 +482,6 @@ public:
     /* implicitly convert to a Response. Need to call data() explicitly to obtain value */
     constexpr operator Response () const { return response(); }
 };</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This class is 2 bytes in size, where the response is stored in the MSB and the data is stored in the LSB.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/ResponseData.png" alt="ResponseData">
 </div>
 </div>
 <hr>
