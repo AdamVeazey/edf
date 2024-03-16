@@ -95,15 +95,15 @@ include::{path_example_peripherals_spi_controller_main_cpp}[tag=spi_deselect]
 ==== ResponseData
 This is the response of a <<transfer_byte>>. It contains a <<response>> and the data read from the peripheral. This value can implicitly convert to a <<response>>. In order to get the data, you need to call `data()` on this object.
 
+This class is 2 bytes in size, where the response is stored in the MSB and the data is stored in the LSB.
+
+image::ResponseData.png[]
+
 .ResponseData Definition
 [source,c++,indent=0]
 ----
 include::{path_include_edf_peripherals_spi_controller_hpp}[tag=spi_controller_response_data]
 ----
-
-This class is 2 bytes in size, where the response is stored in the MSB and the data is stored in the LSB.
-
-image::ResponseData.png[]
 
 ---
 
