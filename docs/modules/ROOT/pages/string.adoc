@@ -29,17 +29,15 @@ There are three big picture concepts that will help make sense of this large cla
 .. [[const_uint8_t_star]]`f( const uint8_t* str );`
 .. [[const_char_star_n]]`f( const char* str, std::size_t n );`
 .. [[const_uint8_t_star_n]]`f( const uint8_t* str, std::size_t n );`
-.. [[const_char_ref]]`f( const char (&str)[S] );`
-.. [[const_const_uint8_t_ref]]`f( const uint8_t (&str)[S] );`
 .. [[char]]`f( char ch );`
-.. [[int8_t]]`f( int8_t value, std::size_t base = 10 );`
-.. [[int16_t]]`f( int16_t value, std::size_t base = 10 );`
-.. [[int32_t]]`f( int32_t value, std::size_t base = 10 );`
-.. [[int64_t]]`f( int64_t value, std::size_t base = 10 );`
-.. [[uint8_t]]`f( uint8_t value, std::size_t base = 10 );`
-.. [[uint16_t]]`f( uint16_t value, std::size_t base = 10 );`
-.. [[uint32_t]]`f( uint32_t value, std::size_t base = 10 );`
-.. [[uint64_t]]`f( uint64_t value, std::size_t base = 10 );`
+.. [[int8_t]]`f( int8_t value, int base = 10 );`
+.. [[int16_t]]`f( int16_t value, int base = 10 );`
+.. [[int32_t]]`f( int32_t value, int base = 10 );`
+.. [[int64_t]]`f( int64_t value, int base = 10 );`
+.. [[uint8_t]]`f( uint8_t value, int base = 10 );`
+.. [[uint16_t]]`f( uint16_t value, int base = 10 );`
+.. [[uint32_t]]`f( uint32_t value, int base = 10 );`
+.. [[uint64_t]]`f( uint64_t value, int base = 10 );`
 .. [[string]]`f( const String<S>& o );`
 . [[size_t]]Overload resolution. Except for `std::size_t n` which indicates parameter string length, every other `std::size_t` argument should be of the correct type. To aid with this you can use {ref_edf_math_uz}.
 
@@ -105,26 +103,6 @@ include::{path_example_edf_string_main_cpp}[tag=init_const_char_star_n]
 include::{path_example_edf_string_main_cpp}[tag=init_str_literal_uint8_t]
 include::{path_example_edf_string_main_cpp}[tag=init_p_literal_uint8_t]
 include::{path_example_edf_string_main_cpp}[tag=init_const_uint8_t_star_n]
-----
-
----
-
-=== <<const_char_ref,String( const char (&)[S] )>>
-.Example
-[source,c++,indent=0]
-----
-include::{path_example_edf_string_main_cpp}[tag=init_str_literal_char]
-include::{path_example_edf_string_main_cpp}[tag=init_const_char_ref]
-----
-
----
-
-=== <<const_const_uint8_t_ref,String( const uint8_t (&)[S] )>>
-.Example
-[source,c++,indent=0]
-----
-include::{path_example_edf_string_main_cpp}[tag=init_str_literal_uint8_t]
-include::{path_example_edf_string_main_cpp}[tag=init_const_uint8_t_ref]
 ----
 
 ---
@@ -299,8 +277,6 @@ include::{path_example_edf_string_main_cpp}[tag=element_access_standard]
 
 NOTE: This also means that there is no boundary checking, so it is possible to attempt to access data outside of the string.
 
-NOTE: 0{ref_edf_math_uz}
-
 ---
 
 [#at]
@@ -314,8 +290,6 @@ include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=element_access_at]
 ----
 
-NOTE: 0{ref_edf_math_uz}
-
 ---
 
 === asCString()
@@ -324,10 +298,10 @@ Returns a raw pointer to the first element of the string.
 .Example
 [source,c++,indent=0]
 ----
-    void working_with_a_c_library_function( const char *data, size_t n ) { /* ... */}
+    void c_library_function( const char *data, size_t n ) { /* ... */}
 
 include::{path_example_edf_string_main_cpp}[tag=init]
-    working_with_a_c_library_function( string.asCString(), string.length() );
+    c_library_function( string.asCString(), string.length() );
 ----
 
 NOTE: Can be called in order to "decay" to a pointer like a C-Style array
@@ -340,10 +314,10 @@ Returns a raw pointer to the first element of the string.
 .Example
 [source,c++,indent=0]
 ----
-    void working_with_a_c_library_function( const uint8_t *data, size_t n ) { /* ... */}
+    void c_library_function( const uint8_t *data, size_t n ) { /* ... */}
 
 include::{path_example_edf_string_main_cpp}[tag=init]
-    working_with_a_c_library_function( string.asByteData(), string.length() );
+    c_library_function( string.asByteData(), string.length() );
 ----
 
 NOTE: Can be called in order to "decay" to a pointer like a C-Style array
@@ -1114,18 +1088,19 @@ Syntax sugar for calling <<append>>.
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 
-include::{path_example_edf_string_main_cpp}[init_str_literal_char]
-include::{path_example_edf_string_main_cpp}[init_str_literal_uint8_t]
-include::{path_example_edf_string_main_cpp}[init_p_literal_uint8_t]
-include::{path_example_edf_string_main_cpp}[init_literal_char]
-include::{path_example_edf_string_main_cpp}[init_literal_int8_t]
-include::{path_example_edf_string_main_cpp}[init_literal_int16_t]
-include::{path_example_edf_string_main_cpp}[init_literal_int32_t]
-include::{path_example_edf_string_main_cpp}[init_literal_int64_t]
-include::{path_example_edf_string_main_cpp}[init_literal_uint8_t]
-include::{path_example_edf_string_main_cpp}[init_literal_uint16_t]
-include::{path_example_edf_string_main_cpp}[init_literal_uint32_t]
-include::{path_example_edf_string_main_cpp}[init_literal_uint64_t]
+include::{path_example_edf_string_main_cpp}[tag=init_str_literal_char]
+include::{path_example_edf_string_main_cpp}[tag=init_str_literal_uint8_t]
+include::{path_example_edf_string_main_cpp}[tag=init_p_literal_uint8_t]
+include::{path_example_edf_string_main_cpp}[tag=init_literal_char]
+include::{path_example_edf_string_main_cpp}[tag=init_literal_int8_t]
+include::{path_example_edf_string_main_cpp}[tag=init_literal_int16_t]
+include::{path_example_edf_string_main_cpp}[tag=init_literal_int32_t]
+include::{path_example_edf_string_main_cpp}[tag=init_literal_int64_t]
+include::{path_example_edf_string_main_cpp}[tag=init_literal_uint8_t]
+include::{path_example_edf_string_main_cpp}[tag=init_literal_uint16_t]
+include::{path_example_edf_string_main_cpp}[tag=init_literal_uint32_t]
+include::{path_example_edf_string_main_cpp}[tag=init_literal_uint64_t]
+include::{path_example_edf_string_main_cpp}[tag=init_literal_different_sized_string]
 
 include::{path_example_edf_string_main_cpp}[tag=operation_plus_equals1]
 include::{path_example_edf_string_main_cpp}[tag=operation_plus_equals2]
@@ -1154,9 +1129,9 @@ include::{path_example_edf_string_main_cpp}[tag=init_literal_uint8_t]
 include::{path_example_edf_string_main_cpp}[tag=init_literal_uint16_t]
 include::{path_example_edf_string_main_cpp}[tag=init_literal_uint32_t]
 include::{path_example_edf_string_main_cpp}[tag=init_literal_uint64_t]
+include::{path_example_edf_string_main_cpp}[tag=init_literal_different_sized_string]
 
 include::{path_example_edf_string_main_cpp}[tag=init_result]
-
 include::{path_example_edf_string_main_cpp}[tag=operation_plus_rhs]
 ----
 
@@ -1182,6 +1157,7 @@ include::{path_example_edf_string_main_cpp}[tag=init_literal_uint8_t]
 include::{path_example_edf_string_main_cpp}[tag=init_literal_uint16_t]
 include::{path_example_edf_string_main_cpp}[tag=init_literal_uint32_t]
 include::{path_example_edf_string_main_cpp}[tag=init_literal_uint64_t]
+include::{path_example_edf_string_main_cpp}[tag=init_literal_different_sized_string]
 
 include::{path_example_edf_string_main_cpp}[tag=init_result]
 

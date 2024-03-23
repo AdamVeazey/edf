@@ -1,3 +1,157 @@
 = SPI Controller
 
 include::ROOT:partial$refs.adoc[]
+
+== Overview
+SPI Controller is the interface for a SPI bus controller (master) for all MCUs. Drivers can use this interface to be written for use with any microcontroller.
+
+== Initialization
+Initialization is not done using this interface. Instead the specific SPI Controller driver for a given MCU should be used for configuration.
+
+== Example Derived Class
+This example showcases a simplified representation of a memory-mapped SPI peripheral in a microcontroller. The SPI Controller interface presented here offers an illustration of its usage. However, it is important to note that this interface is primarily focused on toggling chip select, and an 8-bit transfer of data between the controller and peripheral, without delving into the actual configuration of the SPI controller. This will be specific for each microcontroller. See {ref_st_stm32c011f6_spi_controller} for an example implementation on a real microcontroller.
+
+The {ref_peripherals_gpio} example is duplicated here for usage as chip select.
+
+In the code, a pseudo-memory-mapped SPI peripheral is simulated through a structure named `MCU_SPI_T`, which contains a single "register" called `DATA_REGISTER`. For the purpose of this example, an actual instance of this simulated peripheral `MCU_SPI0`, is created. Typically, in real microcontrollers, the address for such a peripheral would be obtained from the datasheet and hardcoded into the #define.
+
+The `SPIController` class, derived from the `EDF::SPIController` base class, provides an abstraction for interacting with a SPI bus as a controller. This class overrides the required member functions <<select>>, <<deselect>>, <<transfer_byte>>, and <<transfer_data>>.
+
+.Example
+[source,c++,indent=0]
+----
+include::{path_example_peripherals_spi_controller_main_cpp}[tag=mock_spi_controller]
+----
+
+---
+
+[#select]
+=== select()
+Enable chip select. For most peripheral devices this means setting chip select low. This example uses GPIO::setLow() to achieve this.
+
+.Example
+[source,c++,indent=0]
+----
+include::{path_example_peripherals_spi_controller_main_cpp}[tag=init]
+include::{path_example_peripherals_spi_controller_main_cpp}[tag=spi_select]
+----
+
+image::select.png[]
+
+---
+
+[#deselect]
+=== deselect()
+Disable chip select. For most peripheral devices this means setting chip select high. This example uses GPIO::setHigh() to achieve this.
+
+.Example
+[source,c++,indent=0]
+----
+include::{path_example_peripherals_spi_controller_main_cpp}[tag=init]
+include::{path_example_peripherals_spi_controller_main_cpp}[tag=spi_deselect]
+----
+
+image::deselect.png[]
+
+---
+
+[#transfer_byte]
+=== transfer( uint8_t )
+Send and receive a byte using 8 SCLK cycles. This member function returns a <<response_data>>.
+
+.Example ResponseData
+[source,c++,indent=0]
+----
+include::{path_example_peripherals_spi_controller_main_cpp}[tag=init]
+include::{path_example_peripherals_spi_controller_main_cpp}[tag=spi_types]
+include::{path_example_peripherals_spi_controller_main_cpp}[tag=spi_select]
+include::{path_example_peripherals_spi_controller_main_cpp}[tag=spi_transfer_byte_2]
+include::{path_example_peripherals_spi_controller_main_cpp}[tag=spi_deselect]
+----
+
+image::transfer_byte.png[]
+
+.Example Response
+[source,c++,indent=0]
+----
+include::{path_example_peripherals_spi_controller_main_cpp}[tag=init]
+include::{path_example_peripherals_spi_controller_main_cpp}[tag=spi_types]
+include::{path_example_peripherals_spi_controller_main_cpp}[tag=spi_select]
+include::{path_example_peripherals_spi_controller_main_cpp}[tag=spi_transfer_byte_1]
+include::{path_example_peripherals_spi_controller_main_cpp}[tag=spi_deselect]
+----
+
+.Example ResponseData All Response Options
+[source,c++,indent=0]
+----
+include::{path_example_peripherals_spi_controller_main_cpp}[tag=init]
+include::{path_example_peripherals_spi_controller_main_cpp}[tag=spi_types]
+include::{path_example_peripherals_spi_controller_main_cpp}[tag=spi_select]
+include::{path_example_peripherals_spi_controller_main_cpp}[tag=spi_transfer_byte_3]
+include::{path_example_peripherals_spi_controller_main_cpp}[tag=spi_deselect]
+----
+
+[#response_data]
+==== ResponseData
+This is the response of a <<transfer_byte>>. It contains a <<response>> and the data read from the peripheral. This value can implicitly convert to a <<response>>. In order to get the data, you need to call `data()` on this object.
+
+This class is 2 bytes in size, where the response is stored in the MSB and the data is stored in the LSB.
+
+image::ResponseData.png[]
+
+.ResponseData Definition
+[source,c++,indent=0]
+----
+include::{path_include_edf_peripherals_spi_controller_hpp}[tag=spi_controller_response_data]
+----
+
+---
+
+[#transfer_data]
+=== transfer( uint8_t[] )
+Send and receive an array of bytes. This member function returns a <<response>>.
+
+NOTE: The data array passed to this function is where the data from the peripheral device is stored. In other words, the data array is an input parameter, as well as an output parameter.
+
+.Example
+[source,c++,indent=0]
+----
+include::{path_example_peripherals_spi_controller_main_cpp}[tag=init]
+include::{path_example_peripherals_spi_controller_main_cpp}[tag=spi_types]
+include::{path_example_peripherals_spi_controller_main_cpp}[tag=spi_select]
+include::{path_example_peripherals_spi_controller_main_cpp}[tag=spi_transfer_byte_array]
+include::{path_example_peripherals_spi_controller_main_cpp}[tag=spi_deselect]
+----
+
+image::transfer_data.png[]
+
+[#response]
+==== Response
+This enumeration contains an `Ok` if the transfer was completed successfully, otherwise it will contain a specific error, or if none of those fit a general purpose error code. Depending on the specific implementation it's possible that only some of these error codes are actually ever returned. If `Error` is returned, it means that one of these errors didn't cover a case for the specific MCU and the SPI Controller implementation for that MCU should provide other methods for more information on what exactly went wrong.
+
+[cols="^.^,80%", options="header"]
+|===
+^| Value ^| Description
+
+| `Ok`
+| Indicates that the SPI controller operation was successful without any errors.
+
+| `ErrorBusy`
+| Indicates that the SPI controller was busy and unable to perform the requested operation.
+
+| `ErrorOverrun`
+| Indicates that data overrun occurred during SPI communication, where new data overwrote existing data.
+
+| `Error`
+| Indicates a generic error condition that occurred during SPI communication not covered by the other error messages
+
+| `ErrorTimeout`
+| Indicates that a timeout occurred while waiting performing a transfer.
+|===
+
+[source,c++,indent=0]
+----
+include::{path_include_edf_peripherals_spi_controller_hpp}[tag=spi_controller_response]
+----
+
+---

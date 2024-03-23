@@ -7,8 +7,6 @@
 
 #include <EDF/Peripherals/PWM.hpp>
 
-#include <iostream>
-
 // tag::mock_pwm[]
 /* Simulate a Timer memory mapped peripheral, here is just a couple "registers" */
 struct MCU_TIMER_T {
@@ -83,6 +81,15 @@ int main() {
     uint32_t hz = pwm.getPeriod_Hz();
     // end::pwm_get_period_hz[]
     (void)hz;
+
+    // tag::pwm_set_period_ticks[]
+    pwm.setPeriod_ticks( 1000 );
+    // end::pwm_set_period_ticks[]
+
+    // tag::pwm_get_period_ticks[]
+    uint32_t ticks = pwm.getPeriod_ticks();
+    // end::pwm_get_period_ticks[]
+    (void)ticks;
 
     // tag::pwm_set_duty_cycle_percent[]
     pwm.setDutyCyclePercent( 50 );

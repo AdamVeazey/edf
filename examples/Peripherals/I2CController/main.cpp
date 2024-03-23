@@ -127,15 +127,25 @@ public:
 // end::mock_i2c_controller[]
 
 int main() {
-    using namespace std;
-
     // tag::init[]
     I2CController i2c0( I2C0 );
     // end::init[]
 
+    // tag::i2c_init[]
+    i2c0.init( I2CController::Mode::Standard );
+    // end::i2c_init[]
+
     // tag::i2c_set_timeout[]
     i2c0.setTimeout( 0xFFFFFFFFu );
     // end::i2c_set_timeout[]
+
+    // tag::i2c_probe[]
+    for( uint8_t address = 0x00; address < 128; ++address ){
+        if( i2c0.probe( address ) ) {
+            // device with `address` is connected to this I2C bus
+        }
+    }
+    // end::i2c_probe[]
 
     // tag::i2c_write_8_bit_register[]
     I2CController::Response resW8 = i2c0.write8BitRegister( 0x30, 0x40, 0xAA );
@@ -162,7 +172,7 @@ int main() {
     (void)resR16;
 
     // tag::i2c_transfer[]
-    uint8_t value = 0x40;
+    uint8_t value = 0x12;
     I2CController::Response res = i2c0.transfer( 0x30, &value, 1, &value, 1 ); // same as read8BitRegister
     // end::i2c_transfer[]
     (void)value;
