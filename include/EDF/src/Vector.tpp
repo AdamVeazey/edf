@@ -72,7 +72,7 @@ template<typename T, std::size_t N>
 constexpr typename Vector<T, N>::Iterator Vector<T, N>::
 erase( ConstIterator pos ) {
     EDF_ASSERTD(pos >= begin(), "position must be valid");
-    EDF_ASSERTD(pos <= end(), "position must be valid");
+    EDF_ASSERTD(pos < end(), "position must be valid");
 
     Iterator position = begin() + (pos - begin());
     position->~T(); // destruct element being erase
