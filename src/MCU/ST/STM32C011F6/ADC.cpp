@@ -153,12 +153,12 @@ getMaxValue() {
 
 void ADC::
 calibrate() {
-    HAL_ADCEx_Calibration_Start( adc );
+    // HAL_ADCEx_Calibration_Start( adc );
 }
 
 uint32_t ADC::
 to_mV( int32_t adcValue ) {
-
+    return adcValue;
 }
 
 
@@ -296,6 +296,7 @@ bool ADCScanGroup::
 removeChannel( std::size_t index ) {
     if( scanGroup.isEmpty() ) return false;
     scanGroup.erase( index );
+    return true;
 }
 
 ADCScanGroup::ResponseData ADCScanGroup::
