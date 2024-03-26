@@ -9,10 +9,14 @@
 
 #include "EDF/Peripherals/ADC.hpp"
 #include "EDF/Vector.hpp"
+#include "EDF/Queue.hpp"
 
 #include "stm32c0xx_hal.h"
 
 #undef ADC // ST defines this for legacy reasons. If you need this defined, refactor or don't use this.
+
+class ADCChannel;
+class ADCScanGroup;
 
 class ADC : public EDF::ADC {
 public:
@@ -58,28 +62,61 @@ public:
     };
     // ADC_REGULAR_RANK_8 is the highest rank, 8 possible channels per scan group
     using ScanGroup = EDF::Vector<ADC::Channel, 8>;
+    enum class IRQType {
+        ConvCplt,
+        ConvHalfCplt,
+        LevelOutOfWindow,
+        Error,
+    };
 private:
     ADC_HandleTypeDef* adc;
     uint32_t timeout_ticks;
+    ADCChannel* irqChannel;
+    ADCScanGroup* irqScanGroup;
+    EDF::Queue<IRQType, 8> irqOrder; // arbitrary number of irq's to store
 private:
     Response toResponse( HAL_StatusTypeDef status, uint32_t adcError );
     bool isSequencerAlreadySetup( const ScanGroup& scanGroup );
     bool isSequencerAlreadySetup( Channel channel );
-public:
-    ADC( ADC_HandleTypeDef* adc ) : adc(adc), timeout_ticks(0) {}
-    inline void setTimeout( uint32_t ticks ) { timeout_ticks = ticks; }
-    Response configureScanGroup( const ScanGroup& scanGroup );
-    Response configureSingleConversion( Channel channel );
-
-    Response start();
-    Response stop();
+protected:
+    Response pollConfigure( const ScanGroup& scanGroup );
+    Response pollConfigure( Channel channel );
+    Response pollStart();
+    Response pollStop();
     Response pollForConversion();
     Response pollForEvent( Event event );
+
+    Response irqConfigure( ADCChannel* self, Channel channel );
+    Response irqStart();
+    Response irqStop();
+
+    Response dmaConfigure( ADCScanGroup* self, const ScanGroup& scanGroup );
+    Response dmaConfigure( ADCChannel* self, Channel channel );
+    Response dmaStart( uint32_t* dmaBuffer, std::size_t n );
+    Response dmaStop();
+
     uint32_t getValue();
+
+    friend class ADCChannel;
+    friend class ADCScanGroup;
+public:
+    ADC( ADC_HandleTypeDef* adc ) :
+        adc(adc), timeout_ticks(0),
+        irqChannel(nullptr), irqScanGroup(nullptr)
+    {}
+    inline void setTimeout( uint32_t ticks ) { timeout_ticks = ticks; }
+
     uint32_t getMaxValue();
 
     void calibrate();
-    static uint32_t to_mV( int32_t adcValue );
+    uint32_t to_mV( int32_t adcValue );
+
+    void handleIRQs();
+
+    void ConvCpltCallback( ADC_HandleTypeDef* hadc );
+    void ConvHalfCpltCallback( ADC_HandleTypeDef* hadc );
+    void LevelOutOfWindowCallback( ADC_HandleTypeDef* hadc );
+    void ErrorCallback( ADC_HandleTypeDef* hadc );
 };
 
 class ADCChannel {
@@ -91,6 +128,12 @@ private:
     ADC& adc;
     ADC::Channel channel;
     Callback cb;
+protected:
+    void ConvCpltCallback();
+    void ConvHalfCpltCallback();
+    void LevelOutOfWindowCallback();
+    void ErrorCallback();
+    friend class ADC;
 public:
     ADCChannel( ADC& adc, const ADC::Pin& pin );
     ADCChannel( ADC& adc, ADC::Channel channel ) :
@@ -109,9 +152,16 @@ public:
 private:
     ADC& adc;
     ADC::ScanGroup scanGroup;
-    int32_t values[8]; // max of 8 channels per scan group
+    uint32_t values[8]; // max of 8 channels per scan group
     Callback cb;
+protected:
+    void ConvCpltCallback();
+    void ConvHalfCpltCallback();
+    void LevelOutOfWindowCallback();
+    void ErrorCallback();
+    friend class ADC;
 public:
+    ADCScanGroup( ADC& adc ) : adc(adc), scanGroup{}, values{}, cb(nullptr) {}
     ADCScanGroup( ADC& adc, const std::initializer_list<ADC::Pin>& list );
     ADCScanGroup( ADC& adc, const std::initializer_list<ADC::Channel>& list );
 
