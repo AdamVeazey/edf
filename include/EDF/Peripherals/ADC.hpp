@@ -33,18 +33,18 @@ public:
     class ResponseData {
     private:
         Response resp;
-        int32_t value;
+        uint32_t value;
     public:
-        constexpr ResponseData( Response r, int32_t data = 0 ) : resp(r), value(data) {}
+        constexpr ResponseData( Response r, uint32_t data = 0 ) : resp(r), value(data) {}
         constexpr Response response() const { return resp; }
-        constexpr int32_t data() const {
+        constexpr uint32_t data() const {
             EDF_ASSERTD( response() == Response::Ok, "Response must be Ok to extract value");
             return value;
         }
         /* implicitly convert to a Response. Need to call data() explicitly to obtain value */
         constexpr operator Response () const { return response(); }
     };
-    using Callback = void (*)(void* self, ResponseData value);
+    using Callback = void (*)(const ResponseData& value);
 public:
     virtual ~ADCChannel() = default;
     virtual Response start( const Callback& cb = Callback() ) = 0;
@@ -56,20 +56,20 @@ public:
     using Response = ADC::Response;
     class ResponseData {
     public:
-        using Iterator = int32_t*;
-        using ConstIterator = const int32_t*;
+        using Iterator = uint32_t*;
+        using ConstIterator = const uint32_t*;
         using ReverseIterator = std::reverse_iterator<Iterator>;
         using ConstReverseIterator = std::reverse_iterator<ConstIterator>;
     private:
         Response resp;
-        int32_t* values;
+        uint32_t* values;
         std::size_t n;
     public:
-        constexpr ResponseData( Response r, int32_t* values = nullptr, std::size_t n = 0 ) :
+        constexpr ResponseData( Response r, uint32_t* values = nullptr, std::size_t n = 0 ) :
             resp(r), values(values), n(n)
         {}
         constexpr Response response()                       const { return resp; }
-        constexpr int32_t* data() const {
+        constexpr uint32_t* data() const {
             EDF_ASSERTD( response() == Response::Ok, "Response must be Ok to extract value");
             return values;
         }
@@ -93,11 +93,10 @@ public:
         constexpr ConstReverseIterator rend()               const { return ConstReverseIterator( begin() ); }
         constexpr ConstReverseIterator crend()              const { return ConstReverseIterator( begin() ); }
     };
-    using Callback = void (*)(void* self, ResponseData values);
+    using Callback = void (*)(const ResponseData& values);
 public:
     virtual ~ADCScanGroup() = default;
-    virtual Response start( const Callback& cb = Callback() ) = 0;
-    virtual Response getSamples( const Callback& cb ) = 0;
+    virtual Response start( const Callback& onComplete = Callback() ) = 0;
 };
 
 } /* EDF */

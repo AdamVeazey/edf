@@ -20,6 +20,7 @@ toResponse( HAL_StatusTypeDef status, uint32_t adcError ) {
     case HAL_ADC_ERROR_NONE:        return Response::Ok;
     case HAL_ADC_ERROR_OVR:         return Response::ErrorOverrun;
     case HAL_ADC_ERROR_INTERNAL:    return Response::Error;
+    case HAL_ADC_ERROR_DMA:         return Response::Error;
     default:
         break;
     }
@@ -44,7 +45,7 @@ isSequencerAlreadySetup( Channel channel ) {
 }
 
 ADC::Response ADC::
-configureScanGroup( const ScanGroup& scanGroup ) {
+pollConfigure( const ScanGroup& scanGroup ) {
     auto& NbrOfConversion = adc->Init.NbrOfConversion;
     auto& ScanConvMode = adc->Init.ScanConvMode;
     Response r = Response::Ok;
@@ -80,7 +81,7 @@ configureScanGroup( const ScanGroup& scanGroup ) {
 }
 
 ADC::Response ADC::
-configureSingleConversion( Channel channel ) {
+pollConfigure( Channel channel ) {
     // HAL_ADC_GetState( adc );
     // HAL_ADC_STATE_REG_BUSY;
     auto& NbrOfConversion = adc->Init.NbrOfConversion;
@@ -108,12 +109,12 @@ configureSingleConversion( Channel channel ) {
 }
 
 ADC::Response ADC::
-start() {
+pollStart() {
     return toResponse( HAL_ADC_Start( adc ), adc->ErrorCode );
 }
 
 ADC::Response ADC::
-stop() {
+pollStop() {
     return toResponse( HAL_ADC_Stop( adc ), adc->ErrorCode );
 }
 
@@ -131,6 +132,48 @@ pollForEvent( Event event ) {
         HAL_ADC_PollForEvent( adc, static_cast<uint32_t>(event), timeout_ticks ),
         adc->ErrorCode
     );
+}
+
+ADC::Response ADC::
+irqConfigure( ADCChannel* self, Channel channel ) {
+    irqChannel = self;      // used later for callback
+    irqScanGroup = nullptr; // don't use this for callbacks later
+    (void)channel;
+    return Response::Ok;
+}
+
+ADC::Response ADC::
+irqStart() {
+    return toResponse( HAL_ADC_Start_IT( adc ), adc->ErrorCode );
+}
+
+ADC::Response ADC::
+irqStop() {
+    return toResponse( HAL_ADC_Stop_IT( adc ), adc->ErrorCode );
+}
+
+ADC::Response ADC::
+dmaConfigure( ADCScanGroup* self, const ScanGroup& scanGroup ) {
+    irqScanGroup = self;    // used later for callback
+    irqChannel = nullptr;   // don't use this for callbacks later
+    return pollConfigure( scanGroup );
+}
+
+ADC::Response ADC::
+dmaConfigure( ADCChannel* self, Channel channel ) {
+    irqChannel = self;      // used later for callback
+    irqScanGroup = nullptr; // don't use this for callbacks later
+    return pollConfigure( channel );
+}
+
+ADC::Response ADC::
+dmaStart( uint32_t* dmaBuffer, std::size_t n ) {
+    return toResponse( HAL_ADC_Start_DMA( adc, dmaBuffer, n ), adc->ErrorCode );
+}
+
+ADC::Response ADC::
+dmaStop() {
+    return toResponse( HAL_ADC_Stop_DMA( adc ), adc->ErrorCode );
 }
 
 uint32_t ADC::
@@ -158,10 +201,63 @@ calibrate() {
 
 uint32_t ADC::
 to_mV( int32_t adcValue ) {
-    return adcValue;
+    return (adcValue * 3300) / getMaxValue();
 }
 
+void ADC::
+handleIRQs() {
+    while( !irqOrder.isEmpty() ) {
+        switch( irqOrder.pop() ){
+        case IRQType::ConvCplt:
+            if( irqScanGroup )  irqScanGroup->ConvCpltCallback();
+            if( irqChannel )    irqChannel->ConvCpltCallback();
+            break;
+        case IRQType::ConvHalfCplt:
+            if( irqScanGroup )  irqScanGroup->ConvHalfCpltCallback();
+            if( irqChannel )    irqChannel->ConvHalfCpltCallback();
+            break;
+        case IRQType::LevelOutOfWindow:
+            if( irqScanGroup )  irqScanGroup->LevelOutOfWindowCallback();
+            if( irqChannel )    irqChannel->LevelOutOfWindowCallback();
+            break;
+        case IRQType::Error:
+            if( irqScanGroup )  irqScanGroup->ErrorCallback();
+            if( irqChannel )    irqChannel->ErrorCallback();
+            break;
+        }
+    }
+}
 
+void ADC::
+ConvCpltCallback( ADC_HandleTypeDef* hadc ) {
+    if( hadc == adc ) {
+        irqOrder.push( IRQType::ConvCplt );
+    }
+}
+
+void ADC::
+ConvHalfCpltCallback( ADC_HandleTypeDef* hadc ) {
+    if( hadc == adc ) {
+        irqOrder.push( IRQType::ConvHalfCplt );
+    }
+}
+
+void ADC::
+LevelOutOfWindowCallback( ADC_HandleTypeDef* hadc ) {
+    if( hadc == adc ) {
+        irqOrder.push( IRQType::LevelOutOfWindow );
+    }
+}
+
+void ADC::
+ErrorCallback( ADC_HandleTypeDef* hadc ) {
+    if( hadc == adc ) {
+        irqOrder.push( IRQType::Error );
+    }
+}
+
+/*****************************************************************************/
+/*******************************ADCChannel************************************/
 /*****************************************************************************/
 
 struct LUT {
@@ -190,18 +286,18 @@ constexpr bool operator==( const ADC::Channel& lhs, const LUT& rhs ) {
 }
 
 constexpr LUT pinChannelLUT[] = {
-    LUT{ ADC::Pin{ GPIOA, (1 << 0) }, ADC::Channel::IN0 },
-    LUT{ ADC::Pin{ GPIOA, (1 << 1) }, ADC::Channel::IN1 },
-    LUT{ ADC::Pin{ GPIOA, (1 << 2) }, ADC::Channel::IN2 },
-    LUT{ ADC::Pin{ GPIOA, (1 << 3) }, ADC::Channel::IN3 },
-    LUT{ ADC::Pin{ GPIOA, (1 << 4) }, ADC::Channel::IN4 },
-    LUT{ ADC::Pin{ GPIOA, (1 << 5) }, ADC::Channel::IN5 },
-    LUT{ ADC::Pin{ GPIOA, (1 << 6) }, ADC::Channel::IN6 },
-    LUT{ ADC::Pin{ GPIOA, (1 << 7) }, ADC::Channel::IN7 },
-    LUT{ ADC::Pin{ GPIOA, (1 << 8) }, ADC::Channel::IN8 },
+    LUT{ ADC::Pin{ GPIOA, 0 }, ADC::Channel::IN0 },
+    LUT{ ADC::Pin{ GPIOA, 1 }, ADC::Channel::IN1 },
+    LUT{ ADC::Pin{ GPIOA, 2 }, ADC::Channel::IN2 },
+    LUT{ ADC::Pin{ GPIOA, 3 }, ADC::Channel::IN3 },
+    LUT{ ADC::Pin{ GPIOA, 4 }, ADC::Channel::IN4 },
+    LUT{ ADC::Pin{ GPIOA, 5 }, ADC::Channel::IN5 },
+    LUT{ ADC::Pin{ GPIOA, 6 }, ADC::Channel::IN6 },
+    LUT{ ADC::Pin{ GPIOA, 7 }, ADC::Channel::IN7 },
+    LUT{ ADC::Pin{ GPIOA, 8 }, ADC::Channel::IN8 },
 
-    LUT{ ADC::Pin{ GPIOA, (1 << 13) }, ADC::Channel::IN13 },
-    LUT{ ADC::Pin{ GPIOA, (1 << 14) }, ADC::Channel::IN14 },
+    LUT{ ADC::Pin{ GPIOA, 13 }, ADC::Channel::IN13 },
+    LUT{ ADC::Pin{ GPIOA, 14 }, ADC::Channel::IN14 },
 };
 
 ADCChannel::
@@ -213,20 +309,51 @@ ADCChannel( ADC& adc, const ADC::Pin& pin ) : adc(adc), cb(nullptr) {
     }
 }
 
+void ADCChannel::
+ConvCpltCallback() {
+    if( cb ) {
+        cb( ResponseData( Response::Ok, adc.getValue() ) );
+    }
+}
+
+void ADCChannel::
+ConvHalfCpltCallback() {
+    if( cb ) {
+        cb( Response::Error ); // half of a single conversion!?
+    }
+}
+
+void ADCChannel::
+LevelOutOfWindowCallback() {
+    if( cb ) {
+        cb( Response::Error ); // not setup yet, how??
+    }
+}
+
+void ADCChannel::
+ErrorCallback() {
+    if( cb ) {
+        cb( adc.toResponse(HAL_StatusTypeDef::HAL_OK, adc.adc->ErrorCode) );
+    }
+}
+
 ADCChannel::Response ADCChannel::
 start( const Callback& cb ) {
+    Response r = adc.irqConfigure( this, channel );
+    if( r != Response::Ok ) return r;
+
     if( cb ) {
         this->cb = cb;
     }
-    return adc.start();
+    return adc.irqStart();
 }
 
 ADCChannel::ResponseData ADCChannel::
 getSingleConversion() {
-    Response r = adc.configureSingleConversion( channel );
+    Response r = adc.pollConfigure( channel );
     if( r != Response::Ok ) return r;
 
-    r = adc.start();
+    r = adc.pollStart();
     if( r != Response::Ok ) return r;
 
     r = adc.pollForConversion();
@@ -234,6 +361,36 @@ getSingleConversion() {
 }
 
 /*****************************************************************************/
+/*******************************ADCScanGroup**********************************/
+/*****************************************************************************/
+
+void ADCScanGroup::
+ConvCpltCallback() {
+    if( cb ) {
+        cb( ResponseData( Response::Ok, values, scanGroup.length() ) );
+    }
+}
+
+void ADCScanGroup::
+ConvHalfCpltCallback() {
+    if( cb ) {
+        cb( Response::ErrorBusy );
+    }
+}
+
+void ADCScanGroup::
+LevelOutOfWindowCallback() {
+    if( cb ) {
+        cb( Response::Error ); // not setup yet, how??
+    }
+}
+
+void ADCScanGroup::
+ErrorCallback() {
+    if( cb ) {
+        cb( adc.toResponse(HAL_StatusTypeDef::HAL_OK, adc.adc->ErrorCode) );
+    }
+}
 
 ADCScanGroup::
 ADCScanGroup( ADC& adc, const std::initializer_list<ADC::Pin>& list ) :
@@ -299,19 +456,74 @@ removeChannel( std::size_t index ) {
     return true;
 }
 
-ADCScanGroup::ResponseData ADCScanGroup::
-getSamples() {
-    Response r = adc.configureScanGroup( scanGroup );
+ADCScanGroup::Response ADCScanGroup::
+start( const Callback& cb ) {
+    if( cb ) {
+        this->cb = cb;
+    }
+    auto r = adc.dmaConfigure( this, scanGroup );
     if( r != Response::Ok ) return r;
 
-    r = adc.start();
+    r = adc.dmaStart( values, scanGroup.length() );
+    return r;
+}
+
+ADCScanGroup::ResponseData ADCScanGroup::
+getSamples() {
+    // this "works" but is highly flawed due to the ADC just being really fast at sampling
+    // There's not really enough time to call functions and get values from the ADC before
+    // the next sample is already done. If you want to scan, use DMA, as this also means
+    // that even in an ISR we wouldn't be able to jump to ISR, copy value, jump back to
+    // main program before another conversion has already overwritten the data.
+
+    Response r = adc.pollConfigure( scanGroup );
+    if( r != Response::Ok ) return r;
+
+    r = adc.pollStart();
     if( r != Response::Ok ) return r;
 
     for( std::size_t k = 0; k < scanGroup.length(); ++k ) {
         r = adc.pollForConversion();
-        if( r != Response::Ok ) return r;
+        if( r != Response::Ok ) return ResponseData( r, values, k );
 
         values[k] = adc.getValue();
     }
     return ResponseData( r, values, scanGroup.length() );
 }
+
+/*
+Start here for ideas on how to create our own EDF::function<void(int)>;
+Could even do something like EDF::function<void(int), sizeof(void*)>
+
+can we use template deduction for size via constructors??
+
+template <typename Functor>
+auto make_small_function(Functor&& f) {
+    // Deduce the size and alignment of the lambda capture
+    constexpr size_t size = sizeof(std::decay_t<Functor>);
+    constexpr size_t alignment = alignof(std::decay_t<Functor>);
+
+    // Allocate memory for the functor and construct it
+    alignas(alignment) unsigned char buffer[size];
+    new (buffer) std::decay_t<Functor>(std::forward<Functor>(f));
+
+    // Return a lambda that captures the buffer and calls the functor
+    return [func = reinterpret_cast<std::decay_t<Functor>*>(buffer)](auto&&... args) -> decltype(auto) {
+        return (*func)(std::forward<decltype(args)>(args)...);
+    };
+}
+*/
+
+/*
+
+Notes on getting unstuck
+
+Binary search learning
+1. Is thing working?
+2. What part am I pretty sure works? Test that
+3. Was I wrong? choose a smaller piece to test
+4. If it works, great move "up" the path
+
+*/
+
+
