@@ -22,6 +22,8 @@ public:
         ErrorOverrun,
         Error,
         ErrorTimeout,
+        ErrorInternal,
+        ErrorDMA,
     };
 public:
     virtual ~ADC() = default;
