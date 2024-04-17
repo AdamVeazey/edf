@@ -8,8 +8,8 @@
 #pragma once
 
 #include "EDF/Peripherals/ADC.hpp"
+#include "EDF/BitField.hpp"
 #include "EDF/Vector.hpp"
-#include "EDF/Queue.hpp"
 
 #include "stm32c0xx_hal.h"
 
@@ -63,24 +63,43 @@ public:
     // ADC_REGULAR_RANK_8 is the highest rank, 8 possible channels per scan group
     using ScanGroup = EDF::Vector<ADC::Channel, 8>;
     enum class IRQType {
+        None,
         ConvCplt,
         ConvHalfCplt,
         LevelOutOfWindow,
         Error,
     };
 private:
+    class BusyFlags : public EDF::BitField8 {
+    public:
+        constexpr BusyFlags( uint8_t raw = 0x00 ) : EDF::BitField8(raw) {}
+
+        constexpr bool isIRQChannelBusy()           const { return get(0, 1); }
+        constexpr void setIRQChannel( bool busy )         { set(0, 1, busy); }
+
+        constexpr bool isIRQScanGroupBusy()         const { return get(1, 1); }
+        constexpr void setIRQScanGroup( bool busy )       { set(1, 1, busy); }
+
+        constexpr bool isPolling()                  const { return get(2, 1); }
+        constexpr void setPolling( bool busy )            { set(2, 1, busy); }
+
+        constexpr bool isBusy()                     const { return isIRQChannelBusy() || isIRQScanGroupBusy() || isPolling(); }
+    };
+private:
     ADC_HandleTypeDef* adc;
     uint32_t timeout_ticks;
+    BusyFlags busyFlags;
     ADCChannel* irqChannel;
     ADCScanGroup* irqScanGroup;
-    EDF::Queue<IRQType, 8> irqOrder; // arbitrary number of irq's to store
+    IRQType irqType;
 private:
     Response toResponse( HAL_StatusTypeDef status, uint32_t adcError );
     bool isSequencerAlreadySetup( const ScanGroup& scanGroup );
     bool isSequencerAlreadySetup( Channel channel );
 protected:
-    Response pollConfigure( const ScanGroup& scanGroup );
+    Response configure( const ScanGroup& scanGroup );
     Response pollConfigure( Channel channel );
+
     Response pollStart();
     Response pollStop();
     Response pollForConversion();
@@ -171,5 +190,4 @@ public:
     bool removeChannel( ADC::Channel channel );
     bool removeChannel( std::size_t index );
     Response start( const Callback& cb = Callback() );
-    ResponseData getSamples();
 };
