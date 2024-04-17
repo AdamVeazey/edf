@@ -12,6 +12,7 @@ toResponse( HAL_StatusTypeDef status, uint32_t adcError ) {
     switch( status ) {
     case HAL_BUSY:      return Response::ErrorBusy;
     case HAL_TIMEOUT:   return Response::ErrorTimeout;
+    case HAL_ERROR:     return Response::Error;
     case HAL_OK:
     default:
         break;
@@ -19,8 +20,8 @@ toResponse( HAL_StatusTypeDef status, uint32_t adcError ) {
     switch( adcError ) {
     case HAL_ADC_ERROR_NONE:        return Response::Ok;
     case HAL_ADC_ERROR_OVR:         return Response::ErrorOverrun;
-    case HAL_ADC_ERROR_INTERNAL:    return Response::Error;
-    case HAL_ADC_ERROR_DMA:         return Response::Error;
+    case HAL_ADC_ERROR_INTERNAL:    return Response::ErrorInternal;
+    case HAL_ADC_ERROR_DMA:         return Response::ErrorDMA;
     default:
         break;
     }
@@ -45,7 +46,7 @@ isSequencerAlreadySetup( Channel channel ) {
 }
 
 ADC::Response ADC::
-pollConfigure( const ScanGroup& scanGroup ) {
+configure( const ScanGroup& scanGroup ) {
     auto& NbrOfConversion = adc->Init.NbrOfConversion;
     auto& ScanConvMode = adc->Init.ScanConvMode;
     Response r = Response::Ok;
@@ -110,20 +111,27 @@ pollConfigure( Channel channel ) {
 
 ADC::Response ADC::
 pollStart() {
+    if( busyFlags.isBusy() ) return Response::ErrorBusy;
+    busyFlags.setPolling( true );
     return toResponse( HAL_ADC_Start( adc ), adc->ErrorCode );
 }
 
 ADC::Response ADC::
 pollStop() {
-    return toResponse( HAL_ADC_Stop( adc ), adc->ErrorCode );
+    if( busyFlags.isPolling() ) {
+        busyFlags.setPolling( false );
+        return toResponse( HAL_ADC_Stop( adc ), adc->ErrorCode );
+    }
+    return Response::Error; // not polling
 }
 
 ADC::Response ADC::
 pollForConversion() {
-    return toResponse(
+    auto r = toResponse(
         HAL_ADC_PollForConversion( adc, timeout_ticks ),
         adc->ErrorCode
     );
+    return r;
 }
 
 ADC::Response ADC::
@@ -136,44 +144,67 @@ pollForEvent( Event event ) {
 
 ADC::Response ADC::
 irqConfigure( ADCChannel* self, Channel channel ) {
-    irqChannel = self;      // used later for callback
-    irqScanGroup = nullptr; // don't use this for callbacks later
-    (void)channel;
-    return Response::Ok;
+    if( busyFlags.isBusy() ) return Response::ErrorBusy;
+    auto r = pollConfigure( channel );
+    if( r == Response::Ok ){
+        irqChannel = self;      // used later for callback
+        irqScanGroup = nullptr; // don't use this for callbacks later
+    }
+    return r;
 }
 
 ADC::Response ADC::
 irqStart() {
+    if( busyFlags.isBusy() ) return Response::ErrorBusy;
+    busyFlags.setIRQChannel( true );
     return toResponse( HAL_ADC_Start_IT( adc ), adc->ErrorCode );
 }
 
 ADC::Response ADC::
 irqStop() {
-    return toResponse( HAL_ADC_Stop_IT( adc ), adc->ErrorCode );
+    if( busyFlags.isIRQChannelBusy() ) {
+        busyFlags.setIRQChannel( false );
+        return toResponse( HAL_ADC_Stop_IT( adc ), adc->ErrorCode );
+    }
+    return Response::Error; // not waiting on Interrupt
 }
 
 ADC::Response ADC::
 dmaConfigure( ADCScanGroup* self, const ScanGroup& scanGroup ) {
-    irqScanGroup = self;    // used later for callback
-    irqChannel = nullptr;   // don't use this for callbacks later
-    return pollConfigure( scanGroup );
+    if( busyFlags.isBusy() ) return Response::ErrorBusy;
+    auto r = configure( scanGroup );
+    if( r == Response::Ok ) {
+        irqScanGroup = self;    // used later for callback
+        irqChannel = nullptr;   // don't use this for callbacks later
+    }
+    return r;
 }
 
 ADC::Response ADC::
 dmaConfigure( ADCChannel* self, Channel channel ) {
-    irqChannel = self;      // used later for callback
-    irqScanGroup = nullptr; // don't use this for callbacks later
-    return pollConfigure( channel );
+    if( busyFlags.isBusy() ) return Response::ErrorBusy;
+    auto r = pollConfigure( channel );
+    if( r == Response::Ok ){
+        irqChannel = self;      // used later for callback
+        irqScanGroup = nullptr; // don't use this for callbacks later
+    }
+    return r;
 }
 
 ADC::Response ADC::
 dmaStart( uint32_t* dmaBuffer, std::size_t n ) {
+    if( busyFlags.isBusy() ) return Response::ErrorBusy;
+    busyFlags.setIRQScanGroup( true );
     return toResponse( HAL_ADC_Start_DMA( adc, dmaBuffer, n ), adc->ErrorCode );
 }
 
 ADC::Response ADC::
 dmaStop() {
-    return toResponse( HAL_ADC_Stop_DMA( adc ), adc->ErrorCode );
+    if( busyFlags.isIRQScanGroupBusy() ) {
+        busyFlags.setIRQScanGroup( false );
+        return toResponse( HAL_ADC_Stop_DMA( adc ), adc->ErrorCode );
+    }
+    return Response::Error; // not waiting on DMA
 }
 
 uint32_t ADC::
@@ -206,53 +237,61 @@ to_mV( int32_t adcValue ) {
 
 void ADC::
 handleIRQs() {
-    while( !irqOrder.isEmpty() ) {
-        switch( irqOrder.pop() ){
-        case IRQType::ConvCplt:
-            if( irqScanGroup )  irqScanGroup->ConvCpltCallback();
-            if( irqChannel )    irqChannel->ConvCpltCallback();
-            break;
-        case IRQType::ConvHalfCplt:
-            if( irqScanGroup )  irqScanGroup->ConvHalfCpltCallback();
-            if( irqChannel )    irqChannel->ConvHalfCpltCallback();
-            break;
-        case IRQType::LevelOutOfWindow:
-            if( irqScanGroup )  irqScanGroup->LevelOutOfWindowCallback();
-            if( irqChannel )    irqChannel->LevelOutOfWindowCallback();
-            break;
-        case IRQType::Error:
-            if( irqScanGroup )  irqScanGroup->ErrorCallback();
-            if( irqChannel )    irqChannel->ErrorCallback();
-            break;
-        }
+    switch( irqType ) {
+    case IRQType::ConvCplt:
+        if( irqScanGroup )  { irqScanGroup->ConvCpltCallback(); irqScanGroup = nullptr; }
+        if( irqChannel )    { irqChannel->ConvCpltCallback(); irqChannel = nullptr; }
+        irqType = IRQType::None;
+        break;
+    case IRQType::ConvHalfCplt:
+        if( irqScanGroup )  { irqScanGroup->ConvHalfCpltCallback(); irqScanGroup = nullptr; }
+        if( irqChannel )    { irqChannel->ConvHalfCpltCallback(); irqChannel = nullptr; }
+        irqType = IRQType::None;
+        break;
+    case IRQType::LevelOutOfWindow:
+        if( irqScanGroup )  { irqScanGroup->LevelOutOfWindowCallback(); irqScanGroup = nullptr; }
+        if( irqChannel )    { irqChannel->LevelOutOfWindowCallback(); irqChannel = nullptr; }
+        irqType = IRQType::None;
+        break;
+    case IRQType::Error:
+        if( irqScanGroup )  { irqScanGroup->ErrorCallback(); irqScanGroup = nullptr; }
+        if( irqChannel )    { irqChannel->ErrorCallback(); irqChannel = nullptr; }
+        irqType = IRQType::None;
+        break;
+    default:
+        break;
     }
 }
 
 void ADC::
 ConvCpltCallback( ADC_HandleTypeDef* hadc ) {
     if( hadc == adc ) {
-        irqOrder.push( IRQType::ConvCplt );
+        irqType = IRQType::ConvCplt;
+        irqStop();
+        dmaStop();
     }
 }
 
 void ADC::
 ConvHalfCpltCallback( ADC_HandleTypeDef* hadc ) {
     if( hadc == adc ) {
-        irqOrder.push( IRQType::ConvHalfCplt );
+        irqType = IRQType::ConvHalfCplt;
     }
 }
 
 void ADC::
 LevelOutOfWindowCallback( ADC_HandleTypeDef* hadc ) {
     if( hadc == adc ) {
-        irqOrder.push( IRQType::LevelOutOfWindow );
+        irqType = IRQType::LevelOutOfWindow;
     }
 }
 
 void ADC::
 ErrorCallback( ADC_HandleTypeDef* hadc ) {
     if( hadc == adc ) {
-        irqOrder.push( IRQType::Error );
+        irqType = IRQType::Error;
+        irqStop();
+        dmaStop();
     }
 }
 
@@ -333,7 +372,7 @@ LevelOutOfWindowCallback() {
 void ADCChannel::
 ErrorCallback() {
     if( cb ) {
-        cb( adc.toResponse(HAL_StatusTypeDef::HAL_OK, adc.adc->ErrorCode) );
+        cb( adc.toResponse(HAL_StatusTypeDef::HAL_ERROR, adc.adc->ErrorCode) );
     }
 }
 
@@ -368,6 +407,7 @@ void ADCScanGroup::
 ConvCpltCallback() {
     if( cb ) {
         cb( ResponseData( Response::Ok, values, scanGroup.length() ) );
+        cb = nullptr;
     }
 }
 
@@ -375,6 +415,7 @@ void ADCScanGroup::
 ConvHalfCpltCallback() {
     if( cb ) {
         cb( Response::ErrorBusy );
+        cb = nullptr;
     }
 }
 
@@ -382,13 +423,15 @@ void ADCScanGroup::
 LevelOutOfWindowCallback() {
     if( cb ) {
         cb( Response::Error ); // not setup yet, how??
+        cb = nullptr;
     }
 }
 
 void ADCScanGroup::
 ErrorCallback() {
     if( cb ) {
-        cb( adc.toResponse(HAL_StatusTypeDef::HAL_OK, adc.adc->ErrorCode) );
+        cb( adc.toResponse(HAL_StatusTypeDef::HAL_ERROR, adc.adc->ErrorCode) );
+        cb = nullptr;
     }
 }
 
@@ -458,37 +501,14 @@ removeChannel( std::size_t index ) {
 
 ADCScanGroup::Response ADCScanGroup::
 start( const Callback& cb ) {
-    if( cb ) {
-        this->cb = cb;
-    }
     auto r = adc.dmaConfigure( this, scanGroup );
     if( r != Response::Ok ) return r;
 
-    r = adc.dmaStart( values, scanGroup.length() );
-    return r;
-}
-
-ADCScanGroup::ResponseData ADCScanGroup::
-getSamples() {
-    // this "works" but is highly flawed due to the ADC just being really fast at sampling
-    // There's not really enough time to call functions and get values from the ADC before
-    // the next sample is already done. If you want to scan, use DMA, as this also means
-    // that even in an ISR we wouldn't be able to jump to ISR, copy value, jump back to
-    // main program before another conversion has already overwritten the data.
-
-    Response r = adc.pollConfigure( scanGroup );
-    if( r != Response::Ok ) return r;
-
-    r = adc.pollStart();
-    if( r != Response::Ok ) return r;
-
-    for( std::size_t k = 0; k < scanGroup.length(); ++k ) {
-        r = adc.pollForConversion();
-        if( r != Response::Ok ) return ResponseData( r, values, k );
-
-        values[k] = adc.getValue();
+    if( cb ) {
+        this->cb = cb;
     }
-    return ResponseData( r, values, scanGroup.length() );
+
+    return adc.dmaStart( values, scanGroup.length() );
 }
 
 /*
