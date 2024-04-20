@@ -377,12 +377,7 @@ init( const CFG& config ) {
     ctrl.setOscillator( config.oscillatorOnWhenVbat );
     ctrl.setSquareWave( config.outputSquareWaveWhenVbat );
     ctrl.setSquareWaveRate( config.squareWaveRate );
-    ctrl.setAlarmInterrupt(
-        config.enableAlarm1Interrupt |
-        config.enableAlarm2Interrupt
-    );
-    ctrl.setA1Interrupt( config.enableAlarm1Interrupt );
-    ctrl.setA2Interrupt( config.enableAlarm2Interrupt );
+    ctrl.setAlarmInterrupt( config.enableAlarmInterrupts );
     ctrl.set32kHzOutput( config.enable32kHzOutput );
     writeControLStatus( ctrl );
 }
