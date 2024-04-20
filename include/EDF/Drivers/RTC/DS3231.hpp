@@ -363,8 +363,7 @@ public:
         bool oscillatorOnWhenVbat;      // oscillator still on while using Vbat (true)
         bool outputSquareWaveWhenVbat;  // use INT/SQW pin as square wave output
         SquareWaveRate squareWaveRate;  // ignored if outputSquareWave is false
-        bool enableAlarm1Interrupt;     // enable Alarm 1 interrupt
-        bool enableAlarm2Interrupt;     // enable Alarm 2 interrupt
+        bool enableAlarmInterrupts;     // enable Alarm interrupt output pin
         bool enable32kHzOutput;         // Controls the 32kHz pin
 
         CFG() :
@@ -372,8 +371,7 @@ public:
             oscillatorOnWhenVbat( false ),
             outputSquareWaveWhenVbat( false ),
             squareWaveRate( SquareWaveRate::R8_192_kHz ),
-            enableAlarm1Interrupt( false ),
-            enableAlarm2Interrupt( false ),
+            enableAlarmInterrupts( true ),
             enable32kHzOutput( true )
         {}
     };
