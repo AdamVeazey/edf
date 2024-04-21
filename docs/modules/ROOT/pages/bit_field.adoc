@@ -67,8 +67,11 @@ Assigns value to the BitField at `startBit` for `span` number of bits.
 .Example
 [source,c++,indent=0]
 ----
+include::{path_example_edf_bit_field_main_cpp}[tag=init_default]
 include::{path_example_edf_bit_field_main_cpp}[tag=operation_set]
 ----
+
+image::set_8_16_0xAA55.png[]
 
 === get( startBit, span )
 Reads the value from the BitField at `startBit` for `span` number of bits.
@@ -76,8 +79,12 @@ Reads the value from the BitField at `startBit` for `span` number of bits.
 .Example
 [source,c++,indent=0]
 ----
+include::{path_example_edf_bit_field_main_cpp}[tag=init_default]
+include::{path_example_edf_bit_field_main_cpp}[tag=operation_set]
 include::{path_example_edf_bit_field_main_cpp}[tag=operation_get]
 ----
+
+image::get_12_8.png[]
 
 === operator const T&()
 
