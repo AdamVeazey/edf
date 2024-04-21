@@ -7,9 +7,6 @@
 
 #include <EDF/BitField.hpp>
 
-#include <iostream>
-
-
 // tag::example_register_psr[]
 // Cortex-M0 Program Status Register
 // Composed of APSR (Application), IPSR (Interrupt), and EPSR (Execution)
