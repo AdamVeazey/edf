@@ -354,7 +354,13 @@
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">bitfield.set( 8, 16, 0xAA55 ); // 0x00AA5500</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::BitField32 bitfield;
+bitfield.set( 8, 16, 0xAA55 ); // 0x00AA5500</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/set_8_16_0xAA55.png" alt="set 8 16 0xAA55">
 </div>
 </div>
 </div>
@@ -366,7 +372,14 @@
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">bitfield.get( 12, 8 ); // 0x000000A5</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::BitField32 bitfield;
+bitfield.set( 8, 16, 0xAA55 ); // 0x00AA5500
+bitfield.get( 12, 8 ); // 0x000000A5</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/get_12_8.png" alt="get 12 8">
 </div>
 </div>
 </div>
