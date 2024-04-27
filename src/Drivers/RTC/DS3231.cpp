@@ -6,6 +6,7 @@
  */
 
 #include "EDF/Drivers/RTC/DS3231.hpp"
+#include "EDF/Vector.hpp"
 #include "EDF/Math.hpp"
 
 namespace EDF {
@@ -183,12 +184,12 @@ readCurrentTime() {
 
 void DS3231::
 writeCurrentTime( const CurrentTime& time ) {
-    uint8_t data[sizeof(CurrentTime) + 1];
-    data[0] = static_cast<uint8_t>(Register::Seconds);
+    EDF::Vector<uint8_t, sizeof(CurrentTime)+1> data;
+    data.pushBack( static_cast<uint8_t>(Register::Seconds) );
     for( std::size_t k = 0; k < sizeof(CurrentTime); ++k ){
-        data[k+1] = (reinterpret_cast<const uint8_t*>(&time))[k];
+        data.pushBack( (reinterpret_cast<const uint8_t*>(&time))[k] );
     }
-    i2c.transfer( address_7bit, data, sizeof( data ) );
+    i2c.transfer( address_7bit, data.data(), data.length() );
 }
 
 DS3231::Alarm1 DS3231::
@@ -205,12 +206,16 @@ readAlarm1() {
 
 void DS3231::
 writeAlarm1( const Alarm1& alarm ) {
-    uint8_t data[sizeof(Alarm1) + 1];
-    data[0] = static_cast<uint8_t>(Register::Alarm1Seconds);
+    EDF::Vector<uint8_t, sizeof(Alarm1)+1> data;
+    data.pushBack( static_cast<uint8_t>(Register::Alarm1Seconds) );
     for( std::size_t k = 0; k < sizeof(Alarm1); ++k ){
-        data[k+1] = (reinterpret_cast<const uint8_t*>(&alarm))[k];
+        data.pushBack( (reinterpret_cast<const uint8_t*>(&alarm))[k] );
     }
-    i2c.transfer( address_7bit, data, sizeof( data ) );
+    i2c.transfer( address_7bit, data.data(), data.length() );
+
+    ControlStatus ctrl = readControlStatus();
+    ctrl.setA1Interrupt( true );
+    writeControLStatus( ctrl );
 }
 
 void DS3231::
@@ -273,12 +278,12 @@ readAlarm2() {
 
 void DS3231::
 writeAlarm2( const Alarm2& alarm ) {
-    uint8_t data[sizeof(Alarm2) + 1];
-    data[0] = static_cast<uint8_t>(Register::Alarm2Minutes);
+    EDF::Vector<uint8_t, sizeof(Alarm2)+1> data;
+    data.pushBack( static_cast<uint8_t>(Register::Alarm2Minutes) );
     for( std::size_t k = 0; k < sizeof(Alarm2); ++k ){
-        data[k+1] = (reinterpret_cast<const uint8_t*>(&alarm))[k];
+        data.pushBack( (reinterpret_cast<const uint8_t*>(&alarm))[k] );
     }
-    i2c.transfer( address_7bit, data, sizeof( data ) );
+    i2c.transfer( address_7bit, data.data(), data.length() );
 
     ControlStatus ctrl = readControlStatus();
     ctrl.setA2Interrupt( true );
