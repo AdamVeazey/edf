@@ -13,11 +13,11 @@ namespace EDF {
 
 DS3231::CurrentTime::
 CurrentTime( const std::tm& t ) {
-    seconds.setOnesPlace( t.tm_sec / 10 );
-    seconds.setTensPlace( t.tm_sec % 10 );
+    seconds.setOnesPlace( static_cast<uint8_t>(t.tm_sec / 10) );
+    seconds.setTensPlace( static_cast<uint8_t>(t.tm_sec % 10) );
 
-    minutes.setTensPlace( t.tm_min / 10 );
-    minutes.setOnesPlace( t.tm_min % 10 );
+    minutes.setTensPlace( static_cast<uint8_t>(t.tm_min / 10) );
+    minutes.setOnesPlace( static_cast<uint8_t>(t.tm_min % 10) );
 
     auto hour = t.tm_hour;
     if( hours.is12Hour() ) {
@@ -28,18 +28,18 @@ CurrentTime( const std::tm& t ) {
         else {
             hours.setAM();
         }
-        hours.setTensPlace( hour / 10 );
-        hours.setOnesPlace( hour % 10 );
+        hours.setTensPlace( static_cast<uint8_t>(hour / 10) );
+        hours.setOnesPlace( static_cast<uint8_t>(hour % 10) );
     }
     else {
-        hours.setTensPlace( hour / 10 );
-        hours.setOnesPlace( hour % 10 );
+        hours.setTensPlace( static_cast<uint8_t>(hour / 10) );
+        hours.setOnesPlace( static_cast<uint8_t>(hour % 10) );
     }
 
-    dayOfTheWeek.setDayOfTheWeek( t.tm_wday + 1 );
+    dayOfTheWeek.setDayOfTheWeek( static_cast<uint8_t>(t.tm_wday + 1) );
 
-    dayOfTheMonth.setTensPlace( t.tm_mday / 10 );
-    dayOfTheMonth.setOnesPlace( t.tm_mday % 10 );
+    dayOfTheMonth.setTensPlace( static_cast<uint8_t>(t.tm_mday / 10) );
+    dayOfTheMonth.setOnesPlace( static_cast<uint8_t>(t.tm_mday % 10) );
 
     auto yearTmp = t.tm_year + 1900;
     if( yearTmp > 1999 ) {
@@ -49,12 +49,12 @@ CurrentTime( const std::tm& t ) {
         monthCentury.set20thCentury();
     }
     auto month = t.tm_mon + 1;
-    monthCentury.setTensPlace( month / 10 );
-    monthCentury.setOnesPlace( month % 10 );
+    monthCentury.setTensPlace( static_cast<uint8_t>(month / 10) );
+    monthCentury.setOnesPlace( static_cast<uint8_t>(month % 10) );
 
     yearTmp = yearTmp % 100;
-    year.setTensPlace( yearTmp / 10 );
-    year.setOnesPlace( yearTmp % 10 );
+    year.setTensPlace( static_cast<uint8_t>(yearTmp / 10) );
+    year.setOnesPlace( static_cast<uint8_t>(yearTmp % 10) );
 }
 
 std::tm DS3231::CurrentTime::
@@ -157,7 +157,7 @@ uint16_t DS3231::
 readRegister16( Register reg ) {
     uint8_t data[2] = { static_cast<uint8_t>(reg), 0 };
     i2c.transfer( address_7bit, data, 1, data, EDF::nElements(data) );
-    return (static_cast<uint16_t>(data[0]) << 8) | data[1];
+    return static_cast<uint16_t>((static_cast<uint16_t>(data[0]) << 8) | data[1]);
 }
 
 void DS3231::
