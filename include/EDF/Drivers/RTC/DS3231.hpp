@@ -270,17 +270,18 @@ public:
 class AgingOffset : public BitField8 {
 public:
     using BitField8::BitField8;
+    AgingOffset( int8_t value ) : BitField8( static_cast<uint8_t>(value)) {}
 
-    constexpr int8_t getOffset()                    const { return get(0, 8); }
-    constexpr void setOffset( int8_t offset )             { set(0, 8, offset); }
+    constexpr int8_t getOffset()                    const { return static_cast<int8_t>(get(0, 8)); }
+    constexpr void setOffset( int8_t offset )             { set(0, 8, static_cast<uint8_t>(offset)); }
 };
 
 class Temperature : public BitField16 {
 public:
     using BitField16::BitField16;
 
-    constexpr uint8_t getFraction()                 const { return get(6, 2); }
-    constexpr int8_t getWhole()                     const { return get(8, 8); }
+    constexpr uint8_t getFraction()                 const { return static_cast<uint8_t>(get(6, 2)); }
+    constexpr int8_t getWhole()                     const { return static_cast<int8_t>(get(8, 8)); }
 };
 
 } /* DS3231_Registers */
