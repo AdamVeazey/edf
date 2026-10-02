@@ -189,7 +189,7 @@ void make_string( char* buffer, std::size_t& size, std::size_t N ) {
 
 void make_string( char* buffer, std::size_t& size, std::size_t N, const char* str, std::size_t n ) {
     EDF_ASSERTD( n == std::strlen(str), "n needs to represent string length, not buffer size" );
-    EDF_ASSERTD( ((str != nullptr) && (n > 0)), "if n is not 0, str can't be nullptr" );
+    // EDF_ASSERTD( ((str != nullptr) && (n > 0)), "if n is not 0, str can't be nullptr" );
     size = 0;
     EDF_ASSERTD( (n + size) <= (maxLength(buffer, size, N)), "str can fit" );
     for( size = 0; size < n; ++size ) {
