@@ -422,9 +422,9 @@ void strip( char* buffer, std::size_t& size, std::size_t N, const char* values, 
 }
 
 void trimLeft( char* buffer, std::size_t& size, std::size_t N, char value ) {
-    constexpr auto isNotMatch = [](char ch, char value) -> bool {
-        return ( ((value == '\0') && (ch > ' ' && ch <= '~')) || // if value is default '\0', check if printable
-                 ((value != '\0') && (value != ch)) // else, check if ch matches
+    constexpr auto isNotMatch = [](char ch, char val) -> bool {
+        return ( ((val == '\0') && (ch > ' ' && ch <= '~')) || // if val is default '\0', check if printable
+                 ((val != '\0') && (val != ch)) // else, check if ch matches
         );
     };
     auto firstNonMatch = std::find_if( begin(buffer, size, N), end(buffer, size, N), [&value, &isNotMatch](char ch) {
@@ -448,9 +448,9 @@ void trimLeft( char* buffer, std::size_t& size, std::size_t N, const char* value
 }
 
 void trimRight( char* buffer, std::size_t& size, std::size_t N, char value ) {
-    constexpr auto isNotMatch = [](char ch, char value) -> bool {
-        return ( ((value == '\0') && (ch > ' ' && ch <= '~')) || // if value is default '\0', check if printable
-                 ((value != '\0') && (value != ch)) // else, check if ch matches
+    constexpr auto isNotMatch = [](char ch, char val) -> bool {
+        return ( ((val == '\0') && (ch > ' ' && ch <= '~')) || // if val is default '\0', check if printable
+                 ((val != '\0') && (val != ch)) // else, check if ch matches
         );
     };
     auto firstNonMatch = std::find_if( rbegin(buffer, size, N), rend(buffer, size, N), [&value, &isNotMatch](char ch) {
