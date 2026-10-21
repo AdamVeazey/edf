@@ -68,7 +68,7 @@ push( const T& value ) {
 
 template<typename T, std::size_t N, typename Compare>
 constexpr void Heap<T, N, Compare>::
-push( const T&& value ) {
+push( T&& value ) {
     EDF_ASSERTD( !isFull(), "Heap must not be full in order to use push()" );
     heap.pushBack( std::move(value) );
     bubbleUp( heap.length() - 1 );
@@ -76,12 +76,11 @@ push( const T&& value ) {
 
 template<typename T, std::size_t N, typename Compare>
 template<typename... Args>
-constexpr T& Heap<T, N, Compare>::
+constexpr void Heap<T, N, Compare>::
 emplace( Args&&... args ) {
     EDF_ASSERTD( !isFull(), "Heap must not be full in order to use emplace()" );
-    auto& value = heap.emplaceBack( std::forward<Args>(args)... );
+    heap.emplaceBack( std::forward<Args>(args)... );
     bubbleUp( heap.length() - 1 );
-    return value;
 }
 
 template<typename T, std::size_t N, typename Compare>

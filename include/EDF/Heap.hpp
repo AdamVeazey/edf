@@ -39,10 +39,10 @@ public:
     constexpr const T& peek()               const { return heap.front(); }
 
     constexpr void push( const T& value );
-    constexpr void push( const T&& value );
+    constexpr void push( T&& value );
 
     template<typename... Args>
-    constexpr T& emplace( Args&&... args );
+    constexpr void emplace( Args&&... args );
 
     constexpr T pop();
 

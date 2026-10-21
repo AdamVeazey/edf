@@ -48,7 +48,7 @@ public:
     constexpr void clear()                                    { fill( T() ); }
 
     constexpr void fill( const T& value )                     { std::fill( begin(), end(), value ); }
-    constexpr void fill( const T&& value )                    { std::fill( begin(), end(), value ); }
+    constexpr void fill( T&& value )                          { std::fill( begin(), end(), value ); }
 
     /* Iterators */
     using Iterator = T*;
