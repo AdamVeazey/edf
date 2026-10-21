@@ -80,7 +80,7 @@ public:
     constexpr void pushBack( T&& value )                                                  { emplaceBack(std::move(value) ); }
 
     template<typename... Args>
-    constexpr T& emplaceBack(Args&&... args)                                              { return *emplace(end(), args...); }
+    constexpr T& emplaceBack(Args&&... args)                                              { return *emplace(end(), std::forward<Args>(args)...); }
 
     constexpr T popBack()                                                                 { EDF_ASSERTD(!isEmpty(), "Vector must not be empty in order to use popBack()"); T v(std::move(back())); popBackDestroy(); return v; }
 
