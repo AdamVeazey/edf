@@ -13,6 +13,17 @@
 namespace EDF {
 
 template<typename T, std::size_t N>
+template<typename... I>
+constexpr Queue<T,N>::
+Queue( I... iList ) : head(0), tail(sizeof...(I)) {
+    static_assert(sizeof...(I) <= N, "Initializer list exceeds queue capacity");
+    T init[] = { iList... };
+    for(std::size_t i = 0; i < sizeof...(I); ++i) {
+        new (data() + i) T(std::move(init[i]));
+    }
+}
+
+template<typename T, std::size_t N>
 constexpr bool Queue<T, N>::
 isFull() const {
     if constexpr( isPow2( N ) ) {
@@ -34,7 +45,7 @@ template<typename T, std::size_t N>
 constexpr void Queue<T, N>::
 push( const T& value ) {
     EDF_ASSERTD( !isFull(), "Queue must not be full in order to use push()" );
-    buffer[tail] = value;
+    new (data() + tail) T(value);
     if constexpr( isPow2( N ) ) {
         tail = (tail+1) & WRAP;
     }
@@ -45,9 +56,9 @@ push( const T& value ) {
 
 template<typename T, std::size_t N>
 constexpr void Queue<T, N>::
-push( const T&& value ) {
+push( T&& value ) {
     EDF_ASSERTD( !isFull(), "Queue must not be full in order to use push()" );
-    buffer[tail] = std::move(value);
+    new (data() + tail) T(std::move(value));
     if constexpr( isPow2( N ) ) {
         tail = (tail+1) & WRAP;
     }
@@ -61,21 +72,22 @@ template<typename... Args>
 constexpr T& Queue<T, N>::
 emplace( Args&&... args ) {
     EDF_ASSERTD( !isFull(), "Queue must not be full in order to use emplace()" );
-    new (&buffer[tail]) T(std::forward<Args>(args)...);
+    T* ptr = new (data() + tail) T(std::forward<Args>(args)...);
     if constexpr( isPow2( N ) ) {
         tail = (tail+1) & WRAP;
     }
     else{
         tail = (tail+1) % N;
     }
-    return buffer[tail];
+    return *ptr;
 }
 
 template<typename T, std::size_t N>
 constexpr T Queue<T, N>::
 pop() {
     EDF_ASSERTD( !isEmpty(), "Queue must not be empty in order to use pop()" );
-    T tmp = buffer[head];
+    T tmp(std::move(data()[head]));
+    (data() + head)->~T();
     if constexpr( isPow2( N ) ) {
         head = (head+1) & WRAP;
     }
@@ -85,7 +97,7 @@ pop() {
     return tmp;
 }
 
-/* uint8_t specialized memler functions */
+/* uint8_t specialized member functions */
 template<typename T, std::size_t N>
 constexpr std::uint8_t Queue<T,N>::
 pop8be() {
@@ -115,7 +127,7 @@ template<typename T, std::size_t N>
 constexpr std::uint64_t Queue<T,N>::
 pop64be() {
     static_assert( std::is_same_v<T, std::uint8_t>, "pop64be() is only available if T is a 'std::uint8_t'");
-    uint64_t result = static_cast<std::uint64_t>(pop32be()) << 32;
+    uint64_t result = static_cast<uint64_t>(pop32be()) << 32;
     result |= pop32be();
     return result;
 }
@@ -150,7 +162,7 @@ constexpr std::uint64_t Queue<T,N>::
 pop64le() {
     static_assert( std::is_same_v<T, std::uint8_t>, "pop64le() is only available if T is a 'std::uint8_t'");
     uint64_t result = pop32le();
-    result |= static_cast<std::uint64_t>(pop32le()) << 32;
+    result |= static_cast<uint64_t>(pop32le()) << 32;
     return result;
 }
 
