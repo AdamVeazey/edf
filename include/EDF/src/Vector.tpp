@@ -13,7 +13,8 @@ namespace EDF {
 
 template<typename T, std::size_t N>
 template<typename... I>
-constexpr Vector<T, N>::Vector( I... iList ) : n(sizeof...(I)) {
+constexpr Vector<T, N>::
+Vector( I... iList ) : n(sizeof...(I)) {
     static_assert(sizeof...(I) <= N, "Initializer list exceeds vector capacity");
     T init[] = { iList... };
     for( std::size_t k = 0; k < sizeof...(I); ++k ) {
