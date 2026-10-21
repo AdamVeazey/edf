@@ -421,3 +421,41 @@ TEST(Vector, ReverseBeginEnd) {
     EXPECT_EQ( *crbegin, 4 );
     EXPECT_EQ( *(crend - 1), 1 );
 }
+
+TEST(Vector, OverflowDeath) {
+    EDF::Vector<int, 2> vector = { 1, 2 };
+    EXPECT_TRUE( vector.isFull() );
+
+    EXPECT_DEATH( vector.pushBack( 3 ), "" );
+    EXPECT_DEATH( vector.emplaceBack( 3 ), "" );
+    EXPECT_DEATH( vector.insert( 0_uz, 3 ), "" );
+}
+
+class MoveOnlyClass {
+private:
+    int value;
+public:
+    constexpr explicit MoveOnlyClass(int v) : value(v) {}
+    MoveOnlyClass(const MoveOnlyClass&) = delete;
+    MoveOnlyClass& operator=(const MoveOnlyClass&) = delete;
+    constexpr MoveOnlyClass(MoveOnlyClass&& other) noexcept : value(other.value) { other.value = 0; }
+    constexpr MoveOnlyClass& operator=(MoveOnlyClass&& other) noexcept {
+        value = other.value;
+        other.value = 0;
+        return *this;
+    }
+    ~MoveOnlyClass() = default;
+    constexpr int getValue() const { return value; }
+};
+
+TEST(Vector, MoveOnlyType) {
+    EDF::Vector<MoveOnlyClass, 4> vec;
+    vec.emplaceBack( 42 );
+    EXPECT_EQ( vec[0].getValue(), 42 );
+
+    vec.pushBack( MoveOnlyClass( 100 ) );
+    EXPECT_EQ( vec[1].getValue(), 100 );
+
+    auto popped = std::move( vec ).popBack(); // or popBack returning rvalue if supported
+    EXPECT_EQ( popped.getValue(), 100 );
+}
