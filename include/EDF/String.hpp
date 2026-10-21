@@ -28,27 +28,27 @@ private:
     char buffer[N];
 public:
     /* Constructors */
-    constexpr String();
+    String();
 
-    constexpr String( const char* str );
-    constexpr String( const uint8_t* str );
+    String( const char* str );
+    String( const uint8_t* str );
 
-    constexpr String( const char* str, std::size_t n );
-    constexpr String( const uint8_t* str, std::size_t n );
+    String( const char* str, std::size_t n );
+    String( const uint8_t* str, std::size_t n );
 
-    constexpr String( char ch );
+    String( char ch );
 
-    constexpr String( int8_t value, int base = 10 );
-    constexpr String( int16_t value, int base = 10 );
-    constexpr String( int32_t value, int base = 10 );
-    constexpr String( int64_t value, int base = 10 );
-    constexpr String( uint8_t value, int base = 10 );
-    constexpr String( uint16_t value, int base = 10 );
-    constexpr String( uint32_t value, int base = 10 );
-    constexpr String( uint64_t value, int base = 10 );
+    String( int8_t value, int base = 10 );
+    String( int16_t value, int base = 10 );
+    String( int32_t value, int base = 10 );
+    String( int64_t value, int base = 10 );
+    String( uint8_t value, int base = 10 );
+    String( uint16_t value, int base = 10 );
+    String( uint32_t value, int base = 10 );
+    String( uint64_t value, int base = 10 );
 
     template<std::size_t S>
-    constexpr String( const String<S>& o );
+    String( const String<S>& o );
 
     ~String() = default;
 
@@ -80,12 +80,12 @@ public:
     /* Conversions: toX */
     constexpr int8_t toInt8_t( int base = 10 ) const;
     constexpr int16_t toInt16_t( int base = 10 ) const;
-    constexpr int32_t toInt32_t( int base = 10 ) const;
-    constexpr int64_t toInt64_t( int base = 10 ) const;
+    int32_t toInt32_t( int base = 10 ) const;
+    int64_t toInt64_t( int base = 10 ) const;
     constexpr uint8_t toUint8_t( int base = 10 ) const;
     constexpr uint16_t toUint16_t( int base = 10 ) const;
-    constexpr uint32_t toUint32_t( int base = 10 ) const;
-    constexpr uint64_t toUint64_t( int base = 10 ) const;
+    uint32_t toUint32_t( int base = 10 ) const;
+    uint64_t toUint64_t( int base = 10 ) const;
 
     /* Operations: In/Out-of-Place - append */
     constexpr String& append( const char* str );
@@ -137,9 +137,9 @@ public:
     constexpr void insert( std::size_t index, char value );
     constexpr void insert( std::size_t index, std::size_t count, char value );
     constexpr void insert( std::size_t index, std::initializer_list<char> iList );
-    constexpr Iterator insert( ConstIterator pos, char value );
-    constexpr Iterator insert( ConstIterator pos, std::size_t count, char value );
-    constexpr Iterator insert( ConstIterator pos, std::initializer_list<char> iList );
+    Iterator insert( ConstIterator pos, char value );
+    Iterator insert( ConstIterator pos, std::size_t count, char value );
+    Iterator insert( ConstIterator pos, std::initializer_list<char> iList );
 
     constexpr void insert( std::size_t index, const char* str );
     constexpr void insert( std::size_t index, const uint8_t* str );
@@ -149,7 +149,7 @@ public:
     constexpr void insert( std::size_t index, const char* str, std::size_t n );
     constexpr void insert( std::size_t index, const uint8_t* str, std::size_t n );
     constexpr Iterator insert( ConstIterator pos, const uint8_t* str, std::size_t n );
-    constexpr Iterator insert( ConstIterator pos, const char* str, std::size_t n );
+    Iterator insert( ConstIterator pos, const char* str, std::size_t n );
 
     constexpr void insert( std::size_t index, int8_t value, int base = 10 );
     constexpr void insert( std::size_t index, int16_t value, int base = 10 );
@@ -218,7 +218,7 @@ public:
     constexpr void erase( std::size_t index );
     constexpr void erase( std::size_t first, std::size_t last );
     constexpr Iterator erase( ConstIterator pos );
-    constexpr Iterator erase( ConstIterator first, ConstIterator last );
+    Iterator erase( ConstIterator first, ConstIterator last );
 
     constexpr String getErased( std::size_t index ) const;
     constexpr String getErased( std::size_t first, std::size_t last ) const;
@@ -226,10 +226,10 @@ public:
     constexpr String getErased( ConstIterator first, ConstIterator last ) const;
 
     /* Operations: In-Place - clear */
-    constexpr void clear();
+    void clear();
 
     /* Operations: Out-of-Place - copyTo */
-    constexpr void copyTo( char* outputString, std::size_t maxBufferLength ) const;
+    void copyTo( char* outputString, std::size_t maxBufferLength ) const;
     constexpr void copyTo( uint8_t* outputString, std::size_t maxBufferLength ) const;
 
     template<std::size_t S>
@@ -244,9 +244,9 @@ public:
     template<std::size_t S>
     constexpr Iterator find( const String<S>& value ) const;
 
-    constexpr Iterator find( ConstIterator pos, char value ) const;
+    Iterator find( ConstIterator pos, char value ) const;
     constexpr Iterator find( ConstIterator pos, const char* value ) const;
-    constexpr Iterator find( ConstIterator pos, const char* value, std::size_t n ) const;
+    Iterator find( ConstIterator pos, const char* value, std::size_t n ) const;
     template<std::size_t S>
     constexpr Iterator find( ConstIterator pos, const String<S>& value ) const;
 
@@ -256,9 +256,9 @@ public:
     template<std::size_t S>
     constexpr ReverseIterator rfind( const String<S>& value ) const;
 
-    constexpr ReverseIterator rfind( ConstReverseIterator pos, char value ) const;
+    ReverseIterator rfind( ConstReverseIterator pos, char value ) const;
     constexpr ReverseIterator rfind( ConstReverseIterator pos, const char* value ) const;
-    constexpr ReverseIterator rfind( ConstReverseIterator pos, const char* value, std::size_t n ) const;
+    ReverseIterator rfind( ConstReverseIterator pos, const char* value, std::size_t n ) const;
     template<std::size_t S>
     constexpr ReverseIterator rfind( ConstReverseIterator pos, const String<S>& value ) const;
 
@@ -272,14 +272,14 @@ public:
     /* Operations: Out-of-Place - equals */
     constexpr bool equals( char value ) const;
     constexpr bool equals( const char* value ) const;
-    constexpr bool equals( const char* value, std::size_t n ) const;
+    bool equals( const char* value, std::size_t n ) const;
     template<std::size_t S>
     constexpr bool equals( const String<S>& value ) const;
 
     /* Operations: In/Out-of-Place - strip */
-    constexpr String& strip( char value = '\0' );
+    String& strip( char value = '\0' );
     constexpr String& strip( const char* values );
-    constexpr String& strip( const char* values, std::size_t n );
+    String& strip( const char* values, std::size_t n );
     template<std::size_t S>
     constexpr String& strip( const String<S>& values );
 
@@ -303,9 +303,9 @@ public:
     constexpr String getTrimmed( const String<S>& values ) const;
 
     /* Operations: In/Out-of-Place - trimLeft */
-    constexpr String& trimLeft( char value = '\0' );
+    String& trimLeft( char value = '\0' );
     constexpr String& trimLeft( const char* values );
-    constexpr String& trimLeft( const char* values, std::size_t n );
+    String& trimLeft( const char* values, std::size_t n );
     template<std::size_t S>
     constexpr String& trimLeft( const String<S>& values );
 
@@ -316,9 +316,9 @@ public:
     constexpr String getTrimmedLeft( const String<S>& values ) const;
 
     /* Operations: In/Out-of-Place - trimRight */
-    constexpr String& trimRight( char value = '\0' );
+    String& trimRight( char value = '\0' );
     constexpr String& trimRight( const char* values );
-    constexpr String& trimRight( const char* values, std::size_t n );
+    String& trimRight( const char* values, std::size_t n );
     template<std::size_t S>
     constexpr String& trimRight( const String<S>& values );
 
@@ -329,15 +329,15 @@ public:
     constexpr String getTrimmedRight( const String<S>& values ) const;
 
     /* Operations: In/Out-of-Place - reverse */
-    constexpr String& reverse();
+    String& reverse();
     constexpr String getReversed() const;
 
     /* Operations: In/Out-of-Place - toLower */
-    constexpr String& toLower();
+    String& toLower();
     constexpr String getToLower() const;
 
     /* Operations: In/Out-of-Place - toUpper */
-    constexpr String& toUpper();
+    String& toUpper();
     constexpr String getToUpper() const;
 
     /* Operations: In/Out-of-Place - replace */
@@ -355,7 +355,7 @@ public:
 
     constexpr String& replace( char lookFor, const char* replaceWith, std::size_t nRW );
     constexpr String& replace( const char* lookFor, const char* replaceWith, std::size_t nRW );
-    constexpr String& replace(
+    String& replace(
         const char* lookFor, std::size_t nLF,
         const char* replaceWith, std::size_t nRW
     );
@@ -405,7 +405,7 @@ public:
     constexpr String getReplaced( const String<S1>& lookFor, const String<S2>& replaceWith ) const;
 
     /* Operations: In/Out-of-Place - subString */
-    constexpr String& subString( ConstIterator start, ConstIterator end );
+    String& subString( ConstIterator start, ConstIterator end );
     constexpr String getSubString( ConstIterator start, ConstIterator end ) const;
 
     /* Operations: Operator Overload - += */
