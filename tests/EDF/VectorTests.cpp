@@ -459,3 +459,59 @@ TEST(Vector, MoveOnlyType) {
     auto popped = std::move( vec ).popBack(); // or popBack returning rvalue if supported
     EXPECT_EQ( popped.getValue(), 100 );
 }
+
+struct LifetimeTracker {
+    static inline int active_instances = 0;
+    LifetimeTracker() { ++active_instances; }
+    ~LifetimeTracker() { --active_instances; }
+    // Delete copies, enable moves...
+};
+
+TEST(Vector, RAII_DestructorTracking) {
+    {
+        EDF::Vector<LifetimeTracker, 5> vec;
+        vec.emplaceBack();
+        vec.emplaceBack();
+        EXPECT_EQ(LifetimeTracker::active_instances, 2);
+
+        vec.clear();
+        EXPECT_EQ(LifetimeTracker::active_instances, 0);
+
+        vec.emplaceBack();
+        // Vector goes out of scope here; its destructor should clean up the remaining 1 element
+    }
+    EXPECT_EQ(LifetimeTracker::active_instances, 0); // Proves no leaks!
+}
+
+TEST(Vector, ConstCorrectness) {
+    const EDF::Vector<int, 4> vec = { 10, 20, 30 };
+    EXPECT_EQ(vec[0], 10);
+    EXPECT_EQ(vec.front(), 10);
+    EXPECT_EQ(vec.back(), 30);
+    EXPECT_EQ(*vec.begin(), 10);
+    EXPECT_EQ(*vec.cbegin(), 10);
+}
+
+TEST(Vector, SingleElementCapacity) {
+    EDF::Vector<int, 1> vector;
+    EXPECT_TRUE( vector.isEmpty() );
+    EXPECT_FALSE( vector.isFull() );
+    EXPECT_EQ( vector.maxLength(), 1 );
+
+    // Fill to 1
+    vector.pushBack( 42 );
+    EXPECT_FALSE( vector.isEmpty() );
+    EXPECT_TRUE( vector.isFull() );
+    EXPECT_EQ( vector.front(), 42 );
+    EXPECT_EQ( vector.back(), 42 );
+
+    // Pop back to 0
+    EXPECT_EQ( vector.popBack(), 42 );
+    EXPECT_TRUE( vector.isEmpty() );
+    EXPECT_FALSE( vector.isFull() );
+
+    // Refill to 1
+    vector.pushBack( 100 );
+    EXPECT_EQ( vector[0], 100 );
+    EXPECT_TRUE( vector.isFull() );
+}
