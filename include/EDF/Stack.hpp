@@ -34,7 +34,7 @@ public:
     constexpr const T& peek()               const { return buffer.back(); }
 
     constexpr void push( const T& value )         { buffer.pushBack( value ); }
-    constexpr void push( const T&& value )        { buffer.pushBack( value ); }
+    constexpr void push( T&& value )              { buffer.pushBack( std::move(value) ); }
 
     template<typename... Args>
     constexpr T& emplace( Args&&... args )        { return buffer.emplaceBack(std::forward<Args>(args)...); }
