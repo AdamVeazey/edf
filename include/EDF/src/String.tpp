@@ -86,19 +86,19 @@ void subString( char* buffer, std::size_t& size, std::size_t N, ConstIterator st
 
 /* Constructors */
 template<std::size_t N>
-constexpr String<N>::
+String<N>::
 String() {
     impl::make_string( buffer, size, N );
 }
 
 template<std::size_t N>
-constexpr String<N>::
+String<N>::
 String( const char* str ) {
     impl::make_string( buffer, size, N, str, std::strlen(str) );
 }
 
 template<std::size_t N>
-constexpr String<N>::
+String<N>::
 String( const uint8_t* str ) {
     impl::make_string(
         buffer, size, N,
@@ -108,25 +108,25 @@ String( const uint8_t* str ) {
 }
 
 template<std::size_t N>
-constexpr String<N>::
+String<N>::
 String( const char* str, std::size_t n ) {
     impl::make_string( buffer, size, N, str, n );
 }
 
 template<std::size_t N>
-constexpr String<N>::
+String<N>::
 String( const uint8_t* str, std::size_t n ) {
     impl::make_string( buffer, size, N, reinterpret_cast<const char*>(str), n );
 }
 
 template<std::size_t N>
-constexpr String<N>::
+String<N>::
 String( char ch ) {
     impl::make_string( buffer, size, N, ch );
 }
 
 template<std::size_t N>
-constexpr String<N>::
+String<N>::
 String( int8_t value, int base ) {
     // Attempting to cast this to an int32_t causes problems when base is not 10
     // Attempting to cast this to an int32_t & 0xFF causes problems when base is 10
@@ -134,7 +134,7 @@ String( int8_t value, int base ) {
 }
 
 template<std::size_t N>
-constexpr String<N>::
+String<N>::
 String( int16_t value, int base ) {
     // Attempting to cast this to an int32_t causes problems when base is not 10
     // Attempting to cast this to an int32_t & 0xFF causes problems when base is 10
@@ -142,46 +142,46 @@ String( int16_t value, int base ) {
 }
 
 template<std::size_t N>
-constexpr String<N>::
+String<N>::
 String( int32_t value, int base ) {
     impl::make_string( buffer, size, N, value, base );
 }
 
 template<std::size_t N>
-constexpr String<N>::
+String<N>::
 String( int64_t value, int base ) {
     impl::make_string( buffer, size, N, value, base );
 }
 
 template<std::size_t N>
-constexpr String<N>::
+String<N>::
 String( uint8_t value, int base ) {
     // to reduce the amount of template instantiations, cast the value to a uint32_t
     impl::make_string( buffer, size, N, static_cast<uint32_t>(value), base );
 }
 
 template<std::size_t N>
-constexpr String<N>::
+String<N>::
 String( uint16_t value, int base ) {
     // to reduce the amount of template instantiations, cast the value to a uint32_t
     impl::make_string( buffer, size, N, static_cast<uint32_t>(value), base );
 }
 
 template<std::size_t N>
-constexpr String<N>::
+String<N>::
 String( uint32_t value, int base ) {
     impl::make_string( buffer, size, N, value, base );
 }
 
 template<std::size_t N>
-constexpr String<N>::
+String<N>::
 String( uint64_t value, int base ) {
     impl::make_string( buffer, size, N, value, base );
 }
 
 template<std::size_t N>
 template<std::size_t S>
-constexpr String<N>::
+String<N>::
 String( const String<S>& o ) {
     impl::make_string( buffer, size, N, o.asCString(), o.length() );
 }
@@ -281,13 +281,13 @@ toInt16_t( int base ) const {
 }
 
 template<std::size_t N>
-constexpr int32_t String<N>::
+int32_t String<N>::
 toInt32_t( int base ) const {
     return impl::toInt32_t( buffer, size, base );
 }
 
 template<std::size_t N>
-constexpr int64_t String<N>::
+int64_t String<N>::
 toInt64_t( int base ) const {
     return impl::toInt64_t( buffer, size, base );
 }
@@ -307,13 +307,13 @@ toUint16_t( int base ) const {
 }
 
 template<std::size_t N>
-constexpr uint32_t String<N>::
+uint32_t String<N>::
 toUint32_t( int base ) const {
     return impl::toUint32_t( buffer, size, base );
 }
 
 template<std::size_t N>
-constexpr uint64_t String<N>::
+uint64_t String<N>::
 toUint64_t( int base ) const {
     return impl::toUint64_t( buffer, size, base );
 }
@@ -539,19 +539,19 @@ insert( std::size_t index, std::initializer_list<char> iList ) {
 }
 
 template<std::size_t N>
-constexpr typename String<N>::Iterator String<N>::
+typename String<N>::Iterator String<N>::
 insert( ConstIterator pos, char value ) {
     return impl::insert( buffer, size, N, pos, value );
 }
 
 template<std::size_t N>
-constexpr typename String<N>::Iterator String<N>::
+typename String<N>::Iterator String<N>::
 insert( ConstIterator pos, std::size_t count, char value ) {
     return impl::insert( buffer, size, N, pos, count, value );
 }
 
 template<std::size_t N>
-constexpr typename String<N>::Iterator String<N>::
+typename String<N>::Iterator String<N>::
 insert( ConstIterator pos, std::initializer_list<char> iList ) {
     return impl::insert( buffer, size, N, pos, iList );
 }
@@ -600,7 +600,7 @@ insert( ConstIterator pos, const uint8_t* str, std::size_t n ) {
 }
 
 template<std::size_t N>
-constexpr typename String<N>::Iterator String<N>::
+typename String<N>::Iterator String<N>::
 insert( ConstIterator pos, const char* str, std::size_t n ) {
     return impl::insert( buffer, size, N, pos, str, n );
 }
@@ -996,7 +996,7 @@ erase( ConstIterator pos ) {
 }
 
 template<std::size_t N>
-constexpr typename String<N>::Iterator String<N>::
+typename String<N>::Iterator String<N>::
 erase( ConstIterator first, ConstIterator last ) {
     return impl::erase( buffer, size, N, first, last );
 }
@@ -1035,14 +1035,14 @@ getErased( ConstIterator first, ConstIterator last ) const {
 
 /* Operations: In-Place - clear */
 template<std::size_t N>
-constexpr void String<N>::
+void String<N>::
 clear() {
     impl::make_string( buffer, size, N );
 }
 
 /* Operations: Out-of-Place - copyTo */
 template<std::size_t N>
-constexpr void String<N>::
+void String<N>::
 copyTo( char* outputString, std::size_t maxBufferLength ) const {
     impl::copyTo( buffer, size, N, outputString, maxBufferLength );
 }
@@ -1094,7 +1094,7 @@ find( const String<S>& value ) const {
 }
 
 template<std::size_t N>
-constexpr typename String<N>::Iterator String<N>::
+typename String<N>::Iterator String<N>::
 find( ConstIterator pos, char value ) const {
     return impl::find( buffer, size, N, pos, value );
 }
@@ -1106,7 +1106,7 @@ find( ConstIterator pos, const char* value ) const {
 }
 
 template<std::size_t N>
-constexpr typename String<N>::Iterator String<N>::
+typename String<N>::Iterator String<N>::
 find( ConstIterator pos, const char* value, std::size_t n ) const {
     return impl::find( buffer, size, N, pos, value, n );
 }
@@ -1144,7 +1144,7 @@ rfind( const String<S>& value ) const {
 }
 
 template<std::size_t N>
-constexpr typename String<N>::ReverseIterator String<N>::
+typename String<N>::ReverseIterator String<N>::
 rfind( ConstReverseIterator pos, char value ) const {
     return impl::rfind( buffer, size, N, pos, value );
 }
@@ -1156,7 +1156,7 @@ rfind( ConstReverseIterator pos, const char* value ) const {
 }
 
 template<std::size_t N>
-constexpr typename String<N>::ReverseIterator String<N>::
+typename String<N>::ReverseIterator String<N>::
 rfind( ConstReverseIterator pos, const char* value, std::size_t n ) const {
     return impl::rfind( buffer, size, N, pos, value, n );
 }
@@ -1208,7 +1208,7 @@ equals( const char* value ) const {
 }
 
 template<std::size_t N>
-constexpr bool String<N>::
+bool String<N>::
 equals( const char* value, std::size_t n ) const {
     return impl::equals( buffer, size, N, value, n );
 }
@@ -1222,7 +1222,7 @@ equals( const String<S>& value ) const {
 
 /* Operations: In/Out-of-Place - strip */
 template<std::size_t N>
-constexpr String<N>& String<N>::
+String<N>& String<N>::
 strip( char value ) {
     impl::strip( buffer, size, N, value );
     return *this;
@@ -1235,7 +1235,7 @@ strip( const char* values ) {
 }
 
 template<std::size_t N>
-constexpr String<N>& String<N>::
+String<N>& String<N>::
 strip( const char* values, std::size_t n ) {
     impl::strip( buffer, size, N, values, n );
     return *this;
@@ -1342,7 +1342,7 @@ getTrimmed( const String<S>& values ) const {
 
 /* Operations: In/Out-of-Place - trimLeft */
 template<std::size_t N>
-constexpr String<N>& String<N>::
+String<N>& String<N>::
 trimLeft( char value ) {
     impl::trimLeft( buffer, size, N, value );
     return *this;
@@ -1355,7 +1355,7 @@ trimLeft( const char* values ) {
 }
 
 template<std::size_t N>
-constexpr String<N>& String<N>::
+String<N>& String<N>::
 trimLeft( const char* values, std::size_t n ) {
     impl::trimLeft( buffer, size, N, values, n );
     return *this;
@@ -1404,7 +1404,7 @@ getTrimmedLeft( const String<S>& values ) const {
 
 /* Operations: In/Out-of-Place - trimRight */
 template<std::size_t N>
-constexpr String<N>& String<N>::
+String<N>& String<N>::
 trimRight( char value ) {
     impl::trimRight( buffer, size, N, value );
     return *this;
@@ -1417,7 +1417,7 @@ trimRight( const char* values ) {
 }
 
 template<std::size_t N>
-constexpr String<N>& String<N>::
+String<N>& String<N>::
 trimRight( const char* values, std::size_t n ) {
     impl::trimRight( buffer, size, N, values, n );
     return *this;
@@ -1465,7 +1465,7 @@ getTrimmedRight( const String<S>& values ) const {
 
 /* Operations: In/Out-of-Place - reverse */
 template<std::size_t N>
-constexpr String<N>& String<N>::
+String<N>& String<N>::
 reverse() {
     impl::reverse( buffer, size, N );
     return *this;
@@ -1481,7 +1481,7 @@ getReversed() const {
 
 /* Operations: In/Out-of-Place - toLower */
 template<std::size_t N>
-constexpr String<N>& String<N>::
+String<N>& String<N>::
 toLower() {
     impl::toLower( buffer, size, N );
     return *this;
@@ -1497,7 +1497,7 @@ getToLower() const {
 
 /* Operations: In/Out-of-Place - toUpper */
 template<std::size_t N>
-constexpr String<N>& String<N>::
+String<N>& String<N>::
 toUpper() {
     impl::toUpper( buffer, size, N );
     return *this;
@@ -1575,7 +1575,7 @@ replace( const char* lookFor, const char* replaceWith, std::size_t nRW ) {
 }
 
 template<std::size_t N>
-constexpr String<N>& String<N>::
+String<N>& String<N>::
 replace( const char* lookFor, std::size_t nLF, const char* replaceWith, std::size_t nRW ) {
     impl::replace( buffer, size, N, lookFor, nLF, replaceWith, nRW );
     return *this;
@@ -1753,7 +1753,7 @@ getReplaced( const String<S1>& lookFor, const String<S2>& replaceWith ) const {
 
 /* Operations: In/Out-of-Place - subString */
 template<std::size_t N>
-constexpr String<N>& String<N>::
+String<N>& String<N>::
 subString( ConstIterator start, ConstIterator end ) {
     impl::subString( buffer, size, N, start, end );
     return *this;
