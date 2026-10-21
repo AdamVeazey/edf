@@ -32,7 +32,7 @@ private:
         return multiplier;
     }();
 public:
-    using String = String<DOTS+(3*DIGITS)+1>;   // (3*DIGITS) for 3 elements, plus 1 null
+    using String = EDF::String<DOTS+(3*DIGITS)+1>;   // (3*DIGITS) for 3 elements, plus 1 null
 private:
     uint32_t number;    // number representation for easy comparison
     String string;      // string representation for easy output
