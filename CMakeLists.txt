@@ -56,8 +56,10 @@ set(EDF_EMBEDDED_FLAGS
 )
 
 function(edf_apply_common_settings TARGET_NAME)
-    target_compile_features(${TARGET_NAME} PUBLIC
-        cxx_std_17
+    set_target_properties(${TARGET_NAME} PROPERTIES
+        CXX_STANDARD 17
+        CXX_STANDARD_REQUIRED ON
+        CXX_EXTENSIONS OFF
     )
 
     target_include_directories(${TARGET_NAME}
@@ -101,8 +103,10 @@ list(APPEND EDF_EXPORTED_TARGETS EDF)
 if(EDF_BUILD_PERIPHERALS)
     add_library(Peripherals INTERFACE)
 
-    target_compile_features(Peripherals INTERFACE
-        cxx_std_17
+    set_target_properties(Peripherals PROPERTIES
+        CXX_STANDARD 17
+        CXX_STANDARD_REQUIRED ON
+        CXX_EXTENSIONS OFF
     )
 
     target_include_directories(Peripherals
@@ -128,31 +132,32 @@ if(EDF_BUILD_DRIVERS)
     )
     edf_apply_common_settings(Drivers)
 
-
     target_link_libraries(Drivers PRIVATE Peripherals)
     list(APPEND EDF_EXPORTED_TARGETS Drivers)
 endif()
 
 # -----------------------------------------------------------------------------
-# Installation & Packaging
+# Installation & Packaging (Only active when EDF is built as a top-level project)
 # -----------------------------------------------------------------------------
-include(GNUInstallDirs)
+if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+    include(GNUInstallDirs)
 
-# Install only the libraries that were actually built/enabled
-install(TARGETS ${EDF_EXPORTED_TARGETS}
-    EXPORT EDFTargets
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-)
+    # Install only the libraries that were actually built/enabled
+    install(TARGETS ${EDF_EXPORTED_TARGETS}
+        EXPORT EDFTargets
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    )
 
-install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+    install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-install(EXPORT EDFTargets
-    FILE EDFTargets.cmake
-    NAMESPACE EDF::
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/EDF
-)
+    install(EXPORT EDFTargets
+        FILE EDFTargets.cmake
+        NAMESPACE EDF::
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/EDF
+    )
+endif()
 
 # -----------------------------------------------------------------------------
 # Optional Subdirectories
