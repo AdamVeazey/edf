@@ -19,6 +19,9 @@ class Vector final{
 private:
     std::size_t n;
     alignas(T) unsigned char buffer[sizeof(T) * N];
+private:
+    // Helper to destroy back element cleanly without returning a copy
+    constexpr void popBackDestroy()                                                       { EDF_ASSERTD(!isEmpty(), "Vector must not be empty"); (data() + n - 1)->~T(); --n; }
 public:
     constexpr Vector() : n(0), buffer{} {}
     template<typename... I>
@@ -83,9 +86,6 @@ public:
     constexpr T& emplaceBack(Args&&... args)                                              { return *emplace(end(), std::forward<Args>(args)...); }
 
     constexpr T popBack()                                                                 { EDF_ASSERTD(!isEmpty(), "Vector must not be empty in order to use popBack()"); T v(std::move(back())); popBackDestroy(); return v; }
-
-    // Helper to destroy back element cleanly without returning a copy
-    constexpr void popBackDestroy()                                                       { EDF_ASSERTD(!isEmpty(), "Vector must not be empty"); (data() + n - 1)->~T(); --n; }
 
     /* Iterators */
     constexpr Iterator begin()                                                            { return Iterator( data() ); }
