@@ -57,7 +57,6 @@ set(EDF_EMBEDDED_FLAGS
 
 function(edf_apply_common_settings TARGET_NAME)
     target_compile_features(${TARGET_NAME} PUBLIC
-        c_std_11
         cxx_std_17
     )
 
@@ -103,7 +102,6 @@ if(EDF_BUILD_PERIPHERALS)
     add_library(Peripherals INTERFACE)
 
     target_compile_features(Peripherals INTERFACE
-        c_std_11
         cxx_std_17
     )
 
