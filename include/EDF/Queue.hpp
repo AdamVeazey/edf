@@ -22,9 +22,9 @@ private:
     std::size_t head;
     std::size_t tail;
     alignas(T) unsigned char buffer[sizeof(T) * N];
-
-    constexpr T* data() { return reinterpret_cast<T*>(buffer); }
-    constexpr const T* data() const { return reinterpret_cast<const T*>(buffer); }
+private:
+    constexpr T* data()                       { return reinterpret_cast<T*>(buffer); }
+    constexpr const T* data()           const { return reinterpret_cast<const T*>(buffer); }
 public:
     constexpr Queue() : head(0), tail(0) {}
     template<typename... I>
