@@ -51,20 +51,21 @@ struct PeripheralRegister : public EDF::BitField8 {
         MODE_2,
         MODE_3,
     };
+    using EDF::BitField8::BitField8;
     constexpr PeripheralRegister( uint8_t initialValue = 0 ) :
         EDF::BitField8( initialValue )
     {}
 
-    constexpr Speed getSpeed()                  const { return static_cast<Speed>(get( 0, 2 )); }
-    constexpr void setSpeed( const Speed& s )         { setSpeed( static_cast<std::underlying_type_t<Speed>>(s) ); }
-    constexpr void setSpeed( uint8_t speed )          { set( 0, 2, speed ); }
+    constexpr Speed getSpeed()                                  const { return static_cast<Speed>(get( 0, 2 )); }
+    constexpr PeripheralRegister& setSpeed( const Speed& s )          { setSpeed( static_cast<std::underlying_type_t<Speed>>(s) ); return *this; }
+    constexpr PeripheralRegister& setSpeed( uint8_t speed )           { set( 0, 2, speed ); return *this; }
 
-    constexpr Mode getMode()                    const { return static_cast<Mode>(get( 4, 2 )); }
-    constexpr void setMode( const Mode& m )           { setMode( static_cast<std::underlying_type_t<Mode>>(m) ); }
-    constexpr void setMode( uint8_t mode )            { set( 4, 2, mode ); }
+    constexpr Mode getMode()                                    const { return static_cast<Mode>(get( 4, 2 )); }
+    constexpr PeripheralRegister& setMode( const Mode& m )            { setMode( static_cast<std::underlying_type_t<Mode>>(m) ); return *this; }
+    constexpr PeripheralRegister& setMode( uint8_t mode )             { set( 4, 2, mode ); return *this; }
 
-    constexpr bool isEnabled()                  const { return get( 7, 1 ); }
-    constexpr void setEnable( bool enable )           { set( 7, 1, enable ); }
+    constexpr bool isEnabled()                                  const { return get( 7, 1 ); }
+    constexpr PeripheralRegister& setEnable( bool enable )            { set( 7, 1, enable ); return *this; }
 };
 
 TEST(BitField, PeripheralRegister) {
@@ -92,4 +93,38 @@ TEST(BitField, PeripheralRegister) {
     EXPECT_EQ( config.getSpeed(), PeripheralRegister::Speed::FAST );    // should not change
     EXPECT_EQ( config.getMode(), PeripheralRegister::Mode::MODE_1 );    // Should not change
     EXPECT_EQ( config.isEnabled(), true );
+}
+
+/* --- Compile-Time (constexpr) Verification --- */
+constexpr bool verifyPeripheralRegisterConstexpr() {
+    PeripheralRegister config = PeripheralRegister()
+        .setSpeed(PeripheralRegister::Speed::MODERATE)
+        .setMode(PeripheralRegister::Mode::MODE_3)
+        .setEnable(false);
+
+    if( config.getSpeed() != PeripheralRegister::Speed::MODERATE )  return false;
+    if( config.getMode() != PeripheralRegister::Mode::MODE_3 )      return false;
+    if( config.isEnabled() != false )                               return false;
+
+    config.setSpeed( PeripheralRegister::Speed::FAST );
+    if( config.getSpeed() != PeripheralRegister::Speed::FAST )      return false;
+
+    config.setMode( PeripheralRegister::Mode::MODE_1 );
+    if( config.getMode() != PeripheralRegister::Mode::MODE_1 )      return false;
+
+    config.setEnable( true );
+    if( !config.isEnabled() )                                       return false;
+
+    return true;
+}
+
+// This static_assert forces the compiler to evaluate the entire sequence
+// of bitfield manipulations at COMPILE TIME. If any function wasn't truly
+// constexpr, compilation would fail instantly right here.
+static_assert( verifyPeripheralRegisterConstexpr(), "BitField and PeripheralRegister must be fully constexpr capable!" );
+
+TEST(BitField, ConstexprEvaluation) {
+    // Double-check at runtime as well to ensure test framework tracks it
+    constexpr bool result = verifyPeripheralRegisterConstexpr();
+    EXPECT_TRUE( result );
 }
