@@ -37,15 +37,15 @@ private:
     uint32_t number;    // number representation for easy comparison
     String string;      // string representation for easy output
 public:
-    constexpr Version() : number(0), string( "0.0.0" ) {}
-    constexpr Version( const char* str ) : number( fromString( str ) ), string( str ) {}
-    constexpr Version( const uint32_t& value ) : number( value ), string( fromNumber() ) {}
+    Version() : number(0), string( "0.0.0" ) {}
+    Version( const char* str ) : number( fromString( str ) ), string( str ) {}
+    Version( const uint32_t& value ) : number( value ), string( fromNumber() ) {}
 
     template<std::size_t N>
-    constexpr Version( const char (&str)[N] ) : number( fromString( str ) ), string( str ) {}
+    Version( const char (&str)[N] ) : number( fromString( str ) ), string( str ) {}
 
     template<std::size_t N>
-    constexpr Version( const EDF::String<N>& str ) : number( fromString( str ) ), string( str )  {}
+    Version( const EDF::String<N>& str ) : number( fromString( str ) ), string( str )  {}
 
     ~Version() = default;
 
@@ -54,11 +54,11 @@ public:
     constexpr uint32_t getMinor()                   const { return (number / MULT) % MULT; }
     constexpr uint32_t getPatch()                   const { return number % MULT; }
     constexpr const uint32_t& asNumber()            const { return number; }
-    constexpr const String& asString()              const { return string; }
-    constexpr const char* asCString()               const { return string.asCString(); }
+    const String& asString()                        const { return string; }
+    const char* asCString()                         const { return string.asCString(); }
 
     /* EDF Version */
-    static constexpr Version EDF()                        { return "0.1.0"; }
+    static Version EDF()                                  { return "0.1.0"; }
 
     /* Comparison Operators - (this, rhs) */
     constexpr bool operator> ( const Version& rhs ) const { return number > rhs.number; };
@@ -68,26 +68,24 @@ public:
     constexpr bool operator==( const Version& rhs ) const { return number == rhs.number; };
     constexpr bool operator!=( const Version& rhs ) const { return number != rhs.number; };
 
-    constexpr bool operator> ( const char* rhs )    const { return operator> ( Version( rhs ) ); };
-    constexpr bool operator< ( const char* rhs )    const { return operator< ( Version( rhs ) ); };
-    constexpr bool operator>=( const char* rhs )    const { return operator>=( Version( rhs ) ); };
-    constexpr bool operator<=( const char* rhs )    const { return operator<=( Version( rhs ) ); };
-    constexpr bool operator==( const char* rhs )    const { return operator==( Version( rhs ) ); };
-    constexpr bool operator!=( const char* rhs )    const { return operator!=( Version( rhs ) ); };
+    bool operator> ( const char* rhs )              const { return operator> ( Version( rhs ) ); };
+    bool operator< ( const char* rhs )              const { return operator< ( Version( rhs ) ); };
+    bool operator>=( const char* rhs )              const { return operator>=( Version( rhs ) ); };
+    bool operator<=( const char* rhs )              const { return operator<=( Version( rhs ) ); };
+    bool operator==( const char* rhs )              const { return operator==( Version( rhs ) ); };
+    bool operator!=( const char* rhs )              const { return operator!=( Version( rhs ) ); };
 
     /* Comparison Operators - (lhs, this) */
-    friend constexpr bool operator> ( const char* lhs, const Version& rhs ) { return Version( lhs ) > rhs; }
-    friend constexpr bool operator< ( const char* lhs, const Version& rhs ) { return Version( lhs ) < rhs; }
-    friend constexpr bool operator>=( const char* lhs, const Version& rhs ) { return Version( lhs ) >= rhs; }
-    friend constexpr bool operator<=( const char* lhs, const Version& rhs ) { return Version( lhs ) <= rhs; }
-    friend constexpr bool operator==( const char* lhs, const Version& rhs ) { return Version( lhs ) == rhs; }
-    friend constexpr bool operator!=( const char* lhs, const Version& rhs ) { return Version( lhs ) != rhs; }
+    friend bool operator> ( const char* lhs, const Version& rhs ) { return Version( lhs ) > rhs; }
+    friend bool operator< ( const char* lhs, const Version& rhs ) { return Version( lhs ) < rhs; }
+    friend bool operator>=( const char* lhs, const Version& rhs ) { return Version( lhs ) >= rhs; }
+    friend bool operator<=( const char* lhs, const Version& rhs ) { return Version( lhs ) <= rhs; }
+    friend bool operator==( const char* lhs, const Version& rhs ) { return Version( lhs ) == rhs; }
+    friend bool operator!=( const char* lhs, const Version& rhs ) { return Version( lhs ) != rhs; }
 private:
-    constexpr uint32_t fromString( const String& str ) {
-        // this is used to initialize number
-        // this->string is not initialized yet as it declared AFTER 'number' in the class definition
+    uint32_t fromString( const String& str ) {
         auto firstDot = str.find( '.' );
-        auto secondDot = str.rfind( '.' ).base() - 1; // -1 since it was a reverse iterator
+        auto secondDot = str.rfind( '.' ).base() - 1;
         EDF_ASSERTD( (*str.begin()     != '0') || (firstDot  -  str.begin()    == 1), "Major MUST NOT contain leading zeros https://semver.org/#spec-item-2" );
         EDF_ASSERTD( (*(firstDot + 1)  != '0') || (secondDot - (firstDot + 1)  == 1), "Minor MUST NOT contain leading zeros https://semver.org/#spec-item-2" );
         EDF_ASSERTD( (*(secondDot + 1) != '0') || (str.end() - (secondDot + 1) == 1), "Patch MUST NOT contain leading zeros https://semver.org/#spec-item-2" );
@@ -100,8 +98,7 @@ private:
         EDF_ASSERTD( patch < MULT, "Patch must be less than multiplier" );
         return (major * (MULT*MULT)) + (minor * MULT) + patch;
     }
-    constexpr String fromNumber() {
-        // number is initialized as it is declared BEFORE 'string' in the class definition
+    String fromNumber() {
         EDF_ASSERTD( getMajor() < MULT, "Major must be less than multiplier" );
         EDF_ASSERTD( getMinor() < MULT, "Minor must be less than multiplier" );
         EDF_ASSERTD( getPatch() < MULT, "Patch must be less than multiplier" );
