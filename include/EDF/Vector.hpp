@@ -6,7 +6,7 @@
  */
 #pragma once
 
-#include "EDF/Array.hpp"
+#include "EDF/Assert.hpp"
 #include "EDF/Math.hpp"
 
 #include <algorithm>
@@ -18,17 +18,17 @@ template<typename T, std::size_t N>
 class Vector final{
 private:
     std::size_t n;
-    Array<T, N> buffer;
+    alignas(T) unsigned char buffer[sizeof(T) * N];
 public:
     constexpr Vector() : n(0), buffer{} {}
     template<typename... I>
-    constexpr Vector( I... iList ) : n(sizeof...(I)), buffer{iList...} {}
-    ~Vector() = default;
+    constexpr Vector( I... iList );
+    ~Vector() { clear(); }
 
-    using Iterator = typename Array<T,N>::Iterator;
-    using ConstIterator = typename Array<T,N>::ConstIterator;
-    using ReverseIterator = typename Array<T,N>::ReverseIterator;
-    using ConstReverseIterator = typename Array<T,N>::ConstReverseIterator;
+    using Iterator = T*;
+    using ConstIterator = const T*;
+    using ReverseIterator = std::reverse_iterator<Iterator>;
+    using ConstReverseIterator = std::reverse_iterator<ConstIterator>;
 
      /* Current state */
     constexpr bool isEmpty()                                                        const { return n == 0; }
@@ -39,11 +39,11 @@ public:
     constexpr std::size_t maxLength()                                               const { return N; }
 
     /* Element access */
-    constexpr T& at( std::size_t index )                                                  { EDF_ASSERTD(index < length(), "index needs to be within bounds of valid entries"); return buffer.at( index ); }
-    constexpr const T& at( std::size_t index )                                      const { EDF_ASSERTD(index < length(), "index needs to be within bounds of valid entries"); return buffer.at( index ); }
+    constexpr T& at( std::size_t index )                                                  { EDF_ASSERTD(index < length(), "index needs to be within bounds of valid entries"); return data()[index]; }
+    constexpr const T& at( std::size_t index )                                      const { EDF_ASSERTD(index < length(), "index needs to be within bounds of valid entries"); return data()[index]; }
 
-    constexpr T& operator[]( std::size_t index )                                          { return buffer[index]; }
-    constexpr const T& operator[]( std::size_t index )                              const { return buffer[index]; }
+    constexpr T& operator[]( std::size_t index )                                          { return data()[index]; }
+    constexpr const T& operator[]( std::size_t index )                              const { return data()[index]; }
 
     constexpr T& front()                                                                  { return at( 0 ); }
     constexpr const T& front()                                                      const { return at( 0 ); }
@@ -51,18 +51,18 @@ public:
     constexpr T& back()                                                                   { return at( n - 1 ); }
     constexpr const T& back()                                                       const { return at( n - 1 ); }
 
-    constexpr T* data()                                                                   { return buffer.data(); }
-    constexpr const T* data()                                                       const { return buffer.data(); }
+    constexpr T* data()                                                                   { return reinterpret_cast<T*>(buffer); }
+    constexpr const T* data()                                                       const { return reinterpret_cast<const T*>(buffer); }
 
     /* Operations */
     constexpr void clear()                                                                { std::destroy( begin(), end() ); n = 0; }
 
     constexpr void insert( std::size_t index, const T& value )                            { insert( ConstIterator(data() + index), value ); }
-    constexpr void insert( std::size_t index, T&& value )                                 { insert( ConstIterator(data() + index), value ); }
+    constexpr void insert( std::size_t index, T&& value )                                 { insert( ConstIterator(data() + index), std::move(value) ); }
     constexpr void insert( std::size_t index, std::size_t count, const T& value )         { insert( ConstIterator(data() + index), count, value ); }
     constexpr void insert( std::size_t index, std::initializer_list<T> iList )            { insert( ConstIterator(data() + index), iList ); }
     constexpr Iterator insert( ConstIterator pos, const T& value )                        { return insert( pos, 1, value ); }
-    constexpr Iterator insert( ConstIterator pos, T&& value);
+    constexpr Iterator insert( ConstIterator pos, T&& value)                              { return emplace( pos, std::move(value) ); }
     constexpr Iterator insert( ConstIterator pos, std::size_t count, const T& value );
     constexpr Iterator insert( ConstIterator pos, std::initializer_list<T> iList );
 
@@ -82,7 +82,10 @@ public:
     template<typename... Args>
     constexpr T& emplaceBack(Args&&... args)                                              { return *emplace(end(), args...); }
 
-    constexpr T popBack()                                                                 { EDF_ASSERTD(!isEmpty(), "Vector must not be empty in order to use popBack()"); T v(std::move(back())); --n; return v; }
+    constexpr T popBack()                                                                 { EDF_ASSERTD(!isEmpty(), "Vector must not be empty in order to use popBack()"); T v(std::move(back())); popBackDestroy(); return v; }
+
+    // Helper to destroy back element cleanly without returning a copy
+    constexpr void popBackDestroy()                                                       { EDF_ASSERTD(!isEmpty(), "Vector must not be empty"); (data() + n - 1)->~T(); --n; }
 
     /* Iterators */
     constexpr Iterator begin()                                                            { return Iterator( data() ); }
@@ -106,7 +109,7 @@ public:
 
 template<typename T, std::size_t N>
 constexpr bool operator==( const Vector<T, N>& lhs, const Vector<T, N>& rhs ) {
-    return std::equal( lhs.begin(), lhs.end(), rhs.begin() );
+    return ( lhs.length() == rhs.length() ) && std::equal( lhs.begin(), lhs.end(), rhs.begin() );
 }
 
 } /* EDF */
