@@ -47,8 +47,7 @@ public:
     template <typename U = T, std::enable_if_t<std::is_default_constructible<U>::value, int> = 0>
     constexpr void clear()                                    { fill( T() ); }
 
-    constexpr void fill( const T& value )                     { std::fill( begin(), end(), value ); }
-    constexpr void fill( T&& value )                          { std::fill( begin(), end(), value ); }
+    constexpr void fill( const T& value )                     { for( auto& v : *this ) v = value; }
 
     /* Iterators */
     using Iterator = T*;
