@@ -17,18 +17,18 @@ public:
 private:
     SPI_HandleTypeDef* spi;
     GPIOFast* cs;
-    uint32_t timeout_ticks;
+    std::uint32_t timeout_ticks;
 public:
     SPIControllerFast(
         SPI_HandleTypeDef* spi,
         GPIOFast* chipSelect = nullptr
     ) : spi(spi), cs(chipSelect), timeout_ticks(0) {}
     ~SPIControllerFast() = default;
-    inline void setTimeout( uint32_t ticks ) { timeout_ticks = ticks; }
+    inline void setTimeout( std::uint32_t ticks ) { timeout_ticks = ticks; }
     void select();
     void deselect();
-    ResponseData transfer( uint8_t data );
-    Response transfer( uint8_t* dataInOut, std::size_t n );
+    ResponseData transfer( std::uint8_t data );
+    Response transfer( std::uint8_t* dataInOut, std::size_t n );
 };
 
 class SPIController : public SPIControllerFast, public EDF::SPIController {
@@ -42,8 +42,8 @@ public:
     ) : SPIControllerFast(spi, chipSelect) {}
     virtual ~SPIController() = default;
 
-    virtual void select()                                           override { SPIControllerFast::select(); }
-    virtual void deselect()                                         override { SPIControllerFast::deselect(); }
-    virtual ResponseData transfer( uint8_t data )                   override { return SPIControllerFast::transfer( data ); }
-    virtual Response transfer( uint8_t* dataInOut, std::size_t n )  override { return SPIControllerFast::transfer( dataInOut, n ); }
+    virtual void select()                                                override { SPIControllerFast::select(); }
+    virtual void deselect()                                              override { SPIControllerFast::deselect(); }
+    virtual ResponseData transfer( std::uint8_t data )                   override { return SPIControllerFast::transfer( data ); }
+    virtual Response transfer( std::uint8_t* dataInOut, std::size_t n )  override { return SPIControllerFast::transfer( dataInOut, n ); }
 };

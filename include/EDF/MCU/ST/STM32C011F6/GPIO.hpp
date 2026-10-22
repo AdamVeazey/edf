@@ -41,9 +41,9 @@ public:
     };
 private:
     GPIO_TypeDef* port;
-    uint16_t pin;
+    std::uint16_t pin;
 public:
-    GPIOFast( GPIO_TypeDef* port, uint16_t pin ) : port(port), pin(1 << pin) {}
+    GPIOFast( GPIO_TypeDef* port, std::uint16_t pin ) : port(port), pin(1 << pin) {}
     ~GPIOFast() = default;
 
     /* Configuration */
@@ -86,7 +86,7 @@ public:
     using Pull          = GPIOFast::Pull;
     using Speed         = GPIOFast::Speed;
 public:
-    GPIO( GPIO_TypeDef* port, uint16_t pin ) : GPIOFast(port, pin) {}
+    GPIO( GPIO_TypeDef* port, std::uint16_t pin ) : GPIOFast(port, pin) {}
     virtual ~GPIO() = default;
 
     /* Input member functions */

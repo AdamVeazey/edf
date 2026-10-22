@@ -54,7 +54,7 @@ public:
 
     constexpr void clear()                    { while( !isEmpty() ) { pop(); } }
 
-    /* uint8_t specialized member functions */
+    /* std::uint8_t specialized member functions */
     constexpr std::uint8_t pop8be();
     constexpr std::uint16_t pop16be();
     constexpr std::uint32_t pop32be();

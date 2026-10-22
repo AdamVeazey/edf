@@ -23,7 +23,7 @@ class Version final{
 private:
     static constexpr std::size_t DOTS = 2;      // two '.' characters
     static constexpr std::size_t DIGITS = 3;    // number of digits per element
-    static_assert( DIGITS <= 3, "A uint32_t for number can only easily support versions up to 999.999.999" );
+    static_assert( DIGITS <= 3, "A std::uint32_t for number can only easily support versions up to 999.999.999" );
     static constexpr std::size_t MULT = [](){
         std::size_t multiplier = 1;
         for( std::size_t k = 0; k < DIGITS; ++k ) {
@@ -34,12 +34,12 @@ private:
 public:
     using String = EDF::String<DOTS+(3*DIGITS)+1>;   // (3*DIGITS) for 3 elements, plus 1 null
 private:
-    uint32_t number;    // number representation for easy comparison
-    String string;      // string representation for easy output
+    std::uint32_t number;   // number representation for easy comparison
+    String string;          // string representation for easy output
 public:
     Version() : number(0), string( "0.0.0" ) {}
     Version( const char* str ) : number( fromString( str ) ), string( str ) {}
-    Version( const uint32_t& value ) : number( value ), string( fromNumber() ) {}
+    Version( std::uint32_t value ) : number( value ), string( fromNumber() ) {}
 
     template<std::size_t N>
     Version( const char (&str)[N] ) : number( fromString( str ) ), string( str ) {}
@@ -50,10 +50,10 @@ public:
     ~Version() = default;
 
     /* Access */
-    constexpr uint32_t getMajor()                   const { return number / (MULT*MULT); }
-    constexpr uint32_t getMinor()                   const { return (number / MULT) % MULT; }
-    constexpr uint32_t getPatch()                   const { return number % MULT; }
-    constexpr const uint32_t& asNumber()            const { return number; }
+    constexpr std::uint32_t getMajor()              const { return number / (MULT*MULT); }
+    constexpr std::uint32_t getMinor()              const { return (number / MULT) % MULT; }
+    constexpr std::uint32_t getPatch()              const { return number % MULT; }
+    constexpr std::uint32_t asNumber()              const { return number; }
     const String& asString()                        const { return string; }
     const char* asCString()                         const { return string.asCString(); }
 
@@ -83,18 +83,18 @@ public:
     friend bool operator==( const char* lhs, const Version& rhs ) { return Version( lhs ) == rhs; }
     friend bool operator!=( const char* lhs, const Version& rhs ) { return Version( lhs ) != rhs; }
 private:
-    uint32_t fromString( const String& str ) {
+    std::uint32_t fromString( const String& str ) {
         auto firstDot = str.find( '.' );
         auto secondDot = str.rfind( '.' ).base() - 1;
         EDF_ASSERTD( (*str.begin()     != '0') || (firstDot  -  str.begin()    == 1), "Major MUST NOT contain leading zeros https://semver.org/#spec-item-2" );
         EDF_ASSERTD( (*(firstDot + 1)  != '0') || (secondDot - (firstDot + 1)  == 1), "Minor MUST NOT contain leading zeros https://semver.org/#spec-item-2" );
         EDF_ASSERTD( (*(secondDot + 1) != '0') || (str.end() - (secondDot + 1) == 1), "Patch MUST NOT contain leading zeros https://semver.org/#spec-item-2" );
         EDF_ASSERTD( !str.contains( '-' ), "MUST NOT contain negative numbers https://semver.org/#spec-item-2" );
-        const uint32_t major = str.getSubString( str.begin(), firstDot ).toUint32_t();
+        const std::uint32_t major = str.getSubString( str.begin(), firstDot ).toUint32_t();
         EDF_ASSERTD( major < MULT, "Major must be less than multiplier" );
-        const uint32_t minor = str.getSubString( firstDot + 1, secondDot ).toUint32_t();
+        const std::uint32_t minor = str.getSubString( firstDot + 1, secondDot ).toUint32_t();
         EDF_ASSERTD( minor < MULT, "Minor must be less than multiplier" );
-        const uint32_t patch = str.getSubString( secondDot + 1, str.end() ).toUint32_t();
+        const std::uint32_t patch = str.getSubString( secondDot + 1, str.end() ).toUint32_t();
         EDF_ASSERTD( patch < MULT, "Patch must be less than multiplier" );
         return (major * (MULT*MULT)) + (minor * MULT) + patch;
     }

@@ -16,18 +16,18 @@ public:
     using Response = EDF::I2CController::Response;
 private:
     I2C_HandleTypeDef* i2c;
-    uint32_t timeout_ticks;
+    std::uint32_t timeout_ticks;
 private:
-    static Response toResponse( HAL_StatusTypeDef status, uint32_t i2cError );
+    static Response toResponse( HAL_StatusTypeDef status, std::uint32_t i2cError );
 public:
     I2CControllerFast( I2C_HandleTypeDef* i2c ) :
         i2c(i2c), timeout_ticks(HAL_MAX_DELAY)
     {}
-    inline void setTimeout( uint32_t ticks ) { timeout_ticks = ticks; }
+    inline void setTimeout( std::uint32_t ticks ) { timeout_ticks = ticks; }
     Response transfer(
-        uint8_t address_7bit,
-        const uint8_t* txData = nullptr, std::size_t txLen = 0,
-        uint8_t* rxData = nullptr, std::size_t rxLen = 0
+        std::uint8_t address_7bit,
+        const std::uint8_t* txData = nullptr, std::size_t txLen = 0,
+        std::uint8_t* rxData = nullptr, std::size_t rxLen = 0
     ) const;
 };
 
@@ -40,9 +40,9 @@ public:
     {}
     virtual ~I2CController() = default;
     virtual Response transfer(
-        uint8_t address_7bit,
-        const uint8_t* txData = nullptr, std::size_t txLen = 0,
-        uint8_t* rxData = nullptr, std::size_t rxLen = 0
+        std::uint8_t address_7bit,
+        const std::uint8_t* txData = nullptr, std::size_t txLen = 0,
+        std::uint8_t* rxData = nullptr, std::size_t rxLen = 0
     ) override {
         return I2CControllerFast::transfer(
             address_7bit,
