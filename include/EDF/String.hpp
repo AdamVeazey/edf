@@ -432,14 +432,14 @@ public:
 
     constexpr String operator+( char rhs ) const;
 
-    constexpr String operator+( const std::int8_t& rhs ) const;
-    constexpr String operator+( const std::int16_t& rhs ) const;
-    constexpr String operator+( const std::int32_t& rhs ) const;
-    constexpr String operator+( const std::int64_t& rhs ) const;
-    constexpr String operator+( const std::uint8_t& rhs ) const;
-    constexpr String operator+( const std::uint16_t& rhs ) const;
-    constexpr String operator+( const std::uint32_t& rhs ) const;
-    constexpr String operator+( const std::uint64_t& rhs ) const;
+    constexpr String operator+( std::int8_t rhs ) const;
+    constexpr String operator+( std::int16_t rhs ) const;
+    constexpr String operator+( std::int32_t rhs ) const;
+    constexpr String operator+( std::int64_t rhs ) const;
+    constexpr String operator+( std::uint8_t rhs ) const;
+    constexpr String operator+( std::uint16_t rhs ) const;
+    constexpr String operator+( std::uint32_t rhs ) const;
+    constexpr String operator+( std::uint64_t rhs ) const;
 
     /* Operations: Operator Overload - +(lhs, String) */
     friend constexpr String operator+( const char* lhs, const String& rhs )         { String<N> result(lhs); result.append(rhs); return result; }

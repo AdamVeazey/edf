@@ -1863,49 +1863,49 @@ operator+( char rhs ) const {
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-operator+( const std::int8_t& rhs ) const {
+operator+( std::int8_t rhs ) const {
     return getAppended( rhs );
 }
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-operator+( const std::int16_t& rhs ) const {
+operator+( std::int16_t rhs ) const {
     return getAppended( rhs );
 }
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-operator+( const std::int32_t& rhs ) const {
+operator+( std::int32_t rhs ) const {
     return getAppended( rhs );
 }
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-operator+( const std::int64_t& rhs ) const {
+operator+( std::int64_t rhs ) const {
     return getAppended( rhs );
 }
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-operator+( const std::uint8_t& rhs ) const {
+operator+( std::uint8_t rhs ) const {
     return getAppended( rhs );
 }
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-operator+( const std::uint16_t& rhs ) const {
+operator+( std::uint16_t rhs ) const {
     return getAppended( rhs );
 }
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-operator+( const std::uint32_t& rhs ) const {
+operator+( std::uint32_t rhs ) const {
     return getAppended( rhs );
 }
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-operator+( const std::uint64_t& rhs ) const {
+operator+( std::uint64_t rhs ) const {
     return getAppended( rhs );
 }
 
