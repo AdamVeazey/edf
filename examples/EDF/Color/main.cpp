@@ -67,10 +67,6 @@ void example565() {
     EDF::Color565 salmon( 0xFC0E );
     // end::init_initial_value_565[]
 
-    // tag::init_rgba_565[]
-    EDF::Color565 white( 255, 255, 255 );
-    // end::init_rgba_565[]
-
     // tag::init_color_565[]
     EDF::Color565 color( EDF::Color::blueViolet() );
     // end::init_color_565[]
@@ -88,6 +84,7 @@ void example565() {
     // end::get_rgba_565[]
 
     // tag::get_as_565[]
+    EDF::Color565 white( EDF::Color::white() );
     white.asRGB();  // 0xFFFF
     // end::get_as_565[]
 

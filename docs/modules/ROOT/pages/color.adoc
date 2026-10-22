@@ -35,14 +35,6 @@ include::{path_example_edf_color_main_cpp}[tag=init_rgba]
 
 ---
 
-=== Color565( r, g, b )
-[source,c++,indent=0]
-----
-include::{path_example_edf_color_main_cpp}[tag=init_rgba_565]
-----
-
----
-
 === Color565( c )
 `c` is a `Color`
 

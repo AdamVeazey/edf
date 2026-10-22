@@ -8,8 +8,6 @@
 #pragma once
 
 #include "EDF/BitField.hpp"
-#include <cstdint>
-#include <sys/types.h>
 
 namespace EDF {
 
@@ -36,6 +34,9 @@ public:
 
     constexpr std::uint32_t asRGBA()    const { return rgba.get( 0, 32 ); }
     constexpr std::uint32_t asRGB()     const { return rgba.get( 0, 24 ); }
+
+    constexpr bool operator==( const Color& other ) const { return asRGBA() == other.asRGBA(); }
+    constexpr bool operator!=( const Color& other ) const { return !(*this == other); }
 
     /* Named colors */
 
@@ -69,25 +70,26 @@ class Color565 {
 private:
     BitField16 rgb;
 public:
-    constexpr Color565( std::uint16_t initialValue = 0 ) : rgb( initialValue ) {}
-    constexpr Color565( std::uint8_t r, std::uint8_t g, std::uint8_t b ) :
-        rgb( static_cast<std::uint16_t>(((r >> 3) << 11) | ((g >> 2) << 5) | (b >> 3)) )
-    {}
+    constexpr Color565( std::uint16_t raw565 = 0 ) : rgb( raw565 ) {}
     constexpr Color565( const Color& c ) :
         rgb( static_cast<std::uint16_t>(((c.r() >> 3) << 11) | ((c.g() >> 2) << 5) | (c.b() >> 3)) )
     {}
 
     /* Set color components */
-    constexpr void setR( std::uint8_t r )     { rgb.set( 11, 5, r >> 3 ); }
-    constexpr void setG( std::uint8_t g )     { rgb.set(  5, 6, g >> 2 ); }
-    constexpr void setB( std::uint8_t b )     { rgb.set(  0, 5, b >> 3 ); }
+    constexpr void setR( std::uint8_t r )     { EDF_ASSERTD( r < 32, "Expected value: [0-31]"); rgb.set( 11, 5, r ); }
+    constexpr void setG( std::uint8_t g )     { EDF_ASSERTD( g < 64, "Expected value: [0-63]"); rgb.set(  5, 6, g ); }
+    constexpr void setB( std::uint8_t b )     { EDF_ASSERTD( b < 32, "Expected value: [0-31]"); rgb.set(  0, 5, b ); }
 
     /* Get color components */
-    constexpr std::uint8_t r()          const { return static_cast<std::uint8_t>(rgb.get( 11, 5 ) << 3); }
-    constexpr std::uint8_t g()          const { return static_cast<std::uint8_t>(rgb.get(  5, 6 ) << 2); }
-    constexpr std::uint8_t b()          const { return static_cast<std::uint8_t>(rgb.get(  0, 5 ) << 3); }
+    constexpr std::uint8_t r()          const { return static_cast<std::uint8_t>(rgb.get( 11, 5 )); }
+    constexpr std::uint8_t g()          const { return static_cast<std::uint8_t>(rgb.get(  5, 6 )); }
+    constexpr std::uint8_t b()          const { return static_cast<std::uint8_t>(rgb.get(  0, 5 )); }
 
     constexpr std::uint16_t asRGB()     const { return rgb.get( 0, 16 ); }
+    constexpr Color asColor()           const { return Color( (r() * 255) / 31, (g() * 255) / 63, (b() * 255) / 31 ); }
+
+    constexpr bool operator==( const Color565& other ) const { return asRGB() == other.asRGB(); }
+    constexpr bool operator!=( const Color565& other ) const { return !(*this == other); }
 };
 
 } /* EDF */
