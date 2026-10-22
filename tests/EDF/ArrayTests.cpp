@@ -327,3 +327,48 @@ TEST(Array, ReverseBeginEnd) {
     EXPECT_EQ( *crbegin, 4 );
     EXPECT_EQ( *(crend - 1), 1 );
 }
+
+TEST(Array, ConstexprCompileTimeEvaluation) {
+    // 1. Default constructor and maxLength
+    constexpr EDF::Array<int, 5> defaultArr{};
+    static_assert( defaultArr.maxLength() == 5, "Constexpr maxLength failed" );
+    static_assert( defaultArr[0] == 0, "Constexpr default element failed" );
+
+    // 2. Initializer list and element access methods
+    constexpr auto initArr = []() {
+        EDF::Array<int, 4> a{ 10, 20, 30, 40 };
+        return a;
+    }();
+    static_assert( initArr.maxLength() == 4, "Constexpr maxLength with list failed" );
+    static_assert( initArr[0] == 10, "Constexpr operator[] index 0 failed" );
+    static_assert( initArr.at( 1 ) == 20, "Constexpr at() index 1 failed" );
+    static_assert( initArr.front() == 10, "Constexpr front() failed" );
+    static_assert( initArr.back() == 40, "Constexpr back() failed" );
+
+    // 3. Custom Class compile-time evaluation
+    constexpr auto customArr = []() {
+        EDF::Array<CustomClass, 2> a{ CustomClass(5), CustomClass(15) };
+        return a;
+    }();
+    static_assert( customArr[0].getValue() == 5, "Constexpr custom class [0] failed" );
+    static_assert( customArr[1].getValue() == 15, "Constexpr custom class [1] failed" );
+
+    // 4. Mutation inside a constexpr lambda (fill and clear)
+    constexpr auto filledArr = []() {
+        EDF::Array<int, 3> a{ 1, 2, 3 };
+        a.fill( 7 );
+        return a;
+    }();
+    static_assert( filledArr[0] == 7, "Constexpr fill element 0 failed" );
+    static_assert( filledArr[2] == 7, "Constexpr fill element 2 failed" );
+
+    constexpr auto clearedArr = []() {
+        EDF::Array<int, 3> a{ 5, 5, 5 };
+        a.clear();
+        return a;
+    }();
+    static_assert( clearedArr[0] == 0, "Constexpr clear failed" );
+    static_assert( clearedArr[2] == 0, "Constexpr clear failed" );
+
+    SUCCEED();
+}
