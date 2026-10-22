@@ -36,7 +36,7 @@ void exampleMaxHeap() {
     heap.emplace( 6 );
     // end::operation_emplace[]
     // tag::capacity_length[]
-    auto& nElementsInHeap = heap.length();
+    auto nElementsInHeap = heap.length();
     // end::capacity_length[]
     (void)nElementsInHeap;
     // tag::capacity_max_length[]

@@ -38,7 +38,7 @@ public:
     constexpr bool isFull()                                                         const { return n == N; }
 
      /* Capacity */
-    constexpr const std::size_t& length()                                           const { return n; }
+    constexpr std::size_t length()                                                  const { return n; }
     constexpr std::size_t maxLength()                                               const { return N; }
 
     /* Element access */

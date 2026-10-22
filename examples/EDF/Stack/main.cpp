@@ -35,7 +35,7 @@ int main( void ) {
     stack.emplace( 2 );
     // end::operation_emplace[]
     // tag::capacity_length[]
-    auto& nElementsInStack = stack.length();
+    auto nElementsInStack = stack.length();
     // end::capacity_length[]
     (void)nElementsInStack;
     // tag::capacity_max_length[]

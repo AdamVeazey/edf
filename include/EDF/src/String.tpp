@@ -25,10 +25,10 @@ void make_string( char* buffer, std::size_t& size, std::size_t N, uint32_t value
 void make_string( char* buffer, std::size_t& size, std::size_t N, uint64_t value, int base );
 
 /* Conversions: toX */
-int32_t toInt32_t( const char* buffer, const std::size_t& size, int base );
-int64_t toInt64_t( const char* buffer, const std::size_t& size, int base );
-uint32_t toUint32_t( const char* buffer, const std::size_t& size, int base );
-uint64_t toUint64_t( const char* buffer, const std::size_t& size, int base );
+int32_t toInt32_t( const char* buffer, std::size_t size, int base );
+int64_t toInt64_t( const char* buffer, std::size_t size, int base );
+uint32_t toUint32_t( const char* buffer, std::size_t size, int base );
+uint64_t toUint64_t( const char* buffer, std::size_t size, int base );
 
 /* Operations: In/Out-of-Place - insert */
 Iterator insert( char* buffer, std::size_t& size, std::size_t N, ConstIterator pos, char value );
@@ -40,16 +40,16 @@ Iterator insert( char* buffer, std::size_t& size, std::size_t N, ConstIterator p
 Iterator erase( char* buffer, std::size_t& size, std::size_t N, ConstIterator first, ConstIterator last );
 
 /* Operations: Out-of-Place - copyTo */
-void copyTo( const char* buffer, const std::size_t& size, std::size_t N, char* outputString, std::size_t maxBufferLength );
+void copyTo( const char* buffer, std::size_t size, std::size_t N, char* outputString, std::size_t maxBufferLength );
 
 /* Operations: Out-of-Place - find and rfind */
-Iterator find( const char* buffer, const std::size_t& size, std::size_t N, ConstIterator pos, char value );
-Iterator find( const char* buffer, const std::size_t& size, std::size_t N, ConstIterator pos, const char* value, std::size_t n );
-ReverseIterator rfind( const char* buffer, const std::size_t& size, std::size_t N, ConstReverseIterator pos, char value );
-ReverseIterator rfind( const char* buffer, const std::size_t& size, std::size_t N, ConstReverseIterator pos, const char* value, std::size_t n );
+Iterator find( const char* buffer, std::size_t size, std::size_t N, ConstIterator pos, char value );
+Iterator find( const char* buffer, std::size_t size, std::size_t N, ConstIterator pos, const char* value, std::size_t n );
+ReverseIterator rfind( const char* buffer, std::size_t size, std::size_t N, ConstReverseIterator pos, char value );
+ReverseIterator rfind( const char* buffer, std::size_t size, std::size_t N, ConstReverseIterator pos, const char* value, std::size_t n );
 
 /* Operations: Out-of-Place - equals */
-bool equals( const char* buffer, const std::size_t& size, std::size_t N, const char* value, std::size_t n );
+bool equals( const char* buffer, std::size_t size, std::size_t N, const char* value, std::size_t n );
 
 /* Operations: In/Out-of-Place - strip */
 void strip( char* buffer, std::size_t& size, std::size_t N, char value );
@@ -201,7 +201,7 @@ isFull() const {
 
 /* Capacity */
 template<std::size_t N>
-constexpr const std::size_t& String<N>::
+constexpr std::size_t String<N>::
 length() const {
     return size;
 }
