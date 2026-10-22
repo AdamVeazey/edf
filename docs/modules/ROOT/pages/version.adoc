@@ -41,7 +41,7 @@ include::{path_example_edf_version_main_cpp}[tag=init]
 
 ---
 
-=== Version( const uint32_t& )
+=== Version( uint32_t )
 
 .Example
 [source,c++,indent=0]
