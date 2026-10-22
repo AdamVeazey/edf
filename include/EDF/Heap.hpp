@@ -31,7 +31,7 @@ public:
     constexpr bool isFull()                 const { return heap.isFull(); }
 
     /* Capacity */
-    constexpr const std::size_t& length()   const { return heap.length(); }
+    constexpr std::size_t length()          const { return heap.length(); }
     constexpr std::size_t maxLength()       const { return heap.maxLength(); }
 
     /* Operations */

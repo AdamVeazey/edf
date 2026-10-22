@@ -31,7 +31,7 @@ base 10 number.
 Does not skip whitespace
 */
 template<typename T>
-static constexpr T string_to( const char* str, const std::size_t& len, int base ) {
+static constexpr T string_to( const char* str, std::size_t len, int base ) {
     static_assert( std::is_integral_v<T>, "T must be an integer type!");
     EDF_ASSERTD( base >= 2, "base has to be within the range [2,36]" );
     EDF_ASSERTD( base <= 36, "base has to be within the range [2,36]" );
@@ -130,50 +130,50 @@ static constexpr void string_from( char* str, std::size_t& len, std::size_t N, T
     terminate( str, len );
 }
 
-static Iterator begin( const char* buffer, const std::size_t& size, std::size_t N ) {
+static Iterator begin( const char* buffer, std::size_t size, std::size_t N ) {
     (void)size;
     (void)N;
     return Iterator( buffer );
 }
 
-static ConstIterator cbegin( const char* buffer, const std::size_t& size, std::size_t N ) {
+static ConstIterator cbegin( const char* buffer, std::size_t size, std::size_t N ) {
     (void)size;
     (void)N;
     return ConstIterator( buffer );
 }
 
-static Iterator end( const char* buffer, const std::size_t& size, std::size_t N ) {
+static Iterator end( const char* buffer, std::size_t size, std::size_t N ) {
     (void)N;
     return Iterator( buffer + size );
 }
 
-static ConstIterator cend( const char* buffer, const std::size_t& size, std::size_t N ) {
+static ConstIterator cend( const char* buffer, std::size_t size, std::size_t N ) {
     (void)N;
     return ConstIterator( buffer + size );
 }
 
-static ReverseIterator rbegin( const char* buffer, const std::size_t& size, std::size_t N ) {
+static ReverseIterator rbegin( const char* buffer, std::size_t size, std::size_t N ) {
     return ReverseIterator( end( buffer, size, N ) );
 }
 
-static ConstReverseIterator const crbegin( const char* buffer, const std::size_t& size, std::size_t N ) {
+static ConstReverseIterator const crbegin( const char* buffer, std::size_t size, std::size_t N ) {
     return ConstReverseIterator( cend( buffer, size, N ) );
 }
 
-static ReverseIterator rend( const char* buffer, const std::size_t& size, std::size_t N ) {
+static ReverseIterator rend( const char* buffer, std::size_t size, std::size_t N ) {
     return ReverseIterator( begin( buffer, size, N ) );
 }
 
-static ConstReverseIterator crend( const char* buffer, const std::size_t& size, std::size_t N ) {
+static ConstReverseIterator crend( const char* buffer, std::size_t size, std::size_t N ) {
     return ConstReverseIterator( cbegin( buffer, size, N ) );
 }
 
-static bool isFull( const char* buffer, const std::size_t& size, std::size_t N ) {
+static bool isFull( const char* buffer, std::size_t size, std::size_t N ) {
     (void)buffer;
     return size == (N-1);
 }
 
-static std::size_t maxLength( const char* buffer, const std::size_t& size, std::size_t N ) {
+static std::size_t maxLength( const char* buffer, std::size_t size, std::size_t N ) {
     (void)buffer;
     (void)size;
     return N-1;
@@ -229,19 +229,19 @@ void make_string( char* buffer, std::size_t& size, std::size_t N, uint64_t value
     string_from( buffer, size, N, value, base );
 }
 
-int32_t toInt32_t( const char* buffer, const std::size_t& size, int base ) {
+int32_t toInt32_t( const char* buffer, std::size_t size, int base ) {
     return string_to<int32_t>( buffer, size, base );
 }
 
-int64_t toInt64_t( const char* buffer, const std::size_t& size, int base ) {
+int64_t toInt64_t( const char* buffer, std::size_t size, int base ) {
     return string_to<int64_t>( buffer, size, base );
 }
 
-uint32_t toUint32_t( const char* buffer, const std::size_t& size, int base ) {
+uint32_t toUint32_t( const char* buffer, std::size_t size, int base ) {
     return string_to<uint32_t>( buffer, size, base );
 }
 
-uint64_t toUint64_t( const char* buffer, const std::size_t& size, int base ) {
+uint64_t toUint64_t( const char* buffer, std::size_t size, int base ) {
     return string_to<uint64_t>( buffer, size, base );
 }
 
@@ -324,13 +324,13 @@ Iterator erase( char* buffer, std::size_t& size, std::size_t N, ConstIterator fi
     return s;
 }
 
-void copyTo( const char* buffer, const std::size_t& size, std::size_t N, char* outputString, std::size_t maxBufferLength ) {
+void copyTo( const char* buffer, std::size_t size, std::size_t N, char* outputString, std::size_t maxBufferLength ) {
     EDF_ASSERTD( outputString != nullptr, "output buffer can't be nullptr" );
     EDF_ASSERTD( maxBufferLength >= (size + 1), "output buffer is large enough" );
     std::copy( begin(buffer, size, N), end(buffer, size, N) + 1, outputString );
 }
 
-Iterator find( const char* buffer, const std::size_t& size, std::size_t N, ConstIterator pos, char value ) {
+Iterator find( const char* buffer, std::size_t size, std::size_t N, ConstIterator pos, char value ) {
     EDF_ASSERTD( value != '\0', "simply use end() or a variation instead" );
     EDF_ASSERTD( pos >= cbegin(buffer, size, N), "position must be valid" );
     EDF_ASSERTD( pos <= cend(buffer, size, N), "position must be valid" );
@@ -340,7 +340,7 @@ Iterator find( const char* buffer, const std::size_t& size, std::size_t N, Const
     return Iterator( begin(buffer, size, N) + (pos - cbegin(buffer, size, N)) );
 }
 
-Iterator find( const char* buffer, const std::size_t& size, std::size_t N, ConstIterator pos, const char* value, std::size_t n ) {
+Iterator find( const char* buffer, std::size_t size, std::size_t N, ConstIterator pos, const char* value, std::size_t n ) {
     EDF_ASSERTD( value != nullptr, "value may not be nullptr" );
     EDF_ASSERTD( n == std::strlen(value), "n needs to represent string length, not buffer size" );
     EDF_ASSERTD( pos >= cbegin(buffer, size, N), "position must be valid" );
@@ -362,7 +362,7 @@ Iterator find( const char* buffer, const std::size_t& size, std::size_t N, Const
     return Iterator( begin(buffer, size, N) + (pos - cbegin(buffer, size, N)) );
 }
 
-ReverseIterator rfind( const char* buffer, const std::size_t& size, std::size_t N, ConstReverseIterator pos, char value ) {
+ReverseIterator rfind( const char* buffer, std::size_t size, std::size_t N, ConstReverseIterator pos, char value ) {
     EDF_ASSERTD( value != '\0', "simply use end() or a variation instead" );
     EDF_ASSERTD( pos >= crbegin(buffer, size, N), "position must be valid" );
     EDF_ASSERTD( pos <= crend(buffer, size, N), "position must be valid" );
@@ -372,7 +372,7 @@ ReverseIterator rfind( const char* buffer, const std::size_t& size, std::size_t 
     return ReverseIterator( const_cast<Iterator>(pos.base()) );
 }
 
-ReverseIterator rfind( const char* buffer, const std::size_t& size, std::size_t N, ConstReverseIterator pos, const char* value, std::size_t n ) {
+ReverseIterator rfind( const char* buffer, std::size_t size, std::size_t N, ConstReverseIterator pos, const char* value, std::size_t n ) {
     EDF_ASSERTD( value != nullptr, "value must not be nullptr" );
     EDF_ASSERTD( pos >= crbegin(buffer, size, N), "position must be valid" );
     EDF_ASSERTD( pos < crend(buffer, size, N), "position must be valid" );
@@ -385,7 +385,7 @@ ReverseIterator rfind( const char* buffer, const std::size_t& size, std::size_t 
     return ReverseIterator( const_cast<Iterator>(pos.base()) );
 }
 
-bool equals( const char* buffer, const std::size_t& size, std::size_t N, const char* value, std::size_t n ) {
+bool equals( const char* buffer, std::size_t size, std::size_t N, const char* value, std::size_t n ) {
     (void)N;
     EDF_ASSERTD( value != nullptr, "value must not be nullptr" );
     EDF_ASSERTD( n == std::strlen(value), "n needs to represent string length, not buffer size" );

@@ -26,7 +26,7 @@ public:
     constexpr bool isFull()                 const { return buffer.isFull(); }
 
     /* Capacity */
-    constexpr const std::size_t& length()   const { return buffer.length(); }
+    constexpr std::size_t length()          const { return buffer.length(); }
     constexpr std::size_t maxLength()       const { return buffer.maxLength(); }
 
     /* Operations */

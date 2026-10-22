@@ -62,7 +62,7 @@ public:
     constexpr bool isFull() const;
 
     /* Capacity */
-    constexpr const std::size_t& length() const;
+    constexpr std::size_t length() const;
     constexpr std::size_t maxLength() const;
 
     /* Element access */
