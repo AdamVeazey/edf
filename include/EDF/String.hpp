@@ -31,21 +31,21 @@ public:
     String();
 
     String( const char* str );
-    String( const uint8_t* str );
+    String( const std::uint8_t* str );
 
     String( const char* str, std::size_t n );
-    String( const uint8_t* str, std::size_t n );
+    String( const std::uint8_t* str, std::size_t n );
 
     String( char ch );
 
-    String( int8_t value, int base = 10 );
-    String( int16_t value, int base = 10 );
-    String( int32_t value, int base = 10 );
-    String( int64_t value, int base = 10 );
-    String( uint8_t value, int base = 10 );
-    String( uint16_t value, int base = 10 );
-    String( uint32_t value, int base = 10 );
-    String( uint64_t value, int base = 10 );
+    String( std::int8_t value, int base = 10 );
+    String( std::int16_t value, int base = 10 );
+    String( std::int32_t value, int base = 10 );
+    String( std::int64_t value, int base = 10 );
+    String( std::uint8_t value, int base = 10 );
+    String( std::uint16_t value, int base = 10 );
+    String( std::uint32_t value, int base = 10 );
+    String( std::uint64_t value, int base = 10 );
 
     template<std::size_t S>
     String( const String<S>& o );
@@ -74,61 +74,61 @@ public:
 
     constexpr char* asCString();
     constexpr const char* asCString() const;
-    constexpr uint8_t* asByteData();
-    constexpr const uint8_t* asByteData() const;
+    constexpr std::uint8_t* asByteData();
+    constexpr const std::uint8_t* asByteData() const;
 
     /* Conversions: toX */
-    constexpr int8_t toInt8_t( int base = 10 ) const;
-    constexpr int16_t toInt16_t( int base = 10 ) const;
-    int32_t toInt32_t( int base = 10 ) const;
-    int64_t toInt64_t( int base = 10 ) const;
-    constexpr uint8_t toUint8_t( int base = 10 ) const;
-    constexpr uint16_t toUint16_t( int base = 10 ) const;
-    uint32_t toUint32_t( int base = 10 ) const;
-    uint64_t toUint64_t( int base = 10 ) const;
+    constexpr std::int8_t toInt8_t( int base = 10 ) const;
+    constexpr std::int16_t toInt16_t( int base = 10 ) const;
+    std::int32_t toInt32_t( int base = 10 ) const;
+    std::int64_t toInt64_t( int base = 10 ) const;
+    constexpr std::uint8_t toUint8_t( int base = 10 ) const;
+    constexpr std::uint16_t toUint16_t( int base = 10 ) const;
+    std::uint32_t toUint32_t( int base = 10 ) const;
+    std::uint64_t toUint64_t( int base = 10 ) const;
 
     /* Operations: In/Out-of-Place - append */
     constexpr String& append( const char* str );
-    constexpr String& append( const uint8_t* str );
+    constexpr String& append( const std::uint8_t* str );
 
     constexpr String& append( const char* str, std::size_t n );
-    constexpr String& append( const uint8_t* str, std::size_t n );
+    constexpr String& append( const std::uint8_t* str, std::size_t n );
 
     template<std::size_t S>
     constexpr String& append( const char (&str)[S] );
     template<std::size_t S>
-    constexpr String& append( const uint8_t (&str)[S] );
+    constexpr String& append( const std::uint8_t (&str)[S] );
 
     constexpr String& append( char ch );
 
-    constexpr String& append( int8_t value, int base = 10 );
-    constexpr String& append( int16_t value, int base = 10 );
-    constexpr String& append( int32_t value, int base = 10 );
-    constexpr String& append( int64_t value, int base = 10 );
-    constexpr String& append( uint8_t value, int base = 10 );
-    constexpr String& append( uint16_t value, int base = 10 );
-    constexpr String& append( uint32_t value, int base = 10 );
-    constexpr String& append( uint64_t value, int base = 10 );
+    constexpr String& append( std::int8_t value, int base = 10 );
+    constexpr String& append( std::int16_t value, int base = 10 );
+    constexpr String& append( std::int32_t value, int base = 10 );
+    constexpr String& append( std::int64_t value, int base = 10 );
+    constexpr String& append( std::uint8_t value, int base = 10 );
+    constexpr String& append( std::uint16_t value, int base = 10 );
+    constexpr String& append( std::uint32_t value, int base = 10 );
+    constexpr String& append( std::uint64_t value, int base = 10 );
 
     template<std::size_t S>
     constexpr String& append( const String<S>& str );
 
     constexpr String getAppended( const char* str ) const;
-    constexpr String getAppended( const uint8_t* str ) const;
+    constexpr String getAppended( const std::uint8_t* str ) const;
 
     constexpr String getAppended( const char* str, std::size_t n ) const;
-    constexpr String getAppended( const uint8_t* str, std::size_t n ) const;
+    constexpr String getAppended( const std::uint8_t* str, std::size_t n ) const;
 
     constexpr String getAppended( char ch ) const;
 
-    constexpr String getAppended( int8_t value, int base = 10 ) const;
-    constexpr String getAppended( int16_t value, int base = 10 ) const;
-    constexpr String getAppended( int32_t value, int base = 10 ) const;
-    constexpr String getAppended( int64_t value, int base = 10 ) const;
-    constexpr String getAppended( uint8_t value, int base = 10 ) const;
-    constexpr String getAppended( uint16_t value, int base = 10 ) const;
-    constexpr String getAppended( uint32_t value, int base = 10 ) const;
-    constexpr String getAppended( uint64_t value, int base = 10 ) const;
+    constexpr String getAppended( std::int8_t value, int base = 10 ) const;
+    constexpr String getAppended( std::int16_t value, int base = 10 ) const;
+    constexpr String getAppended( std::int32_t value, int base = 10 ) const;
+    constexpr String getAppended( std::int64_t value, int base = 10 ) const;
+    constexpr String getAppended( std::uint8_t value, int base = 10 ) const;
+    constexpr String getAppended( std::uint16_t value, int base = 10 ) const;
+    constexpr String getAppended( std::uint32_t value, int base = 10 ) const;
+    constexpr String getAppended( std::uint64_t value, int base = 10 ) const;
 
     template<std::size_t S>
     constexpr String getAppended( const String<S>& str ) const;
@@ -142,32 +142,32 @@ public:
     Iterator insert( ConstIterator pos, std::initializer_list<char> iList );
 
     constexpr void insert( std::size_t index, const char* str );
-    constexpr void insert( std::size_t index, const uint8_t* str );
-    constexpr Iterator insert( ConstIterator pos, const uint8_t* str );
+    constexpr void insert( std::size_t index, const std::uint8_t* str );
+    constexpr Iterator insert( ConstIterator pos, const std::uint8_t* str );
     constexpr Iterator insert( ConstIterator pos, const char* str );
 
     constexpr void insert( std::size_t index, const char* str, std::size_t n );
-    constexpr void insert( std::size_t index, const uint8_t* str, std::size_t n );
-    constexpr Iterator insert( ConstIterator pos, const uint8_t* str, std::size_t n );
+    constexpr void insert( std::size_t index, const std::uint8_t* str, std::size_t n );
+    constexpr Iterator insert( ConstIterator pos, const std::uint8_t* str, std::size_t n );
     Iterator insert( ConstIterator pos, const char* str, std::size_t n );
 
-    constexpr void insert( std::size_t index, int8_t value, int base = 10 );
-    constexpr void insert( std::size_t index, int16_t value, int base = 10 );
-    constexpr void insert( std::size_t index, int32_t value, int base = 10 );
-    constexpr void insert( std::size_t index, int64_t value, int base = 10 );
-    constexpr void insert( std::size_t index, uint8_t value, int base = 10 );
-    constexpr void insert( std::size_t index, uint16_t value, int base = 10 );
-    constexpr void insert( std::size_t index, uint32_t value, int base = 10 );
-    constexpr void insert( std::size_t index, uint64_t value, int base = 10 );
+    constexpr void insert( std::size_t index, std::int8_t value, int base = 10 );
+    constexpr void insert( std::size_t index, std::int16_t value, int base = 10 );
+    constexpr void insert( std::size_t index, std::int32_t value, int base = 10 );
+    constexpr void insert( std::size_t index, std::int64_t value, int base = 10 );
+    constexpr void insert( std::size_t index, std::uint8_t value, int base = 10 );
+    constexpr void insert( std::size_t index, std::uint16_t value, int base = 10 );
+    constexpr void insert( std::size_t index, std::uint32_t value, int base = 10 );
+    constexpr void insert( std::size_t index, std::uint64_t value, int base = 10 );
 
-    constexpr Iterator insert( ConstIterator pos, int8_t value, int base = 10 );
-    constexpr Iterator insert( ConstIterator pos, int16_t value, int base = 10 );
-    constexpr Iterator insert( ConstIterator pos, int32_t value, int base = 10 );
-    constexpr Iterator insert( ConstIterator pos, int64_t value, int base = 10 );
-    constexpr Iterator insert( ConstIterator pos, uint8_t value, int base = 10 );
-    constexpr Iterator insert( ConstIterator pos, uint16_t value, int base = 10 );
-    constexpr Iterator insert( ConstIterator pos, uint32_t value, int base = 10 );
-    constexpr Iterator insert( ConstIterator pos, uint64_t value, int base = 10 );
+    constexpr Iterator insert( ConstIterator pos, std::int8_t value, int base = 10 );
+    constexpr Iterator insert( ConstIterator pos, std::int16_t value, int base = 10 );
+    constexpr Iterator insert( ConstIterator pos, std::int32_t value, int base = 10 );
+    constexpr Iterator insert( ConstIterator pos, std::int64_t value, int base = 10 );
+    constexpr Iterator insert( ConstIterator pos, std::uint8_t value, int base = 10 );
+    constexpr Iterator insert( ConstIterator pos, std::uint16_t value, int base = 10 );
+    constexpr Iterator insert( ConstIterator pos, std::uint32_t value, int base = 10 );
+    constexpr Iterator insert( ConstIterator pos, std::uint64_t value, int base = 10 );
 
     template<std::size_t S>
     constexpr void insert( std::size_t index, const String<S>& str );
@@ -182,32 +182,32 @@ public:
     constexpr String getInserted( ConstIterator pos, std::initializer_list<char> iList ) const;
 
     constexpr String getInserted( std::size_t index, const char* str ) const;
-    constexpr String getInserted( std::size_t index, const uint8_t* str ) const;
-    constexpr String getInserted( ConstIterator pos, const uint8_t* str ) const;
+    constexpr String getInserted( std::size_t index, const std::uint8_t* str ) const;
+    constexpr String getInserted( ConstIterator pos, const std::uint8_t* str ) const;
     constexpr String getInserted( ConstIterator pos, const char* str ) const;
 
     constexpr String getInserted( std::size_t index, const char* str, std::size_t n ) const;
-    constexpr String getInserted( std::size_t index, const uint8_t* str, std::size_t n ) const;
-    constexpr String getInserted( ConstIterator pos, const uint8_t* str, std::size_t n ) const;
+    constexpr String getInserted( std::size_t index, const std::uint8_t* str, std::size_t n ) const;
+    constexpr String getInserted( ConstIterator pos, const std::uint8_t* str, std::size_t n ) const;
     constexpr String getInserted( ConstIterator pos, const char* str, std::size_t n ) const;
 
-    constexpr String getInserted( std::size_t index, int8_t value, int base = 10 ) const;
-    constexpr String getInserted( std::size_t index, int16_t value, int base = 10 ) const;
-    constexpr String getInserted( std::size_t index, int32_t value, int base = 10 ) const;
-    constexpr String getInserted( std::size_t index, int64_t value, int base = 10 ) const;
-    constexpr String getInserted( std::size_t index, uint8_t value, int base = 10 ) const;
-    constexpr String getInserted( std::size_t index, uint16_t value, int base = 10 ) const;
-    constexpr String getInserted( std::size_t index, uint32_t value, int base = 10 ) const;
-    constexpr String getInserted( std::size_t index, uint64_t value, int base = 10 ) const;
+    constexpr String getInserted( std::size_t index, std::int8_t value, int base = 10 ) const;
+    constexpr String getInserted( std::size_t index, std::int16_t value, int base = 10 ) const;
+    constexpr String getInserted( std::size_t index, std::int32_t value, int base = 10 ) const;
+    constexpr String getInserted( std::size_t index, std::int64_t value, int base = 10 ) const;
+    constexpr String getInserted( std::size_t index, std::uint8_t value, int base = 10 ) const;
+    constexpr String getInserted( std::size_t index, std::uint16_t value, int base = 10 ) const;
+    constexpr String getInserted( std::size_t index, std::uint32_t value, int base = 10 ) const;
+    constexpr String getInserted( std::size_t index, std::uint64_t value, int base = 10 ) const;
 
-    constexpr String getInserted( ConstIterator pos, int8_t value, int base = 10 ) const;
-    constexpr String getInserted( ConstIterator pos, int16_t value, int base = 10 ) const;
-    constexpr String getInserted( ConstIterator pos, int32_t value, int base = 10 ) const;
-    constexpr String getInserted( ConstIterator pos, int64_t value, int base = 10 ) const;
-    constexpr String getInserted( ConstIterator pos, uint8_t value, int base = 10 ) const;
-    constexpr String getInserted( ConstIterator pos, uint16_t value, int base = 10 ) const;
-    constexpr String getInserted( ConstIterator pos, uint32_t value, int base = 10 ) const;
-    constexpr String getInserted( ConstIterator pos, uint64_t value, int base = 10 ) const;
+    constexpr String getInserted( ConstIterator pos, std::int8_t value, int base = 10 ) const;
+    constexpr String getInserted( ConstIterator pos, std::int16_t value, int base = 10 ) const;
+    constexpr String getInserted( ConstIterator pos, std::int32_t value, int base = 10 ) const;
+    constexpr String getInserted( ConstIterator pos, std::int64_t value, int base = 10 ) const;
+    constexpr String getInserted( ConstIterator pos, std::uint8_t value, int base = 10 ) const;
+    constexpr String getInserted( ConstIterator pos, std::uint16_t value, int base = 10 ) const;
+    constexpr String getInserted( ConstIterator pos, std::uint32_t value, int base = 10 ) const;
+    constexpr String getInserted( ConstIterator pos, std::uint64_t value, int base = 10 ) const;
 
     template<std::size_t S>
     constexpr String getInserted( std::size_t index, const String<S>& str ) const;
@@ -230,12 +230,12 @@ public:
 
     /* Operations: Out-of-Place - copyTo */
     void copyTo( char* outputString, std::size_t maxBufferLength ) const;
-    constexpr void copyTo( uint8_t* outputString, std::size_t maxBufferLength ) const;
+    constexpr void copyTo( std::uint8_t* outputString, std::size_t maxBufferLength ) const;
 
     template<std::size_t S>
     constexpr void copyTo( char (&outputString)[S] ) const;
     template<std::size_t S>
-    constexpr void copyTo( uint8_t (&outputString)[S] ) const;
+    constexpr void copyTo( std::uint8_t (&outputString)[S] ) const;
 
     /* Operations: Out-of-Place - find and rfind */
     constexpr Iterator find( char value ) const;
@@ -410,56 +410,56 @@ public:
 
     /* Operations: Operator Overload - += */
     constexpr String& operator+=( const char* rhs );
-    constexpr String& operator+=( const uint8_t* rhs );
+    constexpr String& operator+=( const std::uint8_t* rhs );
 
     constexpr String& operator+=( char rhs );
 
-    constexpr String& operator+=( int8_t rhs );
-    constexpr String& operator+=( int16_t rhs );
-    constexpr String& operator+=( int32_t rhs );
-    constexpr String& operator+=( int64_t rhs );
-    constexpr String& operator+=( uint8_t rhs );
-    constexpr String& operator+=( uint16_t rhs );
-    constexpr String& operator+=( uint32_t rhs );
-    constexpr String& operator+=( uint64_t rhs );
+    constexpr String& operator+=( std::int8_t rhs );
+    constexpr String& operator+=( std::int16_t rhs );
+    constexpr String& operator+=( std::int32_t rhs );
+    constexpr String& operator+=( std::int64_t rhs );
+    constexpr String& operator+=( std::uint8_t rhs );
+    constexpr String& operator+=( std::uint16_t rhs );
+    constexpr String& operator+=( std::uint32_t rhs );
+    constexpr String& operator+=( std::uint64_t rhs );
 
     template<std::size_t S>
     constexpr String& operator+=( const String<S>& rhs );
 
     /* Operations: Operator Overload - +(this, rhs) */
     constexpr String operator+( const char* rhs ) const;
-    constexpr String operator+( const uint8_t* rhs ) const;
+    constexpr String operator+( const std::uint8_t* rhs ) const;
 
     constexpr String operator+( char rhs ) const;
 
-    constexpr String operator+( const int8_t& rhs ) const;
-    constexpr String operator+( const int16_t& rhs ) const;
-    constexpr String operator+( const int32_t& rhs ) const;
-    constexpr String operator+( const int64_t& rhs ) const;
-    constexpr String operator+( const uint8_t& rhs ) const;
-    constexpr String operator+( const uint16_t& rhs ) const;
-    constexpr String operator+( const uint32_t& rhs ) const;
-    constexpr String operator+( const uint64_t& rhs ) const;
+    constexpr String operator+( const std::int8_t& rhs ) const;
+    constexpr String operator+( const std::int16_t& rhs ) const;
+    constexpr String operator+( const std::int32_t& rhs ) const;
+    constexpr String operator+( const std::int64_t& rhs ) const;
+    constexpr String operator+( const std::uint8_t& rhs ) const;
+    constexpr String operator+( const std::uint16_t& rhs ) const;
+    constexpr String operator+( const std::uint32_t& rhs ) const;
+    constexpr String operator+( const std::uint64_t& rhs ) const;
 
     /* Operations: Operator Overload - +(lhs, String) */
-    friend constexpr String operator+( const char* lhs, const String& rhs )     { String<N> result(lhs); result.append(rhs); return result; }
-    friend constexpr String operator+( const uint8_t* lhs, const String& rhs )  { String<N> result(lhs); result.append(rhs); return result; }
+    friend constexpr String operator+( const char* lhs, const String& rhs )         { String<N> result(lhs); result.append(rhs); return result; }
+    friend constexpr String operator+( const std::uint8_t* lhs, const String& rhs ) { String<N> result(lhs); result.append(rhs); return result; }
 
     template<std::size_t S>
     friend constexpr String<EDF::max(S,N)> operator+( const char (&lhs)[S], const String& rhs ) { String<EDF::max(N,S)> result(lhs); result.append(rhs); return result; }
     template<std::size_t S>
-    friend constexpr String<EDF::max(S,N)> operator+( const uint8_t (&lhs)[S], const String& rhs ) { String<EDF::max(N,S)> result(lhs); result.append(rhs); return result; }
+    friend constexpr String<EDF::max(S,N)> operator+( const std::uint8_t (&lhs)[S], const String& rhs ) { String<EDF::max(N,S)> result(lhs); result.append(rhs); return result; }
 
     friend constexpr String operator+( char lhs, const String& rhs ) { String<N> result(lhs); result.append(rhs); return result; }
 
-    friend constexpr String operator+( int8_t lhs, const String& rhs ) { String<N> result(lhs); result.append(rhs); return result; }
-    friend constexpr String operator+( int16_t lhs, const String& rhs ) { String<N> result(lhs); result.append(rhs); return result; }
-    friend constexpr String operator+( int32_t lhs, const String& rhs ) { String<N> result(lhs); result.append(rhs); return result; }
-    friend constexpr String operator+( int64_t lhs, const String& rhs ) { String<N> result(lhs); result.append(rhs); return result; }
-    friend constexpr String operator+( uint8_t lhs, const String& rhs ) { String<N> result(lhs); result.append(rhs); return result; }
-    friend constexpr String operator+( uint16_t lhs, const String& rhs ) { String<N> result(lhs); result.append(rhs); return result; }
-    friend constexpr String operator+( uint32_t lhs, const String& rhs ) { String<N> result(lhs); result.append(rhs); return result; }
-    friend constexpr String operator+( uint64_t lhs, const String& rhs ) { String<N> result(lhs); result.append(rhs); return result; }
+    friend constexpr String operator+( std::int8_t lhs, const String& rhs ) { String<N> result(lhs); result.append(rhs); return result; }
+    friend constexpr String operator+( std::int16_t lhs, const String& rhs ) { String<N> result(lhs); result.append(rhs); return result; }
+    friend constexpr String operator+( std::int32_t lhs, const String& rhs ) { String<N> result(lhs); result.append(rhs); return result; }
+    friend constexpr String operator+( std::int64_t lhs, const String& rhs ) { String<N> result(lhs); result.append(rhs); return result; }
+    friend constexpr String operator+( std::uint8_t lhs, const String& rhs ) { String<N> result(lhs); result.append(rhs); return result; }
+    friend constexpr String operator+( std::uint16_t lhs, const String& rhs ) { String<N> result(lhs); result.append(rhs); return result; }
+    friend constexpr String operator+( std::uint32_t lhs, const String& rhs ) { String<N> result(lhs); result.append(rhs); return result; }
+    friend constexpr String operator+( std::uint64_t lhs, const String& rhs ) { String<N> result(lhs); result.append(rhs); return result; }
 
     template<std::size_t S>
     friend constexpr String<EDF::max(S,N)> operator+( const String<S>& lhs, const String& rhs ) { String<EDF::max(N,S)> result(lhs); result.append(rhs); return result; }

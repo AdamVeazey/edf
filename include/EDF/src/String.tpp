@@ -17,18 +17,18 @@ namespace impl {
 void make_string( char* buffer, std::size_t& size, std::size_t N );
 void make_string( char* buffer, std::size_t& size, std::size_t N, const char* str, std::size_t n );
 void make_string( char* buffer, std::size_t& size, std::size_t N, char ch );
-void make_string( char* buffer, std::size_t& size, std::size_t N, int8_t value, int base );
-void make_string( char* buffer, std::size_t& size, std::size_t N, int16_t value, int base );
-void make_string( char* buffer, std::size_t& size, std::size_t N, int32_t value, int base );
-void make_string( char* buffer, std::size_t& size, std::size_t N, int64_t value, int base );
-void make_string( char* buffer, std::size_t& size, std::size_t N, uint32_t value, int base );
-void make_string( char* buffer, std::size_t& size, std::size_t N, uint64_t value, int base );
+void make_string( char* buffer, std::size_t& size, std::size_t N, std::int8_t value, int base );
+void make_string( char* buffer, std::size_t& size, std::size_t N, std::int16_t value, int base );
+void make_string( char* buffer, std::size_t& size, std::size_t N, std::int32_t value, int base );
+void make_string( char* buffer, std::size_t& size, std::size_t N, std::int64_t value, int base );
+void make_string( char* buffer, std::size_t& size, std::size_t N, std::uint32_t value, int base );
+void make_string( char* buffer, std::size_t& size, std::size_t N, std::uint64_t value, int base );
 
 /* Conversions: toX */
-int32_t toInt32_t( const char* buffer, std::size_t size, int base );
-int64_t toInt64_t( const char* buffer, std::size_t size, int base );
-uint32_t toUint32_t( const char* buffer, std::size_t size, int base );
-uint64_t toUint64_t( const char* buffer, std::size_t size, int base );
+std::int32_t toInt32_t( const char* buffer, std::size_t size, int base );
+std::int64_t toInt64_t( const char* buffer, std::size_t size, int base );
+std::uint32_t toUint32_t( const char* buffer, std::size_t size, int base );
+std::uint64_t toUint64_t( const char* buffer, std::size_t size, int base );
 
 /* Operations: In/Out-of-Place - insert */
 Iterator insert( char* buffer, std::size_t& size, std::size_t N, ConstIterator pos, char value );
@@ -99,7 +99,7 @@ String( const char* str ) {
 
 template<std::size_t N>
 String<N>::
-String( const uint8_t* str ) {
+String( const std::uint8_t* str ) {
     impl::make_string(
         buffer, size, N,
         reinterpret_cast<const char*>(str),
@@ -115,7 +115,7 @@ String( const char* str, std::size_t n ) {
 
 template<std::size_t N>
 String<N>::
-String( const uint8_t* str, std::size_t n ) {
+String( const std::uint8_t* str, std::size_t n ) {
     impl::make_string( buffer, size, N, reinterpret_cast<const char*>(str), n );
 }
 
@@ -127,55 +127,55 @@ String( char ch ) {
 
 template<std::size_t N>
 String<N>::
-String( int8_t value, int base ) {
-    // Attempting to cast this to an int32_t causes problems when base is not 10
-    // Attempting to cast this to an int32_t & 0xFF causes problems when base is 10
+String( std::int8_t value, int base ) {
+    // Attempting to cast this to an std::int32_t causes problems when base is not 10
+    // Attempting to cast this to an std::int32_t & 0xFF causes problems when base is 10
     impl::make_string( buffer, size, N, value, base );
 }
 
 template<std::size_t N>
 String<N>::
-String( int16_t value, int base ) {
-    // Attempting to cast this to an int32_t causes problems when base is not 10
-    // Attempting to cast this to an int32_t & 0xFF causes problems when base is 10
+String( std::int16_t value, int base ) {
+    // Attempting to cast this to an std::int32_t causes problems when base is not 10
+    // Attempting to cast this to an std::int32_t & 0xFF causes problems when base is 10
     impl::make_string( buffer, size, N, value, base );
 }
 
 template<std::size_t N>
 String<N>::
-String( int32_t value, int base ) {
+String( std::int32_t value, int base ) {
     impl::make_string( buffer, size, N, value, base );
 }
 
 template<std::size_t N>
 String<N>::
-String( int64_t value, int base ) {
+String( std::int64_t value, int base ) {
     impl::make_string( buffer, size, N, value, base );
 }
 
 template<std::size_t N>
 String<N>::
-String( uint8_t value, int base ) {
-    // to reduce the amount of template instantiations, cast the value to a uint32_t
-    impl::make_string( buffer, size, N, static_cast<uint32_t>(value), base );
+String( std::uint8_t value, int base ) {
+    // to reduce the amount of template instantiations, cast the value to a std::uint32_t
+    impl::make_string( buffer, size, N, static_cast<std::uint32_t>(value), base );
 }
 
 template<std::size_t N>
 String<N>::
-String( uint16_t value, int base ) {
-    // to reduce the amount of template instantiations, cast the value to a uint32_t
-    impl::make_string( buffer, size, N, static_cast<uint32_t>(value), base );
+String( std::uint16_t value, int base ) {
+    // to reduce the amount of template instantiations, cast the value to a std::uint32_t
+    impl::make_string( buffer, size, N, static_cast<std::uint32_t>(value), base );
 }
 
 template<std::size_t N>
 String<N>::
-String( uint32_t value, int base ) {
+String( std::uint32_t value, int base ) {
     impl::make_string( buffer, size, N, value, base );
 }
 
 template<std::size_t N>
 String<N>::
-String( uint64_t value, int base ) {
+String( std::uint64_t value, int base ) {
     impl::make_string( buffer, size, N, value, base );
 }
 
@@ -254,66 +254,66 @@ asCString() const {
 }
 
 template<std::size_t N>
-constexpr uint8_t* String<N>::
+constexpr std::uint8_t* String<N>::
 asByteData() {
-    return reinterpret_cast<uint8_t*>(buffer);
+    return reinterpret_cast<std::uint8_t*>(buffer);
 }
 
 template<std::size_t N>
-constexpr const uint8_t* String<N>::
+constexpr const std::uint8_t* String<N>::
 asByteData() const {
-    return reinterpret_cast<const uint8_t*>(buffer);
+    return reinterpret_cast<const std::uint8_t*>(buffer);
 }
 
 /* Conversions: toX */
 template<std::size_t N>
-constexpr int8_t String<N>::
+constexpr std::int8_t String<N>::
 toInt8_t( int base ) const {
     // reuse toInt32_t() to reduce # template instantiations
-    return static_cast<int8_t>(toInt32_t( base ));
+    return static_cast<std::int8_t>(toInt32_t( base ));
 }
 
 template<std::size_t N>
-constexpr int16_t String<N>::
+constexpr std::int16_t String<N>::
 toInt16_t( int base ) const {
     // reuse toInt32_t() to reduce # template instantiations
-    return static_cast<int16_t>(toInt32_t( base ));
+    return static_cast<std::int16_t>(toInt32_t( base ));
 }
 
 template<std::size_t N>
-int32_t String<N>::
+std::int32_t String<N>::
 toInt32_t( int base ) const {
     return impl::toInt32_t( buffer, size, base );
 }
 
 template<std::size_t N>
-int64_t String<N>::
+std::int64_t String<N>::
 toInt64_t( int base ) const {
     return impl::toInt64_t( buffer, size, base );
 }
 
 template<std::size_t N>
-constexpr uint8_t String<N>::
+constexpr std::uint8_t String<N>::
 toUint8_t( int base ) const {
     // reuse toUint32_t() to reduce # template instantiations
-    return static_cast<uint8_t>(toUint32_t( base ));
+    return static_cast<std::uint8_t>(toUint32_t( base ));
 }
 
 template<std::size_t N>
-constexpr uint16_t String<N>::
+constexpr std::uint16_t String<N>::
 toUint16_t( int base ) const {
     // reuse toUint32_t() to reduce # template instantiations
-    return static_cast<uint16_t>(toUint32_t( base ));
+    return static_cast<std::uint16_t>(toUint32_t( base ));
 }
 
 template<std::size_t N>
-uint32_t String<N>::
+std::uint32_t String<N>::
 toUint32_t( int base ) const {
     return impl::toUint32_t( buffer, size, base );
 }
 
 template<std::size_t N>
-uint64_t String<N>::
+std::uint64_t String<N>::
 toUint64_t( int base ) const {
     return impl::toUint64_t( buffer, size, base );
 }
@@ -328,7 +328,7 @@ append( const char* str ) {
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
-append( const uint8_t* str ) {
+append( const std::uint8_t* str ) {
     insert( end(), str );
     return *this;
 }
@@ -342,7 +342,7 @@ append( const char* str, std::size_t n ) {
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
-append( const uint8_t* str, std::size_t n ) {
+append( const std::uint8_t* str, std::size_t n ) {
     insert( end(), str, n );
     return *this;
 }
@@ -358,7 +358,7 @@ append( const char (&str)[S] ) {
 template<std::size_t N>
 template<std::size_t S>
 constexpr String<N>& String<N>::
-append( const uint8_t (&str)[S] ) {
+append( const std::uint8_t (&str)[S] ) {
     insert( end(), str );
     return *this;
 }
@@ -372,56 +372,56 @@ append( char ch ) {
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
-append( int8_t value, int base ) {
+append( std::int8_t value, int base ) {
     insert( end(), value, base );
     return *this;
 }
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
-append( int16_t value, int base ) {
+append( std::int16_t value, int base ) {
     insert( end(), value, base );
     return *this;
 }
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
-append( int32_t value, int base ) {
+append( std::int32_t value, int base ) {
     insert( end(), value, base );
     return *this;
 }
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
-append( int64_t value, int base ) {
+append( std::int64_t value, int base ) {
     insert( end(), value, base );
     return *this;
 }
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
-append( uint8_t value, int base ) {
+append( std::uint8_t value, int base ) {
     insert( end(), value, base );
     return *this;
 }
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
-append( uint16_t value, int base ) {
+append( std::uint16_t value, int base ) {
     insert( end(), value, base );
     return *this;
 }
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
-append( uint32_t value, int base ) {
+append( std::uint32_t value, int base ) {
     insert( end(), value, base );
     return *this;
 }
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
-append( uint64_t value, int base ) {
+append( std::uint64_t value, int base ) {
     insert( end(), value, base );
     return *this;
 }
@@ -442,7 +442,7 @@ getAppended( const char* str ) const {
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-getAppended( const uint8_t* str ) const {
+getAppended( const std::uint8_t* str ) const {
     return getInserted( end(), str );
 }
 
@@ -454,7 +454,7 @@ getAppended( const char* str, std::size_t n ) const {
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-getAppended( const uint8_t* str, std::size_t n ) const {
+getAppended( const std::uint8_t* str, std::size_t n ) const {
     return getInserted( end(), str, n );
 }
 
@@ -466,49 +466,49 @@ getAppended( char ch ) const {
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-getAppended( int8_t value, int base ) const {
+getAppended( std::int8_t value, int base ) const {
     return getInserted( end(), value, base );
 }
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-getAppended( int16_t value, int base ) const {
+getAppended( std::int16_t value, int base ) const {
     return getInserted( end(), value, base );
 }
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-getAppended( int32_t value, int base ) const {
+getAppended( std::int32_t value, int base ) const {
     return getInserted( end(), value, base );
 }
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-getAppended( int64_t value, int base ) const {
+getAppended( std::int64_t value, int base ) const {
     return getInserted( end(), value, base );
 }
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-getAppended( uint8_t value, int base ) const {
+getAppended( std::uint8_t value, int base ) const {
     return getInserted( end(), value, base );
 }
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-getAppended( uint16_t value, int base ) const {
+getAppended( std::uint16_t value, int base ) const {
     return getInserted( end(), value, base );
 }
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-getAppended( uint32_t value, int base ) const {
+getAppended( std::uint32_t value, int base ) const {
     return getInserted( end(), value, base );
 }
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-getAppended( uint64_t value, int base ) const {
+getAppended( std::uint64_t value, int base ) const {
     return getInserted( end(), value, base );
 }
 
@@ -564,13 +564,13 @@ insert( std::size_t index, const char* str ) {
 
 template<std::size_t N>
 constexpr void String<N>::
-insert( std::size_t index, const uint8_t* str ) {
+insert( std::size_t index, const std::uint8_t* str ) {
     insert( cbegin() + index, str );
 }
 
 template<std::size_t N>
 constexpr typename String<N>::Iterator String<N>::
-insert( ConstIterator pos, const uint8_t* str ) {
+insert( ConstIterator pos, const std::uint8_t* str ) {
     return insert( pos, reinterpret_cast<const char*>(str) );
 }
 
@@ -589,13 +589,13 @@ insert( std::size_t index, const char* str, std::size_t n ) {
 
 template<std::size_t N>
 constexpr void String<N>::
-insert( std::size_t index, const uint8_t* str, std::size_t n ) {
+insert( std::size_t index, const std::uint8_t* str, std::size_t n ) {
     insert( cbegin() + index, str, n );
 }
 
 template<std::size_t N>
 constexpr typename String<N>::Iterator String<N>::
-insert( ConstIterator pos, const uint8_t* str, std::size_t n ) {
+insert( ConstIterator pos, const std::uint8_t* str, std::size_t n ) {
     return insert( pos, reinterpret_cast<const char*>(str), n );
 }
 
@@ -607,97 +607,97 @@ insert( ConstIterator pos, const char* str, std::size_t n ) {
 
 template<std::size_t N>
 constexpr void String<N>::
-insert( std::size_t index, int8_t value, int base ) {
+insert( std::size_t index, std::int8_t value, int base ) {
     insert( cbegin() + index, value, base );
 }
 
 template<std::size_t N>
 constexpr void String<N>::
-insert( std::size_t index, int16_t value, int base ) {
+insert( std::size_t index, std::int16_t value, int base ) {
     insert( cbegin() + index, value, base );
 }
 
 template<std::size_t N>
 constexpr void String<N>::
-insert( std::size_t index, int32_t value, int base ) {
+insert( std::size_t index, std::int32_t value, int base ) {
     insert( cbegin() + index, value, base );
 }
 
 template<std::size_t N>
 constexpr void String<N>::
-insert( std::size_t index, int64_t value, int base ) {
+insert( std::size_t index, std::int64_t value, int base ) {
     insert( cbegin() + index, value, base );
 }
 
 template<std::size_t N>
 constexpr void String<N>::
-insert( std::size_t index, uint8_t value, int base ) {
+insert( std::size_t index, std::uint8_t value, int base ) {
     insert( cbegin() + index, value, base );
 }
 
 template<std::size_t N>
 constexpr void String<N>::
-insert( std::size_t index, uint16_t value, int base ) {
+insert( std::size_t index, std::uint16_t value, int base ) {
     insert( cbegin() + index, value, base );
 }
 
 template<std::size_t N>
 constexpr void String<N>::
-insert( std::size_t index, uint32_t value, int base ) {
+insert( std::size_t index, std::uint32_t value, int base ) {
     insert( cbegin() + index, value, base );
 }
 
 template<std::size_t N>
 constexpr void String<N>::
-insert( std::size_t index, uint64_t value, int base ) {
+insert( std::size_t index, std::uint64_t value, int base ) {
     insert( cbegin() + index, value, base );
 }
 
 template<std::size_t N>
 constexpr typename String<N>::Iterator String<N>::
-insert( ConstIterator pos, int8_t value, int base ) {
+insert( ConstIterator pos, std::int8_t value, int base ) {
     return insert( pos, String<8+1>( value, base ) );
 }
 
 template<std::size_t N>
 constexpr typename String<N>::Iterator String<N>::
-insert( ConstIterator pos, int16_t value, int base ) {
+insert( ConstIterator pos, std::int16_t value, int base ) {
     return insert( pos, String<16+1>( value, base ) );
 }
 
 template<std::size_t N>
 constexpr typename String<N>::Iterator String<N>::
-insert( ConstIterator pos, int32_t value, int base ) {
+insert( ConstIterator pos, std::int32_t value, int base ) {
     return insert( pos, String<32+1>( value, base ) );
 }
 
 template<std::size_t N>
 constexpr typename String<N>::Iterator String<N>::
-insert( ConstIterator pos, int64_t value, int base ) {
+insert( ConstIterator pos, std::int64_t value, int base ) {
     return insert( pos, String<64+1>( value, base ) );
 }
 
 template<std::size_t N>
 constexpr typename String<N>::Iterator String<N>::
-insert( ConstIterator pos, uint8_t value, int base ) {
+insert( ConstIterator pos, std::uint8_t value, int base ) {
     return insert( pos, String<8+1>( value, base ) );
 }
 
 template<std::size_t N>
 constexpr typename String<N>::Iterator String<N>::
-insert( ConstIterator pos, uint16_t value, int base ) {
+insert( ConstIterator pos, std::uint16_t value, int base ) {
     return insert( pos, String<16+1>( value, base ) );
 }
 
 template<std::size_t N>
 constexpr typename String<N>::Iterator String<N>::
-insert( ConstIterator pos, uint32_t value, int base ) {
+insert( ConstIterator pos, std::uint32_t value, int base ) {
     return insert( pos, String<32+1>( value, base ) );
 }
 
 template<std::size_t N>
 constexpr typename String<N>::Iterator String<N>::
-insert( ConstIterator pos, uint64_t value, int base ) {
+insert( ConstIterator pos, std::uint64_t value, int base ) {
     return insert( pos, String<64+1>( value, base ) );
 }
 
@@ -775,7 +775,7 @@ getInserted( std::size_t index, const char* str ) const {
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-getInserted( std::size_t index, const uint8_t* str ) const {
+getInserted( std::size_t index, const std::uint8_t* str ) const {
     String tmp(*this);
     tmp.insert( index, str );
     return tmp;
@@ -783,7 +783,7 @@ getInserted( std::size_t index, const uint8_t* str ) const {
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-getInserted( ConstIterator pos, const uint8_t* str ) const {
+getInserted( ConstIterator pos, const std::uint8_t* str ) const {
     String tmp(*this);
     tmp.insert( static_cast<std::size_t>(pos - begin()), str );
     return tmp;
@@ -807,7 +807,7 @@ getInserted( std::size_t index, const char* str, std::size_t n ) const {
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-getInserted( std::size_t index, const uint8_t* str, std::size_t n ) const {
+getInserted( std::size_t index, const std::uint8_t* str, std::size_t n ) const {
     String tmp(*this);
     tmp.insert( index, str, n );
     return tmp;
@@ -815,7 +815,7 @@ getInserted( std::size_t index, const uint8_t* str, std::size_t n ) const {
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-getInserted( ConstIterator pos, const uint8_t* str, std::size_t n ) const {
+getInserted( ConstIterator pos, const std::uint8_t* str, std::size_t n ) const {
     String tmp(*this);
     tmp.insert( static_cast<std::size_t>(pos - begin()), str, n );
     return tmp;
@@ -831,7 +831,7 @@ getInserted( ConstIterator pos, const char* str, std::size_t n ) const {
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-getInserted( std::size_t index, int8_t value, int base ) const {
+getInserted( std::size_t index, std::int8_t value, int base ) const {
     String tmp(*this);
     tmp.insert( index, value, base );
     return tmp;
@@ -839,7 +839,7 @@ getInserted( std::size_t index, int8_t value, int base ) const {
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-getInserted( std::size_t index, int16_t value, int base ) const {
+getInserted( std::size_t index, std::int16_t value, int base ) const {
     String tmp(*this);
     tmp.insert( index, value, base );
     return tmp;
@@ -847,7 +847,7 @@ getInserted( std::size_t index, int16_t value, int base ) const {
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-getInserted( std::size_t index, int32_t value, int base ) const {
+getInserted( std::size_t index, std::int32_t value, int base ) const {
     String tmp(*this);
     tmp.insert( index, value, base );
     return tmp;
@@ -855,7 +855,7 @@ getInserted( std::size_t index, int32_t value, int base ) const {
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-getInserted( std::size_t index, int64_t value, int base ) const {
+getInserted( std::size_t index, std::int64_t value, int base ) const {
     String tmp(*this);
     tmp.insert( index, value, base );
     return tmp;
@@ -863,7 +863,7 @@ getInserted( std::size_t index, int64_t value, int base ) const {
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-getInserted( std::size_t index, uint8_t value, int base ) const {
+getInserted( std::size_t index, std::uint8_t value, int base ) const {
     String tmp(*this);
     tmp.insert( index, value, base );
     return tmp;
@@ -871,7 +871,7 @@ getInserted( std::size_t index, uint8_t value, int base ) const {
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-getInserted( std::size_t index, uint16_t value, int base ) const {
+getInserted( std::size_t index, std::uint16_t value, int base ) const {
     String tmp(*this);
     tmp.insert( index, value, base );
     return tmp;
@@ -879,7 +879,7 @@ getInserted( std::size_t index, uint16_t value, int base ) const {
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-getInserted( std::size_t index, uint32_t value, int base ) const {
+getInserted( std::size_t index, std::uint32_t value, int base ) const {
     String tmp(*this);
     tmp.insert( index, value, base );
     return tmp;
@@ -887,7 +887,7 @@ getInserted( std::size_t index, uint32_t value, int base ) const {
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-getInserted( std::size_t index, uint64_t value, int base ) const {
+getInserted( std::size_t index, std::uint64_t value, int base ) const {
     String tmp(*this);
     tmp.insert( index, value, base );
     return tmp;
@@ -895,7 +895,7 @@ getInserted( std::size_t index, uint64_t value, int base ) const {
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-getInserted( ConstIterator pos, int8_t value, int base ) const {
+getInserted( ConstIterator pos, std::int8_t value, int base ) const {
     String tmp(*this);
     tmp.insert( static_cast<std::size_t>(pos - begin()), value, base );
     return tmp;
@@ -903,7 +903,7 @@ getInserted( ConstIterator pos, int8_t value, int base ) const {
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-getInserted( ConstIterator pos, int16_t value, int base ) const {
+getInserted( ConstIterator pos, std::int16_t value, int base ) const {
     String tmp(*this);
     tmp.insert( static_cast<std::size_t>(pos - begin()), value, base );
     return tmp;
@@ -911,7 +911,7 @@ getInserted( ConstIterator pos, int16_t value, int base ) const {
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-getInserted( ConstIterator pos, int32_t value, int base ) const {
+getInserted( ConstIterator pos, std::int32_t value, int base ) const {
     String tmp(*this);
     tmp.insert( static_cast<std::size_t>(pos - begin()), value, base );
     return tmp;
@@ -919,7 +919,7 @@ getInserted( ConstIterator pos, int32_t value, int base ) const {
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-getInserted( ConstIterator pos, int64_t value, int base ) const {
+getInserted( ConstIterator pos, std::int64_t value, int base ) const {
     String tmp(*this);
     tmp.insert( static_cast<std::size_t>(pos - begin()), value, base );
     return tmp;
@@ -927,7 +927,7 @@ getInserted( ConstIterator pos, int64_t value, int base ) const {
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-getInserted( ConstIterator pos, uint8_t value, int base ) const {
+getInserted( ConstIterator pos, std::uint8_t value, int base ) const {
     String tmp(*this);
     tmp.insert( static_cast<std::size_t>(pos - begin()), value, base );
     return tmp;
@@ -935,7 +935,7 @@ getInserted( ConstIterator pos, uint8_t value, int base ) const {
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-getInserted( ConstIterator pos, uint16_t value, int base ) const {
+getInserted( ConstIterator pos, std::uint16_t value, int base ) const {
     String tmp(*this);
     tmp.insert( static_cast<std::size_t>(pos - begin()), value, base );
     return tmp;
@@ -943,7 +943,7 @@ getInserted( ConstIterator pos, uint16_t value, int base ) const {
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-getInserted( ConstIterator pos, uint32_t value, int base ) const {
+getInserted( ConstIterator pos, std::uint32_t value, int base ) const {
     String tmp(*this);
     tmp.insert( static_cast<std::size_t>(pos - begin()), value, base );
     return tmp;
@@ -951,7 +951,7 @@ getInserted( ConstIterator pos, uint32_t value, int base ) const {
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-getInserted( ConstIterator pos, uint64_t value, int base ) const {
+getInserted( ConstIterator pos, std::uint64_t value, int base ) const {
     String tmp(*this);
     tmp.insert( static_cast<std::size_t>(pos - begin()), value, base );
     return tmp;
@@ -1049,7 +1049,7 @@ copyTo( char* outputString, std::size_t maxBufferLength ) const {
 
 template<std::size_t N>
 constexpr void String<N>::
-copyTo( uint8_t* outputString, std::size_t maxBufferLength ) const {
+copyTo( std::uint8_t* outputString, std::size_t maxBufferLength ) const {
     copyTo( reinterpret_cast<char*>(outputString), maxBufferLength );
 }
 
@@ -1063,7 +1063,7 @@ copyTo( char (&outputString)[S] ) const {
 template<std::size_t N>
 template<std::size_t S>
 constexpr void String<N>::
-copyTo( uint8_t (&outputString)[S] ) const {
+copyTo( std::uint8_t (&outputString)[S] ) const {
     copyTo( reinterpret_cast<char(&)[S]>(outputString) );
 }
 
@@ -1776,7 +1776,7 @@ operator+=( const char* rhs ) {
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
-operator+=( const uint8_t* rhs ) {
+operator+=( const std::uint8_t* rhs ) {
     return append( rhs );
 }
 
@@ -1788,49 +1788,49 @@ operator+=( char rhs ) {
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
-operator+=( int8_t rhs ) {
+operator+=( std::int8_t rhs ) {
     return append( rhs );
 }
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
-operator+=( int16_t rhs ) {
+operator+=( std::int16_t rhs ) {
     return append( rhs );
 }
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
-operator+=( int32_t rhs ) {
+operator+=( std::int32_t rhs ) {
     return append( rhs );
 }
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
-operator+=( int64_t rhs ) {
+operator+=( std::int64_t rhs ) {
     return append( rhs );
 }
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
-operator+=( uint8_t rhs ) {
+operator+=( std::uint8_t rhs ) {
     return append( rhs );
 }
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
-operator+=( uint16_t rhs ) {
+operator+=( std::uint16_t rhs ) {
     return append( rhs );
 }
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
-operator+=( uint32_t rhs ) {
+operator+=( std::uint32_t rhs ) {
     return append( rhs );
 }
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
-operator+=( uint64_t rhs ) {
+operator+=( std::uint64_t rhs ) {
     return append( rhs );
 }
 
@@ -1850,7 +1850,7 @@ operator+( const char* rhs ) const {
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-operator+( const uint8_t* rhs ) const {
+operator+( const std::uint8_t* rhs ) const {
     return getAppended( rhs );
 }
 
@@ -1863,49 +1863,49 @@ operator+( char rhs ) const {
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-operator+( const int8_t& rhs ) const {
+operator+( const std::int8_t& rhs ) const {
     return getAppended( rhs );
 }
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-operator+( const int16_t& rhs ) const {
+operator+( const std::int16_t& rhs ) const {
     return getAppended( rhs );
 }
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-operator+( const int32_t& rhs ) const {
+operator+( const std::int32_t& rhs ) const {
     return getAppended( rhs );
 }
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-operator+( const int64_t& rhs ) const {
+operator+( const std::int64_t& rhs ) const {
     return getAppended( rhs );
 }
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-operator+( const uint8_t& rhs ) const {
+operator+( const std::uint8_t& rhs ) const {
     return getAppended( rhs );
 }
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-operator+( const uint16_t& rhs ) const {
+operator+( const std::uint16_t& rhs ) const {
     return getAppended( rhs );
 }
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-operator+( const uint32_t& rhs ) const {
+operator+( const std::uint32_t& rhs ) const {
     return getAppended( rhs );
 }
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-operator+( const uint64_t& rhs ) const {
+operator+( const std::uint64_t& rhs ) const {
     return getAppended( rhs );
 }
 
@@ -1916,7 +1916,7 @@ operator+( const uint64_t& rhs ) const {
 
 // template<std::size_t N>
 // constexpr String<N>
-// operator+( const uint8_t* lhs, const String<N>& rhs ) {
+// operator+( const std::uint8_t* lhs, const String<N>& rhs ) {
 //     String<N> result(lhs);
 //     result.append(rhs);
 //     return result;
@@ -1928,7 +1928,7 @@ operator+( const uint64_t& rhs ) const {
 
 // template<std::size_t N, std::size_t S>
 // constexpr String<EDF::max(S,N)>
-// operator+( const uint8_t (&lhs)[S], const String<N>& rhs ) {
+// operator+( const std::uint8_t (&lhs)[S], const String<N>& rhs ) {
 //     String<EDF::max(S,N)> result(lhs);
 //     result.append(rhs);
 //     return result;
@@ -1940,7 +1940,7 @@ operator+( const uint64_t& rhs ) const {
 
 // template<std::size_t N>
 // constexpr String<N>
-// operator+( int8_t lhs, const String<N>& rhs ) {
+// operator+( std::int8_t lhs, const String<N>& rhs ) {
 //     String<N> result(lhs);
 //     result.append(rhs);
 //     return result;
@@ -1948,7 +1948,7 @@ operator+( const uint64_t& rhs ) const {
 
 // template<std::size_t N>
 // constexpr String<N>
-// operator+( int16_t lhs, const String<N>& rhs ) {
+// operator+( std::int16_t lhs, const String<N>& rhs ) {
 //     String<N> result(lhs);
 //     result.append(rhs);
 //     return result;
@@ -1956,7 +1956,7 @@ operator+( const uint64_t& rhs ) const {
 
 // template<std::size_t N>
 // constexpr String<N>
-// operator+( int32_t lhs, const String<N>& rhs ) {
+// operator+( std::int32_t lhs, const String<N>& rhs ) {
 //     String<N> result(lhs);
 //     result.append(rhs);
 //     return result;
@@ -1964,7 +1964,7 @@ operator+( const uint64_t& rhs ) const {
 
 // template<std::size_t N>
 // constexpr String<N>
-// operator+( int64_t lhs, const String<N>& rhs ) {
+// operator+( std::int64_t lhs, const String<N>& rhs ) {
 //     String<N> result(lhs);
 //     result.append(rhs);
 //     return result;
@@ -1972,7 +1972,7 @@ operator+( const uint64_t& rhs ) const {
 
 // template<std::size_t N>
 // constexpr String<N>
-// operator+( uint8_t lhs, const String<N>& rhs ) {
+// operator+( std::uint8_t lhs, const String<N>& rhs ) {
 //     String<N> result(lhs);
 //     result.append(rhs);
 //     return result;
@@ -1980,7 +1980,7 @@ operator+( const uint64_t& rhs ) const {
 
 // template<std::size_t N>
 // constexpr String<N>
-// operator+( uint16_t lhs, const String<N>& rhs ) {
+// operator+( std::uint16_t lhs, const String<N>& rhs ) {
 //     String<N> result(lhs);
 //     result.append(rhs);
 //     return result;
@@ -1988,7 +1988,7 @@ operator+( const uint64_t& rhs ) const {
 
 // template<std::size_t N>
 // constexpr String<N>
-// operator+( uint32_t lhs, const String<N>& rhs ) {
+// operator+( std::uint32_t lhs, const String<N>& rhs ) {
 //     String<N> result(lhs);
 //     result.append(rhs);
 //     return result;
@@ -1996,7 +1996,7 @@ operator+( const uint64_t& rhs ) const {
 
 // template<std::size_t N>
 // constexpr String<N>
-// operator+( uint64_t lhs, const String<N>& rhs ) {
+// operator+( std::uint64_t lhs, const String<N>& rhs ) {
 //     String<N> result(lhs);
 //     result.append(rhs);
 //     return result;

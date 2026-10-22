@@ -16,7 +16,7 @@ namespace EDF {
 
 class ADC {
 public:
-    enum class Response : uint8_t{
+    enum class Response : std::uint8_t {
         Ok,
         ErrorBusy,
         ErrorOverrun,
@@ -35,11 +35,11 @@ public:
     class ResponseData {
     private:
         Response resp;
-        uint32_t value;
+        std::uint32_t value;
     public:
-        constexpr ResponseData( Response r, uint32_t data = 0 ) : resp(r), value(data) {}
+        constexpr ResponseData( Response r, std::uint32_t data = 0 ) : resp(r), value(data) {}
         constexpr Response response() const { return resp; }
-        constexpr uint32_t data() const {
+        constexpr std::uint32_t data() const {
             EDF_ASSERTD( response() == Response::Ok, "Response must be Ok to extract value");
             return value;
         }
@@ -58,20 +58,20 @@ public:
     using Response = ADC::Response;
     class ResponseData {
     public:
-        using Iterator = uint32_t*;
-        using ConstIterator = const uint32_t*;
+        using Iterator = std::uint32_t*;
+        using ConstIterator = const std::uint32_t*;
         using ReverseIterator = std::reverse_iterator<Iterator>;
         using ConstReverseIterator = std::reverse_iterator<ConstIterator>;
     private:
         Response resp;
-        uint32_t* values;
+        std::uint32_t* values;
         std::size_t n;
     public:
-        constexpr ResponseData( Response r, uint32_t* values = nullptr, std::size_t n = 0 ) :
+        constexpr ResponseData( Response r, std::uint32_t* values = nullptr, std::size_t n = 0 ) :
             resp(r), values(values), n(n)
         {}
         constexpr Response response()                       const { return resp; }
-        constexpr uint32_t* data() const {
+        constexpr std::uint32_t* data() const {
             EDF_ASSERTD( response() == Response::Ok, "Response must be Ok to extract value");
             return values;
         }

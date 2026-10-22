@@ -22,9 +22,9 @@ class ADC : public EDF::ADC {
 public:
     struct Pin {
         GPIO_TypeDef* port;
-        uint16_t pin;
+        std::uint16_t pin;
     };
-    enum class Channel : uint32_t {
+    enum class Channel : std::uint32_t {
         IN0         = ADC_CHANNEL_0,
         IN1         = ADC_CHANNEL_1,
         IN2         = ADC_CHANNEL_2,
@@ -72,7 +72,7 @@ public:
 private:
     class BusyFlags : public EDF::BitField8 {
     public:
-        constexpr BusyFlags( uint8_t raw = 0x00 ) : EDF::BitField8(raw) {}
+        constexpr BusyFlags( std::uint8_t raw = 0x00 ) : EDF::BitField8(raw) {}
 
         constexpr bool isIRQChannelBusy()           const { return get(0, 1); }
         constexpr void setIRQChannel( bool busy )         { set(0, 1, busy); }
@@ -87,13 +87,13 @@ private:
     };
 private:
     ADC_HandleTypeDef* adc;
-    uint32_t timeout_ticks;
+    std::uint32_t timeout_ticks;
     BusyFlags busyFlags;
     ADCChannel* irqChannel;
     ADCScanGroup* irqScanGroup;
     IRQType irqType;
 private:
-    Response toResponse( HAL_StatusTypeDef status, uint32_t adcError );
+    Response toResponse( HAL_StatusTypeDef status, std::uint32_t adcError );
     bool isSequencerAlreadySetup( const ScanGroup& scanGroup );
     bool isSequencerAlreadySetup( Channel channel );
 protected:
@@ -111,10 +111,10 @@ protected:
 
     Response dmaConfigure( ADCScanGroup* self, const ScanGroup& scanGroup );
     Response dmaConfigure( ADCChannel* self, Channel channel );
-    Response dmaStart( uint32_t* dmaBuffer, std::size_t n );
+    Response dmaStart( std::uint32_t* dmaBuffer, std::size_t n );
     Response dmaStop();
 
-    uint32_t getValue();
+    std::uint32_t getValue();
 
     friend class ADCChannel;
     friend class ADCScanGroup;
@@ -123,12 +123,12 @@ public:
         adc(adc), timeout_ticks(0),
         irqChannel(nullptr), irqScanGroup(nullptr)
     {}
-    inline void setTimeout( uint32_t ticks ) { timeout_ticks = ticks; }
+    inline void setTimeout( std::uint32_t ticks ) { timeout_ticks = ticks; }
 
-    uint32_t getMaxValue();
+    std::uint32_t getMaxValue();
 
     void calibrate();
-    uint32_t to_mV( int32_t adcValue );
+    std::uint32_t to_mV( std::int32_t adcValue );
 
     void handleIRQs();
 
@@ -171,7 +171,7 @@ public:
 private:
     ADC& adc;
     ADC::ScanGroup scanGroup;
-    uint32_t values[8]; // max of 8 channels per scan group
+    std::uint32_t values[8]; // max of 8 channels per scan group
     Callback cb;
 protected:
     void ConvCpltCallback();

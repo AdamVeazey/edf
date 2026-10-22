@@ -17,25 +17,25 @@ class Color {
 private:
     BitField32 rgba;
 public:
-    constexpr Color( uint32_t initialValue = 0 ) : rgba( initialValue ) {}
-    constexpr Color( uint8_t r, uint8_t g, uint8_t b, uint8_t a = 0xFF ) :
-        rgba( static_cast<uint32_t>((a << 24) | (r << 16) | (g << 8) | b) )
+    constexpr Color( std::uint32_t initialValue = 0 ) : rgba( initialValue ) {}
+    constexpr Color( std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint8_t a = 0xFF ) :
+        rgba( static_cast<std::uint32_t>((a << 24) | (r << 16) | (g << 8) | b) )
     {}
 
     /* Set color components */
-    constexpr void setR( uint8_t r )          { rgba.set( 16, 8, r ); }
-    constexpr void setG( uint8_t g )          { rgba.set(  8, 8, g ); }
-    constexpr void setB( uint8_t b )          { rgba.set(  0, 8, b ); }
-    constexpr void setA( uint8_t a )          { rgba.set( 24, 8, a ); }
+    constexpr void setR( std::uint8_t r )     { rgba.set( 16, 8, r ); }
+    constexpr void setG( std::uint8_t g )     { rgba.set(  8, 8, g ); }
+    constexpr void setB( std::uint8_t b )     { rgba.set(  0, 8, b ); }
+    constexpr void setA( std::uint8_t a )     { rgba.set( 24, 8, a ); }
 
     /* Get color components */
-    constexpr uint8_t r()               const { return static_cast<uint8_t>(rgba.get( 16, 8 )); }
-    constexpr uint8_t g()               const { return static_cast<uint8_t>(rgba.get( 8 , 8 )); }
-    constexpr uint8_t b()               const { return static_cast<uint8_t>(rgba.get(  0, 8 )); }
-    constexpr uint8_t a()               const { return static_cast<uint8_t>(rgba.get( 24, 8 )); }
+    constexpr std::uint8_t r()          const { return static_cast<std::uint8_t>(rgba.get( 16, 8 )); }
+    constexpr std::uint8_t g()          const { return static_cast<std::uint8_t>(rgba.get( 8 , 8 )); }
+    constexpr std::uint8_t b()          const { return static_cast<std::uint8_t>(rgba.get(  0, 8 )); }
+    constexpr std::uint8_t a()          const { return static_cast<std::uint8_t>(rgba.get( 24, 8 )); }
 
-    constexpr uint32_t asRGBA()         const { return rgba.get( 0, 32 ); }
-    constexpr uint32_t asRGB()          const { return rgba.get( 0, 24 ); }
+    constexpr std::uint32_t asRGBA()    const { return rgba.get( 0, 32 ); }
+    constexpr std::uint32_t asRGB()     const { return rgba.get( 0, 24 ); }
 
     /* Named colors */
 
@@ -69,25 +69,25 @@ class Color565 {
 private:
     BitField16 rgb;
 public:
-    constexpr Color565( uint16_t initialValue = 0 ) : rgb( initialValue ) {}
-    constexpr Color565( uint8_t r, uint8_t g, uint8_t b ) :
-        rgb( static_cast<uint16_t>(((r >> 3) << 11) | ((g >> 2) << 5) | (b >> 3)) )
+    constexpr Color565( std::uint16_t initialValue = 0 ) : rgb( initialValue ) {}
+    constexpr Color565( std::uint8_t r, std::uint8_t g, std::uint8_t b ) :
+        rgb( static_cast<std::uint16_t>(((r >> 3) << 11) | ((g >> 2) << 5) | (b >> 3)) )
     {}
     constexpr Color565( const Color& c ) :
-        rgb( static_cast<uint16_t>(((c.r() >> 3) << 11) | ((c.g() >> 2) << 5) | (c.b() >> 3)) )
+        rgb( static_cast<std::uint16_t>(((c.r() >> 3) << 11) | ((c.g() >> 2) << 5) | (c.b() >> 3)) )
     {}
 
     /* Set color components */
-    constexpr void setR( uint8_t r )          { rgb.set( 11, 5, r >> 3 ); }
-    constexpr void setG( uint8_t g )          { rgb.set(  5, 6, g >> 2 ); }
-    constexpr void setB( uint8_t b )          { rgb.set(  0, 5, b >> 3 ); }
+    constexpr void setR( std::uint8_t r )     { rgb.set( 11, 5, r >> 3 ); }
+    constexpr void setG( std::uint8_t g )     { rgb.set(  5, 6, g >> 2 ); }
+    constexpr void setB( std::uint8_t b )     { rgb.set(  0, 5, b >> 3 ); }
 
     /* Get color components */
-    constexpr uint8_t r()               const { return static_cast<uint8_t>(rgb.get( 11, 5 ) << 3); }
-    constexpr uint8_t g()               const { return static_cast<uint8_t>(rgb.get(  5, 6 ) << 2); }
-    constexpr uint8_t b()               const { return static_cast<uint8_t>(rgb.get(  0, 5 ) << 3); }
+    constexpr std::uint8_t r()          const { return static_cast<std::uint8_t>(rgb.get( 11, 5 ) << 3); }
+    constexpr std::uint8_t g()          const { return static_cast<std::uint8_t>(rgb.get(  5, 6 ) << 2); }
+    constexpr std::uint8_t b()          const { return static_cast<std::uint8_t>(rgb.get(  0, 5 ) << 3); }
 
-    constexpr uint16_t asRGB()          const { return rgb.get( 0, 16 ); }
+    constexpr std::uint16_t asRGB()     const { return rgb.get( 0, 16 ); }
 };
 
 } /* EDF */

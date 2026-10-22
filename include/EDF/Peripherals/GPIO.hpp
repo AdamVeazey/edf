@@ -13,7 +13,7 @@ namespace EDF {
 
 class GPIO {
 public:
-    enum class Level : uint8_t {
+    enum class Level : std::uint8_t {
         LOW,
         HIGH
     };

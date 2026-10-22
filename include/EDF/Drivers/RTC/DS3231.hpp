@@ -16,7 +16,7 @@ namespace EDF {
 
 namespace DS3231_Registers {
 
-enum class Register : uint8_t {
+enum class Register : std::uint8_t {
     Seconds         = 0x00,
     Minutes         = 0x01,
     Hours           = 0x02,
@@ -45,11 +45,11 @@ class Seconds : public BitField8 {
 public:
     using BitField8::BitField8;
 
-    constexpr uint8_t getOnesPlace()                const { return get(0, 4); }
-    constexpr void setOnesPlace( uint8_t ones )           { set(0, 4, ones); }
+    constexpr std::uint8_t getOnesPlace()                const { return get(0, 4); }
+    constexpr void setOnesPlace( std::uint8_t ones )           { set(0, 4, ones); }
 
-    constexpr uint8_t getTensPlace()                const { return get(4, 3); }
-    constexpr void setTensPlace( uint8_t tens )           { set(4, 3, tens ); }
+    constexpr std::uint8_t getTensPlace()                const { return get(4, 3); }
+    constexpr void setTensPlace( std::uint8_t tens )           { set(4, 3, tens ); }
 };
 
 using Minutes = Seconds; // exact same register layout
@@ -58,76 +58,76 @@ class Hours : public BitField8 {
 public:
     using BitField8::BitField8;
 
-    constexpr uint8_t getOnesPlace()                const { return get(0, 4); }
-    constexpr void setOnesPlace( uint8_t ones )           { set(0, 4, ones); }
+    constexpr std::uint8_t getOnesPlace()               const { return get(0, 4); }
+    constexpr void setOnesPlace( std::uint8_t ones )          { set(0, 4, ones); }
 
-    constexpr uint8_t getTensPlace()                const {
+    constexpr std::uint8_t getTensPlace()               const {
         if( is12Hour() ) {
             return get(4, 1);
         }
         return get(4, 2);
     }
-    constexpr void setTensPlace( uint8_t tens )           {
+    constexpr void setTensPlace( std::uint8_t tens )          {
         if( is12Hour() )    set(4, 1, tens);
         else                set(4, 2, tens);
     }
 
-    constexpr bool isPM()                           const { return !isAM(); }
-    constexpr void setPM()                                { set(5, 1, true); }
-    constexpr bool isAM()                           const {
+    constexpr bool isPM()                               const { return !isAM(); }
+    constexpr void setPM()                                    { set(5, 1, true); }
+    constexpr bool isAM()                               const {
         EDF_ASSERTD( is12Hour(), "Must be in 12 hour mode to check this bit");
         return !get(5, 1);
     }
-    constexpr void setAM()                                { set(5, 1, false); }
+    constexpr void setAM()                                    { set(5, 1, false); }
 
-    constexpr bool is12Hour()                       const { return get(6, 1); }
-    constexpr void set12Hour()                            { set(6, 1, true); }
-    constexpr void set24Hour()                            { set(6, 1, false); }
+    constexpr bool is12Hour()                           const { return get(6, 1); }
+    constexpr void set12Hour()                                { set(6, 1, true); }
+    constexpr void set24Hour()                                { set(6, 1, false); }
 };
 
 class DayOfTheWeek : public BitField8 {
 public:
     using BitField8::BitField8;
 
-    constexpr uint8_t getDayOfTheWeek()             const { return get(0, 3); }
-    constexpr void setDayOfTheWeek( uint8_t day )         { set(0, 3, day); }
+    constexpr std::uint8_t getDayOfTheWeek()             const { return get(0, 3); }
+    constexpr void setDayOfTheWeek( std::uint8_t day )         { set(0, 3, day); }
 };
 
 class DayOfTheMonth : public BitField8 {
 public:
     using BitField8::BitField8;
 
-    constexpr uint8_t getOnesPlace()                const { return get(0, 4); }
-    constexpr void setOnesPlace( uint8_t ones )           { set(0, 4, ones); }
+    constexpr std::uint8_t getOnesPlace()                const { return get(0, 4); }
+    constexpr void setOnesPlace( std::uint8_t ones )           { set(0, 4, ones); }
 
-    constexpr uint8_t getTensPlace()                const { return get(5, 2); }
-    constexpr void setTensPlace( uint8_t tens )           { set(5, 2, tens); }
+    constexpr std::uint8_t getTensPlace()                const { return get(5, 2); }
+    constexpr void setTensPlace( std::uint8_t tens )           { set(5, 2, tens); }
 };
 
 class MonthCentury : public BitField8 {
 public:
     using BitField8::BitField8;
 
-    constexpr uint8_t getOnesPlace()                const { return get(0, 4); }
-    constexpr void setOnesPlace( uint8_t ones )           { set(0, 4, ones); }
+    constexpr std::uint8_t getOnesPlace()               const { return get(0, 4); }
+    constexpr void setOnesPlace( std::uint8_t ones )          { set(0, 4, ones); }
 
-    constexpr uint8_t getTensPlace()                const { return get(5, 1); }
-    constexpr void setTensPlace( uint8_t tens )           { set(5, 1, tens); }
+    constexpr std::uint8_t getTensPlace()               const { return get(5, 1); }
+    constexpr void setTensPlace( std::uint8_t tens )          { set(5, 1, tens); }
 
-    constexpr bool is21stCentury()                  const { return get(7, 1); }
-    constexpr void set21stCentury()                       { set(7, 1, true); }
-    constexpr void set20thCentury()                       { set(7, 1, false); }
+    constexpr bool is21stCentury()                      const { return get(7, 1); }
+    constexpr void set21stCentury()                           { set(7, 1, true); }
+    constexpr void set20thCentury()                           { set(7, 1, false); }
 };
 
 class Year : public BitField8 {
 public:
     using BitField8::BitField8;
 
-    constexpr uint8_t getOnesPlace()                const { return get(0, 4); }
-    constexpr void setOnesPlace( uint8_t ones )           { set(0, 4, ones); }
+    constexpr std::uint8_t getOnesPlace()               const { return get(0, 4); }
+    constexpr void setOnesPlace( std::uint8_t ones )          { set(0, 4, ones); }
 
-    constexpr uint8_t getTensPlace()                const { return get(5, 4); }
-    constexpr void setTensPlace( uint8_t tens )           { set(5, 4, tens); }
+    constexpr std::uint8_t getTensPlace()               const { return get(5, 4); }
+    constexpr void setTensPlace( std::uint8_t tens )          { set(5, 4, tens); }
 };
 
 class Alarm1Seconds : public Seconds {
@@ -158,16 +158,16 @@ class Alarm1DayDate : public BitField8 {
 public:
     using BitField8::BitField8;
 
-    constexpr uint8_t getOnesPlace()                const { return get(0, 4); }
-    constexpr void setOnesPlace( uint8_t ones )           { set(0, 4, ones); }
+    constexpr std::uint8_t getOnesPlace()               const { return get(0, 4); }
+    constexpr void setOnesPlace( std::uint8_t ones )          { set(0, 4, ones); }
 
-    constexpr uint8_t getTensPlace()                const {
+    constexpr std::uint8_t getTensPlace()               const {
         if( isDayOfTheWeek() ) {
             return get(5, 1);
         }
         return get(5, 2);
     }
-    constexpr void setTensPlace( uint8_t tens )           {
+    constexpr void setTensPlace( std::uint8_t tens )          {
         if( isDayOfTheWeek() )  set(5, 1, tens);
         else                    set(5, 2, tens);
     }
@@ -216,7 +216,7 @@ public:
 
 class ControlStatus : public BitField16 {
 public:
-    enum class SWR : uint8_t { // SquareWaveRate
+    enum class SWR : std::uint8_t { // SquareWaveRate
         R1_Hz       = 0x00, // 1      Hz
         R1_024_kHz  = 0x01, // 1.024 kHz
         R4_096_kHz  = 0x02, // 4.096 kHz
@@ -235,7 +235,7 @@ public:
     constexpr void setAlarmInterrupt( bool enable )       { set(2, 1, enable);  }
 
     constexpr SWR getSquareWaveRate()               const { return static_cast<SWR>(get(3, 2)); }
-    constexpr void setSquareWaveRate( SWR r )             { set(3, 2, static_cast<uint8_t>(r)); }
+    constexpr void setSquareWaveRate( SWR r )             { set(3, 2, static_cast<std::uint8_t>(r)); }
 
     constexpr bool isTemperatureConverting()        const { return get(5, 1); }
     constexpr bool startTemperatureConversion()           { // returns false if busy doing a conversion
@@ -270,25 +270,25 @@ public:
 class AgingOffset : public BitField8 {
 public:
     using BitField8::BitField8;
-    AgingOffset( int8_t value ) : BitField8( static_cast<uint8_t>(value)) {}
+    AgingOffset( std::int8_t value ) : BitField8( static_cast<std::uint8_t>(value)) {}
 
-    constexpr int8_t getOffset()                    const { return static_cast<int8_t>(get(0, 8)); }
-    constexpr void setOffset( int8_t offset )             { set(0, 8, static_cast<uint8_t>(offset)); }
+    constexpr std::int8_t getOffset()               const { return static_cast<std::int8_t>(get(0, 8)); }
+    constexpr void setOffset( std::int8_t offset )        { set(0, 8, static_cast<std::uint8_t>(offset)); }
 };
 
 class Temperature : public BitField16 {
 public:
     using BitField16::BitField16;
 
-    constexpr uint8_t getFraction()                 const { return static_cast<uint8_t>(get(6, 2)); }
-    constexpr int8_t getWhole()                     const { return static_cast<int8_t>(get(8, 8)); }
+    constexpr std::uint8_t getFraction()            const { return static_cast<std::uint8_t>(get(6, 2)); }
+    constexpr std::int8_t getWhole()                const { return static_cast<std::int8_t>(get(8, 8)); }
 };
 
 } /* DS3231_Registers */
 
 class DS3231 {
 private:
-    static constexpr uint8_t address_7bit = 0x68;
+    static constexpr std::uint8_t address_7bit = 0x68;
 private:
     using Register      = DS3231_Registers::Register;
 
@@ -377,10 +377,10 @@ public:
         {}
     };
 private:
-    uint8_t readRegister( Register reg );
-    void writeRegister( Register reg, uint8_t value );
-    uint16_t readRegister16( Register reg );
-    void writeRegister16( Register reg, uint16_t value );
+    std::uint8_t readRegister( Register reg );
+    void writeRegister( Register reg, std::uint8_t value );
+    std::uint16_t readRegister16( Register reg );
+    void writeRegister16( Register reg, std::uint16_t value );
 
     CurrentTime readCurrentTime();
     void writeCurrentTime( const CurrentTime& time );
@@ -423,10 +423,10 @@ public:
     bool isAlarm2InterruptEnabled()                             { return readControlStatus().isA2InterruptEnabled(); }
     void setAlarm2Interrupt( bool enable );
 
-    int8_t getAgingOffset()                                     { return readAgingOffset().getOffset(); }
-    void setAgingOffset( int8_t value );
+    std::int8_t getAgingOffset()                                { return readAgingOffset().getOffset(); }
+    void setAgingOffset( std::int8_t value );
 
-    int32_t getTemperature_C_x100( bool manualReading = false );
+    std::int32_t getTemperature_C_x100( bool manualReading = false );
 
     void set32KhzOutput( bool enable );
     void setSquareWaveOutput( bool enable, CFG::SquareWaveRate rate = CFG::SquareWaveRate::R8_192_kHz );

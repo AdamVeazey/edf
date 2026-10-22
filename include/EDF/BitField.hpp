@@ -44,19 +44,19 @@ public:
 };
 
 // tag::uint8_t[]
-using BitField8 = BitField<uint8_t>;
+using BitField8 = BitField<std::uint8_t>;
 // end::uint8_t[]
 
 // tag::uint16_t[]
-using BitField16 = BitField<uint16_t>;
+using BitField16 = BitField<std::uint16_t>;
 // end::uint16_t[]
 
 // tag::uint32_t[]
-using BitField32 = BitField<uint32_t>;
+using BitField32 = BitField<std::uint32_t>;
 // end::uint32_t[]
 
 // tag::uint64_t[]
-using BitField64 = BitField<uint64_t>;
+using BitField64 = BitField<std::uint64_t>;
 // end::uint64_t[]
 
 } /* EDF */
