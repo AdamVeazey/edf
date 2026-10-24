@@ -329,21 +329,7 @@ append( const char* str ) {
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
-append( const std::uint8_t* str ) {
-    insert( end(), str );
-    return *this;
-}
-
-template<std::size_t N>
-constexpr String<N>& String<N>::
 append( const char* str, std::size_t n ) {
-    insert( end(), str, n );
-    return *this;
-}
-
-template<std::size_t N>
-constexpr String<N>& String<N>::
-append( const std::uint8_t* str, std::size_t n ) {
     insert( end(), str, n );
     return *this;
 }
@@ -352,14 +338,6 @@ template<std::size_t N>
 template<std::size_t S>
 constexpr String<N>& String<N>::
 append( const char (&str)[S] ) {
-    insert( end(), str );
-    return *this;
-}
-
-template<std::size_t N>
-template<std::size_t S>
-constexpr String<N>& String<N>::
-append( const std::uint8_t (&str)[S] ) {
     insert( end(), str );
     return *this;
 }
@@ -443,19 +421,7 @@ getAppended( const char* str ) const {
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-getAppended( const std::uint8_t* str ) const {
-    return getInserted( end(), str );
-}
-
-template<std::size_t N>
-constexpr String<N> String<N>::
 getAppended( const char* str, std::size_t n ) const {
-    return getInserted( end(), str, n );
-}
-
-template<std::size_t N>
-constexpr String<N> String<N>::
-getAppended( const std::uint8_t* str, std::size_t n ) const {
     return getInserted( end(), str, n );
 }
 
@@ -564,18 +530,6 @@ insert( std::size_t index, const char* str ) {
 }
 
 template<std::size_t N>
-constexpr void String<N>::
-insert( std::size_t index, const std::uint8_t* str ) {
-    insert( cbegin() + index, str );
-}
-
-template<std::size_t N>
-constexpr typename String<N>::Iterator String<N>::
-insert( ConstIterator pos, const std::uint8_t* str ) {
-    return insert( pos, reinterpret_cast<const char*>(str) );
-}
-
-template<std::size_t N>
 constexpr typename String<N>::Iterator String<N>::
 insert( ConstIterator pos, const char* str ) {
     return insert( pos, str, std::strlen(str) );
@@ -586,18 +540,6 @@ template<std::size_t N>
 constexpr void String<N>::
 insert( std::size_t index, const char* str, std::size_t n ) {
     insert( cbegin() + index, str, n );
-}
-
-template<std::size_t N>
-constexpr void String<N>::
-insert( std::size_t index, const std::uint8_t* str, std::size_t n ) {
-    insert( cbegin() + index, str, n );
-}
-
-template<std::size_t N>
-constexpr typename String<N>::Iterator String<N>::
-insert( ConstIterator pos, const std::uint8_t* str, std::size_t n ) {
-    return insert( pos, reinterpret_cast<const char*>(str), n );
 }
 
 template<std::size_t N>
@@ -776,22 +718,6 @@ getInserted( std::size_t index, const char* str ) const {
 
 template<std::size_t N>
 constexpr String<N> String<N>::
-getInserted( std::size_t index, const std::uint8_t* str ) const {
-    String tmp(*this);
-    tmp.insert( index, str );
-    return tmp;
-}
-
-template<std::size_t N>
-constexpr String<N> String<N>::
-getInserted( ConstIterator pos, const std::uint8_t* str ) const {
-    String tmp(*this);
-    tmp.insert( static_cast<std::size_t>(pos - begin()), str );
-    return tmp;
-}
-
-template<std::size_t N>
-constexpr String<N> String<N>::
 getInserted( ConstIterator pos, const char* str ) const {
     String tmp(*this);
     tmp.insert( static_cast<std::size_t>(pos - begin()), str );
@@ -803,22 +729,6 @@ constexpr String<N> String<N>::
 getInserted( std::size_t index, const char* str, std::size_t n ) const {
     String tmp(*this);
     tmp.insert( index, str, n );
-    return tmp;
-}
-
-template<std::size_t N>
-constexpr String<N> String<N>::
-getInserted( std::size_t index, const std::uint8_t* str, std::size_t n ) const {
-    String tmp(*this);
-    tmp.insert( index, str, n );
-    return tmp;
-}
-
-template<std::size_t N>
-constexpr String<N> String<N>::
-getInserted( ConstIterator pos, const std::uint8_t* str, std::size_t n ) const {
-    String tmp(*this);
-    tmp.insert( static_cast<std::size_t>(pos - begin()), str, n );
     return tmp;
 }
 
@@ -1206,12 +1116,6 @@ template<std::size_t N>
 constexpr bool String<N>::
 equals( const char* value ) const {
     return equals( value, std::strlen( value ) );
-}
-
-template<std::size_t N>
-constexpr bool String<N>::
-equals( const std::uint8_t* value ) const {
-    return equals( reinterpret_cast<const char*>(value) );
 }
 
 template<std::size_t N>
@@ -1783,12 +1687,6 @@ operator+=( const char* rhs ) {
 
 template<std::size_t N>
 constexpr String<N>& String<N>::
-operator+=( const std::uint8_t* rhs ) {
-    return append( rhs );
-}
-
-template<std::size_t N>
-constexpr String<N>& String<N>::
 operator+=( char rhs ) {
     return append( rhs );
 }
@@ -1852,12 +1750,6 @@ operator+=( const String<S>& rhs ) {
 template<std::size_t N>
 constexpr String<N> String<N>::
 operator+( const char* rhs ) const {
-    return getAppended( rhs );
-}
-
-template<std::size_t N>
-constexpr String<N> String<N>::
-operator+( const std::uint8_t* rhs ) const {
     return getAppended( rhs );
 }
 

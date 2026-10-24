@@ -516,9 +516,7 @@ static void examples() {
     string = "Hello, world!";
     // tag::operation_plus_equals1[]
     string += " c string";
-    string += pLiteralUint8_t;
     string += strLiteralChar;
-    string += strLiteralUint8_t;
     string += ch;
     string += 'c';
     string += valueInt8_t; // assumes base 10, use append() for a different base
@@ -560,7 +558,6 @@ static void examples() {
 
     // tag::operation_plus_lhs[]
     result = " c string" + string;
-    result = pLiteralUint8_t + string;
     result = strLiteralChar + string;
     result = strLiteralUint8_t + string;
     result = ch + string;
