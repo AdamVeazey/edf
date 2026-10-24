@@ -1236,3 +1236,111 @@ TEST(String, ReverseBeginEnd) {
     EXPECT_EQ( *crbegin, 'o' );
     EXPECT_EQ( *(crend - 1), 'H' );
 }
+
+TEST(String, NumericMinMaxLimits) {
+    EDF::String<16> int8Min( INT8_MIN );
+    EXPECT_STREQ( int8Min.asCString(), "-128" );
+    EXPECT_EQ( int8Min.toInt8_t(), INT8_MIN );
+
+    EDF::String<16> int8Max( INT8_MAX );
+    EXPECT_STREQ( int8Max.asCString(), "127" );
+    EXPECT_EQ( int8Max.toInt8_t(), INT8_MAX );
+
+    EDF::String<32> uint64Max( UINT64_MAX );
+    EXPECT_STREQ( uint64Max.asCString(), "18446744073709551615" );
+    EXPECT_EQ( uint64Max.toUint64_t(), UINT64_MAX );
+}
+
+TEST(String, ToInvalidNumberDeath) {
+    EXPECT_DEATH( EDF::String<33>("not a number").toInt32_t(), "" );
+}
+
+TEST(String, CapacityOverflowDeath) {
+    EDF::String<4> string = "abc";
+    EXPECT_DEATH( string.append("d"), "" );
+}
+
+TEST(String, CopyAndMoveAssignment) {
+    EDF::String<16> str1 = "Hello";
+    EDF::String<16> str2;
+    str2 = str1; // Copy assignment
+    EXPECT_STREQ( str2.asCString(), "Hello" );
+
+    EDF::String<16> str3;
+    str3 = std::move( str1 ); // Move assignment
+    EXPECT_STREQ( str3.asCString(), "Hello" );
+}
+
+TEST(String, ComparisonOperators) {
+    EDF::String<16> a = "apple";
+    EDF::String<16> b = "banana";
+    EDF::String<16> a2 = "apple";
+
+    // EDF::String and EDF::String
+    EXPECT_TRUE( a == a2 );
+    EXPECT_FALSE( a == b );
+    EXPECT_TRUE( a != b );
+    EXPECT_FALSE( a != a2 );
+
+    EXPECT_TRUE( a < b );
+    EXPECT_FALSE( b < a );
+    EXPECT_TRUE( b > a );
+    EXPECT_FALSE( a > b );
+    EXPECT_TRUE( a <= a2 );
+    EXPECT_TRUE( a >= a2 );
+
+    // EDF::String and const char*
+    EXPECT_TRUE( a == "apple" );
+    EXPECT_FALSE( a == "banana" );
+    EXPECT_TRUE( a != "banana" );
+    EXPECT_FALSE( a != "apple" );
+
+    EXPECT_TRUE( a < "banana" );
+    EXPECT_FALSE( b < "apple" );
+    EXPECT_TRUE( b > "apple" );
+    EXPECT_FALSE( a > "banana" );
+    EXPECT_TRUE( a <= "apple" );
+    EXPECT_TRUE( a >= "apple" );
+
+    // const char* and EDF::String
+    EXPECT_TRUE( "apple" == a2 );
+    EXPECT_FALSE( "apple" == b );
+    EXPECT_TRUE( "apple" != b );
+    EXPECT_FALSE( "apple" != a2 );
+
+    EXPECT_TRUE( "apple" < b );
+    EXPECT_FALSE( "banana" < a );
+    EXPECT_TRUE( "banana" > a );
+    EXPECT_FALSE( "apple" > b );
+    EXPECT_TRUE( "apple" <= a2 );
+    EXPECT_TRUE( "apple" >= a2 );
+
+    const uint8_t* ua = reinterpret_cast<const uint8_t*>("apple");
+    const uint8_t* ub = reinterpret_cast<const uint8_t*>("banana");
+    const uint8_t* ua2 = reinterpret_cast<const uint8_t*>("apple");
+    // EDF::String and const uint8_t*
+    EXPECT_TRUE( a == ua2 );
+    EXPECT_FALSE( a == ub );
+    EXPECT_TRUE( a != ub );
+    EXPECT_FALSE( a != ua2 );
+
+    EXPECT_TRUE( a < ub );
+    EXPECT_FALSE( b < ua );
+    EXPECT_TRUE( b > ua );
+    EXPECT_FALSE( a > ub );
+    EXPECT_TRUE( a <= ua2 );
+    EXPECT_TRUE( a >= ua2 );
+
+    // const uint8_t* and EDF::String
+    EXPECT_TRUE( ua == a2 );
+    EXPECT_FALSE( ua == b );
+    EXPECT_TRUE( ua != b );
+    EXPECT_FALSE( ua != a2 );
+
+    EXPECT_TRUE( ua < b );
+    EXPECT_FALSE( ub < a );
+    EXPECT_TRUE( ub > a );
+    EXPECT_FALSE( ua > b );
+    EXPECT_TRUE( ua <= a2 );
+    EXPECT_TRUE( ua >= a2 );
+}
