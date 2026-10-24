@@ -518,6 +518,9 @@ void replace(
     const char* lookFor, std::size_t nLF,
     const char* replaceWith, std::size_t nRW
 ) {
+    EDF_ASSERTD( lookFor != nullptr, "lookFor may not be nullptr" );
+    EDF_ASSERTD( replaceWith != nullptr, "replaceWith may not be nullptr" );
+
     if( nLF == 0 || size < nLF ) return;
     ReverseIterator posLookFor = rfind(buffer, size, N, crbegin(buffer, size, N), lookFor, nLF );
     for( ; posLookFor != crend(buffer, size, N); ) {
