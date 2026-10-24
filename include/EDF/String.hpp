@@ -28,7 +28,7 @@ private:
     char buffer[N];
 public:
     /* Constructors */
-    String();
+    String( std::nullptr_t p = nullptr );
 
     String( const char* str );
     String( const std::uint8_t* str );
