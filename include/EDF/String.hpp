@@ -272,6 +272,7 @@ public:
     /* Operations: Out-of-Place - equals */
     constexpr bool equals( char value ) const;
     constexpr bool equals( const char* value ) const;
+    constexpr bool equals( const std::uint8_t* value ) const;
     bool equals( const char* value, std::size_t n ) const;
     template<std::size_t S>
     constexpr bool equals( const String<S>& value ) const;
@@ -442,7 +443,7 @@ public:
     constexpr String operator+( std::uint64_t rhs ) const;
 
     /* Operations: Operator Overload - +(lhs, String) */
-    friend constexpr String operator+( const char* lhs, const String& rhs )         { String<N> result(lhs); result.append(rhs); return result; }
+    friend constexpr String operator+( const char* lhs, const String& rhs ) { String<N> result(lhs); result.append(rhs); return result; }
     friend constexpr String operator+( const std::uint8_t* lhs, const String& rhs ) { String<N> result(lhs); result.append(rhs); return result; }
 
     template<std::size_t S>
@@ -481,6 +482,92 @@ public:
     constexpr ConstReverseIterator rend() const;
     constexpr ConstReverseIterator crend() const;
 };
+
+/* Operations: Operator Overload - == */
+template<std::size_t S1, std::size_t S2>
+constexpr bool operator==( const String<S1>& lhs, const String<S2>& rhs ) { return lhs.equals( rhs ); }
+template<std::size_t S>
+constexpr bool operator==( const String<S>& lhs, const char* rhs ) { return lhs.equals( rhs ); }
+template<std::size_t S>
+constexpr bool operator==( const char* lhs, const String<S>& rhs ) { return rhs.equals( lhs ); }
+template<std::size_t S>
+constexpr bool operator==( const String<S>& lhs, const std::uint8_t* rhs ) { return lhs.equals( rhs ); }
+template<std::size_t S>
+constexpr bool operator==( const std::uint8_t* lhs, const String<S>& rhs ) { return rhs.equals( lhs ); }
+
+/* Operations: Operator Overload - != */
+template<std::size_t S1, std::size_t S2>
+constexpr bool operator!=( const String<S1>& lhs, const String<S2>& rhs ) { return !( lhs == rhs ); }
+template<std::size_t S>
+constexpr bool operator!=( const String<S>& lhs, const char* rhs ) { return !( lhs == rhs ); }
+template<std::size_t S>
+constexpr bool operator!=( const char* lhs, const String<S>& rhs ) { return !( lhs == rhs ); }
+template<std::size_t S>
+constexpr bool operator!=( const String<S>& lhs, const std::uint8_t* rhs ) { return !( lhs == rhs ); }
+template<std::size_t S>
+constexpr bool operator!=( const std::uint8_t* lhs, const String<S>& rhs ) { return !( lhs == rhs ); }
+
+/* Operations: Operator Overload - < */
+template<std::size_t S1, std::size_t S2>
+constexpr bool operator<( const String<S1>& lhs, const String<S2>& rhs ) {
+    return std::lexicographical_compare( lhs.begin(), lhs.end(), rhs.begin(), rhs.end() );
+}
+
+template<std::size_t S>
+constexpr bool operator<( const String<S>& lhs, const char* rhs ) {
+    return std::lexicographical_compare( lhs.begin(), lhs.end(), rhs, rhs + std::strlen( rhs ) );
+}
+
+template<std::size_t S>
+constexpr bool operator<( const char* lhs, const String<S>& rhs ) {
+    return std::lexicographical_compare( lhs, lhs + std::strlen( lhs ), rhs.begin(), rhs.end() );
+}
+
+template<std::size_t S>
+constexpr bool operator<( const String<S>& lhs, const std::uint8_t* rhs ) {
+    return lhs < reinterpret_cast<const char*>( rhs );
+}
+
+template<std::size_t S>
+constexpr bool operator<( const std::uint8_t* lhs, const String<S>& rhs ) {
+    return reinterpret_cast<const char*>( lhs ) < rhs;
+}
+
+/* Operations: Operator Overload - > */
+template<std::size_t S1, std::size_t S2>
+constexpr bool operator>( const String<S1>& lhs, const String<S2>& rhs ) { return rhs < lhs; }
+template<std::size_t S>
+constexpr bool operator>( const String<S>& lhs, const char* rhs ) { return rhs < lhs; }
+template<std::size_t S>
+constexpr bool operator>( const char* lhs, const String<S>& rhs ) { return rhs < lhs; }
+template<std::size_t S>
+constexpr bool operator>( const String<S>& lhs, const std::uint8_t* rhs ) { return rhs < lhs; }
+template<std::size_t S>
+constexpr bool operator>( const std::uint8_t* lhs, const String<S>& rhs ) { return rhs < lhs; }
+
+/* Operations: Operator Overload - <= */
+template<std::size_t S1, std::size_t S2>
+constexpr bool operator<=( const String<S1>& lhs, const String<S2>& rhs ) { return !( rhs < lhs ); }
+template<std::size_t S>
+constexpr bool operator<=( const String<S>& lhs, const char* rhs ) { return !( rhs < lhs ); }
+template<std::size_t S>
+constexpr bool operator<=( const char* lhs, const String<S>& rhs ) { return !( rhs < lhs ); }
+template<std::size_t S>
+constexpr bool operator<=( const String<S>& lhs, const std::uint8_t* rhs ) { return !( rhs < lhs ); }
+template<std::size_t S>
+constexpr bool operator<=( const std::uint8_t* lhs, const String<S>& rhs ) { return !( rhs < lhs ); }
+
+/* Operations: Operator Overload - >= */
+template<std::size_t S1, std::size_t S2>
+constexpr bool operator>=( const String<S1>& lhs, const String<S2>& rhs ) { return !( lhs < rhs ); }
+template<std::size_t S>
+constexpr bool operator>=( const String<S>& lhs, const char* rhs ) { return !( lhs < rhs ); }
+template<std::size_t S>
+constexpr bool operator>=( const char* lhs, const String<S>& rhs ) { return !( lhs < rhs ); }
+template<std::size_t S>
+constexpr bool operator>=( const String<S>& lhs, const std::uint8_t* rhs ) { return !( lhs < rhs ); }
+template<std::size_t S>
+constexpr bool operator>=( const std::uint8_t* lhs, const String<S>& rhs ) { return !( lhs < rhs ); }
 
 } /* EDF */
 

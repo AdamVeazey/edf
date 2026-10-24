@@ -1209,6 +1209,12 @@ equals( const char* value ) const {
 }
 
 template<std::size_t N>
+constexpr bool String<N>::
+equals( const std::uint8_t* value ) const {
+    return equals( reinterpret_cast<const char*>(value) );
+}
+
+template<std::size_t N>
 bool String<N>::
 equals( const char* value, std::size_t n ) const {
     return impl::equals( buffer, size, N, value, n );
@@ -1909,107 +1915,6 @@ constexpr String<N> String<N>::
 operator+( std::uint64_t rhs ) const {
     return getAppended( rhs );
 }
-
-/* Operations: Operator Overload - +(lhs, String) */
-// template<std::size_t N>
-// constexpr String<N>
-// operator+( const char* lhs, const String<N>& rhs ) { String<N> result(lhs); result.append(rhs); return result; }
-
-// template<std::size_t N>
-// constexpr String<N>
-// operator+( const std::uint8_t* lhs, const String<N>& rhs ) {
-//     String<N> result(lhs);
-//     result.append(rhs);
-//     return result;
-// }
-
-// template<std::size_t N, std::size_t S>
-// constexpr String<EDF::max(N, S)>
-// operator+( const char (&lhs)[S], const String<N>& rhs ) { String<EDF::max(N,S)> result(lhs); result.append(rhs); return result; }
-
-// template<std::size_t N, std::size_t S>
-// constexpr String<EDF::max(S,N)>
-// operator+( const std::uint8_t (&lhs)[S], const String<N>& rhs ) {
-//     String<EDF::max(S,N)> result(lhs);
-//     result.append(rhs);
-//     return result;
-// }
-
-// template<std::size_t N>
-// constexpr String<N>
-// operator+( char lhs, const String<N>& rhs ) { String<N> result(lhs); result.append(rhs); return result; }
-
-// template<std::size_t N>
-// constexpr String<N>
-// operator+( std::int8_t lhs, const String<N>& rhs ) {
-//     String<N> result(lhs);
-//     result.append(rhs);
-//     return result;
-// }
-
-// template<std::size_t N>
-// constexpr String<N>
-// operator+( std::int16_t lhs, const String<N>& rhs ) {
-//     String<N> result(lhs);
-//     result.append(rhs);
-//     return result;
-// }
-
-// template<std::size_t N>
-// constexpr String<N>
-// operator+( std::int32_t lhs, const String<N>& rhs ) {
-//     String<N> result(lhs);
-//     result.append(rhs);
-//     return result;
-// }
-
-// template<std::size_t N>
-// constexpr String<N>
-// operator+( std::int64_t lhs, const String<N>& rhs ) {
-//     String<N> result(lhs);
-//     result.append(rhs);
-//     return result;
-// }
-
-// template<std::size_t N>
-// constexpr String<N>
-// operator+( std::uint8_t lhs, const String<N>& rhs ) {
-//     String<N> result(lhs);
-//     result.append(rhs);
-//     return result;
-// }
-
-// template<std::size_t N>
-// constexpr String<N>
-// operator+( std::uint16_t lhs, const String<N>& rhs ) {
-//     String<N> result(lhs);
-//     result.append(rhs);
-//     return result;
-// }
-
-// template<std::size_t N>
-// constexpr String<N>
-// operator+( std::uint32_t lhs, const String<N>& rhs ) {
-//     String<N> result(lhs);
-//     result.append(rhs);
-//     return result;
-// }
-
-// template<std::size_t N>
-// constexpr String<N>
-// operator+( std::uint64_t lhs, const String<N>& rhs ) {
-//     String<N> result(lhs);
-//     result.append(rhs);
-//     return result;
-// }
-
-// template<std::size_t N, std::size_t S>
-// constexpr String<EDF::max(N, S)>
-// operator+( const String<S>& lhs, const String<N>& rhs ) {
-//     String<EDF::max(N, S)> result(lhs);
-//     result.append(rhs);
-//     return result;
-// }
 
 /* Iterators */
 template<std::size_t N>
