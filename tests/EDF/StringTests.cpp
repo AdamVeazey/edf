@@ -417,108 +417,91 @@ TEST(String, Append) {
     string.append( "one " );
     EXPECT_STREQ( string.asCString(), "one " );
 
-    string.append( reinterpret_cast<const uint8_t*>( "two " ) );
+    string.append( "two ", 4 );
     EXPECT_STREQ( string.asCString(), "one two " );
 
-    string.append( "three ", 6 );
-    EXPECT_STREQ( string.asCString(), "one two three " );
-
-    string.append( reinterpret_cast<const uint8_t*>( "four " ), 5 );
-    EXPECT_STREQ( string.asCString(), "one two three four " );
-
-    const char literalCharArray[] = "five ";
+    const char literalCharArray[] = "three";
     string.append( literalCharArray );
-    EXPECT_STREQ( string.asCString(), "one two three four five " );
-
-    const uint8_t literalUint8_tArray[] = "six";
-    string.append( literalUint8_tArray );
-    EXPECT_STREQ( string.asCString(), "one two three four five six" );
+    EXPECT_STREQ( string.asCString(), "one two three" );
 
     string.append( ' ' );
-    EXPECT_STREQ( string.asCString(), "one two three four five six " );
+    EXPECT_STREQ( string.asCString(), "one two three " );
 
-    int8_t vInt8_t = 0x7;
+    int8_t vInt8_t = 0x4;
     string.append( vInt8_t, 16 ).append( ' ' );
-    EXPECT_STREQ( string.asCString(), "one two three four five six 7 " );
+    EXPECT_STREQ( string.asCString(), "one two three 4 " );
 
-    int16_t vInt16_t = 0x8;
+    int16_t vInt16_t = 0x5;
     string.append( vInt16_t ).append( ' ' );
-    EXPECT_STREQ( string.asCString(), "one two three four five six 7 8 " );
+    EXPECT_STREQ( string.asCString(), "one two three 4 5 " );
 
-    int32_t vInt32_t = 0x9;
+    int32_t vInt32_t = 0x6;
     string.append( vInt32_t ).append( ' ' );
-    EXPECT_STREQ( string.asCString(), "one two three four five six 7 8 9 " );
+    EXPECT_STREQ( string.asCString(), "one two three 4 5 6 " );
 
-    int32_t vInt64_t = 0xA;
+    int32_t vInt64_t = 0x7;
     string.append( vInt64_t ).append( ' ' );
-    EXPECT_STREQ( string.asCString(), "one two three four five six 7 8 9 10 " );
+    EXPECT_STREQ( string.asCString(), "one two three 4 5 6 7 " );
 
-    uint8_t vUint8_t = 0xB;
+    uint8_t vUint8_t = 0x8;
     string.append( vUint8_t ).append( ' ' );
-    EXPECT_STREQ( string.asCString(), "one two three four five six 7 8 9 10 11 " );
+    EXPECT_STREQ( string.asCString(), "one two three 4 5 6 7 8 " );
 
-    uint16_t vUint16_t = 0xC;
+    uint16_t vUint16_t = 0x9;
     string.append( vUint16_t ).append( ' ' );
-    EXPECT_STREQ( string.asCString(), "one two three four five six 7 8 9 10 11 12 " );
+    EXPECT_STREQ( string.asCString(), "one two three 4 5 6 7 8 9 " );
 
-    uint32_t vUint32_t = 0xD;
+    uint32_t vUint32_t = 0xA;
     string.append( vUint32_t ).append( ' ' );
-    EXPECT_STREQ( string.asCString(), "one two three four five six 7 8 9 10 11 12 13 " );
+    EXPECT_STREQ( string.asCString(), "one two three 4 5 6 7 8 9 10 " );
 
-    uint32_t vUint64_t = 0xE;
+    uint32_t vUint64_t = 0xB;
     string.append( vUint64_t ).append( ' ' );
-    EXPECT_STREQ( string.asCString(), "one two three four five six 7 8 9 10 11 12 13 14 " );
+    EXPECT_STREQ( string.asCString(), "one two three 4 5 6 7 8 9 10 11 " );
 
-    EDF::String<32> otherString = "fifteen";
+    EDF::String<32> otherString = "twelve";
     string.append( otherString );
-    EXPECT_STREQ( string.asCString(), "one two three four five six 7 8 9 10 11 12 13 14 fifteen" );
+    EXPECT_STREQ( string.asCString(), "one two three 4 5 6 7 8 9 10 11 twelve" );
 }
 
 TEST(String, GetAppended) {
     EDF::String<32> string;
 
-    EXPECT_STREQ( string.getAppended( "one " ).asCString(), "one " );
+    EXPECT_STREQ( string.getAppended( "one" ).asCString(), "one" );
 
-    EXPECT_STREQ( string.getAppended( reinterpret_cast<const uint8_t*>( "two " ) ).asCString(), "two " );
+    EXPECT_STREQ( string.getAppended( "two", 3 ).asCString(), "two" );
 
-    EXPECT_STREQ( string.getAppended( "three ", 6 ).asCString(), "three " );
-
-    EXPECT_STREQ( string.getAppended( reinterpret_cast<const uint8_t*>( "four " ), 5 ).asCString(), "four " );
-
-    const char literalCharArray[] = "five ";
-    EXPECT_STREQ( string.getAppended( literalCharArray ).asCString(), "five " );
-
-    const uint8_t literalUint8_tArray[] = "six";
-    EXPECT_STREQ( string.getAppended( literalUint8_tArray ).asCString(), "six" );
+    const char literalCharArray[] = "three";
+    EXPECT_STREQ( string.getAppended( literalCharArray ).asCString(), "three" );
 
     EXPECT_STREQ( string.getAppended( ' ' ).asCString(), " " );
 
-    int8_t vInt8_t = 0x7;
-    EXPECT_STREQ( string.getAppended( vInt8_t, 16 ).asCString(), "7" );
+    int8_t vInt8_t = 0x4;
+    EXPECT_STREQ( string.getAppended( vInt8_t, 16 ).asCString(), "4" );
 
-    int16_t vInt16_t = 0x8;
-    EXPECT_STREQ( string.getAppended( vInt16_t ).asCString(), "8" );
+    int16_t vInt16_t = 0x5;
+    EXPECT_STREQ( string.getAppended( vInt16_t ).asCString(), "5" );
 
-    int32_t vInt32_t = 0x9;
-    EXPECT_STREQ( string.getAppended( vInt32_t ).asCString(), "9" );
+    int32_t vInt32_t = 0x6;
+    EXPECT_STREQ( string.getAppended( vInt32_t ).asCString(), "6" );
 
-    int32_t vInt64_t = 0xA;
-    EXPECT_STREQ( string.getAppended( vInt64_t ).asCString(), "10" );
+    int32_t vInt64_t = 0x7;
+    EXPECT_STREQ( string.getAppended( vInt64_t ).asCString(), "7" );
 
-    uint8_t vUint8_t = 0xB;
-    EXPECT_STREQ( string.getAppended( vUint8_t ).asCString(), "11" );
+    uint8_t vUint8_t = 0x8;
+    EXPECT_STREQ( string.getAppended( vUint8_t ).asCString(), "8" );
 
-    uint16_t vUint16_t = 0xC;
-    EXPECT_STREQ( string.getAppended( vUint16_t ).asCString(), "12" );
+    uint16_t vUint16_t = 0x9;
+    EXPECT_STREQ( string.getAppended( vUint16_t ).asCString(), "9" );
 
-    uint32_t vUint32_t = 0xD;
-    EXPECT_STREQ( string.getAppended( vUint32_t ).asCString(), "13" );
+    uint32_t vUint32_t = 0xA;
+    EXPECT_STREQ( string.getAppended( vUint32_t ).asCString(), "10" );
 
-    uint32_t vUint64_t = 0xE;
-    EXPECT_STREQ( string.getAppended( vUint64_t ).asCString(), "14" );
+    uint32_t vUint64_t = 0xB;
+    EXPECT_STREQ( string.getAppended( vUint64_t ).asCString(), "11" );
 
-    EDF::String<32> otherString = "fifteen";
-    EXPECT_STREQ( string.getAppended( otherString ).asCString(), "fifteen" );
+    EDF::String<32> otherString = "twelve";
+    EXPECT_STREQ( string.getAppended( otherString ).asCString(), "twelve" );
 }
 
 TEST(String, Insert) {
@@ -547,24 +530,12 @@ TEST(String, Insert) {
     string.insert( 7_uz, "teen" );
     EXPECT_STREQ( string.asCString(), "   fourteen fifteen" );
 
-    string.insert( 2_uz, reinterpret_cast<const uint8_t*>("teen") );
-    EXPECT_STREQ( string.asCString(), "  teen fourteen fifteen" );
-
-    string.insert( string.find('t'), "th" );
-    EXPECT_STREQ( string.asCString(), "  thteen fourteen fifteen" );
-
-    string.insert( string.find('h') + 1, reinterpret_cast<const uint8_t*>("ir") );
-    EXPECT_STREQ( string.asCString(), "  thirteen fourteen fifteen" );
+    string.insert( string.find('f') - 1, "rteen" );
+    EXPECT_STREQ( string.asCString(), "  rteen fourteen fifteen" );
 
     /**********************************************************************************************/
-
-    string.insert( 1_uz, "twel", std::strlen("twel") );
-    EXPECT_STREQ( string.asCString(), " twel thirteen fourteen fifteen" );
-
-    string.insert( 5_uz, reinterpret_cast<const uint8_t*>("ve"), 2 );
-    EXPECT_STREQ( string.asCString(), " twelve thirteen fourteen fifteen" );
-
-    string.insert( string.begin(), reinterpret_cast<const uint8_t*>("ele"), 3 );
+    string.insert( 2_uz, "ele twelve thi", std::strlen("ele twelve thi") );
+    string.trim();
     EXPECT_STREQ( string.asCString(), "ele twelve thirteen fourteen fifteen" );
 
     string.insert( string.find( string.find('e') + 1, 'e' ) + 1, "ven", std::strlen("ven") );
@@ -572,57 +543,50 @@ TEST(String, Insert) {
 
     /**********************************************************************************************/
 
-    const char literalCharArray[] = "          ";
+    const char literalCharArray[] = "         ten ";
     string.insert( 0_uz, literalCharArray );
-    EXPECT_STREQ( string.asCString(), "          eleven twelve thirteen fourteen fifteen" );
-
-    const uint8_t literalUint8_tArray[] = "        ";
-    string.insert( 49_uz, literalUint8_tArray );
-    EXPECT_STREQ( string.asCString(), "          eleven twelve thirteen fourteen fifteen        " );
-
-    const uint8_t literalUint8_tArray2[] = "ten";
-    string.insert( string.find('e') - 1, literalUint8_tArray2 );
-    EXPECT_STREQ( string.asCString(), "         ten eleven twelve thirteen fourteen fifteen        " );
+    EXPECT_STREQ( string.asCString(), "         ten eleven twelve thirteen fourteen fifteen" );
 
     const char literalCharArray2[] = "nine";
     string.insert( string.find('t') - 1, literalCharArray2 );
-    EXPECT_STREQ( string.asCString(), "        nine ten eleven twelve thirteen fourteen fifteen        " );
+    EXPECT_STREQ( string.asCString(), "        nine ten eleven twelve thirteen fourteen fifteen" );
 
     /**********************************************************************************************/
 
     int8_t vInt8_t = 0x8;
     string.insert( 7_uz, vInt8_t, 16 );
-    EXPECT_STREQ( string.asCString(), "       8 nine ten eleven twelve thirteen fourteen fifteen        " );
+    EXPECT_STREQ( string.asCString(), "       8 nine ten eleven twelve thirteen fourteen fifteen" );
 
     int16_t vInt16_t = 7;
     string.insert( 6_uz, vInt16_t );
-    EXPECT_STREQ( string.asCString(), "      7 8 nine ten eleven twelve thirteen fourteen fifteen        " );
+    EXPECT_STREQ( string.asCString(), "      7 8 nine ten eleven twelve thirteen fourteen fifteen" );
 
     int32_t vInt32_t = 6;
     string.insert( 5_uz, vInt32_t );
-    EXPECT_STREQ( string.asCString(), "     6 7 8 nine ten eleven twelve thirteen fourteen fifteen        " );
+    EXPECT_STREQ( string.asCString(), "     6 7 8 nine ten eleven twelve thirteen fourteen fifteen" );
 
     int64_t vInt64_t = 5;
     string.insert( 4_uz, vInt64_t );
-    EXPECT_STREQ( string.asCString(), "    5 6 7 8 nine ten eleven twelve thirteen fourteen fifteen        " );
+    EXPECT_STREQ( string.asCString(), "    5 6 7 8 nine ten eleven twelve thirteen fourteen fifteen" );
 
     uint8_t vUint8_t = 4;
     string.insert( 3_uz, vUint8_t );
-    EXPECT_STREQ( string.asCString(), "   4 5 6 7 8 nine ten eleven twelve thirteen fourteen fifteen        " );
+    EXPECT_STREQ( string.asCString(), "   4 5 6 7 8 nine ten eleven twelve thirteen fourteen fifteen" );
 
     uint16_t vUint16_t = 3;
     string.insert( 2_uz, vUint16_t );
-    EXPECT_STREQ( string.asCString(), "  3 4 5 6 7 8 nine ten eleven twelve thirteen fourteen fifteen        " );
+    EXPECT_STREQ( string.asCString(), "  3 4 5 6 7 8 nine ten eleven twelve thirteen fourteen fifteen" );
 
     uint32_t vUint32_t = 2;
     string.insert( 1_uz, vUint32_t );
-    EXPECT_STREQ( string.asCString(), " 2 3 4 5 6 7 8 nine ten eleven twelve thirteen fourteen fifteen        " );
+    EXPECT_STREQ( string.asCString(), " 2 3 4 5 6 7 8 nine ten eleven twelve thirteen fourteen fifteen" );
 
     uint64_t vUint64_t = 1;
     string.insert( 0_uz, vUint64_t );
-    EXPECT_STREQ( string.asCString(), "1 2 3 4 5 6 7 8 nine ten eleven twelve thirteen fourteen fifteen        " );
+    EXPECT_STREQ( string.asCString(), "1 2 3 4 5 6 7 8 nine ten eleven twelve thirteen fourteen fifteen" );
 
     vInt8_t = 16;
+    string.append("        ");
     string.insert( string.rfind('n').base() + 1, vInt8_t );
     EXPECT_STREQ( string.asCString(), "1 2 3 4 5 6 7 8 nine ten eleven twelve thirteen fourteen fifteen 16       " );
 
@@ -680,19 +644,11 @@ TEST(String, GetInserted) {
 
     EXPECT_STREQ( string.getInserted( 7_uz, "teen" ).asCString(), "0123456teen789" );
 
-    EXPECT_STREQ( string.getInserted( 2_uz, reinterpret_cast<const uint8_t*>("teen") ).asCString(), "01teen23456789" );
-
     EXPECT_STREQ( string.getInserted( string.find('0'), "th" ).asCString(), "th0123456789" );
-
-    EXPECT_STREQ( string.getInserted( string.find('3') + 1, reinterpret_cast<const uint8_t*>("ir") ).asCString(), "0123ir456789" );
 
     /**********************************************************************************************/
 
     EXPECT_STREQ( string.getInserted( 1_uz, "twel", std::strlen("twel") ).asCString(), "0twel123456789" );
-
-    EXPECT_STREQ( string.getInserted( 5_uz, reinterpret_cast<const uint8_t*>("ve"), 2 ).asCString(), "01234ve56789" );
-
-    EXPECT_STREQ( string.getInserted( string.begin(), reinterpret_cast<const uint8_t*>("ele"), 3 ).asCString(), "ele0123456789" );
 
     EXPECT_STREQ( string.getInserted( string.begin() + 2, "ven", std::strlen("ven") ).asCString(), "01ven23456789" );
 
@@ -700,12 +656,6 @@ TEST(String, GetInserted) {
 
     const char literalCharArray[] = "          ";
     EXPECT_STREQ( string.getInserted( 0_uz, literalCharArray ).asCString(), "          0123456789" );
-
-    const uint8_t literalUint8_tArray[] = "        ";
-    EXPECT_STREQ( string.getInserted( 10_uz, literalUint8_tArray ).asCString(), "0123456789        " );
-
-    const uint8_t literalUint8_tArray2[] = "ten";
-    EXPECT_STREQ( string.getInserted( string.find('3') - 1, literalUint8_tArray2 ).asCString(), "01ten23456789" );
 
     const char literalCharArray2[] = "nine";
     EXPECT_STREQ( string.getInserted( string.find('7') - 1, literalCharArray2 ).asCString(), "012345nine6789" );
@@ -1044,55 +994,48 @@ TEST(String, OperatorPlusEqualsThisRHS) {
     string += "one";
     EXPECT_STREQ( string.asCString(), "one" );
 
-    string += reinterpret_cast<const uint8_t*>(" two");
-    EXPECT_STREQ( string.asCString(), "one two" );
-
-    const char literalCharArray[] = " three";
+    const char literalCharArray[] = " two ";
     string += literalCharArray;
-    EXPECT_STREQ( string.asCString(), "one two three" );
+    EXPECT_STREQ( string.asCString(), "one two " );
 
-    const uint8_t literalUint8_tArray[] = " four ";
-    string += literalUint8_tArray;
-    EXPECT_STREQ( string.asCString(), "one two three four " );
+    string += '3';
+    EXPECT_STREQ( string.append(' ').asCString(), "one two 3 " );
 
-    string += '5';
-    EXPECT_STREQ( string.append(' ').asCString(), "one two three four 5 " );
-
-    int8_t vInt8_t = 0x6;
+    int8_t vInt8_t = 0x4;
     string += vInt8_t;
-    EXPECT_STREQ( string.append(' ').asCString(), "one two three four 5 6 " );
+    EXPECT_STREQ( string.append(' ').asCString(), "one two 3 4 " );
 
-    int16_t vInt16_t = 7;
+    int16_t vInt16_t = 5;
     string += vInt16_t;
-    EXPECT_STREQ( string.append(' ').asCString(), "one two three four 5 6 7 " );
+    EXPECT_STREQ( string.append(' ').asCString(), "one two 3 4 5 " );
 
-    int32_t vInt32_t = 8;
+    int32_t vInt32_t = 6;
     string += vInt32_t;
-    EXPECT_STREQ( string.append(' ').asCString(), "one two three four 5 6 7 8 " );
+    EXPECT_STREQ( string.append(' ').asCString(), "one two 3 4 5 6 " );
 
-    int64_t vInt64_t = 9;
+    int64_t vInt64_t = 7;
     string += vInt64_t;
-    EXPECT_STREQ( string.append(' ').asCString(), "one two three four 5 6 7 8 9 " );
+    EXPECT_STREQ( string.append(' ').asCString(), "one two 3 4 5 6 7 " );
 
-    uint8_t vUint8_t = 10;
+    uint8_t vUint8_t = 8;
     string += vUint8_t;
-    EXPECT_STREQ( string.append(' ').asCString(), "one two three four 5 6 7 8 9 10 " );
+    EXPECT_STREQ( string.append(' ').asCString(), "one two 3 4 5 6 7 8 " );
 
-    uint16_t vUint16_t = 11;
+    uint16_t vUint16_t = 9;
     string += vUint16_t;
-    EXPECT_STREQ( string.append(' ').asCString(), "one two three four 5 6 7 8 9 10 11 " );
+    EXPECT_STREQ( string.append(' ').asCString(), "one two 3 4 5 6 7 8 9 " );
 
-    uint32_t vUint32_t = 12;
+    uint32_t vUint32_t = 10;
     string += vUint32_t;
-    EXPECT_STREQ( string.append(' ').asCString(), "one two three four 5 6 7 8 9 10 11 12 " );
+    EXPECT_STREQ( string.append(' ').asCString(), "one two 3 4 5 6 7 8 9 10 " );
 
-    uint64_t vUint64_t = 13;
+    uint64_t vUint64_t = 11;
     string += vUint64_t;
-    EXPECT_STREQ( string.append(' ').asCString(), "one two three four 5 6 7 8 9 10 11 12 13 " );
+    EXPECT_STREQ( string.append(' ').asCString(), "one two 3 4 5 6 7 8 9 10 11 " );
 
-    EDF::String<16> str = "fourteen";
+    EDF::String<16> str = "twelve";
     string += str;
-    EXPECT_STREQ( string.asCString(), "one two three four 5 6 7 8 9 10 11 12 13 fourteen" );
+    EXPECT_STREQ( string.asCString(), "one two 3 4 5 6 7 8 9 10 11 twelve" );
 }
 
 TEST(String, OperatorPlusThisRHS) {
@@ -1152,9 +1095,6 @@ TEST(String, OperatorPlusLHSString) {
     EDF::String<32> string = " two";
 
     EDF::String<32> result = "one" + string;
-    EXPECT_STREQ( result.asCString(), "one two" );
-
-    result = reinterpret_cast<const uint8_t*>("one") + string;
     EXPECT_STREQ( result.asCString(), "one two" );
 
     const char literalCharArray[] = "one";
@@ -1314,33 +1254,4 @@ TEST(String, ComparisonOperators) {
     EXPECT_FALSE( "apple" > b );
     EXPECT_TRUE( "apple" <= a2 );
     EXPECT_TRUE( "apple" >= a2 );
-
-    const uint8_t* ua = reinterpret_cast<const uint8_t*>("apple");
-    const uint8_t* ub = reinterpret_cast<const uint8_t*>("banana");
-    const uint8_t* ua2 = reinterpret_cast<const uint8_t*>("apple");
-    // EDF::String and const uint8_t*
-    EXPECT_TRUE( a == ua2 );
-    EXPECT_FALSE( a == ub );
-    EXPECT_TRUE( a != ub );
-    EXPECT_FALSE( a != ua2 );
-
-    EXPECT_TRUE( a < ub );
-    EXPECT_FALSE( b < ua );
-    EXPECT_TRUE( b > ua );
-    EXPECT_FALSE( a > ub );
-    EXPECT_TRUE( a <= ua2 );
-    EXPECT_TRUE( a >= ua2 );
-
-    // const uint8_t* and EDF::String
-    EXPECT_TRUE( ua == a2 );
-    EXPECT_FALSE( ua == b );
-    EXPECT_TRUE( ua != b );
-    EXPECT_FALSE( ua != a2 );
-
-    EXPECT_TRUE( ua < b );
-    EXPECT_FALSE( ub < a );
-    EXPECT_TRUE( ub > a );
-    EXPECT_FALSE( ua > b );
-    EXPECT_TRUE( ua <= a2 );
-    EXPECT_TRUE( ua >= a2 );
 }

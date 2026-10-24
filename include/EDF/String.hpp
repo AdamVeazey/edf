@@ -89,16 +89,9 @@ public:
 
     /* Operations: In/Out-of-Place - append */
     constexpr String& append( const char* str );
-    constexpr String& append( const std::uint8_t* str );
-
     constexpr String& append( const char* str, std::size_t n );
-    constexpr String& append( const std::uint8_t* str, std::size_t n );
-
     template<std::size_t S>
     constexpr String& append( const char (&str)[S] );
-    template<std::size_t S>
-    constexpr String& append( const std::uint8_t (&str)[S] );
-
     constexpr String& append( char ch );
 
     constexpr String& append( std::int8_t value, int base = 10 );
@@ -114,13 +107,8 @@ public:
     constexpr String& append( const String<S>& str );
 
     constexpr String getAppended( const char* str ) const;
-    constexpr String getAppended( const std::uint8_t* str ) const;
-
     constexpr String getAppended( const char* str, std::size_t n ) const;
-    constexpr String getAppended( const std::uint8_t* str, std::size_t n ) const;
-
     constexpr String getAppended( char ch ) const;
-
     constexpr String getAppended( std::int8_t value, int base = 10 ) const;
     constexpr String getAppended( std::int16_t value, int base = 10 ) const;
     constexpr String getAppended( std::int32_t value, int base = 10 ) const;
@@ -142,13 +130,9 @@ public:
     Iterator insert( ConstIterator pos, std::initializer_list<char> iList );
 
     constexpr void insert( std::size_t index, const char* str );
-    constexpr void insert( std::size_t index, const std::uint8_t* str );
-    constexpr Iterator insert( ConstIterator pos, const std::uint8_t* str );
     constexpr Iterator insert( ConstIterator pos, const char* str );
 
     constexpr void insert( std::size_t index, const char* str, std::size_t n );
-    constexpr void insert( std::size_t index, const std::uint8_t* str, std::size_t n );
-    constexpr Iterator insert( ConstIterator pos, const std::uint8_t* str, std::size_t n );
     Iterator insert( ConstIterator pos, const char* str, std::size_t n );
 
     constexpr void insert( std::size_t index, std::int8_t value, int base = 10 );
@@ -182,13 +166,9 @@ public:
     constexpr String getInserted( ConstIterator pos, std::initializer_list<char> iList ) const;
 
     constexpr String getInserted( std::size_t index, const char* str ) const;
-    constexpr String getInserted( std::size_t index, const std::uint8_t* str ) const;
-    constexpr String getInserted( ConstIterator pos, const std::uint8_t* str ) const;
     constexpr String getInserted( ConstIterator pos, const char* str ) const;
 
     constexpr String getInserted( std::size_t index, const char* str, std::size_t n ) const;
-    constexpr String getInserted( std::size_t index, const std::uint8_t* str, std::size_t n ) const;
-    constexpr String getInserted( ConstIterator pos, const std::uint8_t* str, std::size_t n ) const;
     constexpr String getInserted( ConstIterator pos, const char* str, std::size_t n ) const;
 
     constexpr String getInserted( std::size_t index, std::int8_t value, int base = 10 ) const;
@@ -272,7 +252,6 @@ public:
     /* Operations: Out-of-Place - equals */
     constexpr bool equals( char value ) const;
     constexpr bool equals( const char* value ) const;
-    constexpr bool equals( const std::uint8_t* value ) const;
     bool equals( const char* value, std::size_t n ) const;
     template<std::size_t S>
     constexpr bool equals( const String<S>& value ) const;
@@ -411,7 +390,6 @@ public:
 
     /* Operations: Operator Overload - += */
     constexpr String& operator+=( const char* rhs );
-    constexpr String& operator+=( const std::uint8_t* rhs );
 
     constexpr String& operator+=( char rhs );
 
@@ -429,8 +407,6 @@ public:
 
     /* Operations: Operator Overload - +(this, rhs) */
     constexpr String operator+( const char* rhs ) const;
-    constexpr String operator+( const std::uint8_t* rhs ) const;
-
     constexpr String operator+( char rhs ) const;
 
     constexpr String operator+( std::int8_t rhs ) const;
@@ -444,8 +420,6 @@ public:
 
     /* Operations: Operator Overload - +(lhs, String) */
     friend constexpr String operator+( const char* lhs, const String& rhs ) { String<N> result(lhs); result.append(rhs); return result; }
-    friend constexpr String operator+( const std::uint8_t* lhs, const String& rhs ) { String<N> result(lhs); result.append(rhs); return result; }
-
     template<std::size_t S>
     friend constexpr String<EDF::max(S,N)> operator+( const char (&lhs)[S], const String& rhs ) { String<EDF::max(N,S)> result(lhs); result.append(rhs); return result; }
     template<std::size_t S>
@@ -490,10 +464,6 @@ template<std::size_t S>
 constexpr bool operator==( const String<S>& lhs, const char* rhs ) { return lhs.equals( rhs ); }
 template<std::size_t S>
 constexpr bool operator==( const char* lhs, const String<S>& rhs ) { return rhs.equals( lhs ); }
-template<std::size_t S>
-constexpr bool operator==( const String<S>& lhs, const std::uint8_t* rhs ) { return lhs.equals( rhs ); }
-template<std::size_t S>
-constexpr bool operator==( const std::uint8_t* lhs, const String<S>& rhs ) { return rhs.equals( lhs ); }
 
 /* Operations: Operator Overload - != */
 template<std::size_t S1, std::size_t S2>
@@ -502,10 +472,6 @@ template<std::size_t S>
 constexpr bool operator!=( const String<S>& lhs, const char* rhs ) { return !( lhs == rhs ); }
 template<std::size_t S>
 constexpr bool operator!=( const char* lhs, const String<S>& rhs ) { return !( lhs == rhs ); }
-template<std::size_t S>
-constexpr bool operator!=( const String<S>& lhs, const std::uint8_t* rhs ) { return !( lhs == rhs ); }
-template<std::size_t S>
-constexpr bool operator!=( const std::uint8_t* lhs, const String<S>& rhs ) { return !( lhs == rhs ); }
 
 /* Operations: Operator Overload - < */
 template<std::size_t S1, std::size_t S2>
@@ -523,16 +489,6 @@ constexpr bool operator<( const char* lhs, const String<S>& rhs ) {
     return std::lexicographical_compare( lhs, lhs + std::strlen( lhs ), rhs.begin(), rhs.end() );
 }
 
-template<std::size_t S>
-constexpr bool operator<( const String<S>& lhs, const std::uint8_t* rhs ) {
-    return lhs < reinterpret_cast<const char*>( rhs );
-}
-
-template<std::size_t S>
-constexpr bool operator<( const std::uint8_t* lhs, const String<S>& rhs ) {
-    return reinterpret_cast<const char*>( lhs ) < rhs;
-}
-
 /* Operations: Operator Overload - > */
 template<std::size_t S1, std::size_t S2>
 constexpr bool operator>( const String<S1>& lhs, const String<S2>& rhs ) { return rhs < lhs; }
@@ -540,10 +496,6 @@ template<std::size_t S>
 constexpr bool operator>( const String<S>& lhs, const char* rhs ) { return rhs < lhs; }
 template<std::size_t S>
 constexpr bool operator>( const char* lhs, const String<S>& rhs ) { return rhs < lhs; }
-template<std::size_t S>
-constexpr bool operator>( const String<S>& lhs, const std::uint8_t* rhs ) { return rhs < lhs; }
-template<std::size_t S>
-constexpr bool operator>( const std::uint8_t* lhs, const String<S>& rhs ) { return rhs < lhs; }
 
 /* Operations: Operator Overload - <= */
 template<std::size_t S1, std::size_t S2>
@@ -552,10 +504,6 @@ template<std::size_t S>
 constexpr bool operator<=( const String<S>& lhs, const char* rhs ) { return !( rhs < lhs ); }
 template<std::size_t S>
 constexpr bool operator<=( const char* lhs, const String<S>& rhs ) { return !( rhs < lhs ); }
-template<std::size_t S>
-constexpr bool operator<=( const String<S>& lhs, const std::uint8_t* rhs ) { return !( rhs < lhs ); }
-template<std::size_t S>
-constexpr bool operator<=( const std::uint8_t* lhs, const String<S>& rhs ) { return !( rhs < lhs ); }
 
 /* Operations: Operator Overload - >= */
 template<std::size_t S1, std::size_t S2>
@@ -564,10 +512,6 @@ template<std::size_t S>
 constexpr bool operator>=( const String<S>& lhs, const char* rhs ) { return !( lhs < rhs ); }
 template<std::size_t S>
 constexpr bool operator>=( const char* lhs, const String<S>& rhs ) { return !( lhs < rhs ); }
-template<std::size_t S>
-constexpr bool operator>=( const String<S>& lhs, const std::uint8_t* rhs ) { return !( lhs < rhs ); }
-template<std::size_t S>
-constexpr bool operator>=( const std::uint8_t* lhs, const String<S>& rhs ) { return !( lhs < rhs ); }
 
 } /* EDF */
 
