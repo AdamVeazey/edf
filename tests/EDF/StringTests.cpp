@@ -781,6 +781,10 @@ TEST(String, Find) {
     EXPECT_EQ( string.find( string.find('A'), "de" ), &string[25] );
     EXPECT_EQ( string.find( string.find('A'), "abc", std::strlen("abc") ), &string[22] );
     EXPECT_EQ( string.find( string.find('A'), EDF::String<8>("cde") ), &string[24] );
+
+    // Try to find "bcd" (length 3) starting only 2 characters from the end of the string
+    // n = 3 correctly matches std::strlen("bcd"), but the target won't fit before string.end()
+    EXPECT_EQ( string.find( string.end() - 2, "bcd", 3_uz ), string.end() );
 }
 
 TEST(String, ReverseFind) {
@@ -789,14 +793,23 @@ TEST(String, ReverseFind) {
     EDF::String<32> string = "abcdefABCDEF0123456789abcdef";
 
     EXPECT_EQ( &(*string.rfind( 'A' )), &string[6] );
-    EXPECT_EQ( &(*string.rfind( "defABC" )), &string[8] );
-    EXPECT_EQ( &(*string.rfind( "cde", 3_uz )), &string[26] );
-    EXPECT_EQ( &(*string.rfind( EDF::String<8>("456") )), &string[18] );
+    EXPECT_EQ( &(*string.rfind( "defABC" )), &string[3] );
+    EXPECT_EQ( &(*string.rfind( "cde", 3_uz )), &string[24] );
+    EXPECT_EQ( &(*string.rfind( EDF::String<8>("456") )), &string[16] );
 
     EXPECT_EQ( &(*string.rfind( string.rfind('f') + 1, 'f' )), &string[5] );
-    EXPECT_EQ( &(*string.rfind( string.rfind('A'), "de" )), &string[4] );
-    EXPECT_EQ( &(*string.rfind( string.rfind('A'), "bcd", std::strlen("bcd") )), &string[3] );
-    EXPECT_EQ( &(*string.rfind( string.rfind('A'), EDF::String<8>("cde") )), &string[4] );
+    EXPECT_EQ( &(*string.rfind( string.rfind('A'), "de" )), &string[3] );
+    EXPECT_EQ( &(*string.rfind( string.rfind('A'), "bcd", std::strlen("bcd") )), &string[1] );
+    EXPECT_EQ( &(*string.rfind( string.rfind('A'), EDF::String<8>("cde") )), &string[2] );
+
+    // Searching backwards for a 3-character pattern ("bcd", n=3)
+    // starting from a restricted position, or checking that patterns
+    // too long for the prefix don't cause underflow.
+    // If we search for a pattern that doesn't exist, it should return crend().
+    EXPECT_EQ( string.rfind( "xyz", 3_uz ), string.crend() );
+
+    // Searching for a multi-char pattern that exists ("bcd", n=3)
+    EXPECT_EQ( &(*string.rfind( "bcd", 3_uz )), &string[23] );
 }
 
 TEST(String, Contains) {
@@ -947,6 +960,26 @@ TEST(String, Replace) {
     EXPECT_STREQ( EDF::String<32>("bat").replace( "ba", EDF::String<16>("send a tex") ).asCString(), "send a text" );
     EXPECT_STREQ( EDF::String<32>("Hello world").replace( "ello wor", 8_uz, EDF::String<16>("ouseho") ).asCString(), "Household" );
     EXPECT_STREQ( EDF::String<32>("The old world").replace( EDF::String<4>("old"), EDF::String<16>("new") ).asCString(), "The new world" );
+
+    EDF::String<32> multipleOccurrences = "foo bar foo bar foo";
+    multipleOccurrences.replace("foo", "baz");
+    EXPECT_STREQ(multipleOccurrences.asCString(), "baz bar baz bar baz");
+
+    EDF::String<32> lookForNotThere = "hello world";
+    lookForNotThere.replace("xyz", "abc");
+    EXPECT_STREQ(lookForNotThere.asCString(), "hello world");
+
+    EDF::String<32> replaceWithEmptyStr = "hello bad world";
+    replaceWithEmptyStr.replace("bad ", "");
+    EXPECT_STREQ(replaceWithEmptyStr.asCString(), "hello world");
+
+    EDF::String<32> matchAtBeginning = "cat sat";
+    matchAtBeginning.replace("cat", "dog");
+    EXPECT_STREQ(matchAtBeginning.asCString(), "dog sat");
+
+    EDF::String<32> matchAtEnd = "fat cat";
+    matchAtEnd.replace("cat", "dog");
+    EXPECT_STREQ(matchAtEnd.asCString(), "fat dog");
 }
 
 TEST(String, GetReplaced) {
@@ -971,6 +1004,10 @@ TEST(String, GetReplaced) {
     EXPECT_STREQ( string.getReplaced( "old", EDF::String<16>("new") ).asCString(), "Hello new world!\r\n" );
     EXPECT_STREQ( string.getReplaced( "world", 5_uz, EDF::String<16>("man") ).asCString(), "Hello old man!\r\n" );
     EXPECT_STREQ( string.getReplaced( EDF::String<4>("old"), EDF::String<16>("new") ).asCString(), "Hello new world!\r\n" );
+
+    EDF::String<32> str = "one fish two fish";
+    EXPECT_STREQ(str.getReplaced("fish", "bird").asCString(), "one bird two bird");
+    EXPECT_STREQ(str.getReplaced("shark", "whale").asCString(), "one fish two fish");
 }
 
 TEST(String, SubString) {
