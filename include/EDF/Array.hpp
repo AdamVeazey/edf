@@ -20,7 +20,7 @@ private:
 public:
     constexpr Array() : buff{} {}
     template<typename... I>
-    constexpr Array( I... initializerList ) : buff{initializerList...} {}
+    constexpr Array( I... iList ) : buff{iList...} {}
     ~Array() = default;
 
     /* Element access */

@@ -87,7 +87,8 @@ void subString( char* buffer, std::size_t& size, std::size_t N, ConstIterator st
 /* Constructors */
 template<std::size_t N>
 String<N>::
-String() {
+String( std::nullptr_t p ) {
+    (void)p;
     impl::make_string( buffer, size, N );
 }
 

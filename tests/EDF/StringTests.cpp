@@ -24,6 +24,14 @@ TEST(String, InitializationFromPointer) {
     EDF::String<32> stringUint8_t( reinterpret_cast<const uint8_t*>("const uint8_t*") );
     EXPECT_EQ( stringUint8_t.length(), std::strlen("const uint8_t*") );
     EXPECT_STREQ( stringUint8_t.asCString(), "const uint8_t*" );
+
+    EDF::String<8> empty( nullptr );
+    EXPECT_EQ( empty.length(), 0 );
+    EXPECT_STREQ( empty.asCString(), "" );
+
+    EDF::String<8> empty2 = nullptr;
+    EXPECT_EQ( empty2.length(), 0 );
+    EXPECT_STREQ( empty2.asCString(), "" );
 }
 
 TEST(String, InitializationFromPointerAndLength) {
