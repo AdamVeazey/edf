@@ -348,6 +348,9 @@ Iterator find( const char* buffer, std::size_t size, std::size_t N, ConstIterato
     for(; pos != end(buffer, size, N); ++pos ) {
         if( *pos == value[0] ) {    // first character matches
             bool match = true;
+            if (static_cast<std::size_t>(end(buffer, size, N) - pos) < n) {
+                break; // Not enough room left for a match
+            }
             for( std::size_t k = 1; k < n; ++k ) {
                 if( *(pos + k) != value[k] ) {  // did any character not match?
                     match = false;
@@ -376,13 +379,22 @@ ReverseIterator rfind( const char* buffer, std::size_t size, std::size_t N, Cons
     EDF_ASSERTD( value != nullptr, "value must not be nullptr" );
     EDF_ASSERTD( pos >= crbegin(buffer, size, N), "position must be valid" );
     EDF_ASSERTD( pos < crend(buffer, size, N), "position must be valid" );
-    pos = std::find_if( pos, crend(buffer, size, N), [&value, &n](const char& ch) {
-        if( ch == value[n-1] ) {        // last character matches
-            return std::memcmp( &ch - (n-1), value, n ) == 0;
+
+    if( (n == 0) || (n > size) ) return rend(buffer, size, N);
+
+    const char* scanEnd = pos.base();
+    const char* bufBegin = begin(buffer, size, N);
+    const char* ptr = scanEnd - n; // start looking here
+    if( ptr < bufBegin ) {
+        ptr = bufBegin - 1; // Will adjust or terminate
+    }
+    // Scan backwards from ptr down to bufBegin
+    for( ; ptr >= bufBegin; --ptr ) {
+        if( std::memcmp(ptr, value, n) == 0 ) {
+            return ReverseIterator( Iterator(ptr + 1) );
         }
-        return false;
-    });
-    return ReverseIterator( const_cast<Iterator>(pos.base()) );
+    }
+    return rend(buffer, size, N);
 }
 
 bool equals( const char* buffer, std::size_t size, std::size_t N, const char* value, std::size_t n ) {
@@ -506,17 +518,20 @@ void replace(
     const char* lookFor, std::size_t nLF,
     const char* replaceWith, std::size_t nRW
 ) {
-    for( ReverseIterator posLookFor = rfind( buffer, size, N, crbegin(buffer, size, N), lookFor, nLF ); posLookFor != crend(buffer, size, N); ) {
-        auto strBegin = (posLookFor + static_cast<ReverseIterator::difference_type>(nLF)).base();
-        auto strEnd = posLookFor.base();
+    if( nLF == 0 || size < nLF ) return;
+    ReverseIterator posLookFor = rfind(buffer, size, N, crbegin(buffer, size, N), lookFor, nLF );
+    for( ; posLookFor != crend(buffer, size, N); ) {
+        char* strBegin = posLookFor.base() - 1;
+        char* strEnd = strBegin + nLF;
+        bool atBeginning = (strBegin == begin(buffer, size, N));
         if( (strBegin >= begin(buffer, size, N)) && (strEnd <= end(buffer, size, N)) ) {
-            erase( buffer, size, N, strBegin, strEnd );
-            insert( buffer, size, N, strBegin, replaceWith, nRW );
+            erase(buffer, size, N, strBegin, strEnd);
+            insert(buffer, size, N, strBegin, replaceWith, nRW);
         }
-        if( (posLookFor + static_cast<ReverseIterator::difference_type>(nLF)) >= crend(buffer, size, N) ) {
+        if( atBeginning ) {
             break;
         }
-        posLookFor = rfind( buffer, size, N, posLookFor + static_cast<ReverseIterator::difference_type>(nLF), lookFor, nLF );
+        posLookFor = rfind(buffer, size, N, ReverseIterator(strBegin), lookFor, nLF);
     }
 }
 
