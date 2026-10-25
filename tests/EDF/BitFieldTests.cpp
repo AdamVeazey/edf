@@ -128,3 +128,23 @@ TEST(BitField, ConstexprEvaluation) {
     constexpr bool result = verifyPeripheralRegisterConstexpr();
     EXPECT_TRUE( result );
 }
+
+TEST(BitField, InvalidValues) {
+    EDF::BitField8 bf8 = 0xF0;
+    // Invalid span values
+    EXPECT_DEATH(bf8.set( 0, 9, 0xFF ), ""); // would spill outside of the bitfield
+    EXPECT_DEATH(bf8.set( 4, 5, 0x1F ), ""); // would spill outside of the bitfield
+    EXPECT_DEATH(bf8.get( 4, 5 ), ""); // startBit + span = 9 > 8
+    EXPECT_DEATH(bf8.get( 8, 1 ), ""); // startBit >= 8
+    EXPECT_DEATH(bf8.set( 0, 0, 0 ), ""); // 0 span!?
+    EXPECT_DEATH(bf8.get( 0, 0 ), ""); // 0 span!?
+
+    // Invalid values
+    EXPECT_DEATH(bf8.set( 0, 2, 0xF ), ""); // 0xF bigger than 2 bits
+}
+
+TEST(BitField, FullWidthBoundary) {
+    EDF::BitField32 bf32 = 0;
+    bf32.set(0, 32, 0xFFFFFFFF);
+    EXPECT_EQ(bf32.get(0, 32), 0xFFFFFFFF);
+}

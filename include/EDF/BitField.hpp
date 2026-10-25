@@ -32,15 +32,18 @@ public:
     constexpr BitField( T initialValue = 0 ) : bits( initialValue ) {}
 
     constexpr void set( std::size_t startBit, std::size_t span, T value ) {
-        EDF_ASSERTD( static_cast<std::size_t>(value) < static_cast<std::size_t>(T{1} << span), "value must fit within \"span\"" );
+        EDF_ASSERTD( span > 0, "span must be greater than zero" );
+        EDF_ASSERTD( (span == sizeof(T)*8) || (static_cast<std::size_t>(value) < static_cast<std::size_t>(T{1} << span)), "value must fit within \"span\"" );
         const auto mask = createMask( startBit, span );
         bits = (bits & ~mask) | ((value << startBit) & mask);
     }
     constexpr T get( std::size_t startBit, std::size_t span ) const {
+        EDF_ASSERTD( span > 0, "span must be greater than zero" );
+        EDF_ASSERTD( (startBit + span) <= sizeof(T)*8, "bit range exceeds type width" );
         return static_cast<T>((bits >> startBit) & createMask( 0, span ));
     }
     /* Implicit conversion operator */
-    constexpr operator const T&() const { return bits; }
+    constexpr operator T() const { return bits; }
 };
 
 // tag::uint8_t[]
