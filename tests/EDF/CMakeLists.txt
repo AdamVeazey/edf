@@ -1,7 +1,8 @@
 add_executable(
     edf_unit_tests
     ArrayTests.cpp
-    AssertTests.cpp
+    AssertTestsDebug.cpp
+    AssertTestsRelease.cpp
     BitFieldTests.cpp
     ColorTests.cpp
     HeapTests.cpp
