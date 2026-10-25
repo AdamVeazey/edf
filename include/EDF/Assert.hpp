@@ -101,6 +101,6 @@
 #ifndef NDEBUG
 #define EDF_ASSERTD( condition, assumption )    EDF_ASSERT( condition, assumption )
 #else
-#define EDF_ASSERTD( condition, assumption )    ((void)(condition))
+#define EDF_ASSERTD( condition, assumption )    ((void)(sizeof(condition)))
 #endif /* NDEBUG */
 /* end::EDF_ASSERTD[] */
