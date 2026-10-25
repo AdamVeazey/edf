@@ -372,3 +372,24 @@ TEST(Array, ConstexprCompileTimeEvaluation) {
 
     SUCCEED();
 }
+
+TEST(Array, EdgeCases_ZeroSizeAndConst) {
+    EDF::Array<int, 0> emptyArray;
+    EXPECT_EQ(emptyArray.maxLength(), 0);
+    EXPECT_EQ(emptyArray.begin(), emptyArray.end());
+
+    const EDF::Array<int, 3> constArray{ 1, 2, 3 };
+    EXPECT_EQ(constArray[0], 1);
+    EXPECT_EQ(constArray.at(1), 2);
+    EXPECT_EQ(constArray.front(), 1);
+    EXPECT_EQ(constArray.back(), 3);
+
+    const int* p = constArray.data();
+    EXPECT_EQ(*p, 1);
+}
+
+TEST(Array, MoveOnlyTypes) {
+    EDF::Array<std::unique_ptr<int>, 2> moveArray;
+    moveArray[0] = std::make_unique<int>(42);
+    EXPECT_EQ(*moveArray[0], 42);
+}
