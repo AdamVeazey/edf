@@ -204,3 +204,27 @@ TEST(Color565, EqualityOperators) {
     static_assert( col1 == col2, "Constexpr Color565 equality failed" );
     static_assert( col1 != col3, "Constexpr Color565 inequality failed" );
 }
+
+TEST(Color565, ColorConversionRoundTrip) {
+    // Pure black and pure white should survive round-trips perfectly
+    EDF::Color black = EDF::Color::black();
+    EDF::Color565 black565( black );
+    EXPECT_EQ( black565.asColor().asRGB(), black.asRGB() );
+
+    EDF::Color white = EDF::Color::white();
+    EDF::Color565 white565( white );
+    EXPECT_EQ( white565.asColor().asRGB(), white.asRGB() );
+}
+
+TEST(Color565, InvalidComponentValues) {
+    EDF::Color565 col;
+
+    EXPECT_DEATH( col.setR( 32 ), "" );
+    EXPECT_DEATH( col.setR( 255 ), "" );
+
+    EXPECT_DEATH( col.setG( 64 ), "" );
+    EXPECT_DEATH( col.setG( 255 ), "" );
+
+    EXPECT_DEATH( col.setB( 32 ), "" );
+    EXPECT_DEATH( col.setB( 255 ), "" );
+}
