@@ -140,7 +140,7 @@ TEST(Stack, Push) {
 }
 
 TEST(Stack, Emplace) {
-    EDF::Stack<CustomClass, 10> stack;
+    EDF::Stack<CustomClass, 3> stack;
 
     stack.emplace( 50 );
     EXPECT_EQ( stack.peek().getValue(), 50 );
@@ -150,6 +150,9 @@ TEST(Stack, Emplace) {
 
     stack.emplace();
     EXPECT_EQ( stack.peek().getValue(), 0 );
+
+    EXPECT_TRUE( stack.isFull() );
+    EXPECT_DEATH( stack.emplace( 10 ), "" );
 }
 
 TEST(Stack, Pop) {
@@ -159,6 +162,9 @@ TEST(Stack, Pop) {
     EXPECT_EQ( stack.pop(), 8 );
     EXPECT_EQ( stack.pop(), 10 );
     EXPECT_EQ( stack.pop(), 5 );
+
+    EXPECT_TRUE( stack.isEmpty() );
+    EXPECT_DEATH( stack.pop(), "" );
 }
 
 TEST(Stack, Clear) {
