@@ -35,6 +35,10 @@ TEST(Heap, InitializationInt) {
     EXPECT_EQ( heapIntMin.pop(), -2 );
     EXPECT_EQ( heapIntMin.pop(), 1 );
     EXPECT_EQ( heapIntMin.pop(), 3 );
+
+    EDF::HeapMin<int, 4> emptyHeap = {};
+    EXPECT_TRUE( emptyHeap.isEmpty() );
+    EXPECT_EQ( emptyHeap.length(), 0 );
 }
 
 TEST(Heap, InitializationCustomClass) {
@@ -159,7 +163,7 @@ TEST(Heap, Push) {
 }
 
 TEST(Heap, Emplace) {
-    EDF::HeapMin<CustomClass, 10> heap;
+    EDF::HeapMin<CustomClass, 3> heap;
 
     heap.emplace( 50 );
     EXPECT_EQ( heap.peek().getValue(), 50 );
@@ -169,6 +173,9 @@ TEST(Heap, Emplace) {
 
     heap.emplace();
     EXPECT_EQ( heap.peek().getValue(), 0 );
+
+    EXPECT_TRUE( heap.isFull() );
+    EXPECT_DEATH( heap.emplace( 10 ), "" );
 }
 
 TEST(Heap, Pop) {
@@ -178,6 +185,8 @@ TEST(Heap, Pop) {
     EXPECT_EQ( heap.pop(), 5 );
     EXPECT_EQ( heap.pop(), 8 );
     EXPECT_EQ( heap.pop(), 10 );
+    EXPECT_TRUE( heap.isEmpty() );
+    EXPECT_DEATH( heap.pop(), "" );
 }
 
 TEST(Heap, Clear) {
