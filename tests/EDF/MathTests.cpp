@@ -131,3 +131,24 @@ TEST(Math, TemperatureFahrenheitToCelsius) {
     const double degreesCFloat3 = EDF::temperatureFtoC( 212.0 );
     EXPECT_FLOAT_EQ( degreesCFloat3, 100.0f );
 }
+
+constexpr bool verifyMathConstexpr() {
+    constexpr int arr[5] = {1, 2, 3, 4, 5};
+    static_assert( EDF::nElements(arr) == 5, "nElements constexpr failed" );
+
+    static_assert( EDF::isPow2(16), "isPow2 failed" );
+    static_assert( !EDF::isPow2(3), "isPow2 failed" );
+
+    static_assert( EDF::min(10, 20) == 10, "min constexpr failed" );
+    static_assert( EDF::max(10, 20) == 20, "max constexpr failed" );
+
+    constexpr int vout = EDF::voltageDividerCalcVout<5000, 10000>(3300);
+    static_assert( vout == 2200, "voltageDividerCalcVout constexpr failed" );
+
+    constexpr int f = EDF::temperatureCtoF(0);
+    static_assert( f == 32, "temperatureCtoF constexpr failed" );
+
+    return true;
+}
+
+static_assert( verifyMathConstexpr(), "All Math utilities must be fully constexpr capable!" );
