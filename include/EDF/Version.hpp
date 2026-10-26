@@ -58,7 +58,7 @@ public:
     const char* asCString()                         const { return string.asCString(); }
 
     /* EDF Version */
-    static Version EDF()                                  { return "0.1.0"; }
+    static Version EDF()                                  { return "1.0.0"; }
 
     /* Comparison Operators - (this, rhs) */
     constexpr bool operator> ( const Version& rhs ) const { return number > rhs.number; };
