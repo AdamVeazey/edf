@@ -186,3 +186,19 @@ TEST(Version, ComparisonLHSThis) {
     EXPECT_TRUE( "0.0.0" == EDF::Version( "0.0.0" ) );
     EXPECT_TRUE( "0.0.1" != EDF::Version( "0.0.0" ) );
 }
+
+TEST(Version, InvalidVersionsDeath) {
+    // Leading zeros check
+    EXPECT_DEATH( EDF::Version( "01.0.0" ), "" );
+    EXPECT_DEATH( EDF::Version( "1.02.0" ), "" );
+    EXPECT_DEATH( EDF::Version( "1.2.03" ), "" );
+
+    // Negative numbers check
+    EXPECT_DEATH( EDF::Version( "-1.0.0" ), "" );
+
+    // Out of bounds components (>= 1000)
+    EXPECT_DEATH( EDF::Version( "1000.0.0" ), "" );
+    EXPECT_DEATH( EDF::Version( "1.1000.0" ), "" );
+    EXPECT_DEATH( EDF::Version( "1.0.1000" ), "" );
+    EXPECT_DEATH( EDF::Version( 1000000000 ), "" ); // Exceeds max flat number representation
+}
