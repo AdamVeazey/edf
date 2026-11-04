@@ -27,7 +27,7 @@ FetchContent_MakeAvailable(EDF)
 target_link_libraries(your_target PRIVATE Drivers) # Automatically includes Peripherals and EDF
 ----
 
-*(Note: If you use Zephyr or ESP-IDF, include EDF as a standard module or component in your project workspace).*
+*(Note: If you use Zephyr include EDF as a standard module in your project workspace).*
 
 === CMake Options Reference
 When configuring EDF, you can toggle these options:

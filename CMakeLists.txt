@@ -78,6 +78,11 @@ function(edf_apply_common_settings TARGET_NAME)
         -Wl,--gc-sections
     )
 
+    # Automatically bridge Zephyr's interface and picolibc/newlib specs if building inside Zephyr
+    if(TARGET zephyr_interface)
+        target_link_libraries(${TARGET_NAME} PRIVATE zephyr_interface)
+    endif()
+
     if(EDF_ENABLE_LTO)
         set_property(TARGET ${TARGET_NAME} PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
     endif()
