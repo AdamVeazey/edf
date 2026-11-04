@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Vector&lt;T, N&gt; :: EDF</title>
     <link rel="canonical" href="https://adamveazey.github.io/edf/docs/main/docs/main/vector.html">
-    <meta name="generator" content="Antora 3.1.7">
+    <meta name="generator" content="Antora 3.2.2">
     <link rel="stylesheet" href="../../_/css/site.css">
   </head>
   <body class="article">
@@ -407,8 +407,8 @@ if( myVector.length() == 0 ) { /* ... */ }</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
-std::size_t numberOfElementsInVector = vector.length(); <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+    std::size_t numberOfElementsInVector = vector.length(); <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -441,8 +441,8 @@ The name <code>length()</code> is used instead of <code>size()</code> or <code>c
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
-static constexpr int someArray[vector.maxSize()]; <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+    static constexpr int someArray[vector.maxSize()]; <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -467,8 +467,8 @@ static constexpr int someArray[vector.maxSize()]; <i class="conum" data-value="1
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
-vector[0_uz] = 100;</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -505,8 +505,8 @@ This also means that there is no boundary checking, so it is possible to attempt
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
-vector.at( 0_uz ) = 1;</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -531,8 +531,8 @@ vector.at( 0_uz ) = 1;</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
-auto&amp; firstElement = vector.front();</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+    auto&amp; firstElement = vector.front();</code></pre>
 </div>
 </div>
 <hr>
@@ -545,8 +545,8 @@ auto&amp; firstElement = vector.front();</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
-auto&amp; lastElement = vector.back();</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+    auto&amp; lastElement = vector.back();</code></pre>
 </div>
 </div>
 <hr>
@@ -559,10 +559,10 @@ auto&amp; lastElement = vector.back();</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">void working_with_a_c_library_function( int *data, size_t n ) { /* ... */}
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">    void working_with_a_c_library_function( int *data, size_t n ) { /* ... */}
 
-EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
-working_with_a_c_library_function( vector.data(), vector.length() );</code></pre>
+Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+    working_with_a_c_library_function( vector.data(), vector.length() );</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -615,9 +615,9 @@ For member functions that have an index/position as their first argument, it mea
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
-vector.clear();
-std::size_t numberOfElementsInVector = vector.length(); <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+    vector.clear();
+    std::size_t numberOfElementsInVector = vector.length(); <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -638,9 +638,9 @@ std::size_t numberOfElementsInVector = vector.length(); <i class="conum" data-va
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
-vector.insert( 0_uz, 0 );           <i class="conum" data-value="1"></i><b>(1)</b>
-vector.insert( vector.begin(), 0 ); <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+    vector.insert( 0_uz, 0 );           <i class="conum" data-value="1"></i><b>(1)</b>
+    vector.insert( vector.begin(), 0 ); <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -664,9 +664,9 @@ vector.insert( vector.begin(), 0 ); <i class="conum" data-value="2"></i><b>(2)</
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
-vector.insert( 0_uz, 2, 0 );            <i class="conum" data-value="1"></i><b>(1)</b>
-vector.insert( vector.begin(), 2, 0 );  <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+    vector.insert( 0_uz, 2, 0 );            <i class="conum" data-value="1"></i><b>(1)</b>
+    vector.insert( vector.begin(), 2, 0 );  <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -690,9 +690,9 @@ vector.insert( vector.begin(), 2, 0 );  <i class="conum" data-value="2"></i><b>(
 <div class="listingblock">
 <div class="title">Example 1</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
-vector.insert( 0_uz, { 0 } );           <i class="conum" data-value="1"></i><b>(1)</b>
-vector.insert( vector.begin(), { 0 } ); <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+    vector.insert( 0_uz, { 0 } );           <i class="conum" data-value="1"></i><b>(1)</b>
+    vector.insert( vector.begin(), { 0 } ); <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -710,13 +710,8 @@ vector.insert( vector.begin(), { 0 } ); <i class="conum" data-value="2"></i><b>(
 <div class="listingblock">
 <div class="title">Example 2</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
-for( auto it = vector.cbegin(); it != vector.cend(); ++it ) {
-    if( *it == 3 ) {
-        vector.insert( it, {99, 88, 77, 66, 55} );
-        it += 5;
-    }
-}</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]</code></pre>
 </div>
 </div>
 <hr>
@@ -765,9 +760,8 @@ vector2.emplace( 1, 2, 2 );     <i class="conum" data-value="2"></i><b>(2)</b></
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
-vector.erase( vector.length() - 2 ); 
-vector.erase( std::find( vector.cbegin(), vector.cend(), 12345 ) );</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]</code></pre>
 </div>
 </div>
 </div>
@@ -779,10 +773,8 @@ vector.erase( std::find( vector.cbegin(), vector.cend(), 12345 ) );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
-vector.erase( 2, 4 );    // [2,4) 
-auto seventySeven = std::find(vector.cbegin(), vector.cend(), 77);
-vector.erase( seventySeven, seventySeven + 3 );</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]</code></pre>
 </div>
 </div>
 <hr>
@@ -795,9 +787,8 @@ vector.erase( seventySeven, seventySeven + 3 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
-vector.pushBack( 2 + 2 );
-vector.pushBack( 12345 );</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]</code></pre>
 </div>
 </div>
 <hr>
@@ -810,8 +801,8 @@ vector.pushBack( 12345 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
-vector.emplaceBack( 100 );</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]</code></pre>
 </div>
 </div>
 <hr>
@@ -824,8 +815,8 @@ vector.emplaceBack( 100 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 16&gt; vector = { 10, 2, 3, 4, 5, 6 };    
-auto copyOfLastElement = vector.popBack();</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]</code></pre>
 </div>
 </div>
 <hr>

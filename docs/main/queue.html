@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Queue&lt;T, N&gt; :: EDF</title>
     <link rel="canonical" href="https://adamveazey.github.io/edf/docs/main/docs/main/queue.html">
-    <meta name="generator" content="Antora 3.1.7">
+    <meta name="generator" content="Antora 3.2.2">
     <link rel="stylesheet" href="../../_/css/site.css">
   </head>
   <body class="article">
@@ -328,24 +328,13 @@ The queue can hold at most N-1 number of elements.
 <div class="listingblock">
 <div class="title">Example: <code>T</code> is default constructable</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;int, 8&gt; queue;</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Example: <a href="https://en.cppreference.com/w/cpp/language/list_initialization">list-initialization</a> with a custom type</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">struct CustomType{
-    int value;
-    CustomType( int v ) : value(v) {}
-};
-
-EDF::Queue&lt;CustomType, 4&gt; queue2 = {
-    CustomType( 0 ),
-    CustomType( 0 ),
-    CustomType( 0 ),
-    CustomType( 0 )
-};
-queue2.clear();</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -377,9 +366,8 @@ Provided to make a common conditional check slightly more readable, as well as c
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;int, 8&gt; queue;
-while( !queue.isEmpty() ){
-    /* ... */</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]</code></pre>
 </div>
 </div>
 </div>
@@ -391,10 +379,8 @@ while( !queue.isEmpty() ){
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;int, 8&gt; queue;
-if( !queue.isFull() ) {
-    /* ... */
-}</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]</code></pre>
 </div>
 </div>
 </div>
@@ -414,8 +400,8 @@ if( !queue.isFull() ) {
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;int, 8&gt; queue;
-auto nElementsInQueue = queue.length();</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]</code></pre>
 </div>
 </div>
 </div>
@@ -427,8 +413,8 @@ auto nElementsInQueue = queue.length();</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;int, 8&gt; queue;
-constexpr auto maxNumberOfElements = queue.maxLength();</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]</code></pre>
 </div>
 </div>
 </div>
@@ -457,9 +443,9 @@ Many, if not all, of the Operation member functions use <a href="assert.html#_ed
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;int, 8&gt; queue;
-queue.push( 1 );
-auto&amp; firstElementPeek = queue.peek();</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -483,8 +469,8 @@ Name is peek instead of "front" for consistency with <a href="stack.html" class=
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;int, 8&gt; queue;
-queue.push( 1 );</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]</code></pre>
 </div>
 </div>
 </div>
@@ -496,8 +482,8 @@ queue.push( 1 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;int, 8&gt; queue;
-auto&amp; valueConstructed = queue.emplace( 2 );</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]</code></pre>
 </div>
 </div>
 </div>
@@ -509,8 +495,8 @@ auto&amp; valueConstructed = queue.emplace( 2 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;int, 8&gt; queue;
-    auto firstElement = queue.pop();</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]</code></pre>
 </div>
 </div>
 </div>
@@ -522,8 +508,8 @@ auto&amp; valueConstructed = queue.emplace( 2 );</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;int, 8&gt; queue;
-queue.clear();</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]</code></pre>
 </div>
 </div>
 </div>
@@ -551,9 +537,8 @@ queue.clear();</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;uint8_t, 32&gt; q;
-q.push( 0x12 );
-uint8_t data8be = q.pop8be(); // 0x12</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]</code></pre>
 </div>
 </div>
 </div>
@@ -565,10 +550,8 @@ uint8_t data8be = q.pop8be(); // 0x12</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;uint8_t, 32&gt; q;
-q.push( 0x12 );
-q.push( 0x34 );
-uint16_t data16be = q.pop16be(); // 0x1234</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]</code></pre>
 </div>
 </div>
 </div>
@@ -580,12 +563,8 @@ uint16_t data16be = q.pop16be(); // 0x1234</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;uint8_t, 32&gt; q;
-q.push( 0x12 );
-q.push( 0x34 );
-q.push( 0x56 );
-q.push( 0x78 );
-uint32_t data32be = q.pop32be(); // 0x12345678</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]</code></pre>
 </div>
 </div>
 </div>
@@ -597,16 +576,8 @@ uint32_t data32be = q.pop32be(); // 0x12345678</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;uint8_t, 32&gt; q;
-q.push( 0x12 );
-q.push( 0x34 );
-q.push( 0x56 );
-q.push( 0x78 );
-q.push( 0x9A );
-q.push( 0xBC );
-q.push( 0xDE );
-q.push( 0xF0 );
-uint64_t data64be = q.pop64be(); // 0x123456789ABCDEF0</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]</code></pre>
 </div>
 </div>
 </div>
@@ -623,9 +594,8 @@ uint64_t data64be = q.pop64be(); // 0x123456789ABCDEF0</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;uint8_t, 32&gt; q;
-q.push( 0x12 );
-uint8_t data8le = q.pop8le(); // 0x12</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]</code></pre>
 </div>
 </div>
 </div>
@@ -637,10 +607,8 @@ uint8_t data8le = q.pop8le(); // 0x12</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;uint8_t, 32&gt; q;
-q.push( 0x34 );
-q.push( 0x12 );
-uint16_t data16le = q.pop16le(); // 0x1234</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]</code></pre>
 </div>
 </div>
 </div>
@@ -652,12 +620,8 @@ uint16_t data16le = q.pop16le(); // 0x1234</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;uint8_t, 32&gt; q;
-q.push( 0x78 );
-q.push( 0x56 );
-q.push( 0x34 );
-q.push( 0x12 );
-uint32_t data32le = q.pop32le(); // 0x12345678</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]</code></pre>
 </div>
 </div>
 </div>
@@ -669,16 +633,8 @@ uint32_t data32le = q.pop32le(); // 0x12345678</code></pre>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Queue&lt;uint8_t, 32&gt; q;
-q.push( 0xF0 );
-q.push( 0xDE );
-q.push( 0xBC );
-q.push( 0x9A );
-q.push( 0x78 );
-q.push( 0x56 );
-q.push( 0x34 );
-q.push( 0x12 );
-uint64_t data64le = q.pop64le(); // 0x123456789ABCDEF0</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/queue.adoc - include::example$examples/EDF/Queue/main.cpp[]</code></pre>
 </div>
 </div>
 </div>
