@@ -1,0 +1,3 @@
+name: edf
+build:
+  cmake: .
