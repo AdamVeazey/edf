@@ -5,31 +5,38 @@
 // NOTE: line below is if github ever bakes in support for AsciiDoc includes
 // include::docs/modules/ROOT/pages/index.adoc[tag=EDF_Home]
 
+image:https://github.com/AdamVeazey/edf/actions/workflows/test.yml/badge.svg[Test Status, link="https://github.com/AdamVeazey/edf/actions/workflows/test.yml"]
+image:https://github.com/AdamVeazey/edf/actions/workflows/publish.yaml/badge.svg[Docs Status, link="https://github.com/AdamVeazey/edf/actions/workflows/publish.yaml"]
+
 == Description
 Embedded Development Framework (EDF) is a collection of libraries intended for use in embedded systems. It consists of the core library of platform independent building blocks, peripheral interfaces, drivers for specific ICs and common circuits.
 
-// == Installation
+== Installation
+EDF is a standard CMake library. Include it via `FetchContent` or as a local directory, then link to what you need (`EDF`, `Peripherals`, or `Drivers`).
 
-// [source,bash]
-// -----
-// $ git clone https://github.com/AdamVeazey/edf.git
-// $ cd yourlibrary
-// $ mkdir build
-// $ cd build
-// $ cmake ..
-// $ cd ..
-// $ cmake --build build/
-// -----
+[source,cmake]
+----
+include(FetchContent)
+FetchContent_Declare(
+    EDF
+    GIT_REPOSITORY https://github.com/AdamVeazey/edf.git
+    GIT_TAG        v1.0.0
+)
+FetchContent_MakeAvailable(EDF)
 
-// === Using CMake
+target_link_libraries(your_target PRIVATE Drivers) # Automatically includes Peripherals and EDF
+----
 
-// Add the following to your `CMakeLists.txt`:
+*(Note: If you use Zephyr or ESP-IDF, include EDF as a standard module or component in your project workspace).*
 
-// [source,cmake]
-// ----
-// find_package(MyAwesomeLibrary REQUIRED)
-// target_link_libraries(your_target MyAwesomeLibrary)
-// ----
+=== CMake Options Reference
+When configuring EDF, you can toggle these options:
+
+* `-DEDF_BUILD_PERIPHERALS=ON`: Build peripheral interface definitions.
+* `-DEDF_BUILD_DRIVERS=ON`: Build specific hardware drivers (auto-enables peripherals).
+* `-DEDF_BUILD_EXAMPLES=ON`: Build example applications.
+* `-DEDF_BUILD_TESTS=ON`: Build the GoogleTest unit test suite.
+* `-DEDF_ENABLE_LTO=ON`: Enable Link-Time Optimization for smaller binaries.
 
 == Documentation
 
@@ -39,9 +46,9 @@ For detailed information on the API and usage, please refer to the online link:h
 
 EDF is distributed under the BSD-3-Clause License. See the `LICENSE` file for details.
 
-// == Versioning
+== Versioning
 
-// EDF follows Semantic Versioning. For a list of released versions, see the link:https://github.com/AdamVeazey/edf/tags[tags on this repository].
+EDF follows Semantic Versioning. For a list of released versions, see the link:https://github.com/AdamVeazey/edf/tags[tags on this repository].
 
 == Examples
 
