@@ -1,0 +1,35 @@
+name: Tests
+
+on:
+  push:
+    branches: [main, 'release/*']
+  pull_request:
+    branches: [main, 'release/*']
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Build Tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake
+
+      - name: Configure CMake (with Tests and All Features Enabled)
+        run: |
+          cmake -B build \
+            -DCMAKE_BUILD_TYPE=Debug \
+            -DEDF_BUILD_TESTS=ON \
+            -DEDF_BUILD_PERIPHERALS=ON \
+            -DEDF_BUILD_DRIVERS=ON
+
+      - name: Build Project & Tests
+        run: cmake --build build --parallel $(nproc)
+
+      - name: Run Unit Tests
+        run: ctest --test-dir build --output-on-failure --verbose
