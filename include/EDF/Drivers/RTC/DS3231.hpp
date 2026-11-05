@@ -46,10 +46,10 @@ public:
     using BitField8::BitField8;
 
     constexpr std::uint8_t getOnesPlace()                const { return get(0, 4); }
-    constexpr void setOnesPlace( std::uint8_t ones )           { set(0, 4, ones); }
+    constexpr Seconds& setOnesPlace( std::uint8_t ones )       { set(0, 4, ones); return *this; }
 
     constexpr std::uint8_t getTensPlace()                const { return get(4, 3); }
-    constexpr void setTensPlace( std::uint8_t tens )           { set(4, 3, tens ); }
+    constexpr Seconds& setTensPlace( std::uint8_t tens )       { set(4, 3, tens ); return *this; }
 };
 
 using Minutes = Seconds; // exact same register layout
@@ -59,7 +59,7 @@ public:
     using BitField8::BitField8;
 
     constexpr std::uint8_t getOnesPlace()               const { return get(0, 4); }
-    constexpr void setOnesPlace( std::uint8_t ones )          { set(0, 4, ones); }
+    constexpr Hours& setOnesPlace( std::uint8_t ones )        { set(0, 4, ones); return *this; }
 
     constexpr std::uint8_t getTensPlace()               const {
         if( is12Hour() ) {
@@ -67,30 +67,31 @@ public:
         }
         return get(4, 2);
     }
-    constexpr void setTensPlace( std::uint8_t tens )          {
+    constexpr Hours& setTensPlace( std::uint8_t tens )        {
         if( is12Hour() )    set(4, 1, tens);
         else                set(4, 2, tens);
+        return *this;
     }
 
     constexpr bool isPM()                               const { return !isAM(); }
-    constexpr void setPM()                                    { set(5, 1, true); }
+    constexpr Hours& setPM()                                  { set(5, 1, true); return *this; }
     constexpr bool isAM()                               const {
         EDF_ASSERTD( is12Hour(), "Must be in 12 hour mode to check this bit");
         return !get(5, 1);
     }
-    constexpr void setAM()                                    { set(5, 1, false); }
+    constexpr Hours& setAM()                                  { set(5, 1, false); return *this; }
 
     constexpr bool is12Hour()                           const { return get(6, 1); }
-    constexpr void set12Hour()                                { set(6, 1, true); }
-    constexpr void set24Hour()                                { set(6, 1, false); }
+    constexpr Hours& set12Hour()                              { set(6, 1, true); return *this; }
+    constexpr Hours& set24Hour()                              { set(6, 1, false); return *this; }
 };
 
 class DayOfTheWeek : public BitField8 {
 public:
     using BitField8::BitField8;
 
-    constexpr std::uint8_t getDayOfTheWeek()             const { return get(0, 3); }
-    constexpr void setDayOfTheWeek( std::uint8_t day )         { set(0, 3, day); }
+    constexpr std::uint8_t getDayOfTheWeek()              const { return get(0, 3); }
+    constexpr DayOfTheWeek& setDayOfTheWeek( std::uint8_t day ) { set(0, 3, day); return *this; }
 };
 
 class DayOfTheMonth : public BitField8 {
@@ -98,10 +99,10 @@ public:
     using BitField8::BitField8;
 
     constexpr std::uint8_t getOnesPlace()                const { return get(0, 4); }
-    constexpr void setOnesPlace( std::uint8_t ones )           { set(0, 4, ones); }
+    constexpr DayOfTheMonth& setOnesPlace( std::uint8_t ones ) { set(0, 4, ones); return *this; }
 
     constexpr std::uint8_t getTensPlace()                const { return get(5, 2); }
-    constexpr void setTensPlace( std::uint8_t tens )           { set(5, 2, tens); }
+    constexpr DayOfTheMonth& setTensPlace( std::uint8_t tens ) { set(5, 2, tens); return *this; }
 };
 
 class MonthCentury : public BitField8 {
@@ -109,14 +110,14 @@ public:
     using BitField8::BitField8;
 
     constexpr std::uint8_t getOnesPlace()               const { return get(0, 4); }
-    constexpr void setOnesPlace( std::uint8_t ones )          { set(0, 4, ones); }
+    constexpr MonthCentury& setOnesPlace( std::uint8_t ones ) { set(0, 4, ones); return *this; }
 
     constexpr std::uint8_t getTensPlace()               const { return get(5, 1); }
-    constexpr void setTensPlace( std::uint8_t tens )          { set(5, 1, tens); }
+    constexpr MonthCentury& setTensPlace( std::uint8_t tens ) { set(5, 1, tens); return *this; }
 
     constexpr bool is21stCentury()                      const { return get(7, 1); }
-    constexpr void set21stCentury()                           { set(7, 1, true); }
-    constexpr void set20thCentury()                           { set(7, 1, false); }
+    constexpr MonthCentury& set21stCentury()                  { set(7, 1, true); return *this; }
+    constexpr MonthCentury& set20thCentury()                  { set(7, 1, false); return *this; }
 };
 
 class Year : public BitField8 {
@@ -124,10 +125,10 @@ public:
     using BitField8::BitField8;
 
     constexpr std::uint8_t getOnesPlace()               const { return get(0, 4); }
-    constexpr void setOnesPlace( std::uint8_t ones )          { set(0, 4, ones); }
+    constexpr Year& setOnesPlace( std::uint8_t ones )         { set(0, 4, ones); return *this; }
 
     constexpr std::uint8_t getTensPlace()               const { return get(5, 4); }
-    constexpr void setTensPlace( std::uint8_t tens )          { set(5, 4, tens); }
+    constexpr Year& setTensPlace( std::uint8_t tens )         { set(5, 4, tens); return *this; }
 };
 
 class Alarm1Seconds : public Seconds {
@@ -135,7 +136,7 @@ public:
     using Seconds::Seconds;
 
     constexpr bool isA1M1Set()                      const { return get(7, 1); }
-    constexpr void setA1M1( bool value )                  { set(7, 1, value); }
+    constexpr Alarm1Seconds& setA1M1( bool value )        { set(7, 1, value); return *this; }
 };
 
 class Alarm1Minutes : public Minutes {
@@ -143,7 +144,7 @@ public:
     using Minutes::Minutes;
 
     constexpr bool isA1M2Set()                      const { return get(7, 1); }
-    constexpr void setA1M2( bool value )                  { set(7, 1, value); }
+    constexpr Alarm1Minutes& setA1M2( bool value )        { set(7, 1, value); return *this; }
 };
 
 class Alarm1Hours : public Hours {
@@ -151,7 +152,7 @@ public:
     using Hours::Hours;
 
     constexpr bool isA1M3Set()                      const { return get(7, 1); }
-    constexpr void setA1M3( bool value )                  { set(7, 1, value); }
+    constexpr Alarm1Hours& setA1M3( bool value )          { set(7, 1, value); return *this; }
 };
 
 class Alarm1DayDate : public BitField8 {
@@ -159,7 +160,7 @@ public:
     using BitField8::BitField8;
 
     constexpr std::uint8_t getOnesPlace()               const { return get(0, 4); }
-    constexpr void setOnesPlace( std::uint8_t ones )          { set(0, 4, ones); }
+    constexpr Alarm1DayDate& setOnesPlace( std::uint8_t ones ){ set(0, 4, ones); return *this; }
 
     constexpr std::uint8_t getTensPlace()               const {
         if( isDayOfTheWeek() ) {
@@ -167,51 +168,52 @@ public:
         }
         return get(5, 2);
     }
-    constexpr void setTensPlace( std::uint8_t tens )          {
+    constexpr Alarm1DayDate& setTensPlace( std::uint8_t tens )          {
         if( isDayOfTheWeek() )  set(5, 1, tens);
         else                    set(5, 2, tens);
+        return *this;
     }
 
     constexpr bool isDayOfTheWeek()                 const { return get(6, 1); }
-    constexpr void setDayOfTheWeek()                      { set(6, 1, true); }
+    constexpr Alarm1DayDate& setDayOfTheWeek()            { set(6, 1, true); return *this; }
     constexpr bool isDayOfTheMonth()                const { return !isDayOfTheWeek(); }
-    constexpr void setDayOfTheMonth()                     { set(6, 1, false); }
+    constexpr Alarm1DayDate& setDayOfTheMonth()           { set(6, 1, false); return *this; }
 
     constexpr bool isA1M4Set()                      const { return get(7, 1); }
-    constexpr void setA1M4( bool value )                  { set(7, 1, value); }
+    constexpr Alarm1DayDate& setA1M4( bool value )        { set(7, 1, value); return *this; }
 };
 
 class Alarm2Minutes : public Alarm1Minutes {
 private: /* Hide these */
     constexpr bool isA1M2Set()                      const { return 0; }
-    constexpr void setA1M2( bool value )                  { (void)value; }
+    constexpr Alarm2Minutes& setA1M2( bool value )        { (void)value; return *this; }
 public:
     using Alarm1Minutes::Alarm1Minutes;
 
     constexpr bool isA2M2Set()                      const { return Alarm1Minutes::isA1M2Set(); }
-    constexpr void setA2M2( bool value )                  { Alarm1Minutes::setA1M2(value); }
+    constexpr Alarm2Minutes& setA2M2( bool value )        { Alarm1Minutes::setA1M2(value); return *this; }
 };
 
 class Alarm2Hours : public Alarm1Hours {
 private: /* Hide these */
     constexpr bool isA1M3Set()                      const { return 0; }
-    constexpr void setA1M3( bool value )                  { (void)value; }
+    constexpr Alarm2Hours& setA1M3( bool value )          { (void)value; return *this; }
 public:
    using Alarm1Hours::Alarm1Hours;
 
     constexpr bool isA2M3Set()                      const { return Alarm1Hours::isA1M3Set(); }
-    constexpr void setA2M3( bool value )                  { Alarm1Hours::setA1M3(value); }
+    constexpr Alarm2Hours& setA2M3( bool value )          { Alarm1Hours::setA1M3(value); return *this; }
 };
 
 class Alarm2DayDate : public Alarm1DayDate {
 private: /* Hide these */
     constexpr bool isA1M4Set()                      const { return 0; }
-    constexpr void setA1M4( bool value )                  { (void)value; }
+    constexpr Alarm2DayDate& setA1M4( bool value )        { (void)value; return *this; }
 public:
    using Alarm1DayDate::Alarm1DayDate;
 
     constexpr bool isA2M4Set()                      const { return Alarm1DayDate::isA1M4Set(); }
-    constexpr void setA2M4( bool value )                  { Alarm1DayDate::setA1M4(value); }
+    constexpr Alarm2DayDate& setA2M4( bool value )        { Alarm1DayDate::setA1M4(value); return *this; }
 };
 
 class ControlStatus : public BitField16 {
@@ -226,16 +228,16 @@ public:
    using BitField16::BitField16;
 
     constexpr bool isA1InterruptEnabled()           const { return get(0, 1); }
-    constexpr void setA1Interrupt( bool enable )          { set(0, 1, enable); }
+    constexpr ControlStatus& setA1Interrupt( bool enable ){ set(0, 1, enable); return *this; }
 
     constexpr bool isA2InterruptEnabled()           const { return get(1, 1); }
-    constexpr void setA2Interrupt( bool enable )          { set(1, 1, enable); }
+    constexpr ControlStatus& setA2Interrupt( bool enable ){ set(1, 1, enable); return *this; }
 
     constexpr bool isAlarmInterruptEnabled()        const { return get(2, 1); }
-    constexpr void setAlarmInterrupt( bool enable )       { set(2, 1, enable);  }
+    constexpr ControlStatus& setAlarmInterrupt( bool enable ){ set(2, 1, enable);  return *this; }
 
     constexpr SWR getSquareWaveRate()               const { return static_cast<SWR>(get(3, 2)); }
-    constexpr void setSquareWaveRate( SWR r )             { set(3, 2, static_cast<std::uint8_t>(r)); }
+    constexpr ControlStatus& setSquareWaveRate( SWR r )   { set(3, 2, static_cast<std::uint8_t>(r)); return *this; }
 
     constexpr bool isTemperatureConverting()        const { return get(5, 1); }
     constexpr bool startTemperatureConversion()           { // returns false if busy doing a conversion
@@ -247,24 +249,24 @@ public:
     }
 
     constexpr bool isSquareWaveEnabled()            const { return get(6, 1) && !isAlarmInterruptEnabled(); }
-    constexpr void setSquareWave( bool enable )           { set(6, 1, enable); setAlarmInterrupt(!enable); }
+    constexpr ControlStatus& setSquareWave( bool enable ) { set(6, 1, enable); setAlarmInterrupt(!enable); return *this; }
 
     constexpr bool isOscillatorEnabled()            const { return get(7, 1); }
-    constexpr void setOscillator( bool enable )           { set(7, 1, enable); if( enable ) clearOscillatorStopped(); }
+    constexpr ControlStatus& setOscillator( bool enable ) { set(7, 1, enable); if( enable ) clearOscillatorStopped(); return *this; }
 
     constexpr bool isAlarm1Triggered()              const { return get(8, 1); }
-    constexpr void clearAlarm1Triggered()                 { set(8, 1, 0); }
+    constexpr ControlStatus& clearAlarm1Triggered()       { set(8, 1, 0); return *this; }
 
     constexpr bool isAlarm2Triggered()              const { return get(9, 1); }
-    constexpr void clearAlarm2Triggered()                 { set(9, 1, 0); }
+    constexpr ControlStatus& clearAlarm2Triggered()       { set(9, 1, 0); return *this; }
 
     constexpr bool isBusy()                         const { return get(10, 1); }
 
     constexpr bool is32kHzOutputEnabled()           const { return get(11, 1); }
-    constexpr void set32kHzOutput( bool enable )          { set(11, 1, enable); }
+    constexpr ControlStatus& set32kHzOutput( bool enable ){ set(11, 1, enable); return *this; }
 
     constexpr bool isOscillatorStopped()            const { return get(15, 1); }
-    constexpr void clearOscillatorStopped()               { set(15, 1, 0); }
+    constexpr ControlStatus& clearOscillatorStopped()     { set(15, 1, 0); return *this; }
 };
 
 class AgingOffset : public BitField8 {
@@ -273,7 +275,7 @@ public:
     AgingOffset( std::int8_t value ) : BitField8( static_cast<std::uint8_t>(value)) {}
 
     constexpr std::int8_t getOffset()               const { return static_cast<std::int8_t>(get(0, 8)); }
-    constexpr void setOffset( std::int8_t offset )        { set(0, 8, static_cast<std::uint8_t>(offset)); }
+    constexpr AgingOffset& setOffset( std::int8_t offset ){ set(0, 8, static_cast<std::uint8_t>(offset)); return *this; }
 };
 
 class Temperature : public BitField16 {
