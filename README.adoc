@@ -20,11 +20,11 @@ include(FetchContent)
 FetchContent_Declare(
     EDF
     GIT_REPOSITORY https://github.com/AdamVeazey/edf.git
-    GIT_TAG        v1.0.0
+    GIT_TAG        v1.0.1
 )
 FetchContent_MakeAvailable(EDF)
 
-target_link_libraries(your_target PRIVATE Drivers) # Automatically includes Peripherals and EDF
+target_link_libraries(your_target PRIVATE EDF)
 ----
 
 *(Note: If you use Zephyr include EDF as a standard module in your project workspace).*
