@@ -232,6 +232,72 @@ TEST(String, InitializationFromIntegerBase36) {
     EXPECT_STREQ( stringUint64_t.asCString(), "9YS742PPS3QO" );
 }
 
+TEST(String, InitializationFromIntegerBase62) {
+    // Small values mapping directly to single-character alphabets
+    int8_t valZero = 0;
+    EDF::String<32> strZero( valZero, 62 );
+    EXPECT_STREQ( strZero.asCString(), "0" );
+
+    int8_t valNine = 9;
+    EDF::String<32> strNine( valNine, 62 );
+    EXPECT_STREQ( strNine.asCString(), "9" );
+
+    int8_t valTen = 10; // 'A'
+    EDF::String<32> strTen( valTen, 62 );
+    EXPECT_STREQ( strTen.asCString(), "A" );
+
+    int8_t valThirtyFive = 35; // 'Z'
+    EDF::String<32> strThirtyFive( valThirtyFive, 62 );
+    EXPECT_STREQ( strThirtyFive.asCString(), "Z" );
+
+    int8_t valThirtySix = 36; // 'a'
+    EDF::String<32> strThirtySix( valThirtySix, 62 );
+    EXPECT_STREQ( strThirtySix.asCString(), "a" );
+
+    int8_t valSixtyOne = 61; // 'z'
+    EDF::String<32> strSixtyOne( valSixtyOne, 62 );
+    EXPECT_STREQ( strSixtyOne.asCString(), "z" );
+
+    int32_t valSixtyTwo = 62; // '10' in base 62 (1 * 62 + 0)
+    EDF::String<32> strSixtyTwo( valSixtyTwo, 62 );
+    EXPECT_STREQ( strSixtyTwo.asCString(), "10" );
+}
+
+TEST(String, Base62RoundTrip) {
+    uint32_t originalValues[] = { 0, 1, 9, 10, 35, 36, 61, 62, 100, 3843, 65535, 0x12345678 };
+
+    for( auto original : originalValues ) {
+        EDF::String<32> str( original, 62 );
+        uint32_t parsed = str.toUint32_t( 62 );
+        EXPECT_EQ( original, parsed ) << "Failed round-trip for value " << original << " (string was: " << str.asCString() << ")";
+    }
+}
+
+TEST(String, InvalidCharacterParsingAssertions) {
+    // Test Base 10 with a space (ASCII 32).
+    // Before the fix, ' ' <= 70 (limitLow evaluated to 'F'), so the assert passed silently!
+    EDF::String<32> invalidBase10_space("123 45");
+    EXPECT_DEBUG_DEATH({
+        volatile int32_t val = invalidBase10_space.toInt32_t();
+        (void)val;
+    }, "string contains invalid char for specified base");
+
+    // Test Base 10 with an alphabetic character that sits below ASCII 70 ('F')
+    // E.g., 'A' is ASCII 65, which is <= 70.
+    EDF::String<32> invalidBase10_letter("123A45");
+    EXPECT_DEBUG_DEATH({
+        volatile int32_t val = invalidBase10_letter.toInt32_t();
+        (void)val;
+    }, "string contains invalid char for specified base");
+
+    // Test Base 16 with an invalid symbol (like 'G')
+    EDF::String<32> invalidBase16("123G45");
+    EXPECT_DEBUG_DEATH({
+        volatile int32_t val = invalidBase16.toInt32_t( 16 );
+        (void)val;
+    }, "string contains invalid char for specified base");
+}
+
 TEST(String, InitializationFromEDFString) {
     EDF::String<16> smallerString = "Smaller String";
     EDF::String<32> string( smallerString );

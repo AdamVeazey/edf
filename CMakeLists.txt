@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16.3)
 
 project(EDF
-    VERSION 1.0.0
+    VERSION 1.0.1
     DESCRIPTION "Embedded Development Framework"
     HOMEPAGE_URL "https://github.com/Veazus/edf"
     LANGUAGES C CXX

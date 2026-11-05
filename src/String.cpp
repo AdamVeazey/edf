@@ -33,8 +33,8 @@ Does not skip whitespace
 template<typename T>
 static constexpr T string_to( const char* str, std::size_t len, int base ) {
     static_assert( std::is_integral_v<T>, "T must be an integer type!");
-    EDF_ASSERTD( base >= 2, "base has to be within the range [2,36]" );
-    EDF_ASSERTD( base <= 36, "base has to be within the range [2,36]" );
+    EDF_ASSERTD( base >= 2, "base has to be within the range [2,62]" );
+    EDF_ASSERTD( base <= 62, "base has to be within the range [2,62]" );
     size_t k = 0;
     T result = 0;
     T sign = 1;
@@ -60,7 +60,7 @@ static constexpr T string_to( const char* str, std::size_t len, int base ) {
         else if( str[k] >= 'a' && str[k] <= limitLow )
             result = result*static_cast<T>(base) + static_cast<T>(str[k]) - ('a' - 10 - 26);
         else {
-            EDF_ASSERTD( str[k] <= limitLow, "string contains invalid char for specified base" );
+            EDF_ASSERTD( false, "string contains invalid char for specified base" );
             break;
         }
     }
@@ -73,8 +73,8 @@ str, len, and N are the pieces needed for a EDF::Vector, which is exactly what t
 template<typename T>
 static constexpr void string_from( char* str, std::size_t& len, std::size_t N, T value, int base ) {
     static_assert(std::is_integral_v<T>, "This only works for integer types!");
-    EDF_ASSERTD( base >= 2, "base has to be within the range [2,36]" );
-    EDF_ASSERTD( base <= 36, "base has to be within the range [2,36]" );
+    EDF_ASSERTD( base >= 2, "base has to be within the range [2,62]" );
+    EDF_ASSERTD( base <= 62, "base has to be within the range [2,62]" );
 
     // handle edge case of 0
     if( value == 0 ){
