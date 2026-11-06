@@ -10,10 +10,10 @@ content:
     collector:
       - forward:
         from: examples
-        to: modules/ROOT/examples
+        to: modules/ROOT/examples/examples
       - forward:
         from: include
-        to: modules/ROOT/include
+        to: modules/ROOT/examples/include
   # - url: https://gitlab.com/antora/demo/demo-component-b.git
   #   branches: [v2.0, v1.0]
   #   start_path: docs
