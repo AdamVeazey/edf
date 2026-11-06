@@ -6,9 +6,9 @@
  */
 
 #include <EDF/Heap.hpp>
+#include <EDF/String.hpp>
 
 #include <iostream>
-#include <cstring>
 
 void exampleMaxHeap() {
     // tag::init_max[]
@@ -108,11 +108,11 @@ int main( int argc, char* argv[] ){
 
     if( argc > 1 ) {
         // has at least 2 arguments
-        auto whichExample = argv[1]; // valid value is either "min" or "max"
-        if( std::strcmp(whichExample, "min") == 0 ) {
+        EDF::String<32> whichExample = argv[1]; // valid value is either "min" or "max"
+        if( whichExample.equals("min") ) {
             exampleMinHeap();
         }
-        else if( std::strcmp( whichExample, "max" ) == 0 ) {
+        else if( whichExample.equals("max") ) {
             exampleMaxHeap();
         }
         else{
