@@ -12,8 +12,7 @@ permissions:
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+# Allow only one concurrent deployment
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -24,16 +23,21 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+
     - name: Setup Pages
       uses: actions/configure-pages@v5
+
     - name: Install Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '20'
-    - name: Install Antora
-      run: npm i antora
+
+    - name: Install Antora and Collector Extension
+      run: npm i antora @antora/collector-extension
+
     - name: Generate Site
       run: npx antora antora-playbook.yaml
+
     - name: Publish to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
       with:
