@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>I2C Controller :: EDF</title>
+    <link rel="canonical" href="https://adamveazey.github.io/edf/docs/main/docs/main/peripherals/i2c_controller.html">
+    <meta name="generator" content="Antora 3.2.2">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://adamveazey.github.io/edf/docs/main">EDF</a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Products</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Product A</a>
+            <a class="navbar-item" href="#">Product B</a>
+            <a class="navbar-item" href="#">Product C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Services</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Service A</a>
+            <a class="navbar-item" href="#">Service B</a>
+            <a class="navbar-item" href="#">Service C</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="docs" data-version="v1.0.1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">EDF</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../edf.html">EDF</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">STL-Like Containers</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../array.html">Array</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../vector.html">Vector</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../stack.html">Stack</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../queue.html">Queue</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../heap.html">Heap</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Miscellaneous</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../assert.html">Assert</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../string.html">String</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../version.html">Version</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../math.html">Math</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../bit_field.html">BitField</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../color.html">Color</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="peripherals.html">Peripherals</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="gpio.html">GPIO</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="spi_controller.html">SPI Controller</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="i2c_controller.html">I2C Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="uart.html">UART</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pwm.html">PWM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="timer.html">Timer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="adc.html">ADC</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dac.html">DAC</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="wdt.html">WDT</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="rtc.html">RTC</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../drivers/drivers.html">Drivers</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../drivers/led_rgb.html">RGB LED</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../drivers/soft_timer.html">SoftTimer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Memory</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <span class="nav-text">EEPROM</span>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <span class="nav-text">Flash</span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">ADC</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">IMU</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">IOExpander</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">Sensors</span>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../mcu/mcu.html">MCU</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">ST</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">Nordic</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">Espressif</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">NXP</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">TI</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">AVR</span>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">EDF</span>
+    <span class="version">v1.0.1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../../main/index.html">EDF</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../main/index.html">main</a>
+        </li>
+        <li class="version is-current">
+          <a href="../index.html">v1.0.1</a>
+        </li>
+        <li class="version">
+          <a href="../../v1.0.0/index.html">v1.0.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">EDF</a></li>
+    <li><a href="peripherals.html">Peripherals</a></li>
+    <li><a href="i2c_controller.html">I2C Controller</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">v1.0.1</button>
+  <div class="version-menu">
+    <a class="version" href="../../main/peripherals/i2c_controller.html">main</a>
+    <a class="version is-current" href="i2c_controller.html">v1.0.1</a>
+    <a class="version" href="../../v1.0.0/peripherals/i2c_controller.html">v1.0.0</a>
+  </div>
+</div>
+<div class="edit-this-page"><a href="https://github.com/AdamVeazey/edf/blob/v1.0.1/docs/modules/peripherals/pages/i2c_controller.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">I2C Controller</h1>
+<div class="sect1">
+<h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I2C Controller is the interface for an I2C bus controller (master) interface for all MCUs. Drivers can use this interface to be written for use with any microcontroller.</p>
+</div>
+<div class="paragraph">
+<p>There is only a single member function specific microcontroller I2C Controllers need to implement which is <a href="#transfer">transfer()</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_initialization"><a class="anchor" href="#_initialization"></a>Initialization</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Initialization is not done using this interface. Instead the specific I2C Controller driver for a given MCU should be used for configuration.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_transfer"><a class="anchor" href="#_transfer"></a>transfer()</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The function signature for <a href="#transfer">transfer()</a> is the following.</p>
+</div>
+<div class="listingblock">
+<div class="title">Transfer Signature</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/i2c_controller.adoc - include::ROOT:example$include/EDF/Peripherals/I2CController.hpp[]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>An I2C write will always be generated.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If only <code>address_7bit</code> is provided (see <a href="#probe">probe()</a>) then after receiving an ACK/NACK from the peripheral device the controller will send the stop bit.</p>
+</li>
+<li>
+<p>If <code>txData</code> and <code>txLen</code> are also provided, then additional data frames will be sent depending on the value of <code>txLen</code>.</p>
+</li>
+<li>
+<p>If <code>rxData</code> and <code>rxLen</code> are also provided, then after the stop bit for the I2C write is sent, an I2C read will then occur and the data sent from the peripheral will be stored in <code>rxData</code></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The corresponding parts are labeled in orange boxes as 1, 2, and 3.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/I2C_Controller_Concept.png" alt="I2C Controller Concept">
+</div>
+</div>
+<div class="sect2">
+<h3 id="_1_address_7bit"><a class="anchor" href="#_1_address_7bit"></a>1. address_7bit</h3>
+<div class="paragraph">
+<p>This is the peripheral (slave) address as a 7-bit value that is NOT left shifted. To communicate with a device with an address of 0x36, the value of <code>address_7bit</code> should be 0x36, not 0x6C or 0x6D.</p>
+</div>
+<div class="paragraph">
+<p>This parameter is the only required parameter. For a usage example see <a href="#probe">probe()</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2_txdata_and_txlen"><a class="anchor" href="#_2_txdata_and_txlen"></a>2. txData and txLen</h3>
+<div class="paragraph">
+<p>This is the I2C write data you want to transmit on the I2C bus. <code>txData</code> is a pointer to an array of bytes to be sent. <code>txLen</code> is the number of bytes in that array that you want to be sent. For usage examples see <a href="#write_8_bit_register">write8BitRegister()</a> and <a href="#write_16_bit_register">write16BitRegister()</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_3_rxdata_and_rxlen"><a class="anchor" href="#_3_rxdata_and_rxlen"></a>3. rxData and rxLen</h3>
+<div class="paragraph">
+<p>This is where data from an I2C read will be stored. The amount of data read from the peripheral device is based on the value provided for <code>rxLen</code>. For usage examples see <a href="#read_8_bit_register">read8BitRegister()</a> and <a href="#read_16_bit_register">read16BitRegister()</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_response"><a class="anchor" href="#_response"></a>Response</h3>
+<div class="paragraph">
+<p><code>Response</code> is an enumeration that indicates if the response from the transfer was an ACK or a NACK in the case of a successful transfer. Otherwise, one of the error values will be returned.</p>
+</div>
+<div class="listingblock">
+<div class="title">Response Definition</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/i2c_controller.adoc - include::ROOT:example$include/EDF/Peripherals/I2CController.hpp[]</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_example_derived_class"><a class="anchor" href="#_example_derived_class"></a>Example Derived Class</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This example showcases a simplified representation of a memory-mapped I2C peripheral in a microcontroller. The I2C interface presented here offers an illustration of its usage.</p>
+</div>
+<div class="paragraph">
+<p>In the code, a pseudo-memory-mapped I2C peripheral is simulated through a structure named <code>MCU_I2C_T</code>, which contains nothing, as each microcontroller will likely have a different set of registers to achieve the same goal. For the purpose of this example, an actual instance of this simulated peripheral, <code>MCU_I2C0</code>, is created. Typically, in real microcontrollers, the address for such a peripheral would be obtained from the datasheet and hardcoded into the #define.</p>
+</div>
+<div class="paragraph">
+<p>The <code>I2CController</code> class, derived from the <code>EDF::I2CController</code> base class, provides an abstraction for interacting with an I2C bus as a controller. This class overrides the required <a href="#transfer">transfer()</a> function as well as implement some methods to demonstrate how you might use <a href="#transfer">transfer()</a> for common use cases.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/i2c_controller.adoc - include::ROOT:example$examples/Peripherals/I2CController/main.cpp[]</code></pre>
+</div>
+</div>
+<hr>
+<div class="sect2">
+<h3 id="init"><a class="anchor" href="#init"></a>init()</h3>
+<div class="paragraph">
+<p>This shows an example of how you might want to initialize a I2C Controller with a bus speed. In a real implementation for a specific microcontroller, this likely has many more options for you to choose what can be configured.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/i2c_controller.adoc - include::ROOT:example$examples/Peripherals/I2CController/main.cpp[]
+Unresolved include directive in modules/peripherals/pages/i2c_controller.adoc - include::ROOT:example$examples/Peripherals/I2CController/main.cpp[]</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="set_timeout"><a class="anchor" href="#set_timeout"></a>setTimeout()</h3>
+<div class="paragraph">
+<p>This is an example of how you might want to adapt a vendor supplied HAL to work with this interface. For example, STM32 HAL I2C functions also take in a timeout parameter. In order to adapt this to our needs, we might store a class member, <code>timeout_ticks</code> to be used in the call to <code>HAL_I2C_Master_Transmit</code> or <code>HAL_I2C_Master_Receive</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/i2c_controller.adoc - include::ROOT:example$examples/Peripherals/I2CController/main.cpp[]
+Unresolved include directive in modules/peripherals/pages/i2c_controller.adoc - include::ROOT:example$examples/Peripherals/I2CController/main.cpp[]</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="transfer"><a class="anchor" href="#transfer"></a>transfer()</h3>
+<div class="paragraph">
+<p>This shows how you might use the interface only using the single interface method <code>transfer</code>. This specific use is equivalent to the example <a href="#read_8_bit_register">read8BitRegister()</a></p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/i2c_controller.adoc - include::ROOT:example$examples/Peripherals/I2CController/main.cpp[]
+Unresolved include directive in modules/peripherals/pages/i2c_controller.adoc - include::ROOT:example$examples/Peripherals/I2CController/main.cpp[]</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/I2C_Controller_Transfer.png" alt="I2C Controller Transfer">
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="probe"><a class="anchor" href="#probe"></a>probe()</h3>
+<div class="paragraph">
+<p>This shows how you might get information on what peripheral devices are present on this I2C bus.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/i2c_controller.adoc - include::ROOT:example$examples/Peripherals/I2CController/main.cpp[]
+Unresolved include directive in modules/peripherals/pages/i2c_controller.adoc - include::ROOT:example$examples/Peripherals/I2CController/main.cpp[]</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/I2C_Controller_Probe.png" alt="I2C Controller Probe">
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="write_8_bit_register"><a class="anchor" href="#write_8_bit_register"></a>write8BitRegister()</h3>
+<div class="paragraph">
+<p>This shows the use of a helper member function to make it more clear what your intention is instead of calling <a href="#transfer">transfer()</a> directly.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/i2c_controller.adoc - include::ROOT:example$examples/Peripherals/I2CController/main.cpp[]
+Unresolved include directive in modules/peripherals/pages/i2c_controller.adoc - include::ROOT:example$examples/Peripherals/I2CController/main.cpp[]</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/I2C_Controller_Write_8_Bit_Register.png" alt="I2C Controller Write 8 Bit Register">
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="read_8_bit_register"><a class="anchor" href="#read_8_bit_register"></a>read8BitRegister()</h3>
+<div class="paragraph">
+<p>This shows the use of a helper member function to make it more clear what your intention is instead of calling <a href="#transfer">transfer()</a> directly.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/i2c_controller.adoc - include::ROOT:example$examples/Peripherals/I2CController/main.cpp[]
+Unresolved include directive in modules/peripherals/pages/i2c_controller.adoc - include::ROOT:example$examples/Peripherals/I2CController/main.cpp[]</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/I2C_Controller_Transfer.png" alt="I2C Controller Transfer">
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="write_16_bit_register"><a class="anchor" href="#write_16_bit_register"></a>write16BitRegister()</h3>
+<div class="paragraph">
+<p>This shows the use of a helper member function to make it more clear what your intention is instead of calling <a href="#transfer">transfer()</a> directly.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/i2c_controller.adoc - include::ROOT:example$examples/Peripherals/I2CController/main.cpp[]
+Unresolved include directive in modules/peripherals/pages/i2c_controller.adoc - include::ROOT:example$examples/Peripherals/I2CController/main.cpp[]</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/I2C_Controller_Write_16_Bit_Register.png" alt="I2C Controller Write 16 Bit Register">
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="read_16_bit_register"><a class="anchor" href="#read_16_bit_register"></a>read16BitRegister()</h3>
+<div class="paragraph">
+<p>This shows the use of a helper member function to make it more clear what your intention is instead of calling <a href="#transfer">transfer()</a> directly.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/i2c_controller.adoc - include::ROOT:example$examples/Peripherals/I2CController/main.cpp[]
+Unresolved include directive in modules/peripherals/pages/i2c_controller.adoc - include::ROOT:example$examples/Peripherals/I2CController/main.cpp[]</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/I2C_Controller_Read_16_Bit_Register.png" alt="I2C Controller Read 16 Bit Register">
+</div>
+</div>
+<hr>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Vector&lt;T, N&gt; :: EDF</title>
+    <link rel="canonical" href="https://adamveazey.github.io/edf/docs/main/docs/main/vector.html">
+    <meta name="generator" content="Antora 3.2.2">
+    <link rel="stylesheet" href="../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://adamveazey.github.io/edf/docs/main">EDF</a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Products</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Product A</a>
+            <a class="navbar-item" href="#">Product B</a>
+            <a class="navbar-item" href="#">Product C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Services</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Service A</a>
+            <a class="navbar-item" href="#">Service B</a>
+            <a class="navbar-item" href="#">Service C</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="docs" data-version="v1.0.1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">EDF</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="edf.html">EDF</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">STL-Like Containers</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="array.html">Array</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="vector.html">Vector</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="stack.html">Stack</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="queue.html">Queue</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="heap.html">Heap</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Miscellaneous</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="assert.html">Assert</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="string.html">String</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="version.html">Version</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="math.html">Math</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="bit_field.html">BitField</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="color.html">Color</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="peripherals/peripherals.html">Peripherals</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/gpio.html">GPIO</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/spi_controller.html">SPI Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/i2c_controller.html">I2C Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/uart.html">UART</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/pwm.html">PWM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/timer.html">Timer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/adc.html">ADC</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/dac.html">DAC</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/wdt.html">WDT</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/rtc.html">RTC</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="drivers/drivers.html">Drivers</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="drivers/led_rgb.html">RGB LED</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="drivers/soft_timer.html">SoftTimer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Memory</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <span class="nav-text">EEPROM</span>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <span class="nav-text">Flash</span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">ADC</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">IMU</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">IOExpander</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">Sensors</span>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="mcu/mcu.html">MCU</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">ST</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">Nordic</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">Espressif</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">NXP</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">TI</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">AVR</span>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">EDF</span>
+    <span class="version">v1.0.1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../main/index.html">EDF</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../main/index.html">main</a>
+        </li>
+        <li class="version is-current">
+          <a href="index.html">v1.0.1</a>
+        </li>
+        <li class="version">
+          <a href="../v1.0.0/index.html">v1.0.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="edf.html">EDF</a></li>
+    <li>STL-Like Containers</li>
+    <li><a href="vector.html">Vector</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">v1.0.1</button>
+  <div class="version-menu">
+    <a class="version" href="../main/vector.html">main</a>
+    <a class="version is-current" href="vector.html">v1.0.1</a>
+    <a class="version" href="../v1.0.0/vector.html">v1.0.0</a>
+  </div>
+</div>
+<div class="edit-this-page"><a href="https://github.com/AdamVeazey/edf/blob/v1.0.1/docs/modules/ROOT/pages/vector.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Vector&lt;T, N&gt;</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<div class="title">Template arguments</div>
+<p><code>T</code> = (T)ype<br>
+<code>N</code> = Maximum (N)umber of elements the vector can hold</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>T</code> <em>Needs</em> to be copyable, and <em>helps</em> if <code>T</code> is also default constructable.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Vector is a template that uses an <a href="array.html" class="xref page">Array</a> plus a current size variable to act like a std::vector, but does not grow if there is no more room in the underlying <a href="array.html" class="xref page">Array</a>. <code>N</code> specifies the maximum number of elements the vector can "grow" to.</p>
+</div>
+<div class="paragraph">
+<p>There are 5 groups of member functions:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="#_is_questions">Is Questions</a></p>
+</li>
+<li>
+<p><a href="#_capacity">Capacity</a></p>
+</li>
+<li>
+<p><a href="#_element_access">Element Access</a></p>
+</li>
+<li>
+<p><a href="#_operations">Operations</a></p>
+</li>
+<li>
+<p><a href="#_iterators">Iterators</a></p>
+</li>
+</ol>
+</div>
+<div id="important_size_t" class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+When using overloaded member functions that use either index/position, when using an index of <code>0</code> will attempt to use the position version of the member function. To work around this, use <a href="math.html#uz" class="xref page">_uz</a> for <code>0</code>. All other integers will have expected overload resolution.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_initialization"><a class="anchor" href="#_initialization"></a>Initialization</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Default initialization requires type <code>T</code> to be default constructable. Otherwise <a href="https://en.cppreference.com/w/cpp/language/list_initialization">list-initialization</a> is required.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example: Default Constructable</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Vector&lt;int, 30&gt; vector;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Example: <a href="https://en.cppreference.com/w/cpp/language/list_initialization">list-initialization</a> with a custom type</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">class CustomType {
+private:
+    int x;
+    int y;
+public:
+    CustomType( int x, int y = 0 ) : x(x), y(y) {}
+    // ...
+};
+
+EDF::Vector&lt;CustomType, 3&gt; vector = {
+    CustomType(1, 1),
+    CustomType(2, 2),
+    CustomType(3, 3)
+};</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_is_questions"><a class="anchor" href="#_is_questions"></a>Is Questions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>These member functions provide yes/no answers to the current state of the vector.</p>
+</div>
+<div class="sect2">
+<h3 id="_isempty"><a class="anchor" href="#_isempty"></a>isEmpty()</h3>
+<div class="paragraph">
+<p>Equivalent to <code><a href="#length">length()</a> == 0</code><br>
+Provided to make a common conditional check slightly more readable, as well as consistency with other <a href="edf.html#_stl_like_containers" class="xref page">EDF containers</a>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">if( myVector.isEmpty() ) { /* ... */}
+// vs.
+if( myVector.length() == 0 ) { /* ... */ }</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_isfull"><a class="anchor" href="#_isfull"></a>isFull()</h3>
+<div class="paragraph">
+<p>Since a vector doesn&#8217;t grow, you should check if it is full before adding an element. If the vector is full this function return true. Otherwise it returns false.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">if( !myVector.isFull() ){
+    myVector.pushBack( value );
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_capacity"><a class="anchor" href="#_capacity"></a>Capacity</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Provides information about how many current elements are in the vector, as well as the max number of elements in the vector.</p>
+</div>
+<div class="sect2">
+<h3 id="length"><a class="anchor" href="#length"></a>length()</h3>
+<div class="paragraph">
+<p>Returns the number of elements currently in the vector.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+    std::size_t numberOfElementsInVector = vector.length(); <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The value of <code>numberOfElementsInVector</code> is 6. As opposed to <a href="#maxLength">maxLength()</a> which returns 16.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The name <code>length()</code> is used instead of <code>size()</code> or <code>count()</code> for consistency across all <a href="edf.html#_stl_like_containers" class="xref page">EDF containers</a> and <a href="string.html" class="xref page">String</a>
+</td>
+</tr>
+</table>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="maxLength"><a class="anchor" href="#maxLength"></a>maxLength()</h3>
+<div class="paragraph">
+<p>Returns template parameter <code>N</code>. It acts the same as a compile time constant. No need to remember how a macro for a vector max number of elements is named.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+    static constexpr int someArray[vector.maxSize()]; <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>someArray will be able to hold 16 elements, since vector.maxSize() is 16</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_element_access"><a class="anchor" href="#_element_access"></a>Element Access</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_operator"><a class="anchor" href="#_operator"></a>operator[]</h3>
+<div class="paragraph">
+<p>This is exactly the same as with a C-style array.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This also means that there is no boundary checking, so it is possible to attempt to access data outside of the vector.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+0<a href="math.html#uz" class="xref page">_uz</a>
+</td>
+</tr>
+</table>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="at"><a class="anchor" href="#at"></a>at( index )</h3>
+<div class="paragraph">
+<p><code>index</code> is checked with <a href="assert.html#_edf_assertd" class="xref page">EDF_ASSERTD</a> to be sure index is valid.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+0<a href="math.html#uz" class="xref page">_uz</a>
+</td>
+</tr>
+</table>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_front"><a class="anchor" href="#_front"></a>front()</h3>
+<div class="paragraph">
+<p>Return the first element of the vector. Calls <a href="#at">at( index )</a></p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+    auto&amp; firstElement = vector.front();</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_back"><a class="anchor" href="#_back"></a>back()</h3>
+<div class="paragraph">
+<p>Return the last element of the vector (<a href="#length">length()</a> - 1). Calls <a href="#at">at( index )</a></p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+    auto&amp; lastElement = vector.back();</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_data"><a class="anchor" href="#_data"></a>data()</h3>
+<div class="paragraph">
+<p>Returns a raw pointer to the first element of the vector.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">    void working_with_a_c_library_function( int *data, size_t n ) { /* ... */}
+
+Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+    working_with_a_c_library_function( vector.data(), vector.length() );</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Can be called in order to "decay" to a pointer like a C-Style array
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_operations"><a class="anchor" href="#_operations"></a>Operations</h2>
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Many, if not all, of the Operation member functions use <a href="assert.html#_edf_assertd" class="xref page">EDF_ASSERTD</a> to ensure the operation will be successful. Remember that the assert condition is only checked in Debug mode.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+For member functions that have an index/position as their first argument, it means that overloads exist to use an index (std::size_t) or an iterator.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_clear"><a class="anchor" href="#_clear"></a>clear()</h3>
+<div class="paragraph">
+<p>Calls destructor for each element in vector. Sets number of elements to 0.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+    vector.clear();
+    std::size_t numberOfElementsInVector = vector.length(); <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>numberOfElementsInVector</code> value is 0. ~int() called for each element that <em>was</em> in the vector.</td>
+</tr>
+</table>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_insert_indexposition_value"><a class="anchor" href="#_insert_indexposition_value"></a>insert( index/position, value )</h3>
+<div class="paragraph">
+<p>Inserts <code>value</code> at the specified <code>index</code> or <code>position</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+    vector.insert( 0_uz, 0 );           <i class="conum" data-value="1"></i><b>(1)</b>
+    vector.insert( vector.begin(), 0 ); <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Index usage NOTE: 0<a href="math.html#uz" class="xref page">_uz</a></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Iterator usage</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_insert_indexposition_count_value"><a class="anchor" href="#_insert_indexposition_count_value"></a>insert( index/position, count, value )</h3>
+<div class="paragraph">
+<p>Inserts <code>value</code> for <code>count</code> number of times starting at the specified <code>index</code> or <code>position</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+    vector.insert( 0_uz, 2, 0 );            <i class="conum" data-value="1"></i><b>(1)</b>
+    vector.insert( vector.begin(), 2, 0 );  <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Index usage to insert 2 `0&#8217;s at the beginning of the vector. NOTE: 0<a href="math.html#uz" class="xref page">_uz</a></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Iterator usage. In this particular example, <a href="assert.html#_edf_assertd" class="xref page">EDF_ASSERTD</a> will catch the fact that the vector is already full.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_insert_indexposition_values"><a class="anchor" href="#_insert_indexposition_values"></a>insert( index/position, { values&#8230;&#8203; } )</h3>
+<div class="paragraph">
+<p>Inserts the list of <code>values&#8230;&#8203;</code> provided starting at the specified <code>index</code> or <code>position</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example 1</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+    vector.insert( 0_uz, { 0 } );           <i class="conum" data-value="1"></i><b>(1)</b>
+    vector.insert( vector.begin(), { 0 } ); <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Index usage NOTE: 0<a href="math.html#uz" class="xref page">_uz</a></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Iterator usage</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Example 2</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_emplace_indexposition_args"><a class="anchor" href="#_emplace_indexposition_args"></a>emplace( index/position, args&#8230;&#8203; )</h3>
+<div class="paragraph">
+<p>Overwrites an element by using <a href="https://en.cppreference.com/w/cpp/language/new#Placement_new">placement new</a> and <code>args&#8230;&#8203;</code> to construct the an element in place.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">class CustomType {
+private:
+    int x;
+    int y;
+public:
+    CustomType( int x = 0, int y = 0 ) : x(x), y(y) {}
+    // ...
+};
+
+EDF::Vector&lt;CustomType, 3&gt; vector2;
+vector2.emplace( 0_uz, 1, 1 );  <i class="conum" data-value="1"></i><b>(1)</b>
+vector2.emplace( 1, 2, 2 );     <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Constructs a <code>CustomType</code> at the first index of the vector. NOTE: 0<a href="math.html#uz" class="xref page">_uz</a></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Constructs a <code>CustomType</code> at the second index of the vector</td>
+</tr>
+</table>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_erase_indexposition"><a class="anchor" href="#_erase_indexposition"></a>erase( index/position )</h3>
+<div class="paragraph">
+<p>Erase a single element at the specified <code>index</code> or <code>position</code>. Calls destructor for erased element.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_erase_first_last"><a class="anchor" href="#_erase_first_last"></a>erase( first, last )</h3>
+<div class="paragraph">
+<p>Erase a range [<code>first</code>, <code>last</code>) of elements. Includes erasing <code>first</code> up to, but not including, <code>last</code>. Calls destructor for erased elements.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_pushback_value"><a class="anchor" href="#_pushback_value"></a>pushBack( value )</h3>
+<div class="paragraph">
+<p>Copy <code>value</code> to a new element at the end of the vector.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_emplaceback_args"><a class="anchor" href="#_emplaceback_args"></a>emplaceBack( args&#8230;&#8203; )</h3>
+<div class="paragraph">
+<p>Construct in place a new element at the end of the vector using <code>args&#8230;&#8203;</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_popback"><a class="anchor" href="#_popback"></a>popBack()</h3>
+<div class="paragraph">
+<p>Remove the last element in a vector and return a copy of it.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]
+Unresolved include directive in modules/ROOT/pages/vector.adoc - include::example$examples/EDF/Vector/main.cpp[]</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_operator_lhs_rhs"><a class="anchor" href="#_operator_lhs_rhs"></a>operator==( lhs, rhs )</h3>
+<div class="paragraph">
+<p><code>lhs</code> = left hand side<br>
+<code>rhs</code> = right hand side<br>
+Compare two vectors to see if each element in <code>lhs</code> and <code>rhs</code> are equal.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_iterators"><a class="anchor" href="#_iterators"></a>Iterators</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Forward iterators and const iterators are available through <code>begin()</code>, <code>end()</code>, <code>cbegin()</code>, <code>cend()</code></p>
+</div>
+<div class="paragraph">
+<p>Revese iterators and const reverse iterators are available through <code>rbegin()</code>, <code>rend()</code>, <code>crbegin()</code>, <code>crend()</code></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<a href="https://en.cppreference.com/w/cpp/language/range-for">Range-based for loops</a> are therefore supported.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

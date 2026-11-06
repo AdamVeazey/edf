@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Math :: EDF</title>
+    <link rel="canonical" href="https://adamveazey.github.io/edf/docs/main/docs/main/math.html">
+    <meta name="generator" content="Antora 3.2.2">
+    <link rel="stylesheet" href="../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://adamveazey.github.io/edf/docs/main">EDF</a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Products</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Product A</a>
+            <a class="navbar-item" href="#">Product B</a>
+            <a class="navbar-item" href="#">Product C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Services</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Service A</a>
+            <a class="navbar-item" href="#">Service B</a>
+            <a class="navbar-item" href="#">Service C</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="docs" data-version="v1.0.1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">EDF</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="edf.html">EDF</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">STL-Like Containers</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="array.html">Array</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="vector.html">Vector</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="stack.html">Stack</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="queue.html">Queue</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="heap.html">Heap</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Miscellaneous</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="assert.html">Assert</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="string.html">String</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="version.html">Version</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="math.html">Math</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="bit_field.html">BitField</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="color.html">Color</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="peripherals/peripherals.html">Peripherals</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/gpio.html">GPIO</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/spi_controller.html">SPI Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/i2c_controller.html">I2C Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/uart.html">UART</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/pwm.html">PWM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/timer.html">Timer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/adc.html">ADC</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/dac.html">DAC</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/wdt.html">WDT</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/rtc.html">RTC</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="drivers/drivers.html">Drivers</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="drivers/led_rgb.html">RGB LED</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="drivers/soft_timer.html">SoftTimer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Memory</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <span class="nav-text">EEPROM</span>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <span class="nav-text">Flash</span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">ADC</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">IMU</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">IOExpander</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">Sensors</span>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="mcu/mcu.html">MCU</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">ST</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">Nordic</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">Espressif</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">NXP</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">TI</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">AVR</span>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">EDF</span>
+    <span class="version">v1.0.1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../main/index.html">EDF</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../main/index.html">main</a>
+        </li>
+        <li class="version is-current">
+          <a href="index.html">v1.0.1</a>
+        </li>
+        <li class="version">
+          <a href="../v1.0.0/index.html">v1.0.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="edf.html">EDF</a></li>
+    <li>Miscellaneous</li>
+    <li><a href="math.html">Math</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">v1.0.1</button>
+  <div class="version-menu">
+    <a class="version" href="../main/math.html">main</a>
+    <a class="version is-current" href="math.html">v1.0.1</a>
+    <a class="version" href="../v1.0.0/math.html">v1.0.0</a>
+  </div>
+</div>
+<div class="edit-this-page"><a href="https://github.com/AdamVeazey/edf/blob/v1.0.1/docs/modules/ROOT/pages/math.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Math</h1>
+<div class="sect1">
+<h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Math is a collection of common math performed in embedded applications.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#uz">_uz</a></p>
+</li>
+<li>
+<p><a href="#n_elements">nElements&lt;T,N&gt;</a></p>
+</li>
+<li>
+<p><a href="#is_pow_2">isPow2</a></p>
+</li>
+<li>
+<p><a href="#min">min&lt;T&gt;</a></p>
+</li>
+<li>
+<p><a href="#max">max&lt;T&gt;</a></p>
+</li>
+<li>
+<p><a href="#voltage_divider_calc_v_out">voltageDividerCalcVout&lt;R1, R2, T&gt;</a></p>
+</li>
+<li>
+<p><a href="#voltage_divider_calc_v_in">voltageDividerCalcVin&lt;R1, R2, T&gt;</a></p>
+</li>
+<li>
+<p><a href="#temperature_c_to_f">temperatureCtoF&lt;T&gt;</a></p>
+</li>
+<li>
+<p><a href="#temperature_f_to_c">temperatureFtoC&lt;T&gt;</a></p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<a href="#uz">_uz</a> and <a href="#n_elements">nElements&lt;T,N&gt;</a> loosely fit within this file. One could argue that <a href="#uz">_uz</a> is related to math. One could also argue that <a href="#n_elements">nElements&lt;T,N&gt;</a> is a <em>calculation</em> to find the number of elements within an array.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Decided that a dedicated file for <a href="#uz">_uz</a> would create a temptation to make more user-defined literals.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="uz"><a class="anchor" href="#uz"></a>_uz</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is a <a href="https://en.cppreference.com/w/cpp/language/user_literal">user-defined literal</a>. The intended purpose of this is to be able to create an integer literal of type <code>std::size_t</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Signature</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/math.adoc - include::example$include/EDF/Math.hpp[]</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Examples</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">for( auto k = 0_uz; k &lt; 100_uz; ++k ) { /* ... */} <i class="conum" data-value="1"></i><b>(1)</b>
+
+void function( std::size_t value ) { /* ... */ }
+function( 123_uz );</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The type of <code>k</code> is std::size_t</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="n_elements"><a class="anchor" href="#n_elements"></a>nElements&lt;T, N&gt;</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<div class="title">Template parameters</div>
+<p><code>T</code> = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.<br>
+<code>N</code> = Deduced (N)umber of elements in array. Optionally can be explicitly specified. However, if explicit, using this function is pointless.</p>
+</div>
+<div class="paragraph">
+<div class="title">Description</div>
+<p>Returns the number of elements in a C-style array. Has a few benefits over the typical "C way" of getting this value.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Safer than the classic <code>sizeof(x)/sizeof(x[0])</code> which is usually defined as a macro. This is because nElements does not accept a pointer if the array has decayed to a pointer.</p>
+</li>
+<li>
+<p>No need to remember the name of a macro of an array size. Usually the naming convention of this is not consistent. EX: <code>MAX_ARRAY</code> vs <code>ARRAY_MAX</code> vs <code>ARRAY_N</code> vs <code>NARRAY</code> vs <code>N_ARRAY</code> etc&#8230;&#8203;</p>
+</li>
+<li>
+<p>If there is no macro for the array size, you still can get a compile time constant value for the number of elements in that array using <a href="#n_elements">nElements&lt;T, N&gt;</a>.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="title">Example usage and comparison to <code>sizeof(x)/sizeof(x[0])</code></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">#define ARRAY_SIZE(arr) (sizeof(arr)/sizeof(arr[0]))
+
+int array[50];
+int* decayedArray = array;  <i class="conum" data-value="1"></i><b>(1)</b>
+
+nElements( array );         <i class="conum" data-value="2"></i><b>(2)</b>
+nElements( decayedArray );  <i class="conum" data-value="3"></i><b>(3)</b>
+
+ARRAY_SIZE( array );        <i class="conum" data-value="4"></i><b>(4)</b>
+ARRAY_SIZE( decayedArray ); <i class="conum" data-value="5"></i><b>(5)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>array</code> has decayed into a pointer <code>decayedArray</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Compiles and returns <code>50</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Does not compile. Error because decayedArray is not an array, it is a pointer</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Compiles and return <code>50</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Compiles and returns <code>sizeof(int*) / sizeof(int)</code>. If <code>sizeof(int*) == 8</code> and <code>sizeof(int) == 4</code>, then value is <code>2</code> not <code>50</code>. If <code>sizeof(int*) == 4</code> and <code>sizeof(int) == 4</code>, then value is <code>1</code> not <code>50</code>.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="is_pow_2"><a class="anchor" href="#is_pow_2"></a>isPow2</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Returns <code>true</code> if a number is a power of 2. Result can be a compile time constant if argument is known at compile time.</p>
+</div>
+<div class="listingblock">
+<div class="title">Implementation Explanation</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/math.adoc - include::example$include/EDF/Math.hpp[]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The concept to understand is that in any given integer, a power of 2 will always have a single bit as a '1' with the rest of the bits being <code>0</code>. So how can we use math to find out if a value has only a single bit set to <code>1</code>?</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s first make an assumption that the value is a power of 2, and we&#8217;ll try to disprove that as we go along. If you are given a power of 2 and subtract 1 from it, you end up with the bit that was originally the only <code>1</code> is now set to a <code>0</code> and all of the bits to the "right" of the original <code>1</code> that used to be all <code>0</code>'s are now all <code>1</code>'s.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>v-1</code></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Then we can use that computed value and <code>&amp;</code> it with the original value. If the original value was indeed a power of 2, then the result is <code>0</code>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p><code>v&amp;(v-1)</code></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>If the result is a 0, we know it <em>is</em> a power of 2. Simply <code>!</code> the result to turn it into <code>true</code></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="3">
+<li>
+<p><code>!(v&amp;(v-1))</code></p>
+</li>
+</ol>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. <code>isPow2( 4 )</code> (returns <code>true</code>)</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Expression</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Base 10 (decimal)</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Base 2 (binary)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v-1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">011</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v&amp;(v-1)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">000</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">!(v&amp;(v-1))</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">001 (aka <code>true</code>)</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. <code>isPow2( 5 )</code> (returns <code>false</code>)</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Expression</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Base 10 (decimal)</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Base 2 (binary)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">101</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v-1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v&amp;(v-1)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">!(v&amp;(v-1))</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">000 (aka <code>false</code>)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="min"><a class="anchor" href="#min"></a>min&lt;T&gt;</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<div class="title">Template parameter</div>
+<p><code>T</code> = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.</p>
+</div>
+<div class="paragraph">
+<div class="title">Description</div>
+<p>Returns smallest of two values.</p>
+</div>
+<div class="paragraph">
+<div class="title">Example</div>
+<p><code>min( 0, 1 ); // returns 0</code></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="max"><a class="anchor" href="#max"></a>max&lt;T&gt;</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<div class="title">Template parameter</div>
+<p><code>T</code> = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.</p>
+</div>
+<div class="paragraph">
+<div class="title">Description</div>
+<p>Returns largest of two values.</p>
+</div>
+<div class="paragraph">
+<div class="title">Example</div>
+<p><code>max( 0, 1 ); // returns 1</code></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="voltage_divider_calc_v_out"><a class="anchor" href="#voltage_divider_calc_v_out"></a>voltageDividerCalcVout&lt;R1, R2, T&gt;</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<div class="title">Template parameters</div>
+<p><code>R1</code> = (R1)esistance value. EX: 10k ohm == 10000<br>
+<code>R2</code> = (R2)esistance value. EX: 5k ohm = 5000<br>
+<code>T</code> = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.</p>
+</div>
+<div class="paragraph">
+<div class="title">Description</div>
+<p><code>Vout = (Vin * R2) / (R1 + R2)</code></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/VoltageDivider.svg" alt="VoltageDivider">
+</div>
+</div>
+<div class="paragraph">
+<p>Provide resistor values <code>R1</code> and <code>R2</code> as template arguments. Pass in <code>Vin</code> as function argument.</p>
+</div>
+<div class="listingblock">
+<div class="title">Examples</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">voltageDividerCalcVout&lt;10000,10000&gt;( 12.0f );   // returns 6.0f
+voltageDividerCalcVout&lt;10000,5000&gt;( 12 );       // returns 4
+voltageDividerCalcVout&lt;5000,10000&gt;( 12000 );    // returns 8000</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="voltage_divider_calc_v_in"><a class="anchor" href="#voltage_divider_calc_v_in"></a>voltageDividerCalcVin&lt;R1, R2, T&gt;</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<div class="title">Template parameters</div>
+<p><code>R1</code> = (R1)esistance value. EX: 10k ohm == 10000<br>
+<code>R2</code> = (R2)esistance value. EX: 5k ohm = 5000<br>
+<code>T</code> = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.</p>
+</div>
+<div class="paragraph">
+<div class="title">Description</div>
+<p><code>Vin = ((R1 + R2) * Vout) / R2</code></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/VoltageDivider.svg" alt="VoltageDivider">
+</div>
+</div>
+<div class="paragraph">
+<p>Provide resistor values <code>R1</code> and <code>R2</code> as template arguments. Pass in <code>Vout</code> as function argument.</p>
+</div>
+<div class="listingblock">
+<div class="title">Examples</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">voltageDividerCalcVin&lt;10000,10000&gt;( 6.0f );   // returns 12.0f
+voltageDividerCalcVin&lt;10000,5000&gt;( 4 );       // returns 12
+voltageDividerCalcVin&lt;5000,10000&gt;( 8000 );    // returns 12000</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="temperature_c_to_f"><a class="anchor" href="#temperature_c_to_f"></a>temperatureCtoF&lt;T&gt;</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<div class="title">Template parameter</div>
+<p><code>T</code> = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.</p>
+</div>
+<div class="paragraph">
+<div class="title">Description</div>
+<p><code>Fahrenheit = ((Celsius * 9) / 5) + 32</code></p>
+</div>
+<div class="paragraph">
+<p>Convert a temperature value from Celsius to Fahrenheit.</p>
+</div>
+<div class="listingblock">
+<div class="title">Examples</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">temperatureCtoF( 50.0f );   // returns 122.0f
+temperatureCtoF( 0 );       // returns 32
+temperatureCtoF( -40 );     // returns -40
+temperatureCtoF( 100.0 );   // returns 212.0</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="temperature_f_to_c"><a class="anchor" href="#temperature_f_to_c"></a>temperatureFtoC&lt;T&gt;</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<div class="title">Template parameter</div>
+<p><code>T</code> = Deduced (T)ype of argument passed to this function. Optionally can be explicitly specified.</p>
+</div>
+<div class="paragraph">
+<div class="title">Description</div>
+<p><code>Celsius = ((Fahrenheit - 32) * 5) / 9</code></p>
+</div>
+<div class="paragraph">
+<p>Convert a temperature value from Fahrenheit to Celsius</p>
+</div>
+<div class="listingblock">
+<div class="title">Examples</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">temperatureFtoC( 122.0f );  // returns 50.0f
+temperatureFtoC( 32 );      // returns 0
+temperatureFtoC( -40 );     // returns -40
+temperatureFtoC( 212.0 );   // returns 100.0</code></pre>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
