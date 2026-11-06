@@ -287,7 +287,9 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;32&gt; string = "Madam in Eden, Im Adam.";
+auto normalized = string.getToLower().strip( " ,." );
+bool isPalindrome = normalized.equals( normalized.getReversed() );</code></pre>
 </div>
 </div>
 </div>
@@ -399,7 +401,7 @@
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; stringDefault;</code></pre>
 </div>
 </div>
 <hr>
@@ -409,7 +411,8 @@
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;32&gt; stringConstCharStar = "const char*";
+EDF::String&lt;32&gt; stringConstCharStar2( "const char*" );</code></pre>
 </div>
 </div>
 <hr>
@@ -419,9 +422,10 @@
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">const uint8_t strLiteralUint8_t[] = "const uint8_t*";
+const uint8_t* pLiteralUint8_t = strLiteralUint8_t;
+EDF::String&lt;32&gt; stringConstUint8_tStar = pLiteralUint8_t;
+EDF::String&lt;32&gt; stringConstUint8_tStar2( pLiteralUint8_t );</code></pre>
 </div>
 </div>
 <hr>
@@ -431,9 +435,9 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">const char strLiteralChar[] = "const char*";
+const char* pLiteralChar = strLiteralChar;
+EDF::String&lt;32&gt; stringConstCharStarN( pLiteralChar, std::strlen( strLiteralChar ) );</code></pre>
 </div>
 </div>
 <hr>
@@ -443,9 +447,9 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">const uint8_t strLiteralUint8_t[] = "const uint8_t*";
+const uint8_t* pLiteralUint8_t = strLiteralUint8_t;
+EDF::String&lt;32&gt; stringConstUint8_tStarN( pLiteralUint8_t, std::strlen( reinterpret_cast&lt;const char*&gt;( strLiteralUint8_t ) ) );</code></pre>
 </div>
 </div>
 <hr>
@@ -455,7 +459,8 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;32&gt; stringChar = 'C';
+EDF::String&lt;32&gt; stringChar2( 'C' );</code></pre>
 </div>
 </div>
 <hr>
@@ -465,8 +470,9 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">int8_t valueInt8_t = static_cast&lt;int8_t&gt;(0xA5);
+EDF::String&lt;32&gt; stringInt8_t( valueInt8_t );
+EDF::String&lt;32&gt; stringInt8_tHex( valueInt8_t, 16 );</code></pre>
 </div>
 </div>
 <hr>
@@ -476,8 +482,9 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">int16_t valueInt16_t = static_cast&lt;int16_t&gt;(0xA5A5);
+EDF::String&lt;32&gt; stringInt16_t( valueInt16_t );
+EDF::String&lt;32&gt; stringInt16_tHex( valueInt16_t, 16 );</code></pre>
 </div>
 </div>
 <hr>
@@ -487,8 +494,9 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">int32_t valueInt32_t = static_cast&lt;int32_t&gt;(0xA5A5A5A5);
+EDF::String&lt;32&gt; stringInt32_t( valueInt32_t );
+EDF::String&lt;32&gt; stringInt32_tHex( valueInt32_t, 16 );</code></pre>
 </div>
 </div>
 <hr>
@@ -498,8 +506,9 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">int64_t valueInt64_t = static_cast&lt;int64_t&gt;(0xA5A5A5A5A5A5A5A5);
+EDF::String&lt;32&gt; stringInt64_t( valueInt64_t );
+EDF::String&lt;32&gt; stringInt64_tHex( valueInt64_t, 16 );</code></pre>
 </div>
 </div>
 <hr>
@@ -509,8 +518,9 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">uint8_t valueUint8_t = 0xA5;
+EDF::String&lt;32&gt; stringUint8_t( valueUint8_t );
+EDF::String&lt;32&gt; stringUint8_tHex( valueUint8_t, 16 );</code></pre>
 </div>
 </div>
 <hr>
@@ -520,8 +530,9 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">uint16_t valueUint16_t = 0xA5A5;
+EDF::String&lt;32&gt; stringUint16_t( valueUint16_t );
+EDF::String&lt;32&gt; stringUint16_tHex( valueUint16_t, 16 );</code></pre>
 </div>
 </div>
 <hr>
@@ -531,8 +542,9 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">uint32_t valueUint32_t = 0xA5A5A5A5;
+EDF::String&lt;32&gt; stringUint32_t( valueUint32_t );
+EDF::String&lt;32&gt; stringUint32_tHex( valueUint32_t, 16 );</code></pre>
 </div>
 </div>
 <hr>
@@ -542,8 +554,9 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">uint64_t valueUint64_t = 0xA5A5A5A5A5A5A5A5;
+EDF::String&lt;32&gt; stringUint64_t( valueUint64_t );
+EDF::String&lt;32&gt; stringUint64_tHex( valueUint64_t, 16 );</code></pre>
 </div>
 </div>
 <hr>
@@ -553,8 +566,9 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;8&gt; differentSizedString = "Hello";
+EDF::String&lt;32&gt; stringEDFString = differentSizedString;
+EDF::String&lt;24&gt; stringEDFString2( differentSizedString );</code></pre>
 </div>
 </div>
 </div>
@@ -576,8 +590,10 @@ Provided to make a common conditional check slightly more readable, as well as c
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+if( !string.isEmpty() ) {
+    /* ... */
+}</code></pre>
 </div>
 </div>
 <hr>
@@ -590,8 +606,10 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+if( !string.isFull() ) {
+    /* ... */
+}</code></pre>
 </div>
 </div>
 </div>
@@ -612,8 +630,8 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+auto nCharactersInString = string.length();</code></pre>
 </div>
 </div>
 <hr>
@@ -626,8 +644,8 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+constexpr auto maxNumberOfCharacters = string.maxLength();</code></pre>
 </div>
 </div>
 </div>
@@ -644,8 +662,8 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string[0] = 'h';</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -670,8 +688,8 @@ This also means that there is no boundary checking, so it is possible to attempt
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.at( 0 ) = 'h';</code></pre>
 </div>
 </div>
 <hr>
@@ -684,10 +702,10 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">    void c_library_function( const char *data, size_t n ) { /* ... */}
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">void c_library_function( const char *data, size_t n ) { /* ... */}
 
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-    c_library_function( string.asCString(), string.length() );</code></pre>
+EDF::String&lt;128&gt; string = "Hello, world!";
+c_library_function( string.asCString(), string.length() );</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -712,10 +730,10 @@ Can be called in order to "decay" to a pointer like a C-Style array
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">    void c_library_function( const uint8_t *data, size_t n ) { /* ... */}
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">void c_library_function( const uint8_t *data, size_t n ) { /* ... */}
 
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-    c_library_function( string.asByteData(), string.length() );</code></pre>
+EDF::String&lt;128&gt; string = "Hello, world!";
+c_library_function( string.asByteData(), string.length() );</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -745,9 +763,11 @@ Can be called in order to "decay" to a pointer like a C-Style array
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">int8_t valueInt8_t = static_cast&lt;int8_t&gt;(0xA5);
+EDF::String&lt;32&gt; stringInt8_t( valueInt8_t );
+EDF::String&lt;32&gt; stringInt8_tHex( valueInt8_t, 16 );
+int8_t valueInt8_tBase10 = stringInt8_t.toInt8_t();
+int8_t valueInt8_tBase16 = stringInt8_tHex.toInt8_t( 16 );</code></pre>
 </div>
 </div>
 <hr>
@@ -757,9 +777,11 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">int16_t valueInt16_t = static_cast&lt;int16_t&gt;(0xA5A5);
+EDF::String&lt;32&gt; stringInt16_t( valueInt16_t );
+EDF::String&lt;32&gt; stringInt16_tHex( valueInt16_t, 16 );
+int16_t valueInt16_tBase10 = stringInt16_t.toInt16_t();
+int16_t valueInt16_tBase16 = stringInt16_tHex.toInt16_t( 16 );</code></pre>
 </div>
 </div>
 <hr>
@@ -769,9 +791,11 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">int32_t valueInt32_t = static_cast&lt;int32_t&gt;(0xA5A5A5A5);
+EDF::String&lt;32&gt; stringInt32_t( valueInt32_t );
+EDF::String&lt;32&gt; stringInt32_tHex( valueInt32_t, 16 );
+int32_t valueInt32_tBase10 = stringInt32_t.toInt32_t();
+int32_t valueInt32_tBase16 = stringInt32_tHex.toInt32_t( 16 );</code></pre>
 </div>
 </div>
 <hr>
@@ -781,9 +805,11 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">int64_t valueInt64_t = static_cast&lt;int64_t&gt;(0xA5A5A5A5A5A5A5A5);
+EDF::String&lt;32&gt; stringInt64_t( valueInt64_t );
+EDF::String&lt;32&gt; stringInt64_tHex( valueInt64_t, 16 );
+int64_t valueInt64_tBase10 = stringInt64_t.toInt64_t();
+int64_t valueInt64_tBase16 = stringInt64_tHex.toInt64_t( 16 );</code></pre>
 </div>
 </div>
 <hr>
@@ -793,9 +819,11 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">uint8_t valueUint8_t = 0xA5;
+EDF::String&lt;32&gt; stringUint8_t( valueUint8_t );
+EDF::String&lt;32&gt; stringUint8_tHex( valueUint8_t, 16 );
+uint8_t valueUint8_tBase10 = stringUint8_t.toUint8_t();
+uint8_t valueUint8_tBase16 = stringUint8_tHex.toUint8_t( 16 );</code></pre>
 </div>
 </div>
 <hr>
@@ -805,9 +833,11 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">uint16_t valueUint16_t = 0xA5A5;
+EDF::String&lt;32&gt; stringUint16_t( valueUint16_t );
+EDF::String&lt;32&gt; stringUint16_tHex( valueUint16_t, 16 );
+uint16_t valueUint16_tBase10 = stringUint16_t.toUint16_t();
+uint16_t valueUint16_tBase16 = stringUint16_tHex.toUint16_t( 16 );</code></pre>
 </div>
 </div>
 <hr>
@@ -817,9 +847,11 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">uint32_t valueUint32_t = 0xA5A5A5A5;
+EDF::String&lt;32&gt; stringUint32_t( valueUint32_t );
+EDF::String&lt;32&gt; stringUint32_tHex( valueUint32_t, 16 );
+uint32_t valueUint32_tBase10 = stringUint32_t.toUint32_t();
+uint32_t valueUint32_tBase16 = stringUint32_tHex.toUint32_t( 16 );</code></pre>
 </div>
 </div>
 <hr>
@@ -829,9 +861,11 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">uint64_t valueUint64_t = 0xA5A5A5A5A5A5A5A5;
+EDF::String&lt;32&gt; stringUint64_t( valueUint64_t );
+EDF::String&lt;32&gt; stringUint64_tHex( valueUint64_t, 16 );
+uint64_t valueUint64_tBase10 = stringUint64_t.toUint64_t();
+uint64_t valueUint64_tBase16 = stringUint64_tHex.toUint64_t( 16 );</code></pre>
 </div>
 </div>
 </div>
@@ -941,8 +975,10 @@ For member functions that have an index/position as their first argument, it mea
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.append( "Hello, world!" );
+string.append( 1234 );
+string.append( "0x" ).append( 0x5678, 16 );</code></pre>
 </div>
 </div>
 <hr>
@@ -955,8 +991,10 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.getAppended( "Hello, world!" );
+string.getAppended( 1234 );
+string.getAppended( "0x" ).append( 0x5678, 16 );</code></pre>
 </div>
 </div>
 <hr>
@@ -969,8 +1007,12 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.insert( 0_uz, "Hello, world!");
+string.insert( 6_uz, 4 );
+string.insert( 7, 0x2, 16 );
+string.insert( string.end() - 1, "s and solar system" );
+string.insert( 6, ' ' );</code></pre>
 </div>
 </div>
 <hr>
@@ -983,8 +1025,11 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.getInserted( 6_uz, 4 );
+string.getInserted( 7, 0x2, 16 );
+string.getInserted( string.end() - 1, "s and solar system" );
+string.getInserted( 6, ' ' );</code></pre>
 </div>
 </div>
 <hr>
@@ -997,8 +1042,8 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.erase( 5 );</code></pre>
 </div>
 </div>
 <hr>
@@ -1011,8 +1056,8 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.getErased( 5 );</code></pre>
 </div>
 </div>
 <hr>
@@ -1025,8 +1070,8 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.erase( 5, 12 );</code></pre>
 </div>
 </div>
 <hr>
@@ -1039,8 +1084,8 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.getErased( 5, 12 );</code></pre>
 </div>
 </div>
 <hr>
@@ -1060,8 +1105,9 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+char destinationBuffer[128];
+string.copyTo( destinationBuffer, 128 );</code></pre>
 </div>
 </div>
 <hr>
@@ -1074,8 +1120,9 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+uint8_t destination[128];
+string.copyTo( destination );</code></pre>
 </div>
 </div>
 <hr>
@@ -1088,8 +1135,9 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.find( ',' );
+string.find( "world");</code></pre>
 </div>
 </div>
 <hr>
@@ -1102,8 +1150,9 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.find( ",", 1_uz );
+string.find( "world", std::strlen("world") );</code></pre>
 </div>
 </div>
 <hr>
@@ -1116,8 +1165,9 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.find( string.begin() + 3, ',' );
+string.find( string.begin() + 3, "world" );</code></pre>
 </div>
 </div>
 <hr>
@@ -1130,8 +1180,9 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.find( ",", 1_uz );
+string.find( "world", std::strlen("world") );</code></pre>
 </div>
 </div>
 <hr>
@@ -1144,8 +1195,9 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.rfind( ',' );
+string.rfind( "world");</code></pre>
 </div>
 </div>
 <hr>
@@ -1158,8 +1210,9 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.rfind( ",", 1_uz );
+string.rfind( "world", std::strlen("world") );</code></pre>
 </div>
 </div>
 <hr>
@@ -1172,8 +1225,9 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.rfind( string.rbegin() + 3, ',' );
+string.rfind( string.rbegin() + 3, "world" );</code></pre>
 </div>
 </div>
 <hr>
@@ -1186,8 +1240,9 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.rfind( ",", 1_uz );
+string.rfind( "world", std::strlen("world") );</code></pre>
 </div>
 </div>
 <hr>
@@ -1200,8 +1255,10 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+if( string.contains( "Hello" ) ) {
+    /* .. */
+}</code></pre>
 </div>
 </div>
 <hr>
@@ -1214,8 +1271,10 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+if( string.contains( "Hello", std::strlen("Hello") ) ) {
+    /* .. */
+}</code></pre>
 </div>
 </div>
 <hr>
@@ -1228,8 +1287,10 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+if( string.equals( "Hello, world!" ) ) {
+    /* ... */
+}</code></pre>
 </div>
 </div>
 <hr>
@@ -1242,8 +1303,10 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+if( string.equals( "Hello", std::strlen("Hello") ) ) {
+    /* ... */
+}</code></pre>
 </div>
 </div>
 <hr>
@@ -1268,8 +1331,11 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.strip();
+string.strip( '\n' );
+string.strip( " ,\t\n" );
+string.strip( EDF::String&lt;4&gt;("lo") );</code></pre>
 </div>
 </div>
 <hr>
@@ -1294,8 +1360,8 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.strip( " \x1B", std::strlen("\x1B") );</code></pre>
 </div>
 </div>
 <hr>
@@ -1320,8 +1386,11 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.getStripped();
+string.getStripped( '\n' );
+string.getStripped( " ,\t\n" );
+string.getStripped( EDF::String&lt;4&gt;("lo") );</code></pre>
 </div>
 </div>
 <hr>
@@ -1346,8 +1415,8 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.getStripped( " \x1B", std::strlen("\x1B") );</code></pre>
 </div>
 </div>
 <hr>
@@ -1372,8 +1441,11 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string = "\t\x1B Hello, world! \r\n ";
+string.trim( '\t' ); // "\x1B Hello, world! \r\n "
+string.trim( " \r\n" ); // "\t\x1B Hello, world!"
+string.trim(); // "Hello, world!"</code></pre>
 </div>
 </div>
 <hr>
@@ -1398,8 +1470,9 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string = "\t\x1B Hello, world! \r\n ";
+string.trim( "\r \n\x1B", std::strlen("\r \n\x1B") ); // "\t\x1B Hello, world!"</code></pre>
 </div>
 </div>
 <hr>
@@ -1424,8 +1497,11 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string = "\t\x1B Hello, world! \r\n ";
+string.getTrimmed( '\t' ); // "\x1B Hello, world! \r\n "
+string.getTrimmed( "\r\n" ); // "\t\x1B Hello, world! \r\n "
+string.getTrimmed(); // "Hello, world!"</code></pre>
 </div>
 </div>
 <hr>
@@ -1450,8 +1526,9 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string = "\t\x1B Hello, world! \r\n ";
+string.getTrimmed( "\r \n\x1B", std::strlen("\r \n\x1B") ); // "\t\x1B Hello, world!"</code></pre>
 </div>
 </div>
 <hr>
@@ -1476,8 +1553,11 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string = "\t\x1B Hello, world! \r\n ";
+string.trimLeft( '\t' ); // "\x1B Hello, world! \r\n "
+string.trimLeft( "\r\n" ); // "\t\x1B Hello, world! \r\n "
+string.trimLeft(); // "Hello, world! \r\n "</code></pre>
 </div>
 </div>
 <hr>
@@ -1502,8 +1582,9 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string = "\t\x1B Hello, world! \r\n ";
+string.trimLeft( "\r \n\x1B", std::strlen("\r \n\x1B") ); // "\t\x1B Hello, world! \r\n "</code></pre>
 </div>
 </div>
 <hr>
@@ -1528,8 +1609,11 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string = "\t\x1B Hello, world! \r\n ";
+string.getTrimmedLeft( '\t' ); // "\x1B Hello, world! \r\n "
+string.getTrimmedLeft( "\r\n" ); // "\t\x1B Hello, world! \r\n "
+string.getTrimmedLeft(); // "Hello, world! \r\n "</code></pre>
 </div>
 </div>
 <hr>
@@ -1554,8 +1638,9 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string = "\t\x1B Hello, world! \r\n ";
+string.getTrimmedLeft( "\r \n\x1B", std::strlen("\r \n\x1B") ); // "\t\x1B Hello, world! \r\n "</code></pre>
 </div>
 </div>
 <hr>
@@ -1580,8 +1665,11 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string = "\t\x1B Hello, world! \r\n ";
+string.trimRight( '\t' ); // "\t\x1B Hello, world! \r\n "
+string.trimRight( "\r\n" ); // "\t\x1B Hello, world! \r\n "
+string.trimRight(); // "\t\x1B Hello, world!"</code></pre>
 </div>
 </div>
 <hr>
@@ -1606,8 +1694,9 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string = "\t\x1B Hello, world! \r\n ";
+string.trimRight( "\r \n\x1B", std::strlen("\r \n\x1B") ); // "\t\x1B Hello, world!"</code></pre>
 </div>
 </div>
 <hr>
@@ -1632,8 +1721,11 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string = "\t\x1B Hello, world! \r\n ";
+string.getTrimmedRight( '\t' ); // "\t\x1B Hello, world! \r\n "
+string.getTrimmedRight( "\r\n" ); // "\t\x1B Hello, world! \r\n "
+string.getTrimmedRight(); // "\t\x1B Hello, world!"</code></pre>
 </div>
 </div>
 <hr>
@@ -1658,8 +1750,9 @@ Non-printable characters are the values in the following ranges [0x00, 0x1F] and
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string = "\t\x1B Hello, world! \r\n ";
+string.getTrimmedRight( "\r \n\x1B", std::strlen("\r \n\x1B") ); // "\t\x1B Hello, world!"</code></pre>
 </div>
 </div>
 <hr>
@@ -1672,8 +1765,8 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.reverse(); // "!dlrow ,olleH"</code></pre>
 </div>
 </div>
 <hr>
@@ -1686,8 +1779,8 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.getReversed(); // "!dlrow ,olleH"</code></pre>
 </div>
 </div>
 <hr>
@@ -1700,8 +1793,8 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.toLower(); // "hello, world!";</code></pre>
 </div>
 </div>
 <hr>
@@ -1714,8 +1807,8 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.getToLower(); // "hello, world!";</code></pre>
 </div>
 </div>
 <hr>
@@ -1728,8 +1821,8 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.toUpper(); // "HELLO, WORLD!";</code></pre>
 </div>
 </div>
 <hr>
@@ -1742,8 +1835,8 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.getToUpper(); // "HELLO, WORLD!";</code></pre>
 </div>
 </div>
 <hr>
@@ -1756,8 +1849,18 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.replace( 'e', 'a' );
+string.replace( "\r\n", '\n' );
+string.replace( "'s", std::strlen("'s"), 's' );
+
+string.replace( ',', "" );
+string.replace( "Hows", "How is" );
+string.replace( "How", std::strlen("How"), "Who" );
+
+string.replace( 't', "magining", std::strlen("magining") );
+string.replace( "imagining \n", "planning on ", std::strlen("planning on ") );
+string.replace( "going", std::strlen("going"), "saying goodbye", std::strlen("saying goodbye") );</code></pre>
 </div>
 </div>
 <hr>
@@ -1770,8 +1873,18 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.getReplaced( 'e', 'a' );
+string.getReplaced( "\r\n", '\n' );
+string.getReplaced( "'s", std::strlen("'s"), 's' );
+
+string.getReplaced( ',', "" );
+string.getReplaced( "Hows", "How is" );
+string.getReplaced( "How", std::strlen("How"), "Who" );
+
+string.getReplaced( 't', "magining", std::strlen("magining") );
+string.getReplaced( "imagining \n", "planning on ", std::strlen("planning on ") );
+string.getReplaced( "going", std::strlen("going"), "saying goodbye", std::strlen("saying goodbye") );</code></pre>
 </div>
 </div>
 <hr>
@@ -1784,8 +1897,8 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.subString( string.begin(), string.begin() + 5 );</code></pre>
 </div>
 </div>
 <hr>
@@ -1798,8 +1911,10 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.getSubString( string.begin(), string.begin() + 5 );
+
+string.getSubString( string.find(", ") + std::strlen(", "), string.find( '!' ) );</code></pre>
 </div>
 </div>
 <hr>
@@ -1812,24 +1927,35 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
+const char strLiteralChar[] = "const char*";
+const uint8_t strLiteralUint8_t[] = "const uint8_t*";
+const uint8_t* pLiteralUint8_t = strLiteralUint8_t;
+char ch = 'h';
+int8_t valueInt8_t = static_cast&lt;int8_t&gt;(0xA5);
+int16_t valueInt16_t = static_cast&lt;int16_t&gt;(0xA5A5);
+int32_t valueInt32_t = static_cast&lt;int32_t&gt;(0xA5A5A5A5);
+int64_t valueInt64_t = static_cast&lt;int64_t&gt;(0xA5A5A5A5A5A5A5A5);
+uint8_t valueUint8_t = 0xA5;
+uint16_t valueUint16_t = 0xA5A5;
+uint32_t valueUint32_t = 0xA5A5A5A5;
+uint64_t valueUint64_t = 0xA5A5A5A5A5A5A5A5;
+EDF::String&lt;8&gt; differentSizedString = "Hello";
 
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+string += " c string";
+string += strLiteralChar;
+string += ch;
+string += 'c';
+string += valueInt8_t; // assumes base 10, use append() for a different base
+string += valueInt16_t; // assumes base 10, use append() for a different base
+string += valueInt32_t; // assumes base 10, use append() for a different base
+string += valueInt64_t; // assumes base 10, use append() for a different base
+string += valueUint8_t; // assumes base 10, use append() for a different base
+string += valueUint16_t; // assumes base 10, use append() for a different base
+string += valueUint32_t; // assumes base 10, use append() for a different base
+string += valueUint64_t; // assumes base 10, use append() for a different base
+string += differentSizedString;</code></pre>
 </div>
 </div>
 <hr>
@@ -1842,24 +1968,38 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
+const char strLiteralChar[] = "const char*";
+const uint8_t strLiteralUint8_t[] = "const uint8_t*";
+const uint8_t* pLiteralUint8_t = strLiteralUint8_t;
+char ch = 'h';
+int8_t valueInt8_t = static_cast&lt;int8_t&gt;(0xA5);
+int16_t valueInt16_t = static_cast&lt;int16_t&gt;(0xA5A5);
+int32_t valueInt32_t = static_cast&lt;int32_t&gt;(0xA5A5A5A5);
+int64_t valueInt64_t = static_cast&lt;int64_t&gt;(0xA5A5A5A5A5A5A5A5);
+uint8_t valueUint8_t = 0xA5;
+uint16_t valueUint16_t = 0xA5A5;
+uint32_t valueUint32_t = 0xA5A5A5A5;
+uint64_t valueUint64_t = 0xA5A5A5A5A5A5A5A5;
+EDF::String&lt;8&gt; differentSizedString = "Hello";
 
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+EDF::String&lt;128&gt; result;
+result = string + " c string";
+result = string + pLiteralUint8_t;
+result = string + strLiteralChar;
+result = string + strLiteralUint8_t;
+result = string + ch;
+result = string + 'c';
+result = string + valueInt8_t; // assumes base 10, use append() for a different base
+result = string + valueInt16_t; // assumes base 10, use append() for a different base
+result = string + valueInt32_t; // assumes base 10, use append() for a different base
+result = string + valueInt64_t; // assumes base 10, use append() for a different base
+result = string + valueUint8_t; // assumes base 10, use append() for a different base
+result = string + valueUint16_t; // assumes base 10, use append() for a different base
+result = string + valueUint32_t; // assumes base 10, use append() for a different base
+result = string + valueUint64_t; // assumes base 10, use append() for a different base
+result = string + differentSizedString;</code></pre>
 </div>
 </div>
 <hr>
@@ -1872,25 +2012,38 @@ Unresolved include directive in modules/ROOT/pages/string.adoc - include::exampl
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
+const char strLiteralChar[] = "const char*";
+const uint8_t strLiteralUint8_t[] = "const uint8_t*";
+const uint8_t* pLiteralUint8_t = strLiteralUint8_t;
+char ch = 'h';
+int8_t valueInt8_t = static_cast&lt;int8_t&gt;(0xA5);
+int16_t valueInt16_t = static_cast&lt;int16_t&gt;(0xA5A5);
+int32_t valueInt32_t = static_cast&lt;int32_t&gt;(0xA5A5A5A5);
+int64_t valueInt64_t = static_cast&lt;int64_t&gt;(0xA5A5A5A5A5A5A5A5);
+uint8_t valueUint8_t = 0xA5;
+uint16_t valueUint16_t = 0xA5A5;
+uint32_t valueUint32_t = 0xA5A5A5A5;
+uint64_t valueUint64_t = 0xA5A5A5A5A5A5A5A5;
+EDF::String&lt;8&gt; differentSizedString = "Hello";
 
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]
+EDF::String&lt;128&gt; result;
 
-Unresolved include directive in modules/ROOT/pages/string.adoc - include::example$examples/EDF/String/main.cpp[]</code></pre>
+result = " c string" + string;
+result = strLiteralChar + string;
+result = strLiteralUint8_t + string;
+result = ch + string;
+result = 'c' + string;
+result = valueInt8_t + string; // assumes base 10, use append() for a different base
+result = valueInt16_t + string; // assumes base 10, use append() for a different base
+result = valueInt32_t + string; // assumes base 10, use append() for a different base
+result = valueInt64_t + string; // assumes base 10, use append() for a different base
+result = valueUint8_t + string; // assumes base 10, use append() for a different base
+result = valueUint16_t + string; // assumes base 10, use append() for a different base
+result = valueUint32_t + string; // assumes base 10, use append() for a different base
+result = valueUint64_t + string; // assumes base 10, use append() for a different base
+result = differentSizedString + string;</code></pre>
 </div>
 </div>
 </div>

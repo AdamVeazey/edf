@@ -313,13 +313,23 @@
 <div class="listingblock">
 <div class="title">Example: <code>T</code> is default constructable</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/stack.adoc - include::example$examples/EDF/Stack/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Stack&lt;int, 4&gt; stack;</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Example: <a href="https://en.cppreference.com/w/cpp/language/list_initialization">list-initialization</a> with a custom type</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/stack.adoc - include::example$examples/EDF/Stack/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">struct CustomType{
+    int value;
+    CustomType( int v ) : value(v) {}
+};
+
+EDF::Stack&lt;CustomType, 3&gt; stack2 = {
+    CustomType( 0 ),
+    CustomType( 0 ),
+    CustomType( 0 )
+};
+stack2.clear();</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -351,8 +361,9 @@ Provided to make a common conditional check slightly more readable, as well as c
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/stack.adoc - include::example$examples/EDF/Stack/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/stack.adoc - include::example$examples/EDF/Stack/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Stack&lt;int, 4&gt; stack;
+while( !stack.isEmpty() ){
+    /* ... */</code></pre>
 </div>
 </div>
 </div>
@@ -364,8 +375,10 @@ Unresolved include directive in modules/ROOT/pages/stack.adoc - include::example
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/stack.adoc - include::example$examples/EDF/Stack/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/stack.adoc - include::example$examples/EDF/Stack/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Stack&lt;int, 4&gt; stack;
+if( !stack.isFull() ) {
+    /* ... */
+}</code></pre>
 </div>
 </div>
 </div>
@@ -385,8 +398,8 @@ Unresolved include directive in modules/ROOT/pages/stack.adoc - include::example
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/stack.adoc - include::example$examples/EDF/Stack/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/stack.adoc - include::example$examples/EDF/Stack/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Stack&lt;int, 4&gt; stack;
+auto nElementsInStack = stack.length();</code></pre>
 </div>
 </div>
 </div>
@@ -398,8 +411,8 @@ Unresolved include directive in modules/ROOT/pages/stack.adoc - include::example
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/stack.adoc - include::example$examples/EDF/Stack/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/stack.adoc - include::example$examples/EDF/Stack/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Stack&lt;int, 4&gt; stack;
+constexpr auto maxNumberOfElements = stack.maxLength();</code></pre>
 </div>
 </div>
 </div>
@@ -428,9 +441,9 @@ Many, if not all, of the Operation member functions use <a href="assert.html#_ed
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/stack.adoc - include::example$examples/EDF/Stack/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/stack.adoc - include::example$examples/EDF/Stack/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/stack.adoc - include::example$examples/EDF/Stack/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Stack&lt;int, 4&gt; stack;
+stack.push( 1 );
+auto&amp; lastElement = stack.peek();</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -454,8 +467,8 @@ Name is peek instead of "top" for consistency with <a href="queue.html" class="x
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/stack.adoc - include::example$examples/EDF/Stack/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/stack.adoc - include::example$examples/EDF/Stack/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Stack&lt;int, 4&gt; stack;
+stack.push( 1 );</code></pre>
 </div>
 </div>
 </div>
@@ -467,8 +480,8 @@ Unresolved include directive in modules/ROOT/pages/stack.adoc - include::example
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/stack.adoc - include::example$examples/EDF/Stack/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/stack.adoc - include::example$examples/EDF/Stack/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Stack&lt;int, 4&gt; stack;
+stack.emplace( 2 );</code></pre>
 </div>
 </div>
 </div>
@@ -480,8 +493,8 @@ Unresolved include directive in modules/ROOT/pages/stack.adoc - include::example
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/stack.adoc - include::example$examples/EDF/Stack/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/stack.adoc - include::example$examples/EDF/Stack/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Stack&lt;int, 4&gt; stack;
+    auto mostRecentElement = stack.pop();</code></pre>
 </div>
 </div>
 </div>
@@ -493,8 +506,8 @@ Unresolved include directive in modules/ROOT/pages/stack.adoc - include::example
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/ROOT/pages/stack.adoc - include::example$examples/EDF/Stack/main.cpp[]
-Unresolved include directive in modules/ROOT/pages/stack.adoc - include::example$examples/EDF/Stack/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Stack&lt;int, 4&gt; stack;
+stack.clear();</code></pre>
 </div>
 </div>
 </div>

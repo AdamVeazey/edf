@@ -293,7 +293,58 @@
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/spi_controller.adoc - include::ROOT:example$examples/Peripherals/SPIController/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">/* Simulate a SPI memory mapped peripheral, here is just a single "register" */
+struct MCU_SPI_T {
+    volatile uint32_t DATA_REGISTER;
+};
+
+/* For this example, we need a real instance of the fake memory mapped peripheral */
+static MCU_SPI_T MCU_SPI0;
+
+/* Normally the definition is a hardcoded address that comes from the datasheet */
+#define SPI0        (&amp;MCU_SPI0)
+
+extern "C"{
+int HAL_SPI_TransmitReceive( MCU_SPI_T* hspi, uint8_t* txData, uint8_t* rxData, uint16_t size, uint32_t timeout ) {
+    (void)hspi;
+    (void)txData;
+    (void)rxData;
+    (void)size;
+    (void)timeout;
+    return 0; // OK
+}
+}
+
+class SPIController final : public EDF::SPIController {
+private:
+    MCU_SPI_T* spi;
+    GPIO&amp; cs;
+public:
+    SPIController( MCU_SPI_T* spi, GPIO&amp; cs ) : spi(spi), cs(cs) {}
+    virtual ~SPIController() = default;
+
+    virtual void select() override {
+        cs.setLow();
+    }
+    virtual void deselect() override {
+        cs.setHigh();
+    }
+    virtual ResponseData transfer( uint8_t data ) override {
+        return ResponseData( transfer( &amp;data, 1 ), data );
+    }
+    virtual Response transfer( uint8_t* dataInOut, std::size_t n ) override {
+        auto ret = HAL_SPI_TransmitReceive(
+            spi,
+            dataInOut,
+            dataInOut,
+            static_cast&lt;uint16_t&gt;(n),
+            0
+        );
+        (void)ret;
+        /* Do error handling */
+        return Response::Ok;
+    }
+};</code></pre>
 </div>
 </div>
 <hr>
@@ -305,8 +356,9 @@
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/spi_controller.adoc - include::ROOT:example$examples/Peripherals/SPIController/main.cpp[]
-Unresolved include directive in modules/peripherals/pages/spi_controller.adoc - include::ROOT:example$examples/Peripherals/SPIController/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">GPIO chipSelect( GPIO_PORTA, 5 );
+SPIController spi0( SPI0, chipSelect );
+spi0.select();</code></pre>
 </div>
 </div>
 <div class="imageblock">
@@ -324,8 +376,9 @@ Unresolved include directive in modules/peripherals/pages/spi_controller.adoc - 
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/spi_controller.adoc - include::ROOT:example$examples/Peripherals/SPIController/main.cpp[]
-Unresolved include directive in modules/peripherals/pages/spi_controller.adoc - include::ROOT:example$examples/Peripherals/SPIController/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">GPIO chipSelect( GPIO_PORTA, 5 );
+SPIController spi0( SPI0, chipSelect );
+spi0.deselect();</code></pre>
 </div>
 </div>
 <div class="imageblock">
@@ -343,11 +396,17 @@ Unresolved include directive in modules/peripherals/pages/spi_controller.adoc - 
 <div class="listingblock">
 <div class="title">Example ResponseData</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/spi_controller.adoc - include::ROOT:example$examples/Peripherals/SPIController/main.cpp[]
-Unresolved include directive in modules/peripherals/pages/spi_controller.adoc - include::ROOT:example$examples/Peripherals/SPIController/main.cpp[]
-Unresolved include directive in modules/peripherals/pages/spi_controller.adoc - include::ROOT:example$examples/Peripherals/SPIController/main.cpp[]
-Unresolved include directive in modules/peripherals/pages/spi_controller.adoc - include::ROOT:example$examples/Peripherals/SPIController/main.cpp[]
-Unresolved include directive in modules/peripherals/pages/spi_controller.adoc - include::ROOT:example$examples/Peripherals/SPIController/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">GPIO chipSelect( GPIO_PORTA, 5 );
+SPIController spi0( SPI0, chipSelect );
+using Response = EDF::SPIController::Response;
+using ResponseData = EDF::SPIController::ResponseData;
+spi0.select();
+ResponseData rd = spi0.transfer( 0x55 );
+if( rd == Response::Ok ) {
+    uint8_t value = rd.data();
+    (void)value; // do something with valid data
+}
+spi0.deselect();</code></pre>
 </div>
 </div>
 <div class="imageblock">
@@ -358,21 +417,33 @@ Unresolved include directive in modules/peripherals/pages/spi_controller.adoc - 
 <div class="listingblock">
 <div class="title">Example Response</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/spi_controller.adoc - include::ROOT:example$examples/Peripherals/SPIController/main.cpp[]
-Unresolved include directive in modules/peripherals/pages/spi_controller.adoc - include::ROOT:example$examples/Peripherals/SPIController/main.cpp[]
-Unresolved include directive in modules/peripherals/pages/spi_controller.adoc - include::ROOT:example$examples/Peripherals/SPIController/main.cpp[]
-Unresolved include directive in modules/peripherals/pages/spi_controller.adoc - include::ROOT:example$examples/Peripherals/SPIController/main.cpp[]
-Unresolved include directive in modules/peripherals/pages/spi_controller.adoc - include::ROOT:example$examples/Peripherals/SPIController/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">GPIO chipSelect( GPIO_PORTA, 5 );
+SPIController spi0( SPI0, chipSelect );
+using Response = EDF::SPIController::Response;
+using ResponseData = EDF::SPIController::ResponseData;
+spi0.select();
+Response resp = spi0.transfer( 0x5A );
+spi0.deselect();</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Example ResponseData All Response Options</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/spi_controller.adoc - include::ROOT:example$examples/Peripherals/SPIController/main.cpp[]
-Unresolved include directive in modules/peripherals/pages/spi_controller.adoc - include::ROOT:example$examples/Peripherals/SPIController/main.cpp[]
-Unresolved include directive in modules/peripherals/pages/spi_controller.adoc - include::ROOT:example$examples/Peripherals/SPIController/main.cpp[]
-Unresolved include directive in modules/peripherals/pages/spi_controller.adoc - include::ROOT:example$examples/Peripherals/SPIController/main.cpp[]
-Unresolved include directive in modules/peripherals/pages/spi_controller.adoc - include::ROOT:example$examples/Peripherals/SPIController/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">GPIO chipSelect( GPIO_PORTA, 5 );
+SPIController spi0( SPI0, chipSelect );
+using Response = EDF::SPIController::Response;
+using ResponseData = EDF::SPIController::ResponseData;
+spi0.select();
+ResponseData r = spi0.transfer( 0xAA );
+switch( r ) {
+case Response::Ok:           r.data();  break;
+case Response::ErrorBusy:               break;
+case Response::ErrorOverrun:            break;
+case Response::Error:                   break;
+case Response::ErrorTimeout:            break;
+default:                                break;
+}
+spi0.deselect();</code></pre>
 </div>
 </div>
 <div class="sect3">
@@ -391,7 +462,26 @@ Unresolved include directive in modules/peripherals/pages/spi_controller.adoc - 
 <div class="listingblock">
 <div class="title">ResponseData Definition</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/spi_controller.adoc - include::ROOT:example$include/EDF/Peripherals/SPIController.hpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">class ResponseData {
+private:
+    std::uint16_t value;
+public:
+    constexpr ResponseData( Response r, std::uint8_t data ) :
+        value(
+            static_cast&lt;std::uint16_t&gt;((static_cast&lt;std::uint16_t&gt;(r) &lt;&lt; 8)) |
+            data
+        )
+    {}
+    constexpr Response response() const {
+        return static_cast&lt;Response&gt;(value &gt;&gt; 8);
+    }
+    constexpr std::uint8_t data() const {
+        EDF_ASSERTD( response() == Response::Ok, "Response must be Ok to extract value");
+        return static_cast&lt;std::uint8_t&gt;(value);
+    }
+    /* implicitly convert to a Response. Need to call data() explicitly to obtain value */
+    constexpr operator Response () const { return response(); }
+};</code></pre>
 </div>
 </div>
 <hr>
@@ -417,11 +507,14 @@ The data array passed to this function is where the data from the peripheral dev
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/spi_controller.adoc - include::ROOT:example$examples/Peripherals/SPIController/main.cpp[]
-Unresolved include directive in modules/peripherals/pages/spi_controller.adoc - include::ROOT:example$examples/Peripherals/SPIController/main.cpp[]
-Unresolved include directive in modules/peripherals/pages/spi_controller.adoc - include::ROOT:example$examples/Peripherals/SPIController/main.cpp[]
-Unresolved include directive in modules/peripherals/pages/spi_controller.adoc - include::ROOT:example$examples/Peripherals/SPIController/main.cpp[]
-Unresolved include directive in modules/peripherals/pages/spi_controller.adoc - include::ROOT:example$examples/Peripherals/SPIController/main.cpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">GPIO chipSelect( GPIO_PORTA, 5 );
+SPIController spi0( SPI0, chipSelect );
+using Response = EDF::SPIController::Response;
+using ResponseData = EDF::SPIController::ResponseData;
+spi0.select();
+uint8_t data[] = { 1, 2, 3, 4 };
+Response response = spi0.transfer( data, EDF::nElements(data) );
+spi0.deselect();</code></pre>
 </div>
 </div>
 <div class="imageblock">
@@ -470,7 +563,13 @@ Unresolved include directive in modules/peripherals/pages/spi_controller.adoc - 
 </table>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">Unresolved include directive in modules/peripherals/pages/spi_controller.adoc - include::ROOT:example$include/EDF/Peripherals/SPIController.hpp[]</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">enum class Response : std::uint8_t{
+    Ok,
+    ErrorBusy,
+    ErrorOverrun,
+    Error,
+    ErrorTimeout,
+};</code></pre>
 </div>
 </div>
 <hr>
