@@ -25,6 +25,7 @@ jobs:
           cmake -B build \
             -DCMAKE_BUILD_TYPE=Debug \
             -DEDF_BUILD_TESTS=ON \
+            -DEDF_BUILD_EXAMPLES=ON \
             -DEDF_BUILD_PERIPHERALS=ON \
             -DEDF_BUILD_DRIVERS=ON
 
