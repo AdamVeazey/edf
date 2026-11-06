@@ -35,35 +35,35 @@ public:
     /* IPSR bits */
     constexpr IEN getInterruptExceptionNumber()     const { return static_cast<IEN>(get( 0, 6 )); }
     constexpr IEN getIEN()                          const { return getInterruptExceptionNumber(); }
-    constexpr void setInterruptExceptionNumber( IEN n )   { set( 0, 6, static_cast<uint32_t>(n) ); }
-    constexpr void setIEN( IEN n )                        { setInterruptExceptionNumber( n ); }
+    constexpr PSR& setInterruptExceptionNumber( IEN n )   { set( 0, 6, static_cast<uint32_t>(n) ); return *this; }
+    constexpr PSR& setIEN( IEN n )                        { setInterruptExceptionNumber( n ); return *this; }
 
     /* EPSR bits */
     constexpr bool isExecutionThumbBitSet()         const { return get( 24, 1 ); }
     constexpr bool isT()                            const { return isExecutionThumbBitSet(); }
-    constexpr void setExecutionThumbBit( bool v )         { set( 24, 1, v ); }
-    constexpr void setT( bool v )                         { setExecutionThumbBit( v ); }
+    constexpr PSR& setExecutionThumbBit( bool v )         { set( 24, 1, v ); return *this; }
+    constexpr PSR& setT( bool v )                         { setExecutionThumbBit( v ); return *this; }
 
     /* APSR bits */
     constexpr bool isApplicationOverflowSet()       const { return get( 28, 1 ); }
     constexpr bool isV()                            const { return isApplicationOverflowSet(); }
-    constexpr void setApplicationOverflow( bool v )       { set( 28, 1, v ); }
-    constexpr void setV( bool v )                         { setApplicationOverflow( v ); }
+    constexpr PSR& setApplicationOverflow( bool v )       { set( 28, 1, v ); return *this; }
+    constexpr PSR& setV( bool v )                         { setApplicationOverflow( v ); return *this; }
 
     constexpr bool isApplicationCarryBorrowSet()    const { return get( 29, 1 ); }
     constexpr bool isC()                            const { return isApplicationCarryBorrowSet(); }
-    constexpr void setApplicationCarryBorrow( bool v )    { set( 29, 1, v ); }
-    constexpr void setC( bool v )                         { setApplicationCarryBorrow( v ); }
+    constexpr PSR& setApplicationCarryBorrow( bool v )    { set( 29, 1, v ); return *this; }
+    constexpr PSR& setC( bool v )                         { setApplicationCarryBorrow( v ); return *this; }
 
     constexpr bool isApplicationZeroSet()           const { return get( 30, 1 ); }
     constexpr bool isZ()                            const { return isApplicationZeroSet(); }
-    constexpr void setApplicationZero( bool v )           { set( 30, 1, v ); }
-    constexpr void setZ( bool v )                         { setApplicationZero( v ); }
+    constexpr PSR& setApplicationZero( bool v )           { set( 30, 1, v ); }
+    constexpr PSR& setZ( bool v )                         { setApplicationZero( v ); return *this; }
 
     constexpr bool isApplicationNegativeSet()       const { return get( 31, 1 ); }
     constexpr bool isN()                            const { return isApplicationNegativeSet(); }
-    constexpr void setApplicationNegative( bool v )       { set( 31, 1, v ); }
-    constexpr void setN( bool v )                         { setApplicationNegative( v ); }
+    constexpr PSR& setApplicationNegative( bool v )       { set( 31, 1, v ); return *this; }
+    constexpr PSR& setN( bool v )                         { setApplicationNegative( v ); return *this; }
 };
 
 void function() {
@@ -105,25 +105,25 @@ public:
 
     /* 3-wire SPI enabled = 1, disabled = 0 */
     constexpr bool isSPI3w_en() const { return get( 0, 1 ); }
-    constexpr void setSPI3w_en( bool enable ) { set( 0, 1, enable ); }
+    constexpr Config& setSPI3w_en( bool enable ) { set( 0, 1, enable ); return *this; }
 
     /* IIR time constant */
     constexpr Filter getFilter() const { return static_cast<Filter>(get( 2, 3 )); }
-    constexpr void setFilter( Filter f ) { set( 2, 3, static_cast<uint8_t>(f) ); }
+    constexpr Config& setFilter( Filter f ) { set( 2, 3, static_cast<uint8_t>(f) ); return *this; }
 
     /* Inactive duration t_standby in normal mode */
     constexpr InactiveDuration getT_sb() const { return static_cast<InactiveDuration>(get( 5, 3 )); }
     constexpr InactiveDuration getInactiveDuration() const { return getT_sb(); }
-    constexpr void setT_sb( InactiveDuration d ) { set( 5, 3, static_cast<uint8_t>(d)); }
-    constexpr void setInactiveDuration( InactiveDuration d ) { setT_sb( d ); }
+    constexpr Config& setT_sb( InactiveDuration d ) { set( 5, 3, static_cast<uint8_t>(d)); return *this; }
+    constexpr Config& setInactiveDuration( InactiveDuration d ) { setT_sb( d ); return *this; }
 };
 
 void BME280_init() {
     // ...
-    Config cfg;
-    cfg.setSPI3w_en( false );
-    cfg.setFilter( Config::Filter::OFF );
-    cfg.setInactiveDuration( Config::InactiveDuration::MS_10 );
+    Config()
+        .setSPI3w_en( false )
+        .setFilter( Config::Filter::OFF )
+        .setInactiveDuration( Config::InactiveDuration::MS_10 );
     // ...
 }
 
