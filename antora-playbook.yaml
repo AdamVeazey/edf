@@ -2,18 +2,16 @@ site:
   title: EDF
   url: https://adamveazey.github.io/edf/docs/main
   # start_page: component-b::index.adoc
+
+antora:
+  extensions:
+    - '@antora/collector-extension'
+
 content:
   sources:
   - url: .
     branches: [main, release/*]
     start_path: docs
-    collector:
-      - forward:
-        from: ../examples
-        to: modules/ROOT/examples/examples
-      - forward:
-        from: ../include
-        to: modules/ROOT/examples/include
   # - url: https://gitlab.com/antora/demo/demo-component-b.git
   #   branches: [v2.0, v1.0]
   #   start_path: docs

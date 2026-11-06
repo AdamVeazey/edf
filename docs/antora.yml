@@ -29,3 +29,12 @@ nav:
 
 # [title]
 title: EDF
+
+ext:
+  collector:
+    - scan:
+        dir: ../include
+        into: modules/ROOT/examples/include
+    - scan:
+        dir: ../examples
+        into: modules/ROOT/examples/examples
