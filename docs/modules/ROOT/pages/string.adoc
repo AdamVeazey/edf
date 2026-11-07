@@ -26,9 +26,7 @@ There are three big picture concepts that will help make sense of this large cla
 . [[mutability]]{mutability_description}
 . [[overloads]]Common list of overloads for many functions. The following types listed below are supported by many operations.
 .. [[const_char_star]]`f( const char* str );`
-.. [[const_uint8_t_star]]`f( const uint8_t* str );`
 .. [[const_char_star_n]]`f( const char* str, std::size_t n );`
-.. [[const_uint8_t_star_n]]`f( const uint8_t* str, std::size_t n );`
 .. [[char]]`f( char ch );`
 .. [[int8_t]]`f( int8_t value, int base = 10 );`
 .. [[int16_t]]`f( int16_t value, int base = 10 );`
@@ -1055,6 +1053,18 @@ include::{path_example_edf_string_main_cpp}[tag=operation_get_replace]
 ---
 
 [#substring]
+=== subString( start )
+In the string erase [begin(), `start`)
+
+.Example
+[source,c++,indent=0]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_substring_to_end]
+----
+
+---
+
 === subString( start, end )
 Remove everything except for the range [`start`, `end`) in the string. Erase [`end`, end()), then erase [begin(), `start`)
 
@@ -1063,6 +1073,18 @@ Remove everything except for the range [`start`, `end`) in the string. Erase [`e
 ----
 include::{path_example_edf_string_main_cpp}[tag=init]
 include::{path_example_edf_string_main_cpp}[tag=operation_substring]
+----
+
+---
+
+=== getSubString( start )
+In a copy of the string erase [begin(), `start`)
+
+.Example
+[source,c++,indent=0]
+----
+include::{path_example_edf_string_main_cpp}[tag=init]
+include::{path_example_edf_string_main_cpp}[tag=operation_get_substring_to_end]
 ----
 
 ---

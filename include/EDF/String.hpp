@@ -385,7 +385,9 @@ public:
     constexpr String getReplaced( const String<S1>& lookFor, const String<S2>& replaceWith ) const;
 
     /* Operations: In/Out-of-Place - subString */
+    String& subString( ConstIterator start );
     String& subString( ConstIterator start, ConstIterator end );
+    constexpr String getSubString( ConstIterator start ) const;
     constexpr String getSubString( ConstIterator start, ConstIterator end ) const;
 
     /* Operations: Operator Overload - += */

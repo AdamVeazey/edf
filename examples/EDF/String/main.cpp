@@ -9,7 +9,11 @@
 
 #include <iostream>
 
-static void tldr() {
+// ---------------------------------------------------------------------------
+// --------------------- Buildable Documentation Snippts ---------------------
+// ---------------------------------------------------------------------------
+
+void tldr() {
     // tag::example_is_palindrome[]
     EDF::String<32> string = "Madam in Eden, Im Adam.";
     auto normalized = string.getToLower().strip( " ,." );
@@ -18,7 +22,7 @@ static void tldr() {
     (void)isPalindrome;
 }
 
-static void examples() {
+void docSnippets() {
     // tag::init_str_literal_char[]
     const char strLiteralChar[] = "const char*";
     // end::init_str_literal_char[]
@@ -503,9 +507,22 @@ static void examples() {
     // end::operation_get_replace[]
 
     string = "Hello, world!";
+    // tag::operation_substring_to_end[]
+    string.subString( string.find(", ") + std::strlen(", ") );
+    // end::operation_substring_to_end[]
+
+    string = "Hello, world!";
     // tag::operation_substring[]
     string.subString( string.begin(), string.begin() + 5 );
     // end::operation_substring[]
+
+    string = "Hello, world!";
+    // tag::operation_get_substring_to_end[]
+    string.getSubString( string.begin() + 7 );
+
+    string.getSubString( string.find(", ") + std::strlen(", ") );
+    // end::operation_get_substring_to_end[]
+
     string = "Hello, world!";
     // tag::operation_get_substring[]
     string.getSubString( string.begin(), string.begin() + 5 );
@@ -576,62 +593,32 @@ static void examples() {
     std::cout << result.asCString() << std::endl;
 }
 
+// ---------------------------------------------------------------------------
+// --------------------------- Simple Example --------------------------------
+// ---------------------------------------------------------------------------
+
 int main() {
-    EDF::String<128> test( 1234 );
-    test += 567890;
-    std::cout << "1:" << test.asCString() << '\n';
-    test.insert( 4, " Inserted Value" );
-    std::cout << (4 + (EDF::String<10>(" Okay") + test)).strip().asCString() << '\n';
-
-    std::cout << "2:" << test.asCString() << '\n';
-    test.insert( 0_uz, " \n Test \n" );
-    std::cout << "3:" << test.asCString() << '\n';
-    std::cout << "4:" << test.getStripped( "ea" ).asCString() << '\n';
-
-    EDF::String<64> smallerTest = "  ! !Hello, world!  !   ";
-    smallerTest.trim( " !" );
-    std::cout << "5:>" << smallerTest.asCString() << "<" << '\n';
-
-    std::cout << "6:" << smallerTest.contains("Hello") << '\n';
-
-    std::cout << "7:" << smallerTest.getReversed().asCString() << '\n';
-
-    std::cout << "8:" << smallerTest.equals( "Hello, world" ) << '\n';
-
-    std::cout << "9:" << smallerTest.getToUpper().asCString() << '\n';
-
-    std::cout << "10:" << smallerTest.getToLower().asCString() << '\n';
-
-    std::cout << "11:"
-              << smallerTest
-                    .getAppended( " world something" )
-                    .getReplaced( "world", "solar system!" )
-                    .asCString()
-              << '\n';
-
-    auto comma = smallerTest.find( smallerTest.begin(), ',' );
-    auto firstWord = smallerTest.find( comma + 2, ' ' );
-    std::cout << "12:"
-              << smallerTest.getSubString( comma + 2, firstWord ).asCString()
-              << '\n';
-
-    std::cout << "13:" << smallerTest.asCString() << '\n';
-
-    EDF::String<32> stringNumber = 1'000'000;
-    int counter = 0;
-    for( EDF::String<32>::ReverseIterator it = stringNumber.rbegin(); it != stringNumber.rend(); ++it ) {
-        if( ++counter == 3 ) {
-            // it will point to the "right" of the element, similar to end() being +1 to the "right"
-            stringNumber.insert( (it+1).base(), ',' );
-            counter = 0;
-        }
-    }
-
-    std::cout << "14:" << stringNumber.asCString() << '\n';
-
-    examples();
-
     tldr();
+
+    // Format output without using snprint
+    EDF::String<32> sensorStatus = "Sensor ID: ";
+    sensorStatus += 42;
+    sensorStatus += " val: 0x";
+    sensorStatus.append( 0xABCD, 16 );
+    std::cout << sensorStatus.asCString() << '\n';
+
+    // Simulated alert message
+    auto alert = EDF::String<32>("  WARNING: low battery  ").trim().toUpper();
+    std::cout << "Alert: " << alert.asCString() << "\n";
+
+    // Simulated async AT command response
+    EDF::String<64> resp = "\r\n+VOLUME=50\r\n";
+    if( resp.contains("VOLUME") ) {
+        // parse the value
+        resp.trimRight("\n\r");
+        int percent = resp.getSubString( resp.find('=') + 1 ).toInt32_t();
+        std::cout << "Volume percent: " << percent << '\n';
+    }
 
     return 0;
 }

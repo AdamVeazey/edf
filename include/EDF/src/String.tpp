@@ -1665,9 +1665,21 @@ getReplaced( const String<S1>& lookFor, const String<S2>& replaceWith ) const {
 /* Operations: In/Out-of-Place - subString */
 template<std::size_t N>
 String<N>& String<N>::
+subString( ConstIterator start ) {
+    return subString( start, end() );
+}
+
+template<std::size_t N>
+String<N>& String<N>::
 subString( ConstIterator start, ConstIterator end ) {
     impl::subString( buffer, size, N, start, end );
     return *this;
+}
+
+template<std::size_t N>
+constexpr String<N> String<N>::
+getSubString( ConstIterator start ) const {
+    return getSubString( start, end() );
 }
 
 template<std::size_t N>
