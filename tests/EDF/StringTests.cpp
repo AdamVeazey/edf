@@ -796,6 +796,9 @@ TEST(String, Erase) {
 
     string.erase( firstRInLastWord, string.find( firstRInLastWord, 'a' ) - 1 );
     EXPECT_STREQ( string.asCString(), "Message with extra characters" );
+
+    string.erase( string.end(), string.end() );
+    EXPECT_STREQ( string.asCString(), "Message with extra characters" );
 }
 
 TEST(String, GetErased) {
@@ -807,6 +810,8 @@ TEST(String, GetErased) {
     auto firstRInLastWord = string.find( string.rfind(' ').base(), 'r' );
     EXPECT_STREQ( string.getErased( firstRInLastWord ).asCString(), "Message with extraa charrrracters" );
     EXPECT_STREQ( string.getErased( firstRInLastWord, firstRInLastWord + 4 ).asCString(), "Message with extraa characters" );
+
+    EXPECT_STREQ( string.getErased( string.end(), string.end() ).asCString(), "Message with extraa charrrrracters" );
 }
 
 TEST(String, Clear) {
@@ -851,6 +856,9 @@ TEST(String, Find) {
     // Try to find "bcd" (length 3) starting only 2 characters from the end of the string
     // n = 3 correctly matches std::strlen("bcd"), but the target won't fit before string.end()
     EXPECT_EQ( string.find( string.end() - 2, "bcd", 3_uz ), string.end() );
+
+    EXPECT_EQ( string.find("nonexistent"), string.end() );
+    EXPECT_EQ( string.find( string.end() - 2, "toolong", 7_uz ), string.end() );
 }
 
 TEST(String, ReverseFind) {
@@ -876,6 +884,8 @@ TEST(String, ReverseFind) {
 
     // Searching for a multi-char pattern that exists ("bcd", n=3)
     EXPECT_EQ( &(*string.rfind( "bcd", 3_uz )), &string[23] );
+    EXPECT_EQ( string.rfind( string.crbegin(), "toolong", 7_uz ), string.rend() );
+    EXPECT_EQ( string.rfind("missingtoken"), string.rend() );
 }
 
 TEST(String, Contains) {
@@ -1083,12 +1093,26 @@ TEST(String, SubString) {
 
     string.subString( string.find('k'), string.find('d') + 1 );
     EXPECT_STREQ( string.asCString(), "kind" );
+
+    EDF::String<32> string2 = "Hello, world!";
+    string2.subString( string2.find("world") );
+    EXPECT_STREQ( string2.asCString(), "world!" );
+
+    EDF::String<32> string3 = "Data stream: 1023";
+    auto colonPos = string3.find(':');
+    string3.subString( colonPos );
+    EXPECT_STREQ( string3.asCString(), ": 1023" );
 }
 
 TEST(String, GetSubString) {
     EDF::String<32> str = "Some kind of string.";
     EXPECT_STREQ( str.getSubString( str.begin(), str.begin() + str.length()/2 ).asCString(), "Some kind " );
     EXPECT_STREQ( str.getSubString( str.find( 's' ), str.find( '.' ) ).asCString(), "string" );
+
+    EXPECT_STREQ( str.getSubString( str.find("kind") ).asCString(), "kind of string." );
+
+    auto missing = str.find("nonexistent");
+    EXPECT_STREQ( str.getSubString( missing ).asCString(), "" );
 }
 
 TEST(String, OperatorPlusEqualsThisRHS) {

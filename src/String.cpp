@@ -307,7 +307,7 @@ Iterator insert( char* buffer, std::size_t& size, std::size_t N, ConstIterator p
 Iterator erase( char* buffer, std::size_t& size, std::size_t N, ConstIterator first, ConstIterator last ) {
     EDF_ASSERTD(first >= cbegin(buffer, size, N), "first position must be valid");
     EDF_ASSERTD(first <= last, "first position must be less than last");
-    EDF_ASSERTD(first < cend(buffer, size, N), "first position must not include end()");
+    EDF_ASSERTD(first <= cend(buffer, size, N), "first position must not include end()");
     EDF_ASSERTD(last  >= first, "last position must be valid");
     EDF_ASSERTD(last  <= cend(buffer, size, N), "last position must be valid");
 
@@ -349,7 +349,7 @@ Iterator find( const char* buffer, std::size_t size, std::size_t N, ConstIterato
         if( *pos == value[0] ) {    // first character matches
             bool match = true;
             if (static_cast<std::size_t>(end(buffer, size, N) - pos) < n) {
-                break; // Not enough room left for a match
+                return end(buffer, size, N); // Not enough room left for a match
             }
             for( std::size_t k = 1; k < n; ++k ) {
                 if( *(pos + k) != value[k] ) {  // did any character not match?
@@ -382,16 +382,19 @@ ReverseIterator rfind( const char* buffer, std::size_t size, std::size_t N, Cons
 
     if( (n == 0) || (n > size) ) return rend(buffer, size, N);
 
-    const char* scanEnd = pos.base();
     const char* bufBegin = begin(buffer, size, N);
-    const char* ptr = scanEnd - n; // start looking here
-    if( ptr < bufBegin ) {
-        ptr = bufBegin - 1; // Will adjust or terminate
+    const char* scanEnd = pos.base();
+    // If there aren't n characters between bufBegin and scanEnd, we can't possibly match
+    if (n > static_cast<std::size_t>(scanEnd - bufBegin)) {
+        return rend(buffer, size, N);
     }
-    // Scan backwards from ptr down to bufBegin
-    for( ; ptr >= bufBegin; --ptr ) {
+
+    for( const char* ptr = scanEnd - n;; --ptr ) {
         if( std::memcmp(ptr, value, n) == 0 ) {
             return ReverseIterator( Iterator(ptr + 1) );
+        }
+        if( ptr == bufBegin ) {
+            break; // Safely stop before decrementing past bufBegin
         }
     }
     return rend(buffer, size, N);
@@ -539,10 +542,10 @@ void replace(
 }
 
 void subString( char* buffer, std::size_t& size, std::size_t N, ConstIterator start, ConstIterator end ) {
-    EDF_ASSERTD( start < end, "start must be before end" );
-    EDF_ASSERTD( end < cend(buffer, size, N), "end must be within string" );
+    EDF_ASSERTD( start <= end, "start must be before end" );
+    EDF_ASSERTD( end <= cend(buffer, size, N), "end must be within string" );
     EDF_ASSERTD( end >= cbegin(buffer, size, N), "end must be within string" );
-    EDF_ASSERTD( start < cend(buffer, size, N), "start must be within string" );
+    EDF_ASSERTD( start <= cend(buffer, size, N), "start must be within string" );
     EDF_ASSERTD( start >= cbegin(buffer, size, N), "end must be within string" );
     erase( buffer, size, N, end, cend(buffer, size, N) );
     erase( buffer, size, N, begin(buffer, size, N), start );
