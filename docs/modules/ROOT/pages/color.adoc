@@ -3,7 +3,7 @@
 include::ROOT:partial$refs.adoc[]
 
 == Overview
-Color is a 32-bit value where 8-bits are dedicated to red, green, blue, and alpha. Color565 is a 16-bit value where 5 bits are dedicated to red, 6 for blue, and 5 for blue. Pre-defined named colors are static members of Color.
+Color is a 32-bit value where 8-bits are dedicated to red, green, blue, and alpha. Color565 is a 16-bit value where 5 bits are dedicated to red, 6 for green, and 5 for blue. Pre-defined named colors are static members of Color.
 
 == Initialization
 
