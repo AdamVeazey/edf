@@ -330,13 +330,7 @@ bool isPalindrome = normalized.equals( normalized.getReversed() );</code></pre>
 <p><a id="const_char_star"></a><code>f( const char* str );</code></p>
 </li>
 <li>
-<p><a id="const_uint8_t_star"></a><code>f( const uint8_t* str );</code></p>
-</li>
-<li>
 <p><a id="const_char_star_n"></a><code>f( const char* str, std::size_t n );</code></p>
-</li>
-<li>
-<p><a id="const_uint8_t_star_n"></a><code>f( const uint8_t* str, std::size_t n );</code></p>
 </li>
 <li>
 <p><a id="char"></a><code>f( char ch );</code></p>
@@ -970,7 +964,7 @@ For member functions that have an index/position as their first argument, it mea
 <p><a href="#replace">replace( lookFor, replaceWith )</a></p>
 </li>
 <li>
-<p><a href="#substring">subString( start, end )</a></p>
+<p><a href="#substring">subString( start )</a></p>
 </li>
 <li>
 <p><a href="#operator_plus_equals">+=( rhs )</a></p>
@@ -1904,7 +1898,21 @@ string.getReplaced( "going", std::strlen("going"), "saying goodbye", std::strlen
 <hr>
 </div>
 <div class="sect2">
-<h3 id="substring"><a class="anchor" href="#substring"></a>subString( start, end )</h3>
+<h3 id="substring"><a class="anchor" href="#substring"></a>subString( start )</h3>
+<div class="paragraph">
+<p>In the string erase [begin(), <code>start</code>)</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.subString( string.find(", ") + std::strlen(", ") );</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_substring_start_end"><a class="anchor" href="#_substring_start_end"></a>subString( start, end )</h3>
 <div class="paragraph">
 <p>Remove everything except for the range [<code>start</code>, <code>end</code>) in the string. Erase [<code>end</code>, end()), then erase [begin(), <code>start</code>)</p>
 </div>
@@ -1913,6 +1921,22 @@ string.getReplaced( "going", std::strlen("going"), "saying goodbye", std::strlen
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
 string.subString( string.begin(), string.begin() + 5 );</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_getsubstring_start"><a class="anchor" href="#_getsubstring_start"></a>getSubString( start )</h3>
+<div class="paragraph">
+<p>In a copy of the string erase [begin(), <code>start</code>)</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::String&lt;128&gt; string = "Hello, world!";
+string.getSubString( string.begin() + 7 );
+
+string.getSubString( string.find(", ") + std::strlen(", ") );</code></pre>
 </div>
 </div>
 <hr>

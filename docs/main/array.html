@@ -336,7 +336,7 @@
 <div class="listingblock">
 <div class="title">Example: Custom Type</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">struct CustomType{
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">struct CustomType {
     int value;
     CustomType( int v ) : value(v) {}
 };
@@ -397,7 +397,7 @@ This also means that there is no boundary checking, so it is possible to attempt
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Array&lt;int, 4&gt; array;
-// array.at( 40 ) = 100;</code></pre>
+// array.at( 40 ) = 100; // Throws out-of-bounds error</code></pre>
 </div>
 </div>
 <hr>
