@@ -9,7 +9,11 @@
 
 #include <iostream>
 
-int main( void ) {
+// ---------------------------------------------------------------------------
+// --------------------- Buildable Documentation Snippts ---------------------
+// ---------------------------------------------------------------------------
+
+void docSnippets() {
     // tag::init_default[]
     EDF::Version versionDefault;
     // end::init_default[]
@@ -116,13 +120,22 @@ int main( void ) {
         /* ... */
     }
     // end::operator_not_equal[]
+}
 
-    std::cout << version.getMajor() << '\n';
-    std::cout << version.getMinor() << '\n';
-    std::cout << version.getPatch() << '\n';
-    std::cout << version.asNumber() << '\n';
-    std::cout << version.asCString() << '\n';
-    std::cout << versionString.asCString() << '\n';
+
+// ---------------------------------------------------------------------------
+// --------------------------- Simple Example --------------------------------
+// ---------------------------------------------------------------------------
+
+int main() {
+    EDF::Version current = EDF::Version::EDF();
+
+    if( current >= "1.1.0" ) {
+        std::cout << "Compatibility check passed. Version: " << current.asCString() << '\n';
+    }
+    else {
+        std::cout << "Error: EDF version " << current.asCString() << " is below required minimum\n";
+    }
 
     return 0;
 }

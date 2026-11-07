@@ -6,6 +6,34 @@
  */
 
 #include <EDF/BitField.hpp>
+#include <iostream>
+
+// ---------------------------------------------------------------------------
+// --------------------- Buildable Documentation Snippts ---------------------
+// ---------------------------------------------------------------------------
+
+void docSnippets() {
+    // tag::init_default[]
+    EDF::BitField32 bitfield;
+    // end::init_default[]
+
+    // tag::init_with_value[]
+    EDF::BitField8 bitfieldWithValue( 0xB1 );
+    // end::init_with_value[]
+    (void)bitfieldWithValue;
+    // tag::operation_set[]
+    bitfield.set( 8, 16, 0xAA55 ); // 0x00AA5500
+    // end::operation_set[]
+
+    // tag::operation_get[]
+    bitfield.get( 12, 8 ); // 0x000000A5
+    // end::operation_get[]
+
+    // tag::operation_operatorT[]
+    uint32_t value = bitfield & 0xFFFF;
+    // end::operation_operatorT[]
+    (void)value;
+}
 
 // tag::example_register_psr[]
 // Cortex-M0 Program Status Register
@@ -140,28 +168,31 @@ void someOtherFunction() {
 }
 // end::example_bme280_config[]
 
+// ---------------------------------------------------------------------------
+// --------------------------- Simple Example --------------------------------
+// ---------------------------------------------------------------------------
+
+class TwoBytes : public EDF::BitField16 {
+public:
+    using EDF::BitField16::BitField;
+
+    constexpr uint8_t getLSB()              const { return get(0, 8); }
+    constexpr TwoBytes& setLSB( uint8_t v )       { set(0, 8, v); return *this; }
+
+    constexpr uint8_t getMSB()              const { return get(8, 8); }
+    constexpr TwoBytes& setMSB( uint8_t v )       { set(8, 8, v); return *this; }
+};
 
 int main( void ) {
-    // tag::init_default[]
-    EDF::BitField32 bitfield;
-    // end::init_default[]
+    TwoBytes tb = 0x1234;
 
-    // tag::init_with_value[]
-    EDF::BitField8 bitfieldWithValue( 0xB1 );
-    // end::init_with_value[]
-    (void)bitfieldWithValue;
-    // tag::operation_set[]
-    bitfield.set( 8, 16, 0xAA55 ); // 0x00AA5500
-    // end::operation_set[]
+    std::cout << "Expected LSB is 0x34. Actual LSB: 0x" << std::hex << +tb.getLSB() << std::dec << '\n';
+    std::cout << "Expected MSB is 0x12. Actual MSB: 0x" << std::hex << +tb.getMSB() << std::dec << '\n';
 
-    // tag::operation_get[]
-    bitfield.get( 12, 8 ); // 0x000000A5
-    // end::operation_get[]
+    tb.setLSB(12).setMSB(34);
 
-    // tag::operation_operatorT[]
-    uint32_t value = bitfield & 0xFFFF;
-    // end::operation_operatorT[]
-    (void)value;
+    std::cout << "Expected LSB is 12. Actual LSB: " << +tb.getLSB() << '\n';
+    std::cout << "Expected MSB is 34. Actual MSB: " << +tb.getMSB() << '\n';
 
     return 0;
 }

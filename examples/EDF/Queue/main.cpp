@@ -8,8 +8,13 @@
 #include <EDF/Queue.hpp>
 
 #include <iostream>
+#include <iomanip>
 
-int main( void ) {
+// ---------------------------------------------------------------------------
+// --------------------- Buildable Documentation Snippts ---------------------
+// ---------------------------------------------------------------------------
+
+int docSnippets() {
     // tag::init[]
     EDF::Queue<int, 8> queue;
     // end::init[]
@@ -188,6 +193,27 @@ int main( void ) {
     std::cout << "be == le: " << (be == le)
               << " value: 0x" << std::hex << be
               << std::endl;
+}
+
+// ---------------------------------------------------------------------------
+// --------------------------- Simple Example --------------------------------
+// ---------------------------------------------------------------------------
+
+int main() {
+    EDF::Queue<uint8_t, 32> rxBuffer;
+
+    // Simulate receiving packet bytes over UART: [Magic Byte, 16-bit Sensor ID, 32-bit Temperature]
+    rxBuffer.push( 0xAA ); // Sync marker
+    rxBuffer.push( 0x01 ); rxBuffer.push( 0x02 ); // Sensor ID: 0x0102 (Big Endian)
+    rxBuffer.push( 0x00 ); rxBuffer.push( 0x00 ); rxBuffer.push( 0x00 ); rxBuffer.push( 0x64 ); // Temp: 100 (Big Endian)
+
+    if( rxBuffer.pop() == 0xAA ) {
+        uint16_t sensorId = rxBuffer.pop16be();
+        uint32_t tempVal  = rxBuffer.pop32be();
+
+        std::cout << "Sensor ID: 0x" << std::hex << sensorId << ' '
+                  << "Temperature: " << std::dec << tempVal << " C\n";
+    }
 
     return 0;
 }

@@ -8,38 +8,27 @@
 #include <EDF/Array.hpp>
 
 #include <iostream>
+#include <algorithm>
 
-int main( void ) {
+// ---------------------------------------------------------------------------
+// --------------------- Buildable Documentation Snippts ---------------------
+// ---------------------------------------------------------------------------
 
+void docSnippets() {
     // tag::init_POD[]
     EDF::Array<int, 4> array;
     // end::init_POD[]
+
     // tag::element_access_standard[]
     array[0] = 1;
     // end::element_access_standard[]
-    array[1] = 2;
-    array[2] = 3;
-    array[3] = 4;
 
-    // NOTE: Comment out `array.at( 40 ) = 100` to run the rest of the example
     // tag::element_access_at[]
-    // array.at( 40 ) = 100;
+    // array.at( 40 ) = 100; // Throws out-of-bounds error
     // end::element_access_at[]
 
-    for( auto&& element : array ){
-        std::cout << element << '\n';
-    }
-
-    std::cout << "Clear the array, then print it out again\n";
-
-    array.clear();
-
-    for( auto&& element : array ){
-        std::cout << element << '\n';
-    }
-
     // tag::init_custom_type[]
-    struct CustomType{
+    struct CustomType {
         int value;
         CustomType( int v ) : value(v) {}
     };
@@ -52,28 +41,41 @@ int main( void ) {
     };
     // end::init_custom_type[]
 
-    std::cout << "Print out array2\n";
-
-    for( auto&& element : array2 ){
-        std::cout << element.value << '\n';
-    }
-
-    std::cout << "Fill array2, then print it out again\n";
-    array2.fill( CustomType(5) );
-    // array2.clear();
-
-    for( auto&& element : array2 ){
-        std::cout << element.value << '\n';
-    }
-
     // tag::init_copy_assignment[]
     EDF::Array<CustomType, 4> array3 = array2;
     // end::init_copy_assignment[]
 
-    std::cout << "print out array3, a copy of array 2\n";
+    (void)array3;
+}
 
-    for( auto&& element : array3 ){
-        std::cout << element.value << '\n';
+// ---------------------------------------------------------------------------
+// --------------------------- Simple Example --------------------------------
+// ---------------------------------------------------------------------------
+
+template<std::size_t N>
+constexpr EDF::Array<int, N> generateSensorThresholds() {
+    EDF::Array<int, N> table;
+    for( std::size_t k = 0; k < N; ++k ) {
+        // Pre-calculate non-linear scaling or calibration values
+        table[k] = static_cast<int>((k * k) * 25);
+    }
+    return table;
+}
+
+int main() {
+    // This entire table is calculated by the compiler and baked into ROM!
+    constexpr auto thresholds = generateSensorThresholds<5>();
+
+    std::cout << "Table capacity: " << thresholds.maxLength() << " entries\n\n";
+
+    std::cout << "Index-based access:\n";
+    for( std::size_t k = 0; k < thresholds.maxLength(); ++k ) {
+        std::cout << "threshold[" << k << "]: " << thresholds[k] << " mV\n";
+    }
+
+    std::cout << "\nRange-based iteration (STL compatibility):\n";
+    for( auto val : thresholds ) {
+        std::cout << val << " mV\n";
     }
 
     return 0;

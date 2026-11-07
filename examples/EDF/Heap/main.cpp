@@ -10,7 +10,11 @@
 
 #include <iostream>
 
-void exampleMaxHeap() {
+// ---------------------------------------------------------------------------
+// --------------------- Buildable Documentation Snippts ---------------------
+// ---------------------------------------------------------------------------
+
+void docSnippets() {
     // tag::init_max[]
     EDF::HeapMax<int, 7> heap;
     // end::init_max[]
@@ -32,23 +36,20 @@ void exampleMaxHeap() {
     // tag::operation_push[]
     heap.push( 2 );
     // end::operation_push[]
+
     // tag::operation_emplace[]
     heap.emplace( 6 );
     // end::operation_emplace[]
+
     // tag::capacity_length[]
     auto nElementsInHeap = heap.length();
     // end::capacity_length[]
     (void)nElementsInHeap;
+
     // tag::capacity_max_length[]
     constexpr auto maxNumberOfElements = heap.maxLength();
     // end::capacity_max_length[]
     (void)maxNumberOfElements;
-
-    heap.push( 1 );
-    heap.push( 7 );
-    heap.push( 4 );
-    heap.push( 5 );
-    heap.push( 3 );
 
     // tag::operation_peek[]
     auto& rootElement = heap.peek();
@@ -59,12 +60,15 @@ void exampleMaxHeap() {
     while( !heap.isEmpty() ) {
         /* ... */
     // end::is_question_empty[]
+
         // tag::operation_pop[]
         auto removedElement = heap.pop();
         // end::operation_pop[]
-        std::cout << removedElement << '\n';
+        (void)removedElement;
     }
+}
 
+void docSnippets2() {
     // tag::init_max_no_default[]
     struct CustomType {
         int value;
@@ -77,56 +81,46 @@ void exampleMaxHeap() {
         }
     };
 
-    EDF::HeapMax<CustomType, 3> heap2 = {
+    EDF::HeapMax<CustomType, 3> heap = {
         CustomType( 0 ),
         CustomType( 0 ),
         CustomType( 0 ),
     };
-    heap2.clear();
+    heap.clear();
     // end::init_max_no_default[]
 }
 
-void exampleMinHeap() {
+void docSnippets3() {
     // tag::init_min[]
     EDF::HeapMin<int, 7> heap;
     // end::init_min[]
-
-    heap.push( 2 );
-    heap.push( 6 );
-    heap.push( 1 );
-    heap.push( 7 );
-    heap.push( 4 );
-    heap.push( 5 );
-    heap.push( 3 );
-
-    while( !heap.isEmpty() ) {
-        std::cout << heap.pop() << '\n';
-    }
 }
 
-int main( int argc, char* argv[] ){
+// ---------------------------------------------------------------------------
+// --------------------------- Simple Example --------------------------------
+// ---------------------------------------------------------------------------
 
-    if( argc > 1 ) {
-        // has at least 2 arguments
-        EDF::String<32> whichExample = argv[1]; // valid value is either "min" or "max"
-        if( whichExample.equals("min") ) {
-            exampleMinHeap();
-        }
-        else if( whichExample.equals("max") ) {
-            exampleMaxHeap();
-        }
-        else{
-            std::cout << "Argument must be 'min' or 'max'. You entered: "
-                << argv[1]
-                << std::endl;
-        }
-    }
-    else {
-        std::cout << "Max heap output:" << '\n';
-        exampleMaxHeap();
-        std::cout << "Min heap output:" << '\n';
-        exampleMinHeap();
-    }
+struct Task {
+    uint8_t priority; // Lower number = higher priority
+    int taskId; // Task Control Block ID number
 
+    // Min-heap: higher priority (lower number) comes to the root
+    constexpr bool operator>( const Task& other ) const { return priority > other.priority; }
+    constexpr bool operator<( const Task& other ) const { return priority < other.priority; }
+};
+
+int main() {
+    EDF::HeapMin<Task, 5> scheduler;
+
+    scheduler.push({ .priority = 5, .taskId = 0 }); // Background logger
+    scheduler.push({ .priority = 1, .taskId = 1 }); // Emergency power fault
+    scheduler.push({ .priority = 3, .taskId = 2 }); // Sensor poll
+
+    std::cout << "Executing tasks by priority:\n";
+    while( !scheduler.isEmpty() ) {
+        Task t = scheduler.pop();
+        std::cout << "Priority: " << +t.priority
+                  << "Running Task ID: " << t.taskId << '\n';
+    }
     return 0;
 }
