@@ -1,0 +1,26 @@
+menuconfig EDF
+	bool "Embedded Development Framework (EDF)"
+	help
+	  Enable support for the Embedded Development Framework (EDF).
+
+if EDF
+
+config EDF_PERIPHERALS
+	bool "Build Peripherals library"
+	default n
+	help
+	  Enable EDF peripheral abstractions (GPIO, I2C, SPI, PWM).
+
+config EDF_DRIVERS
+	bool "Build Drivers library"
+	default n
+	help
+	  Enable EDF hardware drivers (such as DS3231 RTC, etc.).
+
+config EDF_ASSERTS
+	bool "Enable EDF runtime assertions"
+	default y
+	help
+	  Enable EDF_ASSERTD runtime checks in EDF components.
+
+endif # EDF

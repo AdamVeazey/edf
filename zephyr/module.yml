@@ -1,3 +1,4 @@
 name: edf
 build:
   cmake: .
+  kconfig: zephyr/Kconfig

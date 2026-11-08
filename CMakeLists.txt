@@ -9,6 +9,10 @@ project(EDF
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+# Check for LTO support safely
+include(CheckIPOSupported)
+check_ipo_supported(RESULT EDF_LTO_SUPPORTED OUTPUT lto_error)
+
 # -----------------------------------------------------------------------------
 # Options (Off by default for lightweight core consumption)
 # -----------------------------------------------------------------------------
@@ -17,6 +21,15 @@ option(EDF_BUILD_DRIVERS     "Build Drivers library"         OFF)
 option(EDF_ENABLE_LTO        "Enable Link-Time Optimization" OFF)
 option(EDF_BUILD_TESTS       "Build unit tests"              OFF)
 option(EDF_BUILD_EXAMPLES    "Build examples"                OFF)
+
+if(DEFINED ZEPHYR_BASE)
+    if(DEFINED CONFIG_EDF_PERIPHERALS)
+        set(EDF_BUILD_PERIPHERALS ${CONFIG_EDF_PERIPHERALS})
+    endif()
+    if(DEFINED CONFIG_EDF_DRIVERS)
+        set(EDF_BUILD_DRIVERS ${CONFIG_EDF_DRIVERS})
+    endif()
+endif()
 
 # -----------------------------------------------------------------------------
 # Dependency Enforcement (Auto-enable Peripherals if Drivers are requested)
@@ -81,10 +94,18 @@ function(edf_apply_common_settings TARGET_NAME)
     # Automatically bridge Zephyr's interface and picolibc/newlib specs if building inside Zephyr
     if(TARGET zephyr_interface)
         target_link_libraries(${TARGET_NAME} PRIVATE zephyr_interface)
+
+        if(DEFINED CONFIG_EDF_ASSERTS AND NOT CONFIG_EDF_ASSERTS)
+            target_compile_definitions(${TARGET_NAME} PUBLIC NDEBUG)
+        endif()
     endif()
 
     if(EDF_ENABLE_LTO)
-        set_property(TARGET ${TARGET_NAME} PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
+        if(EDF_LTO_SUPPORTED)
+            set_property(TARGET ${TARGET_NAME} PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
+        else()
+            message(WARNING "EDF: LTO requested, but not supported by toolchain: ${lto_error}")
+        endif()
     endif()
 endfunction()
 
@@ -144,34 +165,32 @@ endif()
 # -----------------------------------------------------------------------------
 # Installation & Packaging (Only active when EDF is built as a top-level project)
 # -----------------------------------------------------------------------------
-if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
-    include(GNUInstallDirs)
+if(NOT DEFINED ZEPHYR_BASE)
+    if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+        include(GNUInstallDirs)
 
-    # Install only the libraries that were actually built/enabled
-    install(TARGETS ${EDF_EXPORTED_TARGETS}
-        EXPORT EDFTargets
-        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-    )
+        install(TARGETS ${EDF_EXPORTED_TARGETS}
+            EXPORT EDFTargets
+            ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+            LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+            RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+        )
 
-    install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+        install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-    install(EXPORT EDFTargets
-        FILE EDFTargets.cmake
-        NAMESPACE EDF::
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/EDF
-    )
-endif()
+        install(EXPORT EDFTargets
+            FILE EDFTargets.cmake
+            NAMESPACE EDF::
+            DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/EDF
+        )
+    endif()
 
-# -----------------------------------------------------------------------------
-# Optional Subdirectories
-# -----------------------------------------------------------------------------
-if(EDF_BUILD_EXAMPLES)
-    add_subdirectory(examples)
-endif()
+    if(EDF_BUILD_EXAMPLES)
+        add_subdirectory(examples)
+    endif()
 
-if(EDF_BUILD_TESTS)
-    enable_testing()
-    add_subdirectory(tests)
+    if(EDF_BUILD_TESTS)
+        enable_testing()
+        add_subdirectory(tests)
+    endif()
 endif()
