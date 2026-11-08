@@ -8,6 +8,13 @@
 #include <EDF/Peripherals/I2CController.hpp>
 #include <EDF/Assert.hpp>
 #include <EDF/Math.hpp>
+#include <EDF/BitField.hpp>
+
+#include <iostream>
+
+// ---------------------------------------------------------------------------
+// --------------------- Buildable Documentation Snippts ---------------------
+// ---------------------------------------------------------------------------
 
 // tag::mock_i2c_controller[]
 /* Simulate a I2C memory mapped peripheral, here is just a single "register" */
@@ -97,8 +104,7 @@ public:
     Response read8BitRegister( uint8_t address_7bit, uint8_t& regInOut ) {
         return transfer(
             address_7bit,
-            &regInOut,
-            1,
+            &regInOut, 1,
             &regInOut, 1
         );
     }
@@ -126,7 +132,7 @@ public:
 };
 // end::mock_i2c_controller[]
 
-int main() {
+void docSnippets() {
     // tag::init[]
     I2CController i2c0( I2C0 );
     // end::init[]
@@ -177,6 +183,53 @@ int main() {
     // end::i2c_transfer[]
     (void)value;
     (void)res;
+}
+
+// ---------------------------------------------------------------------------
+// --------------------------- Simple Example --------------------------------
+// ---------------------------------------------------------------------------
+
+int main() {
+    I2CController i2c( I2C0 );
+
+    // Initialize the controller and set a timeout
+    i2c.init( I2CController::Mode::Standard );
+    i2c.setTimeout( 1000u );
+
+    std::cout << "Simulating I2C Bus Scan & Sensor Read\n\n";
+
+    // Probe the bus for a device at a standard 7-bit address (e.g., 0x48 for a temperature sensor)
+    uint8_t targetAddress = 0x48;
+    if( i2c.probe( targetAddress ) ) {
+        std::cout << "Device found at 7-bit address 0x" << std::hex << (int)targetAddress << std::dec << "\n";
+
+        // Read an 8-bit configuration or data register
+        uint8_t regVal = 0x00;
+        auto response = i2c.read8BitRegister( targetAddress, regVal );
+
+        using Response = I2CController::Response;
+        if( response == Response::ACK ) {
+            std::cout << "Successfully read register. Value: 0x" << std::hex << (int)regVal << std::dec << "\n";
+        }
+        else {
+            std::cout << "Read operation received a ";
+            switch( response ) {
+            case Response::NACK:            std::cout << "NACK";            break;
+            case Response::ErrorBusy:       std::cout << "ErrorBusy";       break;
+            case Response::ErrorBus:        std::cout << "ErrorBus";        break;
+            case Response::ErrorArbLost:    std::cout << "ErrorArbLost";    break;
+            case Response::ErrorOverrun:    std::cout << "ErrorOverrun";    break;
+            case Response::Error:           std::cout << "Error";           break;
+            case Response::ErrorTimeout:    std::cout << "ErrorTimeout";    break;
+            }
+            std::cout << " error.\n";
+        }
+    }
+    else {
+        std::cout << "No device found at address 0x" << std::hex << (int)targetAddress << std::dec << " (Mock default)\n";
+    }
+
+    std::cout << "\nSimulation completed successfully.\n";
 
     return 0;
 }

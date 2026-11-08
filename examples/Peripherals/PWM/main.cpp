@@ -7,6 +7,12 @@
 
 #include <EDF/Peripherals/PWM.hpp>
 
+#include <iostream>
+
+// ---------------------------------------------------------------------------
+// --------------------- Buildable Documentation Snippts ---------------------
+// ---------------------------------------------------------------------------
+
 // tag::mock_pwm[]
 /* Simulate a Timer memory mapped peripheral, here is just a couple "registers" */
 struct MCU_TIMER_T {
@@ -48,9 +54,7 @@ public:
 };
 // end::mock_pwm[]
 
-int main() {
-    using namespace std;
-
+void docSnippets() {
     // tag::init[]
     PWM pwm( TIMER0, 0 );
     // end::init[]
@@ -108,6 +112,32 @@ int main() {
     uint32_t dutyCycleTicks = pwm.getDutyCycleTicks();
     // end::pwm_get_duty_cycle_ticks[]
     (void)dutyCycleTicks;
+}
+
+// ---------------------------------------------------------------------------
+// --------------------------- Simple Example --------------------------------
+// ---------------------------------------------------------------------------
+
+int main() {
+    PWM led( TIMER0, 0 );
+    led.setPeriod_kHz( 48 );
+
+    std::cout << "Simulating PWM LED Brightness Control\n\n";
+    std::cout << "Timer Period: " << led.getPeriod_kHz() << " kHz (" << led.getPeriod_ticks() << " ticks)\n\n";
+
+    // Initial state of LED should be off
+    led.setDutyCyclePercent( 0 );
+    std::cout << "Duty cycle set to 0%. Ticks: " << led.getDutyCycleTicks() << '\n';
+
+    // Simulate increasing brightness to 50%
+    led.setDutyCyclePercent( 50 );
+    std::cout << "Duty cycle set to " << +led.getDutyCyclePercent() << "%. Ticks: " << led.getDutyCycleTicks() << '\n';
+
+    // Full brightness
+    led.setDutyCyclePercent( 100 );
+    std::cout << "Duty cycle set to " << +led.getDutyCyclePercent() << "%. Ticks: " << led.getDutyCycleTicks() << '\n';
+
+    std::cout << "\nSimulation completed successfully.\n";
 
     return 0;
 }

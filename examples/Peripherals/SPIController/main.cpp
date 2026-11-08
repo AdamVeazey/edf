@@ -9,6 +9,13 @@
 #include <EDF/Peripherals/GPIO.hpp>
 #include <EDF/Math.hpp>
 
+#include <iostream>
+#include <iomanip>
+
+// ---------------------------------------------------------------------------
+// --------------------- Buildable Documentation Snippts ---------------------
+// ---------------------------------------------------------------------------
+
 struct MCU_GPIO_T {
     volatile uint32_t DATA_REGISTER;
 };
@@ -95,9 +102,7 @@ public:
 };
 // end::mock_spi_controller[]
 
-int main() {
-    using namespace std;
-
+void docSnippets() {
     // tag::init[]
     GPIO chipSelect( GPIO_PORTA, 5 );
     SPIController spi0( SPI0, chipSelect );
@@ -151,6 +156,54 @@ int main() {
     Response response = spi0.transfer( data, EDF::nElements(data) );
     // end::spi_transfer_byte_array[]
     (void)response;
+}
+
+// ---------------------------------------------------------------------------
+// --------------------------- Simple Example --------------------------------
+// ---------------------------------------------------------------------------
+
+int main() {
+    GPIO chipSelect( GPIO_PORTA, 5 );
+    SPIController spi( SPI0, chipSelect );
+
+    std::cout << "Simulating SPI device communication\n\n";
+
+    spi.select();
+    auto response = spi.transfer( 0x50 );
+    spi.deselect();
+
+    using Response = SPIController::Response;
+    if( response == Response::Ok ) {
+        std::cout << "Value: 0x" << std::hex << +response.data() << std::dec << '\n';
+    }
+    else {
+        std::cout << "Response: ";
+        switch( response ){
+        case Response::ErrorBusy:       std::cout << "ErrorBusy";       break;
+        case Response::ErrorOverrun:    std::cout << "ErrorOverrun";    break;
+        case Response::Error:           std::cout << "Error";           break;
+        case Response::ErrorTimeout:    std::cout << "ErrorTimeout";    break;
+        }
+        std::cout << '\n';
+    }
+
+    uint8_t multi[] = { 1, 2, 3, 4, 5, };
+    spi.select();
+    auto resp = spi.transfer( multi, EDF::nElements(multi) );
+    spi.deselect();
+
+    if( resp == Response::Ok ) {
+        std::cout << "Values returned in multi: ";
+        for( auto v : multi ) {
+            std::cout << +v << ' ';
+        }
+        std::cout << '\n';
+    }
+    else {
+        std::cout << "Response error\n";
+    }
+
+    std::cout << "\nSimulation completed successfully.\n";
 
     return 0;
 }
