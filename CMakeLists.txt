@@ -22,6 +22,12 @@ option(EDF_ENABLE_LTO        "Enable Link-Time Optimization" OFF)
 option(EDF_BUILD_TESTS       "Build unit tests"              OFF)
 option(EDF_BUILD_EXAMPLES    "Build examples"                OFF)
 
+# Decided to make this CMakeLists.txt file impure by adding zephyr specific
+# stuff here instead of duplicating a mostly the same CMakeLists.txt under
+# zephyr/CMakeLists.txt
+# If support is ever added for ESP-IDF, I'll also make an exception and jam
+# that logic in here too. Other frameworks will not get this special treatment
+
 if(DEFINED ZEPHYR_BASE)
     if(DEFINED CONFIG_EDF_PERIPHERALS)
         set(EDF_BUILD_PERIPHERALS ${CONFIG_EDF_PERIPHERALS})
@@ -118,6 +124,18 @@ target_sources(EDF
     PRIVATE
         src/String.cpp
 )
+
+if(TARGET zephyr_interface)
+    target_sources(EDF
+        PRIVATE
+        src/Platform/AssertZephyr.cpp
+    )
+else()
+    target_sources(EDF
+        PRIVATE
+        src/Platform/AssertStandard.cpp
+    )
+endif()
 
 edf_apply_common_settings(EDF)
 

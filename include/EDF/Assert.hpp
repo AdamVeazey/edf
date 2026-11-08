@@ -7,17 +7,6 @@
 
 #pragma once
 
-#if defined(__ZEPHYR__)
-    #include <zephyr/kernel.h>
-    #include <zephyr/sys/printk.h>
-    #define NEDF_TARGET_ZEPHYR 1
-#else
-    #include <cstddef>
-    #include <cstdio>
-    #include <cstdlib>
-    #define NEDF_TARGET_ZEPHYR 0
-#endif
-
 // TODO: keep an eye out for C++23 support to use <stacktrace>
 
 // TODO: __PRETTY_FUNCTION__ is not standard. Add in a bunch of #defines
@@ -57,34 +46,29 @@
 #define PRINT_FILE_NAME_LINE_NUM_VALUE      /* empty */
 #endif
 
-#ifndef NEDF_ASSERT_PRINT
-    #if NEDF_TARGET_ZEPHYR
-        #define NEDF_INTERNAL_PRINT(...) printk(__VA_ARGS__)
-    #else
-        #define NEDF_INTERNAL_PRINT(...) std::fprintf(stderr, __VA_ARGS__)
-    #endif
+namespace EDF::impl {
+    void assertion_failed(const char* format, ...);
+    [[noreturn]] void assertion_abort();
+}
 
-    #define ASSERT_PRINT_ENABLED( condition, assumption )   \
-        NEDF_INTERNAL_PRINT(                                \
-            "\nAssert failed!\ncondition:  !(%s)\n"         \
-            PRINT_ASSUMPTION_FORMAT                         \
-            PRINT_FUNCTION_NAME_FORMAT                      \
-            PRINT_FILE_NAME_LINE_NUM_FORMAT,                \
-            #condition                                      \
-            PRINT_ASSUMPTION_VALUE(assumption)              \
-            PRINT_FUNCTION_NAME_VALUE                       \
-            PRINT_FILE_NAME_LINE_NUM_VALUE                  \
+#ifndef NEDF_ASSERT_PRINT
+    #define ASSERT_PRINT_ENABLED( condition, assumption )               \
+        ::EDF::impl::assertion_failed(                                \
+            "\nAssert failed!\ncondition:  !(%s)\n"                     \
+            PRINT_ASSUMPTION_FORMAT                                     \
+            PRINT_FUNCTION_NAME_FORMAT                                  \
+            PRINT_FILE_NAME_LINE_NUM_FORMAT,                            \
+            #condition                                                  \
+            PRINT_ASSUMPTION_VALUE(assumption)                          \
+            PRINT_FUNCTION_NAME_VALUE                                   \
+            PRINT_FILE_NAME_LINE_NUM_VALUE                              \
         );
 #else
-#define ASSERT_PRINT_ENABLED( condition, assumption )
+    #define ASSERT_PRINT_ENABLED( condition, assumption ) ((void)0)
 #endif
 
 #ifndef NEDF_ASSERT_ABORT
-    #if NEDF_TARGET_ZEPHYR
-        #define NEDF_INTERNAL_ABORT() k_panic()
-    #else
-        #define NEDF_INTERNAL_ABORT() std::abort()
-    #endif
+    #define NEDF_INTERNAL_ABORT() ::EDF::impl::assertion_abort()
 #endif
 
 /* tag::EDF_ASSERT[] */
