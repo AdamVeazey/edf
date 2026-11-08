@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Array&lt;T, N&gt; :: EDF</title>
+    <link rel="canonical" href="https://adamveazey.github.io/edf/docs/main/docs/main/array.html">
+    <meta name="generator" content="Antora 3.2.2">
+    <link rel="stylesheet" href="../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://adamveazey.github.io/edf/docs/main">EDF</a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Products</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Product A</a>
+            <a class="navbar-item" href="#">Product B</a>
+            <a class="navbar-item" href="#">Product C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Services</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Service A</a>
+            <a class="navbar-item" href="#">Service B</a>
+            <a class="navbar-item" href="#">Service C</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="docs" data-version="v1.1.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">EDF</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="edf.html">EDF</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">STL-Like Containers</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="array.html">Array</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="vector.html">Vector</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="stack.html">Stack</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="queue.html">Queue</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="heap.html">Heap</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Miscellaneous</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="assert.html">Assert</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="string.html">String</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="version.html">Version</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="math.html">Math</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="bit_field.html">BitField</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="color.html">Color</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="peripherals/peripherals.html">Peripherals</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/gpio.html">GPIO</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/spi_controller.html">SPI Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/i2c_controller.html">I2C Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/uart.html">UART</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/pwm.html">PWM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/timer.html">Timer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/adc.html">ADC</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/dac.html">DAC</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/wdt.html">WDT</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/rtc.html">RTC</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="drivers/drivers.html">Drivers</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="drivers/led_rgb.html">RGB LED</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="drivers/soft_timer.html">SoftTimer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Memory</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <span class="nav-text">EEPROM</span>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <span class="nav-text">Flash</span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">ADC</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">IMU</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">IOExpander</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">Sensors</span>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="mcu/mcu.html">MCU</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">ST</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">Nordic</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">Espressif</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">NXP</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">TI</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">AVR</span>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">EDF</span>
+    <span class="version">v1.1.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../main/index.html">EDF</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../main/index.html">main</a>
+        </li>
+        <li class="version is-current">
+          <a href="index.html">v1.1.0</a>
+        </li>
+        <li class="version">
+          <a href="../v1.0.1/index.html">v1.0.1</a>
+        </li>
+        <li class="version">
+          <a href="../v1.0.0/index.html">v1.0.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="edf.html">EDF</a></li>
+    <li>STL-Like Containers</li>
+    <li><a href="array.html">Array</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">v1.1.0</button>
+  <div class="version-menu">
+    <a class="version" href="../main/array.html">main</a>
+    <a class="version is-current" href="array.html">v1.1.0</a>
+    <a class="version" href="../v1.0.1/array.html">v1.0.1</a>
+    <a class="version" href="../v1.0.0/array.html">v1.0.0</a>
+  </div>
+</div>
+<div class="edit-this-page"><a href="https://github.com/AdamVeazey/edf/blob/v1.1.0/docs/modules/ROOT/pages/array.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Array&lt;T, N&gt;</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<div class="title">Template arguments</div>
+<p><code>T</code> = (T)ype<br>
+<code>N</code> = (N)umber of elements the array can hold</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Array is a template wrapper around a regular array. It is almost exactly like a C-style array except that it will not decay to a T* automatically and the total size can be easily found by using <code>maxLength()</code>. Array can also use the assignment operator and equality operator to copy one array into another, or compare if two arrays have all the same elements.</p>
+</div>
+<div class="paragraph">
+<p>There are 4 groups of member functions:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="#_element_access">Element Access</a></p>
+</li>
+<li>
+<p><a href="#_capacity">Capacity</a></p>
+</li>
+<li>
+<p><a href="#_operations">Operations</a></p>
+</li>
+<li>
+<p><a href="#_iterators">Iterators</a></p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>T</code> <em>Needs</em> to be copyable, and <em>helps</em> if <code>T</code> is also default constructable.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_initialization"><a class="anchor" href="#_initialization"></a>Initialization</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Default initialization requires type <code>T</code> to be default constructable. Otherwise <a href="https://en.cppreference.com/w/cpp/language/list_initialization">List-initialization</a> is required.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example: Plain Old Data (<a href="https://stackoverflow.com/a/146454/19291638">POD</a>)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Array&lt;int, 4&gt; array;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Example: Custom Type</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">struct CustomType {
+    int value;
+    CustomType( int v ) : value(v) {}
+};
+
+EDF::Array&lt;CustomType, 4&gt; array2 = {
+    CustomType(5),
+    CustomType(6),
+    CustomType(7),
+    CustomType(8)
+};</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Example: Copy Assignment</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Array&lt;CustomType, 4&gt; array3 = array2;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_element_access"><a class="anchor" href="#_element_access"></a>Element Access</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Elements can be accessed in a few different ways. The first is the "standard" method, and the others have a few benefits over the standard method that may be useful depending on the use case.</p>
+</div>
+<hr>
+<div class="sect2">
+<h3 id="_operator"><a class="anchor" href="#_operator"></a>operator[]</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Array&lt;int, 4&gt; array;
+array[0] = 1;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is exactly the same as with a C-style array.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This also means that there is no boundary checking, so it is possible to attempt to access data outside of the array.
+</td>
+</tr>
+</table>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="at"><a class="anchor" href="#at"></a>at( index )</h3>
+<div class="paragraph">
+<p><code>index</code> is checked with <a href="assert.html#_edf_assertd" class="xref page">EDF_ASSERTD</a> to be sure index is valid. In this example <code>abort()</code> is called when built in Debug mode.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::Array&lt;int, 4&gt; array;
+// array.at( 40 ) = 100; // Throws out-of-bounds error</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_front"><a class="anchor" href="#_front"></a>front()</h3>
+<div class="paragraph">
+<p>Return the first element of the array. Calls <a href="#at">at( index )</a></p>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_end"><a class="anchor" href="#_end"></a>end()</h3>
+<div class="paragraph">
+<p>Return the last element of the array (N - 1). Calls <a href="#at">at( index )</a></p>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_data"><a class="anchor" href="#_data"></a>data()</h3>
+<div class="paragraph">
+<p>Returns a pointer to the first element of the array, this is the same as a C-style array decaying into a pointer.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_capacity"><a class="anchor" href="#_capacity"></a>Capacity</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_maxlength"><a class="anchor" href="#_maxlength"></a>maxLength()</h3>
+<div class="paragraph">
+<p>Returns template parameter N. It acts the same as a compile time constant. No need to remember how a macro for an array size is named.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_operations"><a class="anchor" href="#_operations"></a>Operations</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_fill_value"><a class="anchor" href="#_fill_value"></a>fill( value )</h3>
+<div class="paragraph">
+<p>Sets each element in the array with <code>value</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_clear"><a class="anchor" href="#_clear"></a>clear()</h3>
+<div class="paragraph">
+<p>If <code>T</code> is default constructable, this will set every element of the array to the value of <code>T()</code>
+If <code>T</code> is <strong>NOT</strong> default constructable, this function cannot be called. A static_assert() will generate a compile error if this is attempted.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_operator_lhs_rhs"><a class="anchor" href="#_operator_lhs_rhs"></a>operator==( lhs, rhs )</h3>
+<div class="paragraph">
+<p><code>lhs</code> = left hand side<br>
+<code>rhs</code> = right hand side<br>
+Compare two arrays to see if each element in <code>lhs</code> and <code>rhs</code> are equal.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_iterators"><a class="anchor" href="#_iterators"></a>Iterators</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Forward iterators and const iterators are available through <code>begin()</code>, <code>end()</code>, <code>cbegin()</code>, <code>cend()</code></p>
+</div>
+<div class="paragraph">
+<p>Revese iterators and const reverse iterators are available through <code>rbegin()</code>, <code>rend()</code>, <code>crbegin()</code>, <code>crend()</code></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<a href="https://en.cppreference.com/w/cpp/language/range-for">Range-based for loops</a> are therefore supported.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Peripherals :: EDF</title>
+    <link rel="canonical" href="https://adamveazey.github.io/edf/docs/main/docs/main/peripherals/peripherals.html">
+    <meta name="generator" content="Antora 3.2.2">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://adamveazey.github.io/edf/docs/main">EDF</a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Products</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Product A</a>
+            <a class="navbar-item" href="#">Product B</a>
+            <a class="navbar-item" href="#">Product C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Services</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Service A</a>
+            <a class="navbar-item" href="#">Service B</a>
+            <a class="navbar-item" href="#">Service C</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="docs" data-version="v1.1.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">EDF</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../edf.html">EDF</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">STL-Like Containers</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../array.html">Array</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../vector.html">Vector</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../stack.html">Stack</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../queue.html">Queue</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../heap.html">Heap</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Miscellaneous</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../assert.html">Assert</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../string.html">String</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../version.html">Version</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../math.html">Math</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../bit_field.html">BitField</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../color.html">Color</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="peripherals.html">Peripherals</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="gpio.html">GPIO</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="spi_controller.html">SPI Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="i2c_controller.html">I2C Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="uart.html">UART</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pwm.html">PWM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="timer.html">Timer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="adc.html">ADC</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dac.html">DAC</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="wdt.html">WDT</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="rtc.html">RTC</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../drivers/drivers.html">Drivers</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../drivers/led_rgb.html">RGB LED</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../drivers/soft_timer.html">SoftTimer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Memory</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <span class="nav-text">EEPROM</span>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <span class="nav-text">Flash</span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">ADC</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">IMU</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">IOExpander</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">Sensors</span>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../mcu/mcu.html">MCU</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">ST</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">Nordic</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">Espressif</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">NXP</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">TI</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">AVR</span>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">EDF</span>
+    <span class="version">v1.1.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../../main/index.html">EDF</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../main/index.html">main</a>
+        </li>
+        <li class="version is-current">
+          <a href="../index.html">v1.1.0</a>
+        </li>
+        <li class="version">
+          <a href="../../v1.0.1/index.html">v1.0.1</a>
+        </li>
+        <li class="version">
+          <a href="../../v1.0.0/index.html">v1.0.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">EDF</a></li>
+    <li><a href="peripherals.html">Peripherals</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">v1.1.0</button>
+  <div class="version-menu">
+    <a class="version" href="../../main/peripherals/peripherals.html">main</a>
+    <a class="version is-current" href="peripherals.html">v1.1.0</a>
+    <a class="version" href="../../v1.0.1/peripherals/peripherals.html">v1.0.1</a>
+    <a class="version" href="../../v1.0.0/peripherals/peripherals.html">v1.0.0</a>
+  </div>
+</div>
+<div class="edit-this-page"><a href="https://github.com/AdamVeazey/edf/blob/v1.1.0/docs/modules/peripherals/pages/peripherals.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Peripherals</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="ulist">
+<div class="title">Dependencies</div>
+<ul>
+<li>
+<p><a href="../edf.html" class="xref page">EDF</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This contains base classes for common peripherals used by <a href="../drivers/drivers.html" class="xref page">Drivers</a>. None of these files contain platform specific information within them. They do provide the interfaces you need in order to write a portable driver.</p>
+</div>
+<div class="paragraph">
+<p>Each implementation of a peripheral for a specific micro controller should define two classes. The first is a FooFast and a Foo version of the same class, where Foo is the name of the peripheral. That way you can write a driver using the generic Foo in this collection. If the overhead of a vtable is actually the bottleneck for performance, you can easily switch to use FooFast instead.</p>
+</div>
+<div class="paragraph">
+<div class="title">Example</div>
+<p>If there is a file in this collection called Foo.hpp that looks like the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">class Foo {
+public:
+    virtual void bar() = 0; <i class="conum" data-value="1"></i><b>(1)</b>
+    virtual ~Foo() = default;
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>member function derived class has to implement</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The implementation for a specific MCU (EDF/MCU/&lt;name&gt;/Foo.hpp) might look something like the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">class FooFast {
+public:
+    void bar(); <i class="conum" data-value="1"></i><b>(1)</b>
+}
+
+class Foo : public FooFast, EDF::Foo {
+public:
+    inline void bar() override { FooFast::bar(); } <i class="conum" data-value="2"></i><b>(2)</b>
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>real implementation of member function <code>EDF::Foo</code> requires</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>"joining" the two member functions together so <code>Foo::bar()</code> effectively becomes <code>FooFast::bar()</code>, but with the vtable overhead along with ability to be used generically.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

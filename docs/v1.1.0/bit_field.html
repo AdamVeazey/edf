@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>BitField&lt;T&gt; :: EDF</title>
+    <link rel="canonical" href="https://adamveazey.github.io/edf/docs/main/docs/main/bit_field.html">
+    <meta name="generator" content="Antora 3.2.2">
+    <link rel="stylesheet" href="../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://adamveazey.github.io/edf/docs/main">EDF</a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Products</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Product A</a>
+            <a class="navbar-item" href="#">Product B</a>
+            <a class="navbar-item" href="#">Product C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Services</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Service A</a>
+            <a class="navbar-item" href="#">Service B</a>
+            <a class="navbar-item" href="#">Service C</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="docs" data-version="v1.1.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">EDF</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="edf.html">EDF</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">STL-Like Containers</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="array.html">Array</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="vector.html">Vector</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="stack.html">Stack</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="queue.html">Queue</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="heap.html">Heap</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Miscellaneous</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="assert.html">Assert</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="string.html">String</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="version.html">Version</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="math.html">Math</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="bit_field.html">BitField</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="color.html">Color</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="peripherals/peripherals.html">Peripherals</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/gpio.html">GPIO</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/spi_controller.html">SPI Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/i2c_controller.html">I2C Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/uart.html">UART</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/pwm.html">PWM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/timer.html">Timer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/adc.html">ADC</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/dac.html">DAC</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/wdt.html">WDT</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/rtc.html">RTC</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="drivers/drivers.html">Drivers</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="drivers/led_rgb.html">RGB LED</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="drivers/soft_timer.html">SoftTimer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Memory</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <span class="nav-text">EEPROM</span>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <span class="nav-text">Flash</span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">ADC</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">IMU</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">IOExpander</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">Sensors</span>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="mcu/mcu.html">MCU</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">ST</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">Nordic</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">Espressif</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">NXP</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">TI</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">AVR</span>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">EDF</span>
+    <span class="version">v1.1.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../main/index.html">EDF</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../main/index.html">main</a>
+        </li>
+        <li class="version is-current">
+          <a href="index.html">v1.1.0</a>
+        </li>
+        <li class="version">
+          <a href="../v1.0.1/index.html">v1.0.1</a>
+        </li>
+        <li class="version">
+          <a href="../v1.0.0/index.html">v1.0.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="edf.html">EDF</a></li>
+    <li>Miscellaneous</li>
+    <li><a href="bit_field.html">BitField</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">v1.1.0</button>
+  <div class="version-menu">
+    <a class="version" href="../main/bit_field.html">main</a>
+    <a class="version is-current" href="bit_field.html">v1.1.0</a>
+    <a class="version" href="../v1.0.1/bit_field.html">v1.0.1</a>
+    <a class="version" href="../v1.0.0/bit_field.html">v1.0.0</a>
+  </div>
+</div>
+<div class="edit-this-page"><a href="https://github.com/AdamVeazey/edf/blob/v1.1.0/docs/modules/ROOT/pages/bit_field.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">BitField&lt;T&gt;</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<div class="title">Template arguments</div>
+<p><code>T</code> = Integer (T)ype where expected values are <code>uint8_t</code>, <code>uint16_t</code>, <code>uint32_t</code>, or <code>uint64_t</code></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>BitField is designed as a building block for naming bits within a register. BitField ensures that only the specific bits within the register you&#8217;re interested in are modified or read. This should reduce the number of bugs related to bit manipulation. Another goal of BitField is to create derived classes that have descriptive names to reduce the number of times you have to reference a datasheet. <a href="#PSR">ARM Cortex-M0 PSR</a> and <a href="#Config">BME280 config</a> are two examples of how you might use a BitField. <a href="color.html" class="xref page">Color</a> uses BitField to represent RGB(A) values in a single value.</p>
+</div>
+<div class="sect2">
+<h3 id="_bitfield8"><a class="anchor" href="#_bitfield8"></a>BitField8</h3>
+<div class="paragraph">
+<p>This is an alias for a BitField of 8 bits</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">using BitField8 = BitField&lt;std::uint8_t&gt;;</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_bitfield16"><a class="anchor" href="#_bitfield16"></a>BitField16</h3>
+<div class="paragraph">
+<p>This is an alias for a BitField of 16 bits</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">using BitField16 = BitField&lt;std::uint16_t&gt;;</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_bitfield32"><a class="anchor" href="#_bitfield32"></a>BitField32</h3>
+<div class="paragraph">
+<p>This is an alias for a BitField of 32 bits</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">using BitField32 = BitField&lt;std::uint32_t&gt;;</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_bitfield64"><a class="anchor" href="#_bitfield64"></a>BitField64</h3>
+<div class="paragraph">
+<p>This is an alias for a BitField of 64 bits</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">using BitField64 = BitField&lt;std::uint64_t&gt;;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_initialization"><a class="anchor" href="#_initialization"></a>Initialization</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If using a default constructor the initial value will be 0.</p>
+</div>
+<div class="listingblock">
+<div class="title">Default Constructor</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::BitField32 bitfield;</code></pre>
+</div>
+</div>
+<hr>
+<div class="listingblock">
+<div class="title">From Value</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::BitField8 bitfieldWithValue( 0xB1 );</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_operations"><a class="anchor" href="#_operations"></a>Operations</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_set_startbit_span_value"><a class="anchor" href="#_set_startbit_span_value"></a>set( startBit, span, value )</h3>
+<div class="paragraph">
+<p>Assigns value to the BitField at <code>startBit</code> for <code>span</code> number of bits.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::BitField32 bitfield;
+bitfield.set( 8, 16, 0xAA55 ); // 0x00AA5500</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/set_8_16_0xAA55.png" alt="set 8 16 0xAA55">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_get_startbit_span"><a class="anchor" href="#_get_startbit_span"></a>get( startBit, span )</h3>
+<div class="paragraph">
+<p>Reads the value from the BitField at <code>startBit</code> for <code>span</code> number of bits.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">EDF::BitField32 bitfield;
+bitfield.set( 8, 16, 0xAA55 ); // 0x00AA5500
+bitfield.get( 12, 8 ); // 0x000000A5</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/get_12_8.png" alt="get 12 8">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_operator_const_t"><a class="anchor" href="#_operator_const_t"></a>operator const T&amp;()</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">uint32_t value = bitfield &amp; 0xFFFF;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="PSR"><a class="anchor" href="#PSR"></a><a href="https://developer.arm.com/documentation/dui0497/a/the-cortex-m0-processor/programmers-model/core-registers?lang=en">ARM Cortex-M0 PSR Registers</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Cortex-M0 Program Status Register
+// Composed of APSR (Application), IPSR (Interrupt), and EPSR (Execution)
+class PSR : public EDF::BitField32 {
+public:
+    enum class InterruptExceptionNumber {
+        ThreadMode  = 0,
+        NMI         = 2,
+        HardFault   = 3,
+        PendSV      = 14,
+        SysTick     = 15, // Might not be implemented
+        IRQ0,  IRQ1,  IRQ2,  IRQ3,
+        IRQ4,  IRQ5,  IRQ6,  IRQ7,
+        IRQ8,  IRQ9,  IRQ10, IRQ11,
+        IRQ12, IRQ13, IRQ14, IRQ15,
+        IRQ16, IRQ17, IRQ18, IRQ19,
+        IRQ20, IRQ21, IRQ22, IRQ23,
+        IRQ24, IRQ25, IRQ26, IRQ27,
+        IRQ28, IRQ29, IRQ30, IRQ31,
+        // else Reserved
+    };
+    using IEN = InterruptExceptionNumber;
+public:
+    using EDF::BitField32::BitField;
+
+    /* IPSR bits */
+    constexpr IEN getInterruptExceptionNumber()     const { return static_cast&lt;IEN&gt;(get( 0, 6 )); }
+    constexpr IEN getIEN()                          const { return getInterruptExceptionNumber(); }
+    constexpr PSR&amp; setInterruptExceptionNumber( IEN n )   { set( 0, 6, static_cast&lt;uint32_t&gt;(n) ); return *this; }
+    constexpr PSR&amp; setIEN( IEN n )                        { setInterruptExceptionNumber( n ); return *this; }
+
+    /* EPSR bits */
+    constexpr bool isExecutionThumbBitSet()         const { return get( 24, 1 ); }
+    constexpr bool isT()                            const { return isExecutionThumbBitSet(); }
+    constexpr PSR&amp; setExecutionThumbBit( bool v )         { set( 24, 1, v ); return *this; }
+    constexpr PSR&amp; setT( bool v )                         { setExecutionThumbBit( v ); return *this; }
+
+    /* APSR bits */
+    constexpr bool isApplicationOverflowSet()       const { return get( 28, 1 ); }
+    constexpr bool isV()                            const { return isApplicationOverflowSet(); }
+    constexpr PSR&amp; setApplicationOverflow( bool v )       { set( 28, 1, v ); return *this; }
+    constexpr PSR&amp; setV( bool v )                         { setApplicationOverflow( v ); return *this; }
+
+    constexpr bool isApplicationCarryBorrowSet()    const { return get( 29, 1 ); }
+    constexpr bool isC()                            const { return isApplicationCarryBorrowSet(); }
+    constexpr PSR&amp; setApplicationCarryBorrow( bool v )    { set( 29, 1, v ); return *this; }
+    constexpr PSR&amp; setC( bool v )                         { setApplicationCarryBorrow( v ); return *this; }
+
+    constexpr bool isApplicationZeroSet()           const { return get( 30, 1 ); }
+    constexpr bool isZ()                            const { return isApplicationZeroSet(); }
+    constexpr PSR&amp; setApplicationZero( bool v )           { set( 30, 1, v ); return *this; }
+    constexpr PSR&amp; setZ( bool v )                         { setApplicationZero( v ); return *this; }
+
+    constexpr bool isApplicationNegativeSet()       const { return get( 31, 1 ); }
+    constexpr bool isN()                            const { return isApplicationNegativeSet(); }
+    constexpr PSR&amp; setApplicationNegative( bool v )       { set( 31, 1, v ); return *this; }
+    constexpr PSR&amp; setN( bool v )                         { setApplicationNegative( v ); return *this; }
+};
+
+void function() {
+    PSR currentState = 0x41000000;
+    bool isEqual = currentState.isApplicationZeroSet();
+    bool isGreaterThan = !isEqual &amp;&amp; currentState.isN() == currentState.isV();
+    if( isGreaterThan ) {
+        currentState.setIEN( PSR::IEN::IRQ23 ); // software trigger interrupt
+    }
+    else if( currentState.isApplicationZeroSet() ) {
+        currentState.setIEN( PSR::IEN::HardFault ); // software trigger interrupt
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Config"><a class="anchor" href="#Config"></a><a href="https://www.mouser.com/datasheet/2/783/BST-BME280-DS002-1509607.pdf#page=30">BME280 Config register</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// BME280 - Combined humidity and pressure sensor
+class Config : public EDF::BitField8 {
+public:
+    enum class Filter {
+        OFF     = 0b000,
+        Two     = 0b001,
+        Four    = 0b010,
+        Eight   = 0b011,
+        Sixteen = 0b100
+    };
+    enum class InactiveDuration {
+        MS_0_5  = 0b000, // 0.5 ms
+        MS_62_5 = 0b001, // 62.5 ms
+        MS_125  = 0b010, // 125 ms
+        MS_250  = 0b011, // 250 ms
+        MS_500  = 0b100, // 500 ms
+        MS_1000 = 0b101, // 1000 ms
+        MS_10   = 0b110, // 10 ms
+        MS_20   = 0b111, // 20 ms
+    };
+public:
+    using EDF::BitField8::BitField;
+
+    /* 3-wire SPI enabled = 1, disabled = 0 */
+    constexpr bool isSPI3w_en() const { return get( 0, 1 ); }
+    constexpr Config&amp; setSPI3w_en( bool enable ) { set( 0, 1, enable ); return *this; }
+
+    /* IIR time constant */
+    constexpr Filter getFilter() const { return static_cast&lt;Filter&gt;(get( 2, 3 )); }
+    constexpr Config&amp; setFilter( Filter f ) { set( 2, 3, static_cast&lt;uint8_t&gt;(f) ); return *this; }
+
+    /* Inactive duration t_standby in normal mode */
+    constexpr InactiveDuration getT_sb() const { return static_cast&lt;InactiveDuration&gt;(get( 5, 3 )); }
+    constexpr InactiveDuration getInactiveDuration() const { return getT_sb(); }
+    constexpr Config&amp; setT_sb( InactiveDuration d ) { set( 5, 3, static_cast&lt;uint8_t&gt;(d)); return *this; }
+    constexpr Config&amp; setInactiveDuration( InactiveDuration d ) { setT_sb( d ); return *this; }
+};
+
+void BME280_init() {
+    // ...
+    Config()
+        .setSPI3w_en( false )
+        .setFilter( Config::Filter::OFF )
+        .setInactiveDuration( Config::InactiveDuration::MS_10 );
+    // ...
+}
+
+Config readConfig() {
+    // Imagine this value was read from the sensor
+    return Config( 0xC0 );
+}
+
+void someOtherFunction() {
+    // Imagine Config
+    if( readConfig().getInactiveDuration() == Config::InactiveDuration::MS_10 ) {
+        /* ...  */
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Assert :: EDF</title>
+    <link rel="canonical" href="https://adamveazey.github.io/edf/docs/main/docs/main/assert.html">
+    <meta name="generator" content="Antora 3.2.2">
+    <link rel="stylesheet" href="../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://adamveazey.github.io/edf/docs/main">EDF</a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Products</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Product A</a>
+            <a class="navbar-item" href="#">Product B</a>
+            <a class="navbar-item" href="#">Product C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Services</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Service A</a>
+            <a class="navbar-item" href="#">Service B</a>
+            <a class="navbar-item" href="#">Service C</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="docs" data-version="v1.1.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">EDF</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="edf.html">EDF</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">STL-Like Containers</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="array.html">Array</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="vector.html">Vector</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="stack.html">Stack</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="queue.html">Queue</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="heap.html">Heap</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Miscellaneous</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="assert.html">Assert</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="string.html">String</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="version.html">Version</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="math.html">Math</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="bit_field.html">BitField</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="color.html">Color</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="peripherals/peripherals.html">Peripherals</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/gpio.html">GPIO</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/spi_controller.html">SPI Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/i2c_controller.html">I2C Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/uart.html">UART</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/pwm.html">PWM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/timer.html">Timer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/adc.html">ADC</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/dac.html">DAC</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/wdt.html">WDT</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="peripherals/rtc.html">RTC</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="drivers/drivers.html">Drivers</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="drivers/led_rgb.html">RGB LED</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="drivers/soft_timer.html">SoftTimer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Memory</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <span class="nav-text">EEPROM</span>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <span class="nav-text">Flash</span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">ADC</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">IMU</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">IOExpander</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">Sensors</span>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="mcu/mcu.html">MCU</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">ST</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">Nordic</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">Espressif</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">NXP</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">TI</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">AVR</span>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">EDF</span>
+    <span class="version">v1.1.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../main/index.html">EDF</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../main/index.html">main</a>
+        </li>
+        <li class="version is-current">
+          <a href="index.html">v1.1.0</a>
+        </li>
+        <li class="version">
+          <a href="../v1.0.1/index.html">v1.0.1</a>
+        </li>
+        <li class="version">
+          <a href="../v1.0.0/index.html">v1.0.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="edf.html">EDF</a></li>
+    <li>Miscellaneous</li>
+    <li><a href="assert.html">Assert</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">v1.1.0</button>
+  <div class="version-menu">
+    <a class="version" href="../main/assert.html">main</a>
+    <a class="version is-current" href="assert.html">v1.1.0</a>
+    <a class="version" href="../v1.0.1/assert.html">v1.0.1</a>
+    <a class="version" href="../v1.0.0/assert.html">v1.0.0</a>
+  </div>
+</div>
+<div class="edit-this-page"><a href="https://github.com/AdamVeazey/edf/blob/v1.1.0/docs/modules/ROOT/pages/assert.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Assert</h1>
+<div class="sect1">
+<h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Assert is used to declare that a specific condition is true. There are two versions of assert, <a href="#_edf_assert">EDF_ASSERT</a> and <a href="#_edf_assertd">EDF_ASSERTD</a>.</p>
+</div>
+<div class="paragraph">
+<p>EDF in general doesn&#8217;t use macros. However, <code>EDF_ASSERT</code> uses <code>__FILE__</code>, <code>__PRETTY_FUNCTION__</code>, and <code>__LINE__</code>. Therefore, EDF_ASSERT also <em>needs</em> to be a macro.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuration"><a class="anchor" href="#_configuration"></a>Configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are a few macros intended to be defined by compiler flags in order to disable features.
+. <code>NDEBUG</code>
+. <code>NEDF_ASSERT_PRINT_ASSUMPTION</code>
+. <code>NEDF_ASSERT_PRINT_FUNCTION_NAME</code>
+. <code>NEDF_ASSERT_PRINT_FILE_NAME_LINE_NUM</code>
+. <code>NEDF_ASSERT_PRINT</code></p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">void function( int x, int y ) {
+    EDF_ASSERT( x &gt; y, "x is greater than y");
+    /* ... */
+}
+/* ... */
+function( 5, 10 );
+
+/* Output to stderr would be
+Assert failed!
+condition:  !(x &gt; y)
+assumption: x is greater than y
+function:   'void function(int, int)'
+/home/&lt;user&gt;/Path/to/your/project/file.cpp:123
+*/
+
+/* Defining the following macros would prevent the following line from being output
+Assert failed!
+condition:  !(x &gt; y)
+assumption: x is greater than y                 NEDF_ASSERT_PRINT_ASSUMPTION
+function:   'void function(int, int)'           NEDF_ASSERT_PRINT_FUNCTION_NAME
+/home/&lt;user&gt;/Path/to/your/project/file.cpp:123  NEDF_ASSERT_PRINT_FILE_NAME_LINE_NUM
+*/
+
+/* If NEDF_ASSERT_PRINT is defined, nothing is output to stderr. Only std::abort() is called */</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ndebug"><a class="anchor" href="#_ndebug"></a>NDEBUG</h3>
+<div class="paragraph">
+<p>This is a typical macro that when defined disables debug related features. In this case, it will completely remove all instances of <a href="#_edf_assertd">EDF_ASSERTD</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The other macros <a href="#_nedf_assert_print_assumption">NEDF_ASSERT_PRINT_ASSUMPTION</a>, <a href="#_nedf_assert_print_function_name">NEDF_ASSERT_PRINT_FUNCTION_NAME</a>, <a href="#_nedf_assert_print_file_name_line_num">NEDF_ASSERT_PRINT_FILE_NAME_LINE_NUM</a>, and <a href="#_nedf_assert_print">NEDF_ASSERT_PRINT</a> still effect <a href="#_edf_assert">EDF_ASSERT</a>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_nedf_assert_print_assumption"><a class="anchor" href="#_nedf_assert_print_assumption"></a>NEDF_ASSERT_PRINT_ASSUMPTION</h3>
+<div class="paragraph">
+<p>If this macro is defined, then the <code>assumption</code> string is not used in the assert output to <code>stderr</code>.</p>
+</div>
+<div class="paragraph">
+<p>Adding every single string literal used for <a href="#_edf_assert">EDF_ASSERT</a> and <a href="#_edf_assertd">EDF_ASSERTD</a> to the final binary can waste a lot of precious code space. This is one way to reduce the amount of code space <a href="#_edf_assert">EDF_ASSERT</a> uses.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">void function( int x, int y ) {
+    EDF_ASSERT( x &gt; y, "x is greater than y");
+    /* ... */
+}
+/* ... */
+function( 5, 10 );
+
+/* Output to stderr would be
+Assert failed!
+condition:  !(x &gt; y)
+function:   'void function(int, int)'
+/home/&lt;user&gt;/Path/to/your/project/file.cpp:123
+*/</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_nedf_assert_print_function_name"><a class="anchor" href="#_nedf_assert_print_function_name"></a>NEDF_ASSERT_PRINT_FUNCTION_NAME</h3>
+<div class="paragraph">
+<p>If this macro is defined, then the function name string is not used in the assert output to <code>stderr</code>.</p>
+</div>
+<div class="paragraph">
+<p>Adding every single string literal used for <a href="#_edf_assert">EDF_ASSERT</a> and <a href="#_edf_assertd">EDF_ASSERTD</a> to the final binary can waste a lot of precious code space. This is one way to reduce the amount of code space <a href="#_edf_assert">EDF_ASSERT</a> uses.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">void function( int x, int y ) {
+    EDF_ASSERT( x &gt; y, "x is greater than y");
+    /* ... */
+}
+/* ... */
+function( 5, 10 );
+
+/* Output to stderr would be
+Assert failed!
+condition:  !(x &gt; y)
+assumption: x is greater than y
+/home/&lt;user&gt;/Path/to/your/project/file.cpp:123
+*/</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_nedf_assert_print_file_name_line_num"><a class="anchor" href="#_nedf_assert_print_file_name_line_num"></a>NEDF_ASSERT_PRINT_FILE_NAME_LINE_NUM</h3>
+<div class="paragraph">
+<p>If this macro is defined, then the file name (including path) and line number string is not used in the assert output to <code>stderr</code>.</p>
+</div>
+<div class="paragraph">
+<p>Adding every single string literal used for <a href="#_edf_assert">EDF_ASSERT</a> and <a href="#_edf_assertd">EDF_ASSERTD</a> to the final binary can waste a lot of precious code space. This is one way to reduce the amount of code space <a href="#_edf_assert">EDF_ASSERT</a> uses.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">void function( int x, int y ) {
+    EDF_ASSERT( x &gt; y, "x is greater than y");
+    /* ... */
+}
+/* ... */
+function( 5, 10 );
+
+/* Output to stderr would be
+Assert failed!
+condition:  !(x &gt; y)
+assumption: x is greater than y
+function:   'void function(int, int)'
+*/</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_nedf_assert_print"><a class="anchor" href="#_nedf_assert_print"></a>NEDF_ASSERT_PRINT</h3>
+<div class="paragraph">
+<p>If this macro is defined, then nothing is output to <code>stderr</code>. <code>std::abort()</code> is still called.</p>
+</div>
+<div class="paragraph">
+<p>Adding every single string literal used for <a href="#_edf_assert">EDF_ASSERT</a> and <a href="#_edf_assertd">EDF_ASSERTD</a> to the final binary can waste a lot of precious code space. This is one way to reduce the amount of code space <a href="#_edf_assert">EDF_ASSERT</a> uses.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_edf_assert"><a class="anchor" href="#_edf_assert"></a>EDF_ASSERT</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="title">Signature</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">#define EDF_ASSERT( condition, assumption )             \</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>EDF_ASSERT will call abort() if the <code>condition</code> is false.</p>
+</div>
+<div class="paragraph">
+<p>EDF_ASSERT is used when you want the assert to exist in both Debug and Release mode. This means that the definition of the macro is always present no matter what cmake build type is active.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The other macros <a href="#_nedf_assert_print_assumption">NEDF_ASSERT_PRINT_ASSUMPTION</a>, <a href="#_nedf_assert_print_function_name">NEDF_ASSERT_PRINT_FUNCTION_NAME</a>, <a href="#_nedf_assert_print_file_name_line_num">NEDF_ASSERT_PRINT_FILE_NAME_LINE_NUM</a>, and <a href="#_nedf_assert_print">NEDF_ASSERT_PRINT</a> effect <a href="#_edf_assert">EDF_ASSERT</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>__PRETTY_FUNCTION__</code> is used to get function signature info. This is non-standard and may need to change depending on what compiler and version you use.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This does not try to output call stack information, however printing out the condition itself as a string should help in determining what happened. Possibly without needing to navigate to the file and line number <a href="#_edf_assert">EDF_ASSERT</a> is written.
+</td>
+</tr>
+</table>
+</div>
+<hr>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">int main(void){
+
+    EDF_ASSERT( true );     // abort() is NOT called
+    EDF_ASSERT( false );    // abort() IS called, some info is output to stderr
+
+    return 0;
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_edf_assertd"><a class="anchor" href="#_edf_assertd"></a>EDF_ASSERTD</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="title">Signature</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">#ifndef NDEBUG
+#define EDF_ASSERTD( condition, assumption )    EDF_ASSERT( condition, assumption )
+#else
+#define EDF_ASSERTD( condition, assumption )    ((void)(sizeof(condition)))
+#endif /* NDEBUG */</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The 'D' in <code>EDF_ASSERTD</code> stands for Debug.</p>
+</div>
+<div class="paragraph">
+<p><code>EDF_ASSERTD</code> is used when you want the assert to only exist in Debug mode.
+If debug mode is enabled, <code>EDF_ASSERTD</code> simply expands to <code>EDF_ASSERT( condition )</code> else <code>EDF_ASSERTD</code> is expanded to nothing.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The code is considered in debug mode if NDEBUG is NOT defined. Mind the double negative.
+</td>
+</tr>
+</table>
+</div>
+<hr>
+<div class="listingblock">
+<div class="title">Example when debug mode <strong>IS</strong> enabled</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">int main(void){
+
+    EDF_ASSERTD( true );    <i class="conum" data-value="1"></i><b>(1)</b>
+    EDF_ASSERTD( false );   <i class="conum" data-value="2"></i><b>(2)</b>
+
+    return 0;
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>abort() is NOT called</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>abort() IS called, some info is output to stderr</td>
+</tr>
+</table>
+</div>
+<hr>
+<div class="listingblock">
+<div class="title">Example when debug mode is <strong>NOT</strong> enabled</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">int main(void){
+
+    EDF_ASSERTD( true );    <i class="conum" data-value="1"></i><b>(1)</b>
+    EDF_ASSERTD( false );   <i class="conum" data-value="1"></i><b>(1)</b>
+
+    return 0;
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>This line is expanded to ';' which is an <a href="https://stackoverflow.com/a/824571/19291638">empty statement</a></td>
+</tr>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
