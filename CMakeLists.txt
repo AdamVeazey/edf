@@ -10,8 +10,12 @@ project(EDF
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Check for LTO support safely
-include(CheckIPOSupported)
-check_ipo_supported(RESULT EDF_LTO_SUPPORTED OUTPUT lto_error)
+if(NOT DEFINED ZEPHYR_BASE)
+    include(CheckIPOSupported)
+    check_ipo_supported(RESULT EDF_LTO_SUPPORTED OUTPUT lto_error)
+else()
+    set(EDF_LTO_SUPPORTED FALSE)
+endif()
 
 # -----------------------------------------------------------------------------
 # Options (Off by default for lightweight core consumption)
