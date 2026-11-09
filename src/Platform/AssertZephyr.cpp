@@ -15,6 +15,7 @@ void assertion_failed(const char* format, ...) {
 
 [[noreturn]] void assertion_abort() {
     k_panic();
+    wile(true);
 }
 
 } /* impl */
