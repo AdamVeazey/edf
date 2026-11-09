@@ -9,35 +9,45 @@ project(EDF
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# Check for LTO support safely
-if(NOT DEFINED ZEPHYR_BASE)
-    include(CheckIPOSupported)
-    check_ipo_supported(RESULT EDF_LTO_SUPPORTED OUTPUT lto_error)
-else()
-    set(EDF_LTO_SUPPORTED FALSE)
-endif()
-
 # -----------------------------------------------------------------------------
 # Options (Off by default for lightweight core consumption)
 # -----------------------------------------------------------------------------
 option(EDF_BUILD_PERIPHERALS "Build Peripherals library"     OFF)
 option(EDF_BUILD_DRIVERS     "Build Drivers library"         OFF)
-option(EDF_ENABLE_LTO        "Enable Link-Time Optimization" OFF)
 option(EDF_BUILD_TESTS       "Build unit tests"              OFF)
 option(EDF_BUILD_EXAMPLES    "Build examples"                OFF)
 
-# Decided to make this CMakeLists.txt file impure by adding zephyr specific
-# stuff here instead of duplicating a mostly the same CMakeLists.txt under
-# zephyr/CMakeLists.txt
-# If support is ever added for ESP-IDF, I'll also make an exception and jam
-# that logic in here too. Other frameworks will not get this special treatment
+# Assertion Configuration Options (Defaults to fully enabled)
+option(EDF_ENABLE_ASSERTS             "Enable EDF debug assertions (EDF_ASSERTD)" ON)
+option(EDF_ASSERT_PRINT               "Enable assertion failure printing"         ON)
+option(EDF_ASSERT_PRINT_ASSUMPTION    "Print assumption text in assertions"       ON)
+option(EDF_ASSERT_PRINT_FUNCTION_NAME "Print function name in assertions"         ON)
+option(EDF_ASSERT_PRINT_FILE_LINE     "Print file name and line number"           ON)
 
+# -----------------------------------------------------------------------------
+# Zephyr Kconfig Bridge (If building inside a Zephyr workspace)
+# -----------------------------------------------------------------------------
 if(DEFINED ZEPHYR_BASE)
     if(DEFINED CONFIG_EDF_PERIPHERALS)
         set(EDF_BUILD_PERIPHERALS ${CONFIG_EDF_PERIPHERALS})
     endif()
     if(DEFINED CONFIG_EDF_DRIVERS)
         set(EDF_BUILD_DRIVERS ${CONFIG_EDF_DRIVERS})
+    endif()
+    if(DEFINED CONFIG_EDF_ASSERTS)
+        set(EDF_ENABLE_ASSERTS ${CONFIG_EDF_ASSERTS})
+    endif()
+    if(DEFINED CONFIG_EDF_ASSERT_PRINT)
+        set(EDF_ASSERT_PRINT ${CONFIG_EDF_ASSERT_PRINT})
+    endif()
+    if(DEFINED CONFIG_EDF_ASSERT_PRINT_ASSUMPTION)
+        set(EDF_ASSERT_PRINT_ASSUMPTION ${CONFIG_EDF_ASSERT_PRINT_ASSUMPTION})
+    endif()
+    if(DEFINED CONFIG_EDF_ASSERT_PRINT_FUNCTION_NAME)
+        set(EDF_ASSERT_PRINT_FUNCTION_NAME ${CONFIG_EDF_ASSERT_PRINT_FUNCTION_NAME})
+    endif()
+    if(DEFINED CONFIG_EDF_ASSERT_PRINT_FILE_NAME_LINE_NUM)
+        set(EDF_ASSERT_PRINT_FILE_LINE ${CONFIG_EDF_ASSERT_PRINT_FILE_NAME_LINE_NUM})
     endif()
 endif()
 
@@ -66,18 +76,6 @@ set(EDF_WARNING_FLAGS
     -Wconversion
 )
 
-set(EDF_EMBEDDED_FLAGS
-    -Os
-    -g3
-    -fno-common
-    -ffunction-sections
-    -fdata-sections
-    -fno-exceptions
-    -fno-unwind-tables
-    -fno-rtti
-    -fno-threadsafe-statics
-)
-
 function(edf_apply_common_settings TARGET_NAME)
     set_target_properties(${TARGET_NAME} PROPERTIES
         CXX_STANDARD 17
@@ -91,47 +89,38 @@ function(edf_apply_common_settings TARGET_NAME)
             $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
     )
 
+    # Only apply strict warnings to our own library sources (PRIVATE)
     target_compile_options(${TARGET_NAME} PRIVATE
         $<$<COMPILE_LANGUAGE:CXX>:${EDF_WARNING_FLAGS}>
         $<$<COMPILE_LANGUAGE:C>:-Wall -Wextra -Wpedantic -Wconversion>
-        ${EDF_EMBEDDED_FLAGS}
+        -ffunction-sections
+        -fdata-sections
+        -fno-exceptions
+        -fno-unwind-tables
+        -fno-rtti
+        -fno-threadsafe-statics
     )
 
-    target_link_options(${TARGET_NAME} PRIVATE
-        -Wl,--gc-sections
-    )
-
-    # Automatically bridge Zephyr's interface and picolibc/newlib specs if building inside Zephyr
+    # Link Zephyr interface target if present
     if(TARGET zephyr_interface)
         target_link_libraries(${TARGET_NAME} PRIVATE zephyr_interface)
-
-        if(NOT CONFIG_EDF_ASSERTS)
-            target_compile_definitions(${TARGET_NAME} PUBLIC NEDF_DISABLE_DEBUG_ASSERTS)
-        endif()
-
-        if(NOT CONFIG_EDF_ASSERT_PRINT)
-            target_compile_definitions(${TARGET_NAME} PUBLIC NEDF_ASSERT_PRINT)
-        endif()
-
-        if(NOT CONFIG_EDF_ASSERT_PRINT_ASSUMPTION)
-            target_compile_definitions(${TARGET_NAME} PUBLIC NEDF_ASSERT_PRINT_ASSUMPTION)
-        endif()
-
-        if(NOT CONFIG_EDF_ASSERT_PRINT_FUNCTION_NAME)
-            target_compile_definitions(${TARGET_NAME} PUBLIC NEDF_ASSERT_PRINT_FUNCTION_NAME)
-        endif()
-
-        if(NOT CONFIG_EDF_ASSERT_PRINT_FILE_NAME_LINE_NUM)
-            target_compile_definitions(${TARGET_NAME} PUBLIC NEDF_ASSERT_PRINT_FILE_NAME_LINE_NUM)
-        endif()
     endif()
 
-    if(EDF_ENABLE_LTO)
-        if(EDF_LTO_SUPPORTED)
-            set_property(TARGET ${TARGET_NAME} PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
-        else()
-            message(WARNING "EDF: LTO requested, but not supported by toolchain: ${lto_error}")
-        endif()
+    # Apply compile definitions based on unified options
+    if(NOT EDF_ENABLE_ASSERTS)
+        target_compile_definitions(${TARGET_NAME} PUBLIC NEDF_DISABLE_DEBUG_ASSERTS)
+    endif()
+    if(NOT EDF_ASSERT_PRINT)
+        target_compile_definitions(${TARGET_NAME} PUBLIC NEDF_ASSERT_PRINT)
+    endif()
+    if(NOT EDF_ASSERT_PRINT_ASSUMPTION)
+        target_compile_definitions(${TARGET_NAME} PUBLIC NEDF_ASSERT_PRINT_ASSUMPTION)
+    endif()
+    if(NOT EDF_ASSERT_PRINT_FUNCTION_NAME)
+        target_compile_definitions(${TARGET_NAME} PUBLIC NEDF_ASSERT_PRINT_FUNCTION_NAME)
+    endif()
+    if(NOT EDF_ASSERT_PRINT_FILE_LINE)
+        target_compile_definitions(${TARGET_NAME} PUBLIC NEDF_ASSERT_PRINT_FILE_NAME_LINE_NUM)
     endif()
 endfunction()
 
@@ -179,7 +168,6 @@ if(EDF_BUILD_PERIPHERALS)
             $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
     )
 
-    # Peripherals depends on EDF (INTERFACE so consumers of Peripherals also get EDF)
     target_link_libraries(Peripherals INTERFACE EDF)
     list(APPEND EDF_EXPORTED_TARGETS Peripherals)
 endif()
