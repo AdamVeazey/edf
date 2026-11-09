@@ -4,23 +4,56 @@ menuconfig EDF
 	  Enable support for the Embedded Development Framework (EDF).
 
 if EDF
+    config EDF_PERIPHERALS
+        bool "Build Peripherals library"
+        default n
+        help
+        Enable EDF peripheral abstractions (GPIO, I2C, SPI, PWM).
 
-config EDF_PERIPHERALS
-	bool "Build Peripherals library"
-	default n
-	help
-	  Enable EDF peripheral abstractions (GPIO, I2C, SPI, PWM).
+    config EDF_DRIVERS
+        bool "Build Drivers library"
+        default n
+        help
+        Enable EDF hardware drivers (such as DS3231 RTC, etc.).
 
-config EDF_DRIVERS
-	bool "Build Drivers library"
-	default n
-	help
-	  Enable EDF hardware drivers (such as DS3231 RTC, etc.).
+    config EDF_ASSERTS
+        bool "Enable EDF debug assertions (EDF_ASSERTD)"
+        default y
+        help
+        Enable EDF_ASSERTD runtime checks in EDF components. When disabled,
+        NDEBUG is defined and debug assertions are stripped.
 
-config EDF_ASSERTS
-	bool "Enable EDF runtime assertions"
-	default y
-	help
-	  Enable EDF_ASSERTD runtime checks in EDF components.
+    if EDF_ASSERTS
+        config EDF_ASSERT_PRINT
+            bool "Print assertion failure details to console"
+            default y
+            help
+            Print detailed error information when an assertion fails. If disabled,
+            only abort/panic is called.
 
+        if EDF_ASSERT_PRINT
+
+            config EDF_ASSERT_PRINT_ASSUMPTION
+                bool "Include assumption string in assertion output"
+                default y
+                help
+                Include the explanatory assumption string in assertion failure messages.
+                Disable to save flash space.
+
+            config EDF_ASSERT_PRINT_FUNCTION_NAME
+                bool "Include function name in assertion output"
+                default y
+                help
+                Include the function signature where the assertion failed.
+                Disable to save flash space.
+
+            config EDF_ASSERT_PRINT_FILE_NAME_LINE_NUM
+                bool "Include file name and line number in assertion output"
+                default y
+                help
+                Include source file path and line number in assertion failure messages.
+                Disable to save flash space.
+
+        endif # EDF_ASSERT_PRINT
+    endif # EDF_ASSERTS
 endif # EDF

@@ -104,6 +104,22 @@ function(edf_apply_common_settings TARGET_NAME)
         if(DEFINED CONFIG_EDF_ASSERTS AND NOT CONFIG_EDF_ASSERTS)
             target_compile_definitions(${TARGET_NAME} PUBLIC NDEBUG)
         endif()
+
+        if(DEFINED CONFIG_EDF_ASSERT_PRINT AND NOT CONFIG_EDF_ASSERT_PRINT)
+            target_compile_definitions(${TARGET_NAME} PUBLIC NEDF_ASSERT_PRINT)
+        endif()
+
+        if(DEFINED CONFIG_EDF_ASSERT_PRINT_ASSUMPTION AND NOT CONFIG_EDF_ASSERT_PRINT_ASSUMPTION)
+            target_compile_definitions(${TARGET_NAME} PUBLIC NEDF_ASSERT_PRINT_ASSUMPTION)
+        endif()
+
+        if(DEFINED CONFIG_EDF_ASSERT_PRINT_FUNCTION_NAME AND NOT CONFIG_EDF_ASSERT_PRINT_FUNCTION_NAME)
+            target_compile_definitions(${TARGET_NAME} PUBLIC NEDF_ASSERT_PRINT_FUNCTION_NAME)
+        endif()
+
+        if(DEFINED CONFIG_EDF_ASSERT_PRINT_FILE_NAME_LINE_NUM AND NOT CONFIG_EDF_ASSERT_PRINT_FILE_NAME_LINE_NUM)
+            target_compile_definitions(${TARGET_NAME} PUBLIC NEDF_ASSERT_PRINT_FILE_NAME_LINE_NUM)
+        endif()
     endif()
 
     if(EDF_ENABLE_LTO)
