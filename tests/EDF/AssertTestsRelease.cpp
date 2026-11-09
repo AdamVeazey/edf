@@ -4,8 +4,8 @@
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
-#ifndef NDEBUG
-#define NDEBUG
+#ifndef NEDF_DISABLE_DEBUG_ASSERTS
+#define NEDF_DISABLE_DEBUG_ASSERTS
 #endif
 
 #include <EDF/Assert.hpp>
@@ -25,7 +25,7 @@ TEST(AssertRelease, AssertionFails) {
 
 TEST(AssertRelease, AssertionSideEffectEvaluation) {
     int sideEffectCounter = 1;
-    // In Release mode (NDEBUG defined), side effects don't happen
+    // In Release mode (NEDF_DISABLE_DEBUG_ASSERTS defined), side effects don't happen
     EDF_ASSERTD(--sideEffectCounter, "Shouldn't cause an abort or decrement the counter");
     EXPECT_EQ(sideEffectCounter, 1);
 }

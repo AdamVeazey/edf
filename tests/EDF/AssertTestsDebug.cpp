@@ -4,8 +4,8 @@
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
-#ifdef NDEBUG
-#undef NDEBUG
+#ifdef NEDF_DISABLE_DEBUG_ASSERTS
+#undef NEDF_DISABLE_DEBUG_ASSERTS
 #endif
 
 #include <EDF/Assert.hpp>

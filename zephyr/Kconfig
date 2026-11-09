@@ -1,7 +1,7 @@
 menuconfig EDF
-	bool "Embedded Development Framework (EDF)"
-	help
-	  Enable support for the Embedded Development Framework (EDF).
+    bool "Embedded Development Framework (EDF)"
+    help
+        Enable support for the Embedded Development Framework (EDF).
 
 if EDF
     config EDF_PERIPHERALS
@@ -21,7 +21,7 @@ if EDF
         default y
         help
         Enable EDF_ASSERTD runtime checks in EDF components. When disabled,
-        NDEBUG is defined and debug assertions are stripped.
+        NEDF_DISABLE_DEBUG_ASSERTS is defined and debug assertions are stripped.
 
     if EDF_ASSERTS
         config EDF_ASSERT_PRINT

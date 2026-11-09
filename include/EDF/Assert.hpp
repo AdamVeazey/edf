@@ -82,9 +82,9 @@ namespace EDF::impl {
     } while(0)                                          \
 
 /* tag::EDF_ASSERTD[] */
-#ifndef NDEBUG
+#ifndef NEDF_DISABLE_DEBUG_ASSERTS
 #define EDF_ASSERTD( condition, assumption )    EDF_ASSERT( condition, assumption )
 #else
 #define EDF_ASSERTD( condition, assumption )    ((void)(sizeof(condition)))
-#endif /* NDEBUG */
+#endif /* NEDF_DISABLE_DEBUG_ASSERTS */
 /* end::EDF_ASSERTD[] */

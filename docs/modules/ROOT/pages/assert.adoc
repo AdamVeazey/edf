@@ -10,7 +10,7 @@ EDF in general doesn't use macros. However, `EDF_ASSERT` uses `\\__FILE__`, `\\_
 == Configuration
 
 There are a few macros intended to be defined by compiler flags in order to disable features.
-. `NDEBUG`
+. `NEDF_DISABLE_DEBUG_ASSERTS`
 . `NEDF_ASSERT_PRINT_ASSUMPTION`
 . `NEDF_ASSERT_PRINT_FUNCTION_NAME`
 . `NEDF_ASSERT_PRINT_FILE_NAME_LINE_NUM`
@@ -45,9 +45,9 @@ function:   'void function(int, int)'           NEDF_ASSERT_PRINT_FUNCTION_NAME
 /* If NEDF_ASSERT_PRINT is defined, nothing is output to stderr. Only std::abort() is called */
 ----
 
-=== NDEBUG
+=== NEDF_DISABLE_DEBUG_ASSERTS
 
-This is a typical macro that when defined disables debug related features. In this case, it will completely remove all instances of <<EDF_ASSERTD>>.
+If this macro is defined, then it will completely remove all instances of <<EDF_ASSERTD>>.
 
 NOTE: The other macros <<NEDF_ASSERT_PRINT_ASSUMPTION>>, <<NEDF_ASSERT_PRINT_FUNCTION_NAME>>, <<NEDF_ASSERT_PRINT_FILE_NAME_LINE_NUM>>, and <<NEDF_ASSERT_PRINT>> still effect <<EDF_ASSERT>>
 
@@ -174,7 +174,7 @@ The 'D' in `EDF_ASSERTD` stands for Debug.
 `EDF_ASSERTD` is used when you want the assert to only exist in Debug mode.
 If debug mode is enabled, `EDF_ASSERTD` simply expands to `EDF_ASSERT( condition )` else `EDF_ASSERTD` is expanded to nothing.
 
-NOTE: The code is considered in debug mode if NDEBUG is NOT defined. Mind the double negative.
+NOTE: The code is considered in debug mode if NEDF_DISABLE_DEBUG_ASSERTS is NOT defined. Mind the double negative.
 
 ---
 
