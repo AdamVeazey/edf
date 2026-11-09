@@ -101,6 +101,7 @@ const char* toString( Move m ) {
     case Move::Left:    return "Left";
     case Move::Right:   return "Right";
     }
+    return "Unknown";
 }
 
 int main() {

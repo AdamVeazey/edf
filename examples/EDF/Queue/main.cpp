@@ -14,7 +14,7 @@
 // --------------------- Buildable Documentation Snippts ---------------------
 // ---------------------------------------------------------------------------
 
-int docSnippets() {
+void docSnippets() {
     // tag::init[]
     EDF::Queue<int, 8> queue;
     // end::init[]
